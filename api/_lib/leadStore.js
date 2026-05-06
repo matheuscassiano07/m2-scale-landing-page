@@ -108,6 +108,9 @@ async function readAll() {
     try {
       return await readAllFromSupabase();
     } catch (e) {
+      try {
+        console.warn('[leadStore] Supabase read failed, using local fallback:', String(e && e.message || e));
+      } catch (_) {}
       // fallback para arquivo local em ambiente sem tabela pronta
     }
   }
@@ -143,6 +146,9 @@ async function addLead(row) {
         await addLeadToSupabase(lead);
         return { ok: true, lead };
       } catch (e) {
+        try {
+          console.warn('[leadStore] Supabase write failed, using local fallback:', String(e && e.message || e));
+        } catch (_) {}
         // Se o banco remoto estiver indisponivel/mal configurado, evita bloquear
         // totalmente o cadastro e degrada para armazenamento local.
       }
