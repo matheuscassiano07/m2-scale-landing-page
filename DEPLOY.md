@@ -29,31 +29,57 @@ e Preview):
 | `EVOLUTION_API_URL`     | sim | `https://evo.seudominio.com` | URL base da Evolution API (sem barra final). |
 | `EVOLUTION_API_KEY`     | sim | `xxxxxxx`                    | API key/global da instância Evolution. |
 | `EVOLUTION_INSTANCE`    | sim | `zira-admin`                 | Nome da instância. Será criada se não existir. |
-| `ZIRA_ADMIN_API_TOKEN`  | sim | um token forte (32+ chars)   | Protege os endpoints `/api/wa/qrcode` e `/api/wa/status`. |
+| `ADMIN_USERNAME`        | sim | `admin`                      | Usuário do painel `/admin`. |
+| `ADMIN_PASSWORD`        | sim | senha forte                  | Senha do painel `/admin`. |
+| `SESSION_SECRET`        | sim | string aleatória (32+ chars) | Chave HMAC que assina o cookie de sessão. |
+| `SUPABASE_URL`          | recomendado | `https://xxx.supabase.co` | URL do projeto Supabase (Postgres persistente para leads). |
+| `SUPABASE_SERVICE_ROLE_KEY` | recomendado | `eyJ...` | Chave server-side para inserir/listar leads via API REST. |
+| `LEADS_FILE_PATH`       | recomendado | `/var/data/m2scale-leads-v1.json` | Caminho persistente para armazenar leads no servidor. Sem isso, o fallback (`/tmp`) é volátil. |
 | `WA_NOTIFY_NUMBER`      | opcional | `5511999999999`         | Número que recebe a notificação de novo lead. Se vazio, usa o próprio número conectado pelo QR. |
 | `WA_DEFAULT_DDI`        | opcional | `55`                    | DDI padrão se `WA_NOTIFY_NUMBER` vier sem código de país. |
 
 Depois de salvar, **rode um redeploy** para as funções pegarem os valores.
 
-## 3. Token do admin no client
+## 3. Login do admin
 
-O token só sai do servidor para validar a chamada — o admin precisa enviá-lo
-no header `x-zira-admin`. Edite `assets/admin-config.js`:
+O painel `/admin` exige usuário e senha (POST `/api/auth/login`).
+O servidor compara em tempo constante com `ADMIN_USERNAME` / `ADMIN_PASSWORD`
+e retorna um cookie httpOnly assinado com `SESSION_SECRET` (válido por 24h,
+flags `Secure`+`SameSite=Lax` em HTTPS). Não há código PIN no client.
 
-```js
-window.ZIRA_ADMIN_CODE = 'um-pin-para-abrir-o-painel';
-window.ZIRA_ADMIN_API_TOKEN = 'mesmo-valor-do-env-ZIRA_ADMIN_API_TOKEN';
+`SESSION_SECRET` precisa estar definido com 32+ caracteres. Sem isso, o login é recusado por segurança.
+
+## 3.1 Tabela no Supabase (obrigatório para produção sem perda)
+
+Rode no SQL Editor do Supabase:
+
+```sql
+create table if not exists public.leads (
+  id text primary key,
+  created_at timestamptz not null default now(),
+  lang text not null default '',
+  source text not null default 'zira-landing-schedule',
+  name text not null,
+  email text not null default '',
+  phone text not null,
+  company text not null default '',
+  segment text not null default '',
+  revenue text not null default ''
+);
+
+create index if not exists leads_created_at_idx on public.leads (created_at desc);
 ```
 
-> Esse arquivo vai a público — qualquer pessoa com a URL do `/admin` pode
-> ler o token. Ele é uma camada de obscuridade somada ao gate. O servidor
-> valida origem (same-origin) **e** token. Para algo mais forte, mova esse
-> token para um cookie definido por uma rota de login server-side.
+Endpoints novos: `/api/auth/login`, `/api/auth/logout`, `/api/auth/me`.
+
+> O `assets/admin-config.js` ficou vazio. Os endpoints WhatsApp
+> (`/api/wa/qrcode`, `/api/wa/status`) só respondem quando o cookie de
+> sessão é válido — sem login no painel, eles devolvem 401.
 
 ## 4. Fluxo de uso
 
-1. Acesse `https://seu-dominio.vercel.app/admin`, digite o PIN e veja o
-   painel de leads.
+1. Acesse `https://seu-dominio.vercel.app/admin`, faça login com
+   `ADMIN_USERNAME` / `ADMIN_PASSWORD` e veja o painel de leads.
 2. Role até **Conexão WhatsApp**:
    - Se a instância ainda não existe, ela é criada automaticamente.
    - O QR Code aparece em até alguns segundos. Abra o WhatsApp do celular
@@ -68,9 +94,14 @@ window.ZIRA_ADMIN_API_TOKEN = 'mesmo-valor-do-env-ZIRA_ADMIN_API_TOKEN';
 
 | Rota | Método | Auth | O que faz |
 |---|---|---|---|
-| `/api/wa/status`  | GET  | `x-zira-admin` + same-origin | Retorna `{ state, number }` da instância. |
-| `/api/wa/qrcode`  | GET  | `x-zira-admin` + same-origin | Cria a instância se faltar e devolve o QR (`base64`) + `pairingCode`. |
-| `/api/wa/notify`  | POST | same-origin                  | Recebe `{ name, email, phone, company, lang }` da landing e envia mensagem WhatsApp. |
+| `/api/auth/login`   | POST | same-origin estrito + rate-limit | Cria sessão (cookie httpOnly assinado). |
+| `/api/auth/logout`  | POST | cookie + same-origin estrito      | Encerra sessão. |
+| `/api/auth/me`      | GET  | cookie + same-origin estrito      | Diz se há sessão ativa. |
+| `/api/leads/create` | POST | same-origin estrito + rate-limit  | Persiste lead enviado pela landing (Supabase quando configurado). |
+| `/api/leads/list`   | GET  | cookie + same-origin estrito      | Lista leads para o painel `/admin` (Supabase quando configurado). |
+| `/api/wa/status`    | GET  | cookie + same-origin estrito      | Retorna `{ state, number }` da instância. |
+| `/api/wa/qrcode`    | GET  | cookie + same-origin estrito      | Cria instância se faltar e devolve QR base64 + pairing code. |
+| `/api/wa/notify`    | POST | same-origin estrito                | Recebe `{ name, email, phone, company, segment, revenue, lang }` da landing e envia WhatsApp. |
 
 Rate-limit em memória: 30 req/min para o QR, 60 req/min para status, 8
 req/min/IP + 240/min global para notify. Como Vercel reusa instâncias

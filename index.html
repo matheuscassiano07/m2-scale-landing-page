@@ -10,11 +10,14 @@
   <meta name="description" content="ZIRA AI · Organiza atendimento, equipe, obras e prazos para escritórios de arquitetura e engenharia. Operação clara no WhatsApp, desktop e obra.">
   <meta name="theme-color" content="#ffffff">
   <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000000">
-  <title>ZIRA AI · Plataforma para Escritórios de Arquitetura e Engenharia</title>
+  <title>M2SCALE · Plataforma para Escritórios de Arquitetura e Engenharia</title>
   <!-- Atualize as URLs absolutas ao publicar em produção -->
   <link rel="canonical" href="https://www.zira.ai/">
   <meta name="robots" content="index, follow, max-image-preview:large">
   <meta name="googlebot" content="index, follow">
+  <!-- Pinterest: bloquear save de imagens -->
+  <meta name="pinterest" content="nopin">
+  <meta name="pinterest-rich-pin" content="false">
   <meta name="author" content="M2 SCALE">
   <meta property="og:locale" id="og-locale" content="pt_BR">
   <meta property="og:type" content="website">
@@ -25,13 +28,13 @@
   <meta property="og:image:alt" content="Dashboard da plataforma ZIRA AI para escritórios de arquitetura e engenharia.">
   <meta property="og:url" content="https://www.zira.ai/">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" id="twitter-title" content="ZIRA AI · Plataforma para Escritórios">
+  <meta name="twitter:title" id="twitter-title" content="M2SCALE · Plataforma para Escritórios">
   <meta name="twitter:description" id="twitter-desc" content="Atendimento, equipe, obras e prazos organizados para escritórios de arquitetura e engenharia.">
   <meta name="twitter:image" content="https://www.zira.ai/assets/hero-bg.jpg">
   <meta name="twitter:image:alt" content="Visão de operação integrada do ZIRA AI para arquitetura e engenharia.">
   <link rel="alternate" href="https://www.zira.ai/" hreflang="pt-BR">
   <link rel="alternate" href="https://www.zira.ai/" hreflang="x-default">
-  <link rel="icon" href="assets/favicon.png" type="image/svg+xml" sizes="any">
+  <link rel="icon" href="assets/favicon.png" type="image/png" sizes="any">
   <link rel="apple-touch-icon" href="assets/favicon.png">
   <link rel="icon" type="image/png" sizes="48x48" href="assets/favicon.png">
   <link rel="icon" type="image/png" sizes="48x48" href="assets/favicon.png" media="(prefers-color-scheme: dark)">
@@ -236,6 +239,16 @@
       min-height: 100vh;
       overflow-x: hidden;
       position: relative;
+    }
+
+    html,
+    body {
+      max-width: 100%;
+      overflow-x: clip;
+    }
+    @supports not (overflow: clip) {
+      html,
+      body { overflow-x: hidden; }
     }
 
     img {
@@ -869,18 +882,10 @@
       text-align: center;
     }
 
-    .hero__credibility {
-      margin-top: var(--space-5);
-      max-width: min(760px, 92vw);
-      padding: 0 var(--space-4);
-      font-size: clamp(12px, 1.05vw, 14px);
-      font-weight: var(--weight-medium);
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      line-height: 1.55;
-      color: var(--on-light-text-3);
-      text-align: center;
-      text-wrap: balance;
+    img {
+      -webkit-user-drag: none;
+      user-drag: none;
+      -webkit-touch-callout: none;
     }
 
     .hero__proof {
@@ -921,7 +926,6 @@
       50%, 100% { opacity: 0.15; }
     }
 
-    
     /* ============================================================
        Motivos arquitetônicos (wireframe só em algumas seções)
        ============================================================ */
@@ -2105,7 +2109,7 @@
     }
 
     /* ============================================================
-       Adapt + CTA · wrapper compartilhando background
+       Adapt · única seção com textura section-total.jpg
        ============================================================ */
     .adapt-cta-wrap {
       background-image:
@@ -2117,7 +2121,7 @@
       background-size: cover, cover;
       background-position: center, center;
       background-repeat: no-repeat;
-      background-attachment: fixed;
+      position: relative;
     }
 
     .adapt {
@@ -2155,7 +2159,7 @@
     }
 
     /* ============================================================
-       CTA · herda background do wrapper pai
+       CTA · véu claro + final-section
        ============================================================ */
     .cta {
       position: relative;
@@ -2405,28 +2409,130 @@
       padding: 18px 28px;
       font-size: 15px;
     }
-    .cta-register__success {
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+    /* Alert central de cadastro enviado */
+    .zira-toast {
+      position: fixed;
+      inset: 0;
+      z-index: 1100;
+      display: grid;
+      place-items: center;
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.52);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      opacity: 0;
+      transition: opacity 260ms var(--ease-out);
+      pointer-events: none;
+    }
+    .zira-toast[hidden] { display: none !important; }
+    .zira-toast.is-open { opacity: 1; pointer-events: auto; }
+    .zira-toast.is-leaving { opacity: 0; pointer-events: none; }
+    .zira-toast__panel {
+      width: min(460px, calc(100vw - 32px));
       border-radius: 18px;
-      padding: 40px 32px;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      background:
+        linear-gradient(180deg, rgba(20, 20, 24, 0.95), rgba(10, 10, 12, 0.96));
+      box-shadow:
+        0 24px 72px rgba(0, 0, 0, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+      transform: translateY(10px) scale(0.94);
+      transition: transform 340ms var(--ease-out);
       text-align: center;
-      color: #ffffff;
+      padding: 26px 22px 22px;
+      position: relative;
     }
-    .cta-register__success .schedule-success__svg { color: #7adfb1; }
-    .cta-register__success .schedule-success__circle { stroke: #7adfb1; }
-    .cta-register__success .schedule-success__check { stroke: #7adfb1; }
-    .cta-register__success-title {
-      margin: 16px 0 8px;
-      font-size: 22px;
-      font-weight: var(--weight-medium);
-      color: #ffffff;
+    .zira-toast.is-open .zira-toast__panel { transform: translateY(0) scale(1); }
+    .zira-toast__icon {
+      width: 104px;
+      height: 104px;
+      margin: 0 auto 14px;
+      border-radius: 20px;
+      background:
+        radial-gradient(circle at 30% 20%, rgba(122, 223, 177, 0.38), rgba(122, 223, 177, 0.08) 65%),
+        rgba(16, 32, 23, 0.65);
+      display: grid;
+      place-items: center;
+      transform-style: preserve-3d;
+      transform: perspective(620px) rotateX(18deg);
+      box-shadow:
+        0 14px 36px rgba(0, 0, 0, 0.38),
+        inset 0 -8px 18px rgba(0, 0, 0, 0.25);
     }
-    .cta-register__success-desc {
+    .zira-toast__svg { color: #61d793; overflow: visible; filter: drop-shadow(0 6px 14px rgba(97, 215, 147, 0.35)); }
+    .zira-toast__circle {
+      fill: none;
+      stroke: #61d793;
+      stroke-width: 5;
+      stroke-linecap: round;
+      stroke-dasharray: 220;
+      stroke-dashoffset: 220;
+      transform-origin: 36px 36px;
+      transform: rotate(-90deg) translateZ(10px);
+    }
+    .zira-toast__check {
+      fill: none;
+      stroke: #61d793;
+      stroke-width: 6;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-dasharray: 64;
+      stroke-dashoffset: 64;
+      transform: translateZ(14px);
+    }
+    .zira-toast.is-open .zira-toast__circle {
+      animation: ziraToastCircle 520ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+    .zira-toast.is-open .zira-toast__check {
+      animation: ziraToastCheck 420ms cubic-bezier(0.22, 1, 0.36, 1) forwards 300ms;
+    }
+    @keyframes ziraToastCircle {
+      to { stroke-dashoffset: 0; }
+    }
+    @keyframes ziraToastCheck {
+      to { stroke-dashoffset: 0; }
+    }
+    .zira-toast__body { min-width: 0; }
+    .zira-toast__title {
       margin: 0;
-      color: rgba(255, 255, 255, 0.65);
+      font-size: 24px;
+      font-weight: 650;
+      color: #ffffff;
+      letter-spacing: -0.02em;
+    }
+    .zira-toast__desc {
+      margin: 8px 0 0;
       font-size: 14px;
+      color: rgba(255, 255, 255, 0.72);
       line-height: 1.55;
+    }
+    .zira-toast__close {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: transparent;
+      color: rgba(255, 255, 255, 0.5);
+      border: 0;
+      border-radius: 6px;
+      padding: 4px;
+      cursor: pointer;
+      transition: color var(--t-fast), background-color var(--t-fast);
+    }
+    .zira-toast__close:hover {
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.06);
+    }
+    @media (max-width: 540px) {
+      .zira-toast__panel { width: min(420px, calc(100vw - 20px)); padding: 22px 16px 18px; }
+      .zira-toast__icon { width: 90px; height: 90px; border-radius: 16px; }
+      .zira-toast__title { font-size: 20px; }
+      .zira-toast__desc { font-size: 13px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .zira-toast { transition: none; }
+      .zira-toast__panel { transition: none; transform: none; }
+      .zira-toast.is-open .zira-toast__circle,
+      .zira-toast.is-open .zira-toast__check { animation: none; stroke-dashoffset: 0; }
     }
 
     .cta__desc {
@@ -2665,8 +2771,12 @@
        ============================================================ */
     .footer {
       padding: var(--space-9) var(--space-6) var(--space-7);
-      background: transparent;
-      border-top: 1px solid var(--on-dark-2);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01)),
+        rgba(4, 4, 6, 0.88);
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
     }
 
     .footer__container {
@@ -2681,6 +2791,13 @@
       grid-template-columns: minmax(220px, 1.25fr) repeat(3, minmax(150px, 1fr));
       gap: var(--space-7);
       align-items: start;
+    }
+
+    .footer__top > * {
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.02);
+      padding: 18px 16px;
     }
 
     .footer__brand-wrap {
@@ -2777,7 +2894,7 @@
 
     .footer__bottom {
       padding-top: var(--space-5);
-      border-top: 1px solid var(--on-dark-2);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
@@ -2816,10 +2933,9 @@
     .faq {
       padding: var(--space-12) var(--space-6);
       background:
-        linear-gradient(180deg, rgba(255,255,255,0.88) 0%, rgba(255,255,255,0.94) 100%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.94)),
         url('assets/final-section.png') center center / cover no-repeat;
-      border-top: 1px solid rgba(0,0,0,0.08);
-      position: relative;
+      border-top: 1px solid rgba(0, 0, 0, 0.08);
     }
 
     .faq__container {
@@ -2827,22 +2943,16 @@
       margin: 0 auto;
     }
 
-    .faq .section-title {
-      color: #0a0a0a;
-      text-shadow: none;
-      animation: none;
-    }
-    .faq .section-title::before,
-    .faq .section-title::after {
-      display: none;
-    }
-
     .faq .section-caption {
       margin-bottom: var(--space-9);
       text-align: center;
       margin-left: auto;
       margin-right: auto;
-      color: rgba(0,0,0,0.55);
+      color: #0a0a0a;
+    }
+
+    .faq .section-title {
+      color: #0a0a0a;
     }
 
     .faq__panel {
@@ -2851,17 +2961,15 @@
     }
 
     .faq__item {
-      border: 1px solid rgba(0,0,0,0.1);
+      border: 1px solid rgba(0, 0, 0, 0.12);
       border-radius: var(--r-panel);
-      background: rgba(255,255,255,0.6);
+      background: rgba(255, 255, 255, 0.66);
       overflow: hidden;
       transition: border-color var(--t-base), background var(--t-base), transform var(--t-base);
-      backdrop-filter: blur(8px);
     }
 
     .faq__item:hover {
-      border-color: rgba(0,0,0,0.2);
-      background: rgba(255,255,255,0.8);
+      border-color: rgba(0, 0, 0, 0.2);
     }
 
     .faq__details {
@@ -2901,24 +3009,24 @@
       display: grid;
       place-items: center;
       border-radius: var(--r-sm);
-      background: rgba(0,0,0,0.08);
+      background: rgba(0, 0, 0, 0.08);
       transition: transform var(--t-fast), background var(--t-fast);
-      color: rgba(0,0,0,0.45);
+      color: rgba(0, 0, 0, 0.65);
     }
 
     .faq__details[open] .faq__icon {
       transform: rotate(45deg);
       background: #0a0a0a;
-      color: #fff;
+      color: #ffffff;
     }
 
     .faq__answer {
       padding: 0 var(--space-6) var(--space-6);
       font-size: var(--fs-small);
       line-height: 1.62;
-      color: rgba(0,0,0,0.65);
+      color: #0a0a0a;
       letter-spacing: var(--ls-body-lg);
-      border-top: 1px solid rgba(0,0,0,0.06);
+      border-top: 1px solid rgba(0, 0, 0, 0.08);
       margin-top: calc(-1 * var(--space-1));
       animation: faqReveal var(--t-base) var(--ease-out);
     }
@@ -3127,6 +3235,7 @@
     @media (max-width: 1024px) {
       .nav__container {
         padding: 0 var(--space-5);
+        justify-content: space-between;
       }
 
       .nav__list {
@@ -3172,6 +3281,7 @@
 
       .nav__toggle {
         display: flex;
+        margin-left: auto;
       }
 
       .nav__toggle[aria-expanded="true"] .nav__toggle-bar:nth-child(1) {
@@ -3234,7 +3344,19 @@
       }
 
       .nav__container {
-        padding: 0 var(--space-4);
+        padding: 0 10px 0 12px;
+        justify-content: space-between;
+        gap: 10px;
+      }
+
+      .nav__lang {
+        margin-right: 0;
+        gap: 6px;
+      }
+
+      .nav__toggle {
+        margin-left: auto;
+        margin-right: -2px;
       }
 
       .hero {
@@ -3244,6 +3366,18 @@
 
       .hero__title {
         letter-spacing: var(--ls-display);
+      }
+
+      /* Animações mobile com menos jitter visual */
+      [data-reveal] {
+        will-change: transform, opacity;
+      }
+      .hero__proof-caret {
+        animation-duration: 0.9s;
+      }
+      .schedule-success__mark,
+      .zira-toast__icon {
+        transform: perspective(560px) rotateX(12deg);
       }
 
       .btn {
@@ -3264,6 +3398,19 @@
         padding-right: var(--space-4);
       }
 
+      .adapt-cta-wrap {
+        /* Evita faixas vazias em devices específicos */
+        background-size: cover, cover;
+        background-position: center top, center 32%;
+        background-attachment: scroll;
+        background-repeat: no-repeat, no-repeat;
+      }
+
+      .faq {
+        background-size: cover;
+        background-position: center top;
+      }
+
       .footer__container {
         text-align: left;
       }
@@ -3277,6 +3424,10 @@
         max-width: none;
       }
 
+      .footer__top > * {
+        padding: 16px 14px;
+      }
+
       .footer__bottom {
         flex-direction: column;
         align-items: flex-start;
@@ -3284,6 +3435,8 @@
 
       body {
         padding-bottom: calc(84px + env(safe-area-inset-bottom, 0px));
+        overscroll-behavior-x: none;
+        touch-action: pan-y pinch-zoom;
       }
 
       .frame {
@@ -3292,6 +3445,26 @@
 
       .device-shell--iphone {
         max-width: 320px;
+      }
+
+      /* Hard lock anti "borda preta" lateral em alguns aparelhos */
+      html,
+      body,
+      main,
+      .chrome-liquid-bg {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: hidden !important;
+      }
+      main > section,
+      .adapt-cta-wrap,
+      .footer {
+        overflow-x: clip !important;
+      }
+      .whatsapp-fab,
+      .zira-toast,
+      .schedule-modal {
+        max-width: 100vw;
       }
     }
 
@@ -3410,6 +3583,76 @@
       right: 14%;
       animation-delay: -4.1s;
     }
+
+    /* ============================================================
+       Responsive refinements (small phones, tablets)
+       ============================================================ */
+    /* small phones */
+    @media (max-width: 480px) {
+      :root {
+        --space-12: 56px;
+        --space-11: 40px;
+        --space-10: 32px;
+        --content-pad-x: 16px;
+      }
+      .hero { padding-left: 16px; padding-right: 16px; }
+      .hero__title { font-size: clamp(26px, 8vw, 40px); }
+      .hero__proof { font-size: 14px; padding: 0 12px; }
+      .nav__cta { padding: 9px 12px; font-size: 12px; }
+      .footer__top { gap: 24px; }
+      .footer__heading { font-size: 13px; }
+      .cta-register__title { font-size: clamp(28px, 8.5vw, 40px); }
+      .cta-register__step-icon { width: 48px; height: 48px; border-radius: 12px; }
+      .cta-register__step-icon svg { width: 24px; height: 24px; }
+      .cta-register__step-row { grid-template-columns: 48px 1fr; gap: 14px; }
+      .cta-register__step-title { font-size: 18px; }
+      .cta-register__field input,
+      .cta-register__field select { font-size: 16px; padding: 14px 16px; } /* 16px evita zoom no iOS */
+      .cta-register__phone input { font-size: 16px; padding: 14px 16px 14px 10px; }
+      .cta-register__submit { padding: 16px 24px; }
+      .whatsapp-fab {
+        right: max(16px, env(safe-area-inset-right));
+        bottom: max(16px, env(safe-area-inset-bottom));
+      }
+
+      .nav__container {
+        padding-right: 8px;
+      }
+      .nav__toggle {
+        margin-right: -3px;
+      }
+
+      .adapt-cta-wrap {
+        background-size: cover, cover;
+        background-position: center top, center 28%;
+        background-repeat: no-repeat, no-repeat;
+      }
+
+      html,
+      body,
+      main,
+      section,
+      footer {
+        overflow-x: clip;
+      }
+
+      .chrome-liquid-bg { width: 100vw; }
+    }
+    /* tablets */
+    @media (min-width: 769px) and (max-width: 1024px) {
+      .nav__list a { font-size: 14px; }
+      .hero__title { font-size: clamp(32px, 4.5vw, 48px); }
+      .cta-register { gap: 48px; }
+      .footer__top { grid-template-columns: 1.5fr 1fr 1fr; }
+    }
+    /* prevent iOS input zoom on focus */
+    @media (hover: none) and (pointer: coarse) {
+      input, select, textarea { font-size: 16px; }
+    }
+    /* full-bleed safety */
+    img, video, svg { max-width: 100%; height: auto; }
+    /* scroll inertia em listas horizontais */
+    .adm-scroll, .blog-grid { -webkit-overflow-scrolling: touch; }
 
     /* ============================================================
        Reduced motion · kill all non-essential animation
@@ -3539,7 +3782,7 @@
           data-motion-split="words">
           A plataforma que organiza atendimento, equipe, obras e prazos para escritórios de arquitetura e engenharia.
         </h1>
-                        <p class="sr-only" data-i18n="hero.sr">
+        <p class="sr-only" data-i18n="hero.sr">
           ZIRA AI, plataforma para arquitetura e engenharia. Mais de 100 escritórios já evoluíram para uma operação mais clara, integrada e previsível.
         </p>
         <p class="hero__proof" aria-hidden="true">
@@ -4171,8 +4414,8 @@
       </section>
 
       <section class="cta cta--register" id="cta" aria-labelledby="cta-title">
-      <div class="cta__container">
-        <div class="cta-register">
+        <div class="cta__container">
+          <div class="cta-register">
           <div class="cta-register__intro">
             <h2 class="cta-register__title" id="cta-title" data-motion-split="words" data-reveal>
               Cadastre-se e receba o contato do nosso time!
@@ -4300,26 +4543,41 @@
             </button>
           </form>
 
-          <div id="zira-register-success" class="cta-register__success" hidden>
-            <div class="schedule-success__mark" aria-hidden="true">
-              <svg class="schedule-success__svg" viewBox="0 0 72 72" width="64" height="64" role="presentation">
-                <circle class="schedule-success__circle" cx="36" cy="36" r="34"></circle>
-                <path class="schedule-success__check" d="M22 38 L32 48 L52 24"></path>
-              </svg>
-            </div>
-            <h3 class="cta-register__success-title">Recebemos seus dados!</h3>
-            <p class="cta-register__success-desc">
-              Em até 8 horas um especialista do nosso time entra em contato pelo telefone informado.
-            </p>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
     </div>
   </main>
 
+  <div
+    id="zira-toast"
+    class="zira-toast"
+    role="status"
+    aria-live="polite"
+    aria-atomic="true"
+    hidden>
+    <div class="zira-toast__panel" role="alertdialog" aria-label="Cadastro enviado com sucesso">
+      <div class="zira-toast__icon" aria-hidden="true">
+        <svg class="zira-toast__svg" viewBox="0 0 72 72" width="64" height="64" role="presentation">
+          <circle class="zira-toast__circle" cx="36" cy="36" r="32"></circle>
+          <path class="zira-toast__check" d="M22 38 L32 48 L52 24"></path>
+        </svg>
+      </div>
+      <div class="zira-toast__body">
+        <p class="zira-toast__title">Cadastro enviado!</p>
+        <p class="zira-toast__desc">Em até 8 horas um especialista do nosso time entra em contato.</p>
+      </div>
+      <button type="button" class="zira-toast__close" aria-label="Fechar" data-toast-close>
+        <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true">
+          <path d="M3 3 L13 13 M13 3 L3 13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
   <footer class="footer" role="contentinfo">
     <div class="footer__container">
+      <div class="footer__top">
         <div class="footer__brand-wrap">
           <div class="footer__brand">
             <img src="assets/logo-branca.png" alt="" class="footer__logo">
@@ -4452,11 +4710,11 @@
             <path class="schedule-success__check" d="M22 38 L32 48 L52 24"></path>
           </svg>
         </div>
-        <h2 id="schedule-success-title" class="schedule-modal__title schedule-success__title">
-          Recebemos seus dados!
+        <h2 id="schedule-success-title" class="schedule-modal__title schedule-success__title" data-i18n="schedule.successTitle">
+          Recebemos tudo!
         </h2>
-        <p class="schedule-modal__subtitle">
-          Em até 8 horas um especialista do nosso time entra em contato pelo telefone informado.
+        <p class="schedule-modal__subtitle" data-i18n="schedule.successSubtitle">
+          Em breve entraremos em contato.
         </p>
         <button type="button" class="btn btn--solid-dark" data-schedule-close data-i18n="schedule.btnDone">
           Fechar
@@ -4615,7 +4873,6 @@
         window.setTimeout(tick, 980);
       }
 
-      
       function bindUi() {
         if (typeof ZiraMotion !== 'undefined') {
           ZiraMotion.enhance(document.body);
@@ -4984,8 +5241,34 @@
         });
 
         var regForm = document.getElementById('zira-register-form');
-        var regSuccess = document.getElementById('zira-register-success');
         var regErr = document.getElementById('zira-register-err');
+        var regToast = document.getElementById('zira-toast');
+        var regToastTimer = null;
+        function regShowToast() {
+          if (!regToast) return;
+          regToast.removeAttribute('hidden');
+          // force reflow before adding class to retrigger animation
+          void regToast.offsetWidth;
+          regToast.classList.remove('is-leaving');
+          regToast.classList.add('is-open');
+          if (regToastTimer) window.clearTimeout(regToastTimer);
+          regToastTimer = window.setTimeout(regHideToast, 5200);
+        }
+        function regHideToast() {
+          if (!regToast) return;
+          regToast.classList.remove('is-open');
+          regToast.classList.add('is-leaving');
+          window.setTimeout(function () {
+            regToast.setAttribute('hidden', '');
+            regToast.classList.remove('is-leaving');
+          }, 320);
+        }
+        if (regToast) {
+          regToast.addEventListener('click', function (ev) {
+            var btn = ev.target && ev.target.closest ? ev.target.closest('[data-toast-close]') : null;
+            if (btn || ev.target === regToast) regHideToast();
+          });
+        }
         var regBtn = document.getElementById('reg-submit-btn');
         var regNameEl = document.getElementById('reg-name');
         var regEmailEl = document.getElementById('reg-email');
@@ -5079,19 +5362,11 @@
             )
               .then(function (result) {
                 if (result && result.ok) {
-                  regForm.setAttribute('hidden', '');
-                  if (regSuccess) {
-                    regSuccess.removeAttribute('hidden');
-                    var sv = regSuccess.querySelector('.schedule-success__svg');
-                    if (sv) {
-                      regSuccess.classList.remove('schedule-success--animate');
-                      void regSuccess.offsetWidth;
-                      regSuccess.classList.add('schedule-success--animate');
-                    }
-                    try {
-                      regSuccess.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    } catch (err2) {}
-                  }
+                  regShowToast();
+                  if (regForm) regForm.reset();
+                  [regNameEl, regEmailEl, regPhoneEl, regCompanyEl, regSegmentEl, regRevenueEl].forEach(function (el) {
+                    regSetInvalid(el, false);
+                  });
                 } else if (regErr) {
                   regErr.removeAttribute('hidden');
                 }
@@ -5247,6 +5522,16 @@
         bindUi();
         runHeroTyping();
         document.addEventListener('zira:lang', runHeroTyping);
+
+        // Bloqueia drag e arrastar-pra-salvar em imagens (mitiga Pinterest/save)
+        document.addEventListener('dragstart', function (ev) {
+          var t = ev.target;
+          if (t && t.tagName === 'IMG') ev.preventDefault();
+        });
+        document.addEventListener('contextmenu', function (ev) {
+          var t = ev.target;
+          if (t && t.tagName === 'IMG') ev.preventDefault();
+        });
       });
     })();
   </script>

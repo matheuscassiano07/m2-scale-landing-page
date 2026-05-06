@@ -8,10 +8,20 @@
   <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), payment=(), usb=()">
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; object-src 'none'; base-uri 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https:; connect-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com https:; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests">
   <meta name="robots" content="noindex, nofollow">
-  <meta name="theme-color" content="#000000">
-  <meta name="description" content="Painel administrativo ZIRA AI">
-  <title>Leads · ZIRA AI</title>
-  <link rel="icon" href="assets/favicon.png" type="image/svg+xml" sizes="any">
+  <meta name="pinterest" content="nopin">
+  <meta name="pinterest-rich-pin" content="false">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000000">
+  <meta name="description" content="">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:title" content="">
+  <meta property="og:description" content="">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="">
+  <meta name="twitter:description" content="">
+  <title>Leads · M2SCALE</title>
+  <link rel="icon" href="assets/favicon.png" type="image/png" sizes="any">
   <link rel="apple-touch-icon" href="assets/favicon.png">
   <link rel="icon" type="image/png" sizes="48x48" href="assets/favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -48,28 +58,17 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    body {
-      background: #0a0a0a;
-      color: #f2f2f2;
-      --black: #f2f2f2;
-      --white: #0a0a0a;
-      --edge: rgba(255, 255, 255, 0.08);
-      --text2: rgba(255, 255, 255, 0.55);
-      --text3: rgba(255, 255, 255, 0.35);
-      --panel: rgba(14, 14, 16, 0.85);
-      --accent: #fff;
-      --accent-glow: rgba(255,255,255,0.12);
-      --danger: #ff6b6b;
-      --success: #7adfb1;
-    }
-
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(16px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes pulseGlow {
-      0%, 100% { box-shadow: 0 0 0 0 rgba(255,255,255,0); }
-      50% { box-shadow: 0 0 20px 2px var(--accent-glow); }
+    @media (prefers-color-scheme: dark) {
+      body {
+        background: var(--black);
+        color: #f2f2f2;
+        --black: #f2f2f2;
+        --white: #0a0a0a;
+        --edge: rgba(255, 255, 255, 0.1);
+        --text2: rgba(255, 255, 255, 0.62);
+        --text3: rgba(255, 255, 255, 0.42);
+        --panel: rgba(18, 18, 18, 0.95);
+      }
     }
 
     a {
@@ -94,10 +93,9 @@
       align-items: center;
       justify-content: space-between;
       gap: 16px;
-      margin-bottom: 32px;
+      margin-bottom: 28px;
       padding-bottom: 20px;
       border-bottom: 1px solid var(--edge);
-      animation: fadeUp 0.5s var(--ease) both;
     }
 
     .adm-brand-row {
@@ -191,115 +189,72 @@
 
     /* Gate */
     .adm-gate {
-      max-width: 400px;
-      margin: 60px auto 0;
-      padding: 40px 36px;
+      max-width: 420px;
+      margin: 40px auto 0;
+      padding: 32px clamp(22px, 4vw, 36px);
       border: 1px solid var(--edge);
-      border-radius: 20px;
-      background: linear-gradient(145deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01));
-      backdrop-filter: blur(20px);
-      box-shadow: 0 24px 64px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.06);
-      animation: fadeUp 0.6s var(--ease) 0.1s both;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .adm-gate::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: radial-gradient(circle at 50% 0%, rgba(255,255,255,0.06), transparent 60%);
-      pointer-events: none;
+      border-radius: var(--r-panel);
+      background: var(--panel);
+      backdrop-filter: blur(10px);
     }
 
     .adm-gate h2 {
-      margin: 0 0 6px;
-      font-size: 26px;
-      font-weight: 700;
-      letter-spacing: -0.03em;
-      position: relative;
+      margin: 0 0 8px;
+      font-size: 22px;
+      font-weight: 650;
+      letter-spacing: -0.02em;
     }
 
     .adm-gate .hint {
-      margin: 0 0 28px;
+      margin: 0 0 22px;
       font-size: 14px;
-      color: var(--text3);
-      line-height: 1.5;
-      position: relative;
+      color: var(--text2);
     }
 
     .adm-gate .lbl {
       display: block;
       margin-bottom: 8px;
-      font-size: 11px;
+      font-size: 12px;
       font-weight: 600;
       text-transform: uppercase;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.06em;
       color: var(--text3);
-      position: relative;
     }
 
     .adm-gate .inp {
       width: 100%;
-      height: 48px;
+      height: 44px;
       border: 1px solid var(--edge);
-      border-radius: 12px;
-      padding: 0 16px;
+      border-radius: var(--r-sm);
+      padding: 0 14px;
       font: inherit;
       font-size: 15px;
-      background: rgba(255,255,255,0.03);
-      color: #fff;
-      transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
-      position: relative;
-    }
-
-    .adm-gate .inp:focus {
-      outline: none;
-      border-color: rgba(255,255,255,0.35);
-      background: rgba(255,255,255,0.06);
-      box-shadow: 0 0 0 3px rgba(255,255,255,0.08);
-    }
-
-    .adm-gate .inp::placeholder {
-      color: var(--text3);
+      background: var(--white);
+      color: var(--black);
     }
 
     .adm-gate .gate-go {
-      margin-top: 24px;
+      margin-top: 18px;
       width: 100%;
-      height: 48px;
-      border: 1px solid rgba(255,255,255,0.25);
-      border-radius: 12px;
-      background: #fff;
-      color: #0a0a0a;
+      height: 46px;
+      border: 0;
+      border-radius: var(--r-sm);
+      background: var(--black);
+      color: var(--white);
       font: inherit;
-      font-weight: 650;
-      font-size: 14px;
+      font-weight: 600;
       cursor: pointer;
-      transition: transform 0.2s var(--ease), box-shadow 0.2s, opacity 0.2s;
-      position: relative;
-      letter-spacing: 0.01em;
+      transition: transform 0.15s var(--ease), opacity 0.2s;
     }
 
     .adm-gate .gate-go:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(255,255,255,0.15);
-      opacity: 1;
-    }
-
-    .adm-gate .gate-go:active {
-      transform: translateY(0);
+      opacity: 0.92;
     }
 
     .adm-gate .er {
-      margin-top: 14px;
+      margin-top: 12px;
       font-size: 13px;
-      color: var(--danger);
-      font-weight: 500;
-      position: relative;
+      color: #b42318;
     }
 
     /* Desk */
@@ -309,10 +264,9 @@
 
     .adm-headlines h1 {
       margin: 0;
-      font-size: clamp(28px, 4vw, 38px);
-      font-weight: 700;
-      letter-spacing: -0.04em;
-      animation: fadeUp 0.5s var(--ease) both;
+      font-size: clamp(26px, 4vw, 34px);
+      font-weight: 650;
+      letter-spacing: -0.03em;
     }
 
     .adm-headlines p {
@@ -323,99 +277,55 @@
 
     .adm-stats {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-      margin-bottom: 28px;
-      animation: fadeUp 0.5s var(--ease) 0.15s both;
-    }
-
-    @media (max-width: 640px) {
-      .adm-stats { grid-template-columns: 1fr; }
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 12px;
+      margin-bottom: 22px;
     }
 
     .adm-st {
-      padding: 20px 22px;
-      border-radius: 16px;
+      padding: 16px;
+      border-radius: var(--r-panel);
       border: 1px solid var(--edge);
-      background: linear-gradient(145deg, rgba(255,255,255,0.05), rgba(255,255,255,0.01));
-      position: relative;
-      overflow: hidden;
-      transition: transform 0.25s var(--ease), border-color 0.25s, box-shadow 0.25s;
-    }
-
-    .adm-st:hover {
-      transform: translateY(-3px);
-      border-color: rgba(255,255,255,0.18);
-      box-shadow: 0 12px 32px rgba(0,0,0,0.3);
-    }
-
-    .adm-st::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
-      opacity: 0.6;
+      background: var(--panel);
     }
 
     .adm-st .num {
       display: block;
-      font-size: 36px;
-      font-weight: 700;
-      letter-spacing: -0.04em;
-      line-height: 1.1;
-      margin-bottom: 6px;
-      background: linear-gradient(135deg, #fff 0%, rgba(255,255,255,0.7) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      font-size: 28px;
+      font-weight: 690;
+      letter-spacing: -0.03em;
     }
 
     .adm-st span:not(.num) {
-      font-size: 11px;
+      font-size: 12px;
       font-weight: 600;
       text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--text3);
+      letter-spacing: 0.07em;
+      color: var(--text2);
     }
 
     .adm-toolbar {
       display: flex;
       flex-wrap: wrap;
-      gap: 12px;
+      gap: 10px;
       align-items: center;
-      margin-bottom: 20px;
-      animation: fadeUp 0.5s var(--ease) 0.2s both;
+      margin-bottom: 14px;
     }
 
     .adm-search-wrap {
-      flex: 1 1 280px;
+      flex: 1 1 240px;
     }
 
     .adm-search-wrap input {
       width: 100%;
       height: 44px;
-      border-radius: 12px;
+      border-radius: var(--r-sm);
       border: 1px solid var(--edge);
-      padding: 0 18px;
+      padding: 0 14px;
       font: inherit;
       font-size: 14px;
-      background: rgba(255,255,255,0.03);
-      color: #fff;
-      transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
-    }
-
-    .adm-search-wrap input:focus {
-      outline: none;
-      border-color: rgba(255,255,255,0.3);
-      background: rgba(255,255,255,0.05);
-      box-shadow: 0 0 0 3px rgba(255,255,255,0.06);
-    }
-
-    .adm-search-wrap input::placeholder {
-      color: var(--text3);
+      background: var(--white);
+      color: var(--black);
     }
 
     .adm-toolbar-btns {
@@ -426,47 +336,35 @@
 
     .adm-toolbar-btns button {
       height: 44px;
-      padding: 0 18px;
-      border-radius: 12px;
+      padding: 0 14px;
+      border-radius: var(--r-sm);
       border: 1px solid var(--edge);
-      background: rgba(255,255,255,0.03);
+      background: transparent;
       font: inherit;
       font-size: 13px;
-      font-weight: 600;
-      color: var(--text2);
+      font-weight: 620;
       cursor: pointer;
       white-space: nowrap;
-      transition: all 0.2s var(--ease);
+      transition: background 0.2s var(--ease);
     }
 
     .adm-toolbar-btns button:hover {
-      background: rgba(255,255,255,0.08);
-      border-color: rgba(255,255,255,0.2);
-      color: #fff;
-      transform: translateY(-1px);
+      background: var(--panel);
     }
 
     .adm-toolbar-btns .btn-accent {
-      background: #fff;
-      border-color: #fff;
-      color: #0a0a0a;
-      font-weight: 650;
-    }
-
-    .adm-toolbar-btns .btn-accent:hover {
-      background: rgba(255,255,255,0.9);
-      box-shadow: 0 4px 16px rgba(255,255,255,0.15);
+      background: var(--black);
+      border-color: var(--black);
+      color: var(--white);
     }
 
     /* Table */
     .adm-table-shell {
       display: none;
       border: 1px solid var(--edge);
-      border-radius: 16px;
+      border-radius: var(--r-panel);
       overflow: hidden;
-      background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01));
-      animation: fadeUp 0.5s var(--ease) 0.25s both;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+      background: var(--white);
     }
 
     body.desktop .adm-table-shell.on {
@@ -480,14 +378,13 @@
 
     table.adm-tbl {
       width: 100%;
-      border-collapse: separate;
-      border-spacing: 0;
+      border-collapse: collapse;
       font-size: 13px;
     }
 
     .adm-tbl th,
     .adm-tbl td {
-      padding: 14px 18px;
+      padding: 12px 14px;
       text-align: left;
       border-bottom: 1px solid var(--edge);
       white-space: nowrap;
@@ -495,44 +392,25 @@
 
     .adm-tbl th {
       font-weight: 600;
-      font-size: 10px;
-      letter-spacing: 0.1em;
+      font-size: 11px;
+      letter-spacing: 0.06em;
       text-transform: uppercase;
-      color: var(--text3);
-      background: rgba(255,255,255,0.02);
-      padding-top: 16px;
-      padding-bottom: 16px;
-    }
-
-    .adm-tbl tbody tr {
-      transition: background 0.15s;
-    }
-
-    .adm-tbl tbody tr:nth-child(even) {
-      background: rgba(255,255,255,0.015);
+      color: var(--text2);
+      background: var(--panel);
     }
 
     .adm-tbl tbody tr:last-child td {
       border-bottom: 0;
     }
 
-    .adm-tbl tbody tr:hover {
-      background: rgba(255,255,255,0.05);
+    .adm-tbl tbody tr:hover td {
+      background: rgba(0, 0, 0, 0.015);
     }
 
-    .adm-tbl td {
-      color: rgba(255,255,255,0.8);
-      font-weight: 400;
-    }
-
-    .adm-tbl td:first-child {
-      color: var(--text3);
-      font-size: 12px;
-    }
-
-    .adm-tbl td:nth-child(2) {
-      font-weight: 600;
-      color: #fff;
+    @media (prefers-color-scheme: dark) {
+      .adm-tbl tbody tr:hover td {
+        background: rgba(255, 255, 255, 0.03);
+      }
     }
 
     /* Cards (mobile) */
@@ -547,17 +425,10 @@
     }
 
     .adm-cards .card {
-      border-radius: 16px;
+      border-radius: var(--r-panel);
       border: 1px solid var(--edge);
-      padding: 20px;
-      background: linear-gradient(145deg, rgba(255,255,255,0.05), rgba(255,255,255,0.01));
-      transition: transform 0.2s var(--ease), border-color 0.2s, box-shadow 0.2s;
-    }
-
-    .adm-cards .card:hover {
-      transform: translateY(-2px);
-      border-color: rgba(255,255,255,0.15);
-      box-shadow: 0 12px 32px rgba(0,0,0,0.25);
+      padding: 16px;
+      background: var(--panel);
     }
 
     .adm-cards .card .row {
@@ -569,50 +440,41 @@
     }
 
     .adm-cards .card .nm {
-      font-weight: 700;
-      font-size: 17px;
-      color: #fff;
-      letter-spacing: -0.01em;
+      font-weight: 650;
+      font-size: 16px;
     }
 
     .adm-cards .card .tim {
-      font-size: 11px;
-      color: var(--text3);
+      font-size: 12px;
+      color: var(--text2);
       white-space: nowrap;
-      font-weight: 500;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
     }
 
     .adm-cards .card .kp {
-      font-size: 13px;
-      line-height: 1.65;
+      font-size: 14px;
+      line-height: 1.55;
       color: var(--text2);
-      margin-top: 8px;
     }
 
     .adm-cards .chip {
       display: inline-block;
-      margin-bottom: 8px;
-      padding: 3px 10px;
-      font-size: 10px;
-      font-weight: 600;
-      letter-spacing: 0.08em;
+      margin-bottom: 6px;
+      padding: 2px 8px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
       border-radius: 999px;
-      border: 1px solid rgba(255,255,255,0.12);
-      color: var(--text3);
-      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--edge);
+      color: var(--text2);
     }
 
     /* Empty state */
     .adm-empty {
       display: none;
       text-align: center;
-      padding: 56px 20px;
+      padding: 48px 20px;
       border: 1px dashed var(--edge);
-      border-radius: 16px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.03), transparent);
-      animation: fadeUp 0.5s var(--ease) both;
+      border-radius: var(--r-panel);
     }
 
     .adm-empty.on {
@@ -621,26 +483,23 @@
 
     .adm-empty h2 {
       margin: 0 0 10px;
-      font-size: 20px;
-      font-weight: 600;
-      color: #fff;
+      font-size: 18px;
     }
 
     .adm-empty p {
       margin: 0;
       font-size: 14px;
-      color: var(--text3);
+      color: var(--text2);
       max-width: 360px;
       margin-inline: auto;
-      line-height: 1.5;
     }
 
-    /* Mobile: header escondido; FAB revela mesmo conteudo do desktop */
+    /* Mobile: header escondido; FAB revela mesmo conteúdo do desktop — ver @media below */
     .adm-fab {
       display: none;
     }
 
-    /* Mobile FAB + backdrop + painel topo */
+    /* Mobile FAB + backdrop + painel topo (breakpoint alinhado a body.desktop/mobile · 900px) */
     @media (max-width: 899px) {
       body.adm-nav-open {
         overflow: hidden;
@@ -855,10 +714,11 @@
 
       <div class="adm-toolbar">
         <div class="adm-search-wrap">
-          <label for="q" class="sr-only"><span data-i18n="adminPage.searchPlaceholder">Buscar...</span></label>
+          <label for="q" class="sr-only"><span data-i18n="adminPage.searchPlaceholder">Buscar…</span></label>
           <input id="q" type="search" autocomplete="off" />
         </div>
         <div class="adm-toolbar-btns">
+          <span id="adm-user-tag" class="adm-user-tag" aria-label="Usuário logado"></span>
           <button type="button" class="btn-accent" id="btnCsv">
             <span data-i18n="adminPage.exportCsv">CSV</span>
           </button>
@@ -880,8 +740,8 @@
               <th data-i18n="adminPage.colEmail">E-mail</th>
               <th data-i18n="adminPage.colPhone">Telefone</th>
               <th data-i18n="adminPage.colCompany">Empresa</th>
-              <th>Segmento</th>
-              <th>Faturamento</th>
+              <th data-i18n="adminPage.colSegment">Segmento</th>
+              <th data-i18n="adminPage.colRevenue">Faturamento</th>
               <th data-i18n="adminPage.colLang">Idioma</th>
             </tr>
           </thead>
@@ -913,6 +773,42 @@
       white-space: nowrap;
     }
     .adm-wa-panel { margin-top: 32px; }
+    .adm-user-tag {
+      display: inline-flex;
+      align-items: center;
+      height: 32px;
+      padding: 0 10px;
+      margin-right: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text2);
+      border: 1px solid var(--edge);
+      border-radius: 999px;
+      background: var(--panel);
+      white-space: nowrap;
+      max-width: 180px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .adm-user-tag:empty { display: none; }
+    @media (max-width: 600px) {
+      .adm-headlines h1 { font-size: 26px; }
+      .adm-headlines p { font-size: 13px; }
+      .adm-st .num { font-size: 24px; }
+      .adm-toolbar { gap: 8px; }
+      .adm-toolbar-btns { width: 100%; justify-content: flex-end; }
+      .adm-toolbar-btns button { flex: 1 1 auto; min-width: 0; }
+      .adm-user-tag { display: none; }
+      .wa-card { padding: 16px; }
+      .wa-qr { width: 180px; height: 180px; }
+      .wa-body { gap: 18px; }
+      .wa-title { font-size: 15px; }
+    }
+    @media (max-width: 420px) {
+      .adm-stats { grid-template-columns: 1fr 1fr; }
+      .adm-stats .adm-st:nth-child(3) { grid-column: span 2; }
+      .adm-shell { padding-left: 16px; padding-right: 16px; }
+    }
     .wa-card {
       border: 1px solid rgba(255, 255, 255, 0.08);
       background: rgba(255, 255, 255, 0.025);
