@@ -4,6 +4,7 @@
   var POLL_OPEN_MS = 15000;
   var POLL_CONNECTING_MS = 4000;
   var POLL_ERROR_MS = 8000;
+  var POLL_UNAUTHORIZED_MS = 30000;
 
   var els = {};
   var state = { current: 'unknown', timer: null, polling: false, qrShownAt: 0 };
@@ -55,6 +56,23 @@
         els.pair.textContent = '';
       }
     }
+  }
+
+  function showUnauthorizedUi() {
+    setBadge(tx('não autorizado', 'unauthorized'), 'bad');
+    els.numText.style.display = 'none';
+    showQr('', '');
+    if (els.qrEmpty) {
+      els.qrEmpty.textContent = tx(
+        'Faça login no painel para carregar o QR.',
+        'Sign in to dashboard to load the QR.'
+      );
+    }
+    els.hint.textContent = tx(
+      'Faça login no painel para ver o status do WhatsApp.',
+      'Sign in to the dashboard to see WhatsApp status.'
+    );
+    els.btnRefresh.disabled = true;
   }
 
   function lng() {
@@ -149,12 +167,8 @@
   function tick() {
     fetchStatus().then(function (data) {
       if (data && data.error === 'unauthorized') {
-        setBadge(tx('não autorizado', 'unauthorized'), 'bad');
-        els.hint.textContent = tx(
-          'Faça login no painel para ver o status do WhatsApp.',
-          'Sign in to the dashboard to see WhatsApp status.'
-        );
-        schedule(POLL_ERROR_MS);
+        showUnauthorizedUi();
+        schedule(POLL_UNAUTHORIZED_MS);
         return;
       }
       if (!data || data.ok === false) {
