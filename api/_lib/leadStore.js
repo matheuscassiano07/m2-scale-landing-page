@@ -143,7 +143,8 @@ async function addLead(row) {
         await addLeadToSupabase(lead);
         return { ok: true, lead };
       } catch (e) {
-        return { ok: false, reason: 'db-write-failed' };
+        // Se o banco remoto estiver indisponivel/mal configurado, evita bloquear
+        // totalmente o cadastro e degrada para armazenamento local.
       }
     }
 
