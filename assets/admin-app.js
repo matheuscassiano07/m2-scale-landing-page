@@ -1,25 +1,10 @@
 (function () {
   'use strict';
 
-  var SK = 'zira-adm-s8';
   var DAY = 864e5;
   var wired = false;
-
-  function gateCode() {
-    return typeof window.ZIRA_ADMIN_CODE === 'string' ? window.ZIRA_ADMIN_CODE : '';
-  }
-  function authed() {
-    try {
-      var o = JSON.parse(sessionStorage.getItem(SK));
-      return !!(o && o.ok && Date.now() - o.ts < DAY);
-    } catch (e) {
-      return false;
-    }
-  }
-  function setAuth(v) {
-    if (!v) sessionStorage.removeItem(SK);
-    else sessionStorage.setItem(SK, JSON.stringify({ ok: true, ts: Date.now() }));
-  }
+  var currentUser = '';
+  var serverLeads = [];
 
   function setNavDrawerOpen(open) {
     document.body.classList.toggle('adm-nav-open', !!open);
@@ -88,7 +73,7 @@
     return L === 'en' ? 'en-US' : 'pt-BR';
   }
   function fmt(iso, L) {
-    if (!iso) return '\u2014';
+    if (!iso) return '—';
     try {
       return new Date(iso).toLocaleString(loc(L), {
         dateStyle: 'medium',
@@ -124,8 +109,47 @@
 
   function lab(L) {
     return L === 'en'
-      ? { em: 'Email', tl: 'Phone', co: 'Company' }
-      : { em: 'E-mail', tl: 'Telefone', co: 'Empresa' };
+      ? { em: 'Email', tl: 'Phone', co: 'Company', sg: 'Segment', rv: 'Revenue' }
+      : { em: 'E-mail', tl: 'Telefone', co: 'Empresa', sg: 'Segmento', rv: 'Faturamento' };
+  }
+
+  function mergeLeads(local, remote) {
+    var out = [];
+    var seen = Object.create(null);
+    var all = []
+      .concat(Array.isArray(remote) ? remote : [])
+      .concat(Array.isArray(local) ? local : []);
+
+    all.forEach(function (r) {
+      if (!r || typeof r !== 'object') return;
+      var key = String(r.id || '') + '|' + String(r.createdAt || '') + '|' + String(r.email || '') + '|' + String(r.phone || '');
+      if (seen[key]) return;
+      seen[key] = 1;
+      out.push(r);
+    });
+
+    out.sort(function (a, b) {
+      return String(b.createdAt || '').localeCompare(String(a.createdAt || ''));
+    });
+    return out;
+  }
+
+  function fetchServerLeads() {
+    return fetch('/api/leads/list', {
+      method: 'GET',
+      credentials: 'same-origin',
+      referrerPolicy: 'same-origin',
+    })
+      .then(function (r) {
+        if (r.status === 401) return { ok: false, leads: [] };
+        return r.json().catch(function () { return { ok: false, leads: [] }; });
+      })
+      .then(function (data) {
+        if (data && data.ok && Array.isArray(data.leads)) {
+          serverLeads = data.leads.slice();
+        }
+      })
+      .catch(function () {});
   }
 
   function render() {
@@ -146,10 +170,10 @@
       document.getElementById('cds').classList.remove('on');
       document.getElementById('vacant').classList.add('on');
       return;
-
     }
 
-    var all = window.ZiraLeads.getAllLeadsSorted();
+    var localLeads = window.ZiraLeads.getAllLeadsSorted();
+    var all = mergeLeads(localLeads, serverLeads);
     var sod = new Date();
     sod.setHours(0, 0, 0, 0);
     var t0 = sod.getTime();
@@ -195,7 +219,7 @@
       row.className = 'row';
       var nm = document.createElement('div');
       nm.className = 'nm';
-      nm.textContent = r.name || '\u2014';
+      nm.textContent = r.name || '—';
       var tm = document.createElement('time');
       tm.className = 'tim';
       tm.textContent = fmt(r.createdAt, lng);
@@ -221,13 +245,13 @@
       if (r.segment && String(r.segment).trim()) {
         kp.appendChild(document.createElement('br'));
         kp.appendChild(
-          document.createTextNode('Segmento: ' + String(r.segment).trim())
+          document.createTextNode(L.sg + ': ' + String(r.segment).trim())
         );
       }
       if (r.revenue && String(r.revenue).trim()) {
         kp.appendChild(document.createElement('br'));
         kp.appendChild(
-          document.createTextNode('Faturamento: ' + String(r.revenue).trim())
+          document.createTextNode(L.rv + ': ' + String(r.revenue).trim())
         );
       }
       card.appendChild(kp);
@@ -244,15 +268,16 @@
     });
     window.addEventListener('focus', render);
 
-    document.getElementById('btnRef').addEventListener('click', render);
+    document.getElementById('btnRef').addEventListener('click', function () {
+      fetchServerLeads().then(render);
+    });
     document.getElementById('btnOut').addEventListener('click', function () {
-      setAuth(false);
-      location.reload();
+      logout();
     });
     document.getElementById('btnCsv').addEventListener('click', function () {
       var lng = window.ZiraI18n.getLang();
       var rows = filterRows(
-        window.ZiraLeads.getAllLeadsSorted(),
+        mergeLeads(window.ZiraLeads.getAllLeadsSorted(), serverLeads),
         document.getElementById('q').value
       );
       var head = ['createdAt', 'lang', 'name', 'email', 'phone', 'company', 'segment', 'revenue'];
@@ -268,7 +293,7 @@
       });
       var a = document.createElement('a');
       a.href = URL.createObjectURL(
-        new Blob(['\ufeff', lines.join('\n')], { type: 'text/csv;charset=utf-8' })
+        new Blob(['﻿', lines.join('\n')], { type: 'text/csv;charset=utf-8' })
       );
       a.download = 'zira-leads-' + (lng === 'en' ? 'en' : 'pt') + '.csv';
       document.body.appendChild(a);
@@ -281,8 +306,16 @@
   function showDesk() {
     document.getElementById('gate').classList.add('xhide');
     document.getElementById('desk').classList.remove('xhide');
+    var who = document.getElementById('adm-user-tag');
+    if (who && currentUser) who.textContent = currentUser;
     wire();
-    render();
+    fetchServerLeads().then(render);
+  }
+
+  function showGate() {
+    document.getElementById('gate').classList.remove('xhide');
+    document.getElementById('desk').classList.add('xhide');
+    buildGate(document.getElementById('gate'));
   }
 
   function buildGate(box) {
@@ -291,34 +324,54 @@
 
     var h = document.createElement('h2');
     h.id = 'adm-gtitle';
-    h.setAttribute('data-i18n', 'adminPage.gateTitle');
+    h.setAttribute('data-i18n', 'adminPage.loginTitle');
     box.appendChild(h);
 
     var hp = document.createElement('p');
     hp.className = 'hint';
-    hp.setAttribute('data-i18n', 'adminPage.gateHint');
+    hp.setAttribute('data-i18n', 'adminPage.loginHint');
     box.appendChild(hp);
 
     var frm = document.createElement('form');
     frm.id = 'adm-g';
-    var lbl = document.createElement('label');
-    var sp = document.createElement('span');
-    sp.className = 'lbl';
-    sp.setAttribute('data-i18n', 'adminPage.gateInputLabel');
-    var inp = document.createElement('input');
-    inp.className = 'inp';
-    inp.id = 'adm-k';
-    inp.type = 'password';
-    inp.autocomplete = 'current-password';
-    inp.setAttribute('spellcheck', 'false');
-    lbl.appendChild(sp);
-    lbl.appendChild(inp);
-    frm.appendChild(lbl);
+    frm.autocomplete = 'on';
+
+    var lblU = document.createElement('label');
+    var spU = document.createElement('span');
+    spU.className = 'lbl';
+    spU.setAttribute('data-i18n', 'adminPage.loginUser');
+    var inpU = document.createElement('input');
+    inpU.className = 'inp';
+    inpU.id = 'adm-u';
+    inpU.type = 'text';
+    inpU.autocomplete = 'username';
+    inpU.required = true;
+    inpU.setAttribute('spellcheck', 'false');
+    inpU.setAttribute('autocapitalize', 'none');
+    lblU.appendChild(spU);
+    lblU.appendChild(inpU);
+    frm.appendChild(lblU);
+
+    var lblP = document.createElement('label');
+    lblP.style.marginTop = '14px';
+    var spP = document.createElement('span');
+    spP.className = 'lbl';
+    spP.setAttribute('data-i18n', 'adminPage.loginPass');
+    var inpP = document.createElement('input');
+    inpP.className = 'inp';
+    inpP.id = 'adm-p';
+    inpP.type = 'password';
+    inpP.autocomplete = 'current-password';
+    inpP.required = true;
+    inpP.setAttribute('spellcheck', 'false');
+    lblP.appendChild(spP);
+    lblP.appendChild(inpP);
+    frm.appendChild(lblP);
 
     var bt = document.createElement('button');
     bt.className = 'gate-go';
     bt.type = 'submit';
-    bt.setAttribute('data-i18n', 'adminPage.gateSubmit');
+    bt.setAttribute('data-i18n', 'adminPage.loginSubmit');
     frm.appendChild(bt);
 
     var err = document.createElement('p');
@@ -333,17 +386,82 @@
     frm.onsubmit = function (e) {
       e.preventDefault();
       err.textContent = '';
-      if (inp.value !== gateCode()) {
-        err.textContent = window.ZiraI18n.t('adminPage.gateError');
+      var u = inpU.value.trim();
+      var p = inpP.value;
+      if (!u || !p) {
+        err.textContent = window.ZiraI18n.t('adminPage.loginRequired');
         return;
       }
-      setAuth(true);
-      showDesk();
+      bt.disabled = true;
+      bt.setAttribute('aria-busy', 'true');
+      var prev = bt.textContent;
+      bt.textContent = window.ZiraI18n.t('adminPage.loginSubmitting');
+      fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username: u, password: p }),
+        credentials: 'same-origin',
+        referrerPolicy: 'same-origin',
+      })
+        .then(function (r) { return r.json().catch(function () { return null; }).then(function (d) { return { status: r.status, data: d }; }); })
+        .then(function (resp) {
+          if (resp.status === 200 && resp.data && resp.data.ok) {
+            currentUser = (resp.data && resp.data.user) || u;
+            showDesk();
+            return;
+          }
+          if (resp.status === 401) {
+            err.textContent = window.ZiraI18n.t('adminPage.loginInvalid');
+          } else if (resp.status === 503) {
+            err.textContent = window.ZiraI18n.t('adminPage.loginNotConfigured');
+          } else if (resp.status === 429) {
+            err.textContent = window.ZiraI18n.t('adminPage.loginRate');
+          } else {
+            err.textContent = window.ZiraI18n.t('adminPage.loginNet');
+          }
+        })
+        .catch(function () {
+          err.textContent = window.ZiraI18n.t('adminPage.loginNet');
+        })
+        .finally(function () {
+          bt.disabled = false;
+          bt.removeAttribute('aria-busy');
+          bt.textContent = prev;
+        });
     };
   }
 
+  function logout() {
+    fetch('/api/auth/logout', {
+      method: 'POST',
+      credentials: 'same-origin',
+      referrerPolicy: 'same-origin',
+    }).finally(function () {
+      currentUser = '';
+      location.reload();
+    });
+  }
 
-
+  function bootstrap() {
+    fetch('/api/auth/me', {
+      method: 'GET',
+      credentials: 'same-origin',
+      referrerPolicy: 'same-origin',
+    })
+      .then(function (r) { return r.json().catch(function () { return null; }); })
+      .then(function (data) {
+        if (data && data.ok && data.authenticated) {
+          currentUser = data.user || '';
+          showDesk();
+        } else {
+          showGate();
+        }
+      })
+      .catch(function () {
+        // Sem rede ou /api inacessível — fallback abre o gate
+        showGate();
+      });
+  }
 
   document.addEventListener('DOMContentLoaded', function () {
     if (!window.ZiraI18n || !window.ZiraLeads) return;
@@ -353,22 +471,7 @@
     window.addEventListener('zira:lang', render);
     window.ZiraI18n.init();
 
-    var bw = document.getElementById('bwarn');
-    if (!gateCode()) {
-      bw.classList.add('on');
-      bw.textContent = window.ZiraI18n.t('adminPage.securityWarn');
-      showDesk();
-      return;
-    }
-
-    if (!authed()) {
-      document.getElementById('gate').classList.remove('xhide');
-      document.getElementById('desk').classList.add('xhide');
-      buildGate(document.getElementById('gate'));
-      return;
-    }
-
-    showDesk();
+    bootstrap();
   });
 
 })();

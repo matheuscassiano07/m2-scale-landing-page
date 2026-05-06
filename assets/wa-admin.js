@@ -8,12 +8,14 @@
   var els = {};
   var state = { current: 'unknown', timer: null, polling: false, qrShownAt: 0 };
 
-  function token() {
-    return typeof global.ZIRA_ADMIN_API_TOKEN === 'string' ? global.ZIRA_ADMIN_API_TOKEN : '';
-  }
-
-  function authHeaders() {
-    return token() ? { 'x-zira-admin': token() } : {};
+  function fetchOpts(extra) {
+    return Object.assign(
+      {
+        credentials: 'same-origin',
+        referrerPolicy: 'same-origin',
+      },
+      extra || {}
+    );
   }
 
   function fmtNumber(raw) {
@@ -110,12 +112,7 @@
   }
 
   function fetchStatus() {
-    return fetch('/api/wa/status', {
-      method: 'GET',
-      headers: authHeaders(),
-      credentials: 'omit',
-      referrerPolicy: 'same-origin',
-    })
+    return fetch('/api/wa/status', fetchOpts({ method: 'GET' }))
       .then(function (r) {
         if (r.status === 401) return { ok: false, error: 'unauthorized', state: 'auth' };
         return r.json().catch(function () { return { ok: false }; });
@@ -124,23 +121,12 @@
   }
 
   function fetchQr() {
-    if (!token()) {
-      applyState({ state: 'auth' });
-      setBadge(tx('token ausente', 'missing token'), 'muted');
-      els.hint.textContent = tx(
-        'Defina ZIRA_ADMIN_API_TOKEN em assets/admin-config.js (mesmo valor do env da Vercel).',
-        'Set ZIRA_ADMIN_API_TOKEN in assets/admin-config.js (same value as Vercel env).'
-      );
-      return;
-    }
     setBadge(tx('gerando QR…', 'generating QR…'), 'warn');
-    fetch('/api/wa/qrcode', {
-      method: 'GET',
-      headers: authHeaders(),
-      credentials: 'omit',
-      referrerPolicy: 'same-origin',
-    })
-      .then(function (r) { return r.json().catch(function () { return null; }); })
+    fetch('/api/wa/qrcode', fetchOpts({ method: 'GET' }))
+      .then(function (r) {
+        if (r.status === 401) return { ok: false, error: 'unauthorized' };
+        return r.json().catch(function () { return null; });
+      })
       .then(function (data) {
         if (!data || data.ok === false) {
           setBadge(tx('erro', 'error'), 'bad');
@@ -161,22 +147,12 @@
   }
 
   function tick() {
-    if (!token()) {
-      applyState({ state: 'auth' });
-      setBadge(tx('token ausente', 'missing token'), 'muted');
-      els.hint.textContent = tx(
-        'Defina ZIRA_ADMIN_API_TOKEN em assets/admin-config.js (mesmo valor do env da Vercel).',
-        'Set ZIRA_ADMIN_API_TOKEN in assets/admin-config.js (same value as Vercel env).'
-      );
-      schedule(POLL_OPEN_MS);
-      return;
-    }
     fetchStatus().then(function (data) {
       if (data && data.error === 'unauthorized') {
         setBadge(tx('não autorizado', 'unauthorized'), 'bad');
         els.hint.textContent = tx(
-          'O token ZIRA_ADMIN_API_TOKEN não bate com o env da Vercel.',
-          'ZIRA_ADMIN_API_TOKEN does not match the Vercel env.'
+          'Faça login no painel para ver o status do WhatsApp.',
+          'Sign in to the dashboard to see WhatsApp status.'
         );
         schedule(POLL_ERROR_MS);
         return;

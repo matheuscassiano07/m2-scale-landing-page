@@ -11,13 +11,13 @@
   var STRINGS = {
     'pt-BR': {
       meta: {
-        title: 'ZIRA AI · Plataforma para Escritórios de Arquitetura e Engenharia',
+        title: 'M2SCALE · Plataforma para Escritórios de Arquitetura e Engenharia',
         description:
-          'ZIRA AI · Organiza atendimento, equipe, obras e prazos para escritórios de arquitetura e engenharia. Operação clara no WhatsApp, desktop e obra.',
-        ogTitle: 'ZIRA AI · Plataforma para Escritórios de Arquitetura e Engenharia',
+          'M2SCALE · Organiza atendimento, equipe, obras e prazos para escritórios de arquitetura e engenharia. Operação clara no WhatsApp, desktop e obra.',
+        ogTitle: 'M2SCALE · Plataforma para Escritórios de Arquitetura e Engenharia',
         ogDescription:
           'Organiza atendimento, equipe, obras e prazos. Operação real no escritório, do WhatsApp à obra, com mais clareza e previsibilidade.',
-        twitterTitle: 'ZIRA AI · Plataforma para Escritórios',
+        twitterTitle: 'M2SCALE · Plataforma para Escritórios',
         twitterDescription:
           'Atendimento, equipe, obras e prazos organizados para escritórios de arquitetura e engenharia.',
       },
@@ -37,8 +37,7 @@
       hero: {
         title:
           'A plataforma que organiza atendimento, equipe, obras e prazos para escritórios de arquitetura e engenharia.',
-        credibility:
-          'Pensado para operação real, não só atendimento · Celular e desktop · Adaptável ao fluxo do escritório',
+        counterLabel: 'escritórios já evoluíram com a ZIRA AI',
         sr:
           'ZIRA AI, plataforma para arquitetura e engenharia. Mais de 100 escritórios já evoluíram para uma operação mais clara, integrada e previsível.',
         proof:
@@ -236,15 +235,15 @@
       },
       blogPage: {
         metaTitle:
-          'Blog ZIRA AI · Gestão de escritório, obra, WhatsApp e engenharia',
+          'Blog M2SCALE · Gestão de escritório, obra, WhatsApp e engenharia',
         metaDesc:
           'Artigos sobre gestão de escritório de arquitetura e engenharia: retrabalho no WhatsApp, priorização da equipe, jornada do cliente na obra e LGPD. Conteúdo para escalar operação sem perder contexto.',
         ogTitle:
-          'Blog ZIRA AI · Operação em escritório e obra',
+          'Blog M2SCALE · Operação em escritório e obra',
         ogDesc:
           'Guias sobre retrabalho, gestão à vista, expectativa do cliente e compliance — para escritórios que usam WhatsApp mas precisam de previsibilidade.',
         twitterTitle:
-          'Blog ZIRA AI · Gestão de escritório e obra',
+          'Blog M2SCALE · Gestão de escritório e obra',
         twitterDesc:
           'Gestão de escritório, obra, relacionamento com cliente e melhores práticas LGPD para arquitetura e engenharia.',
         navBrandAria: 'M2 SCALE · página inicial',
@@ -318,13 +317,13 @@
         toc5: 'LGPD para escritório e mensagens',
       },
       adminPage: {
-        metaTitle: 'Painel · Leads · ZIRA AI',
+        metaTitle: 'Painel · Leads · M2SCALE',
         metaDesc:
           'Visualize solicitações de contato enviadas pela landing ZIRA AI. Acesso restrito.',
-        ogTitle: 'Painel · Leads · ZIRA AI',
+        ogTitle: 'Painel · Leads · M2SCALE',
         ogDesc: 'Solicitações de agendamento e dados de contato.',
-        twitterTitle: 'Painel · Leads · ZIRA AI',
-        twitterDesc: 'Solicitações de contato · ZIRA AI.',
+        twitterTitle: 'Painel · Leads · M2SCALE',
+        twitterDesc: 'Solicitações de contato · M2SCALE.',
         brand: 'M2 SCALE',
         pageTitle: 'Leads',
         pageSubtitle: 'Agendamentos pela landing',
@@ -339,29 +338,37 @@
         colEmail: 'E-mail',
         colPhone: 'Telefone',
         colCompany: 'Empresa',
+        colSegment: 'Segmento',
+        colRevenue: 'Faturamento',
         colLang: 'Idioma',
         exportCsv: 'Exportar CSV',
         refresh: 'Atualizar',
         logout: 'Sair',
-        gateTitle: 'Acesso ao painel',
-        gateHint: 'Informe o código de acesso configurado no servidor.',
-        gateInputLabel: 'Código de acesso',
-        gateSubmit: 'Entrar',
-        gateError: 'Código incorreto.',
+        loginTitle: 'Acesso ao painel',
+        loginHint: 'Use as credenciais cadastradas no servidor (variáveis ADMIN_USERNAME e ADMIN_PASSWORD).',
+        loginUser: 'Usuário',
+        loginPass: 'Senha',
+        loginSubmit: 'Entrar',
+        loginSubmitting: 'Entrando…',
+        loginRequired: 'Preencha usuário e senha.',
+        loginInvalid: 'Usuário ou senha inválidos.',
+        loginNotConfigured: 'Defina ADMIN_USERNAME e ADMIN_PASSWORD nas variáveis de ambiente da Vercel.',
+        loginRate: 'Muitas tentativas — aguarde um pouco.',
+        loginNet: 'Sem resposta do servidor. Tente novamente.',
         securityWarn:
-          'Defina window.ZIRA_ADMIN_CODE em assets/admin-config.js em produção. Esta página deve ficar só para a equipe.',
-        unauthorized: 'Digite o código para ver os dados.',
+          'Configure ADMIN_USERNAME, ADMIN_PASSWORD e SESSION_SECRET nas variáveis da Vercel.',
+        unauthorized: 'Faça login para ver os dados.',
       },
     },
     en: {
       meta: {
-        title: 'ZIRA AI · Platform for Architecture & Engineering Firms',
+        title: 'M2SCALE · Platform for Architecture & Engineering Firms',
         description:
-          'ZIRA AI · Client intake, staffing, projects, and deadlines aligned for architecture & engineering firms: from WhatsApp to the field.',
-        ogTitle: 'ZIRA AI · Platform for Architecture & Engineering Firms',
+          'M2SCALE · Client intake, staffing, projects, and deadlines aligned for architecture & engineering firms: from WhatsApp to the field.',
+        ogTitle: 'M2SCALE · Platform for Architecture & Engineering Firms',
         ogDescription:
           'Aligns intake, team, projects, and timelines. Real world firm operations from WhatsApp to the site, with clarity and predictability.',
-        twitterTitle: 'ZIRA AI · Firm Operations Platform',
+        twitterTitle: 'M2SCALE · Firm Operations Platform',
         twitterDescription:
           'Aligned intake, staffing, jobs, and deadlines for architecture & engineering studios.',
       },
@@ -381,8 +388,7 @@
       hero: {
         title:
           'The platform that organizes client intake, staffing, jobs, and deadlines for architecture and engineering offices.',
-        credibility:
-          'Built for real world operations, not only intake · Desktop and mobile · Adapts to your firm’s workflow',
+        counterLabel: 'firms have moved to clearer operations with ZIRA AI',
         sr:
           'ZIRA AI, operations for architecture & engineering. Over 100 firms have moved to clearer, integrated, more predictable work.',
         proof:
@@ -582,15 +588,15 @@
       },
       blogPage: {
         metaTitle:
-          'ZIRA AI Blog · Architecture firm ops, WhatsApp discipline & field coordination',
+          'M2SCALE Blog · Architecture firm ops, WhatsApp discipline & field coordination',
         metaDesc:
           'Operational articles for AE firms: rework when chat is HQ, telemetry before crises, client pacing, backlog ownership, lightweight compliance. Readable guidance for principals running real builds.',
         ogTitle:
-          'ZIRA AI Blog · Studio operations without noisy inboxes',
+          'M2SCALE Blog · Studio operations without noisy inboxes',
         ogDesc:
           'Stories on rework, leadership telemetry, stakeholder alignment and pragmatic privacy workflows for multidisciplinary teams.',
         twitterTitle:
-          'ZIRA AI Blog · Architecture & engineering ops',
+          'M2SCALE Blog · Architecture & engineering ops',
         twitterDesc:
           'Operational insight for principals: intake priority, WhatsApp workflows, mobilization pacing and compliance-lite habits.',
         navBrandAria: 'M2 SCALE · homepage',
@@ -664,13 +670,13 @@
         toc5: 'Privacy for studios + chats',
       },
       adminPage: {
-        metaTitle: 'Dashboard · Leads · ZIRA AI',
+        metaTitle: 'Dashboard · Leads · M2SCALE',
         metaDesc:
           'View contact requests captured from the ZIRA AI landing. Restricted area.',
-        ogTitle: 'Dashboard · Leads · ZIRA AI',
+        ogTitle: 'Dashboard · Leads · M2SCALE',
         ogDesc: 'Appointment requests and captured contact fields.',
-        twitterTitle: 'Dashboard · Leads · ZIRA AI',
-        twitterDesc: 'Contact submissions · ZIRA AI.',
+        twitterTitle: 'Dashboard · Leads · M2SCALE',
+        twitterDesc: 'Contact submissions · M2SCALE.',
         brand: 'M2 SCALE',
         pageTitle: 'Leads',
         pageSubtitle: 'Captured from landing',
@@ -685,18 +691,26 @@
         colEmail: 'Email',
         colPhone: 'Phone',
         colCompany: 'Company',
+        colSegment: 'Segment',
+        colRevenue: 'Revenue',
         colLang: 'Language',
         exportCsv: 'Export CSV',
         refresh: 'Refresh',
         logout: 'Sign out',
-        gateTitle: 'Dashboard access',
-        gateHint: 'Enter the access code configured for your deployment.',
-        gateInputLabel: 'Access code',
-        gateSubmit: 'Continue',
-        gateError: 'Incorrect code.',
+        loginTitle: 'Dashboard access',
+        loginHint: 'Use the credentials configured on the server (ADMIN_USERNAME and ADMIN_PASSWORD env vars).',
+        loginUser: 'Username',
+        loginPass: 'Password',
+        loginSubmit: 'Sign in',
+        loginSubmitting: 'Signing in…',
+        loginRequired: 'Fill in username and password.',
+        loginInvalid: 'Invalid username or password.',
+        loginNotConfigured: 'Set ADMIN_USERNAME and ADMIN_PASSWORD as Vercel env vars.',
+        loginRate: 'Too many attempts — please wait.',
+        loginNet: 'No response from server. Try again.',
         securityWarn:
-          'Set window.ZIRA_ADMIN_CODE in assets/admin-config.js for production. Keep this URL internal.',
-        unauthorized: 'Enter the code to view leads.',
+          'Configure ADMIN_USERNAME, ADMIN_PASSWORD and SESSION_SECRET as Vercel env vars.',
+        unauthorized: 'Sign in to view leads.',
       },
     },
   };

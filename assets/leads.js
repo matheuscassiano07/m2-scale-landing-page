@@ -158,6 +158,29 @@
       });
   }
 
+  function sendGlobalLead(payload) {
+    if (!global.fetch) return Promise.resolve(false);
+    return global
+      .fetch('/api/leads/create', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+        credentials: 'omit',
+        referrerPolicy: 'same-origin',
+        keepalive: true,
+      })
+      .then(function (r) {
+        if (!r || !r.ok) return false;
+        return r
+          .json()
+          .then(function (data) { return !!(data && data.ok); })
+          .catch(function () { return false; });
+      })
+      .catch(function () {
+        return false;
+      });
+  }
+
   global.ZiraLeads = {
     getAllLeadsSorted: function () {
       var list = readAll();
@@ -207,8 +230,11 @@
         );
       } catch (e) {}
 
-      var tasks = [sendWebhook(payload), sendWaNotify(payload)];
-      return Promise.all(tasks).then(function () {
+      var tasks = [sendGlobalLead(payload), sendWebhook(payload), sendWaNotify(payload)];
+      return Promise.all(tasks).then(function (results) {
+        if (!results[0]) {
+          return { ok: false, code: 'SERVER_STORE' };
+        }
         return { ok: true, lead: payload };
       });
     },
