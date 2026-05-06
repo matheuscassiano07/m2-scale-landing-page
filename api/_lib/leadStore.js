@@ -81,7 +81,15 @@ async function readAllFromSupabase() {
     method: 'GET',
     headers: supabaseHeaders(),
   });
-  if (!r.ok) throw new Error('supabase-read-failed');
+  if (!r.ok) {
+    const body = await r.text().catch(function () { return ''; });
+    throw new Error(
+      'supabase-read-failed status=' +
+      String(r.status) +
+      ' body=' +
+      String(body || '').slice(0, 280)
+    );
+  }
   const rows = await r.json().catch(function () { return []; });
   if (!Array.isArray(rows)) return [];
   const out = [];
@@ -100,7 +108,15 @@ async function addLeadToSupabase(lead) {
     headers: supabaseHeaders(),
     body: JSON.stringify([toDbRow(lead)]),
   });
-  if (!r.ok) throw new Error('supabase-insert-failed');
+  if (!r.ok) {
+    const body = await r.text().catch(function () { return ''; });
+    throw new Error(
+      'supabase-insert-failed status=' +
+      String(r.status) +
+      ' body=' +
+      String(body || '').slice(0, 280)
+    );
+  }
 }
 
 async function readAll() {
