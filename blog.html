@@ -7,12 +7,12 @@
   <meta http-equiv="X-Content-Type-Options" content="nosniff">
   <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), payment=(), usb=()">
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; object-src 'none'; base-uri 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https:; connect-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com https:; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests">
-  <meta name="description" content="Artigos sobre gestão de escritório de arquitetura e engenharia: retrabalho no WhatsApp, priorização da equipe, jornada do cliente na obra, LGPD. Conteúdo M2SCALE para operações previsíveis.">
+  <meta name="description" content="Blog M2 SCALE · ZIRA AI: gestão de escritório de arquitetura e engenharia, obra, cronograma, BIM, RFIs, fornecedores, KPIs, LGPD e compliance. Guias práticos para operação previsível e SEO de autoridade.">
   <meta name="keywords" content="gestão escritório arquitetura, engenharia, WhatsApp obra, retrabalho, gestão projeto, escritório BIM, obra, cliente, LGPD, M2SCALE">
   <meta name="robots" content="index, follow">
   <meta name="pinterest" content="nopin">
   <meta name="pinterest-rich-pin" content="false">
-  <meta name="theme-color" content="#000000">
+  <meta name="theme-color" content="#f5f5f2">
   <meta name="author" content="M2 SCALE">
   <title>Blog M2SCALE · Gestão de escritório, obra e WhatsApp</title>
   <link rel="canonical" href="https://www.zira.ai/blog.html">
@@ -34,13 +34,16 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
   <style>
     :root {
-      --black: #000000;
+      --black: #0a0a0c;
       --white: #ffffff;
-      --on-dark-1: rgba(255, 255, 255, 0.04);
-      --on-dark-2: rgba(255, 255, 255, 0.08);
-      --on-dark-3: rgba(255, 255, 255, 0.16);
-      --on-dark-text-2: rgba(255, 255, 255, 0.72);
-      --on-dark-text-3: rgba(255, 255, 255, 0.45);
+      --blog-bg: #f5f5f2;
+      --blog-surface: #ffffff;
+      --blog-surface-muted: #fafaf8;
+      --on-dark-1: rgba(0, 0, 0, 0.04);
+      --on-dark-2: rgba(0, 0, 0, 0.1);
+      --on-dark-3: rgba(0, 0, 0, 0.18);
+      --on-dark-text-2: rgba(10, 10, 12, 0.82);
+      --on-dark-text-3: rgba(10, 10, 12, 0.5);
       --font-sans: 'Inter', system-ui, sans-serif;
       --nav-height: 60px;
       --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
@@ -54,31 +57,51 @@
       --r-sm: 4px;
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; }
+    .skip-link {
+      position: absolute;
+      left: 12px;
+      top: 12px;
+      z-index: 100;
+      padding: 10px 14px;
+      background: var(--white);
+      color: var(--black);
+      font-size: 14px;
+      font-weight: 510;
+      border-radius: var(--r-sm);
+      transform: translateY(-160%);
+      transition: transform 0.2s var(--ease-out);
+    }
+    .skip-link:focus {
+      transform: translateY(0);
+      outline: 2px solid var(--black);
+      outline-offset: 2px;
+    }
     html {
+      color-scheme: light;
       scroll-behavior: smooth;
       -webkit-font-smoothing: antialiased;
       scrollbar-gutter: stable;
       scrollbar-width: thin;
-      scrollbar-color: rgba(255, 255, 255, 0.28) rgba(255, 255, 255, 0.04);
+      scrollbar-color: rgba(0, 0, 0, 0.28) rgba(0, 0, 0, 0.06);
     }
     html::-webkit-scrollbar { width: 10px; height: 10px; }
     html::-webkit-scrollbar-track {
-      background: rgba(255, 255, 255, 0.03);
-      border-left: 1px solid rgba(255, 255, 255, 0.07);
+      background: rgba(0, 0, 0, 0.04);
+      border-left: 1px solid rgba(0, 0, 0, 0.06);
     }
     html::-webkit-scrollbar-thumb {
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.34), rgba(255, 255, 255, 0.14));
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0.22), rgba(0, 0, 0, 0.12));
       border-radius: 100px;
-      border: 2px solid rgba(0, 0, 0, 0.35);
+      border: 2px solid rgba(255, 255, 255, 0.6);
       background-clip: padding-box;
     }
     html::-webkit-scrollbar-thumb:hover {
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.52), rgba(255, 255, 255, 0.26));
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0.32), rgba(0, 0, 0, 0.18));
     }
-    html::-webkit-scrollbar-corner { background: #000000; }
+    html::-webkit-scrollbar-corner { background: var(--blog-bg); }
     body {
       font-family: var(--font-sans);
-      background: var(--black);
+      background: var(--blog-bg);
       color: var(--on-dark-text-2);
       font-size: 16px;
       line-height: 1.56;
@@ -90,7 +113,7 @@
       top: 0;
       z-index: 50;
       height: var(--nav-height);
-      background: rgba(10, 10, 10, 0.92);
+      background: rgba(255, 255, 255, 0.88);
       border-bottom: 1px solid var(--on-dark-2);
       backdrop-filter: blur(12px);
     }
@@ -110,7 +133,7 @@
       font-weight: 510;
       font-size: 14px;
       letter-spacing: -0.04em;
-      color: var(--white);
+      color: var(--black);
     }
     .nav__logo { width: 28px; height: 28px; object-fit: contain; }
     .nav__lang {
@@ -138,39 +161,282 @@
     .nav__lang-btn:hover { opacity: 0.85; border-color: var(--on-dark-text-3); }
     .nav__lang-btn[data-active='true'] {
       opacity: 1;
-      border-color: rgba(255, 255, 255, 0.85);
-      box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.22);
+      border-color: rgba(0, 0, 0, 0.45);
+      box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08);
     }
     .nav__back {
       font-size: 14px;
       flex-shrink: 0;
+      color: var(--on-dark-text-2);
     }
-    .nav__back:hover { color: var(--white); text-decoration: underline; text-underline-offset: 3px; }
+    .nav__back:hover { color: var(--black); text-decoration: underline; text-underline-offset: 3px; }
+    .blog-breadcrumb {
+      font-size: 13px;
+      color: var(--on-dark-text-3);
+      margin-bottom: var(--space-5);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+    }
+    .blog-breadcrumb a {
+      color: var(--on-dark-text-2);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+    .blog-breadcrumb a:hover { color: var(--black); }
+    .blog-breadcrumb [aria-current='page'] {
+      color: var(--black);
+      font-weight: 510;
+      text-decoration: none;
+    }
     .hero-blog {
-      padding: var(--space-10) var(--space-6) var(--space-8);
+      padding: var(--space-8) var(--space-6) var(--space-8);
       border-bottom: 1px solid var(--on-dark-2);
-      max-width: 720px;
+      max-width: 1100px;
       margin: 0 auto;
+      background: linear-gradient(180deg, var(--blog-surface) 0%, transparent 55%);
     }
     .hero-blog h1 {
       font-weight: 510;
-      font-size: clamp(28px, 4.5vw, 40px);
-      line-height: 1.1;
-      letter-spacing: -1.3px;
-      color: var(--white);
-      margin-bottom: var(--space-5);
+      font-size: clamp(32px, 5vw, 48px);
+      line-height: 1.08;
+      letter-spacing: -1.4px;
+      color: var(--black);
+      margin-bottom: var(--space-4);
     }
-    .hero-blog p {
+    .hero-blog__subtitle {
+      font-weight: 510;
+      font-size: clamp(18px, 2.4vw, 24px);
+      line-height: 1.35;
+      letter-spacing: -0.4px;
+      color: var(--on-dark-text-2);
+      margin: 0 0 var(--space-5);
+      max-width: 52rem;
+    }
+    .hero-blog__subtitle strong {
+      color: var(--black);
+      font-weight: 620;
+    }
+    .hero-blog p.hero-blog__lead {
       color: var(--on-dark-text-3);
       font-size: 15px;
-      max-width: 36rem;
+      max-width: 40rem;
+      line-height: 1.62;
+      margin-bottom: var(--space-6);
+    }
+    .blog-search {
+      margin-bottom: var(--space-8);
+      max-width: 42rem;
+      padding: var(--space-5);
+      border: 1px solid var(--on-dark-2);
+      border-radius: 10px;
+      background: var(--blog-surface);
+      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.05);
+    }
+    .blog-search__label {
+      display: block;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--on-dark-text-3);
+      margin-bottom: var(--space-3);
+      font-weight: 510;
+    }
+    .blog-search__row {
+      display: flex;
+      gap: var(--space-3);
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .blog-search__input {
+      flex: 1;
+      min-width: 200px;
+      padding: 14px 16px;
+      border-radius: 8px;
+      border: 1px solid var(--on-dark-2);
+      background: var(--blog-surface-muted);
+      color: var(--black);
+      font: inherit;
+      font-size: 16px;
+    }
+    .blog-search__input::placeholder {
+      color: var(--on-dark-text-3);
+    }
+    .blog-search__input:focus {
+      outline: 2px solid rgba(0, 0, 0, 0.2);
+      outline-offset: 2px;
+      border-color: rgba(0, 0, 0, 0.28);
+      background: var(--blog-surface);
+    }
+    .blog-search__hint {
+      margin-top: var(--space-2);
+      font-size: 13px;
+      color: var(--on-dark-text-3);
+    }
+    .blog-archive {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: var(--space-10) var(--space-6) var(--space-8);
+    }
+    .blog-archive__head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: var(--space-4);
+      margin-bottom: var(--space-6);
+      padding-bottom: var(--space-5);
+      border-bottom: 1px solid var(--on-dark-2);
+    }
+    .blog-archive__title {
+      font-size: clamp(22px, 3.2vw, 30px);
+      font-weight: 510;
+      letter-spacing: -0.6px;
+      color: var(--black);
+      margin: 0;
+    }
+    .blog-archive__eyebrow {
+      display: block;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--on-dark-text-3);
+      margin-bottom: var(--space-2);
+      font-weight: 510;
+    }
+    .blog-archive__count {
+      margin: 0;
+      font-size: 13px;
+      color: var(--on-dark-text-3);
+    }
+    .blog-archive__grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+      gap: var(--space-5);
+    }
+    .blog-card {
+      position: relative;
+      border: 1px solid var(--on-dark-2);
+      border-radius: 12px;
+      padding: var(--space-5) var(--space-5) var(--space-5) calc(var(--space-5) + 3px);
+      background: var(--blog-surface);
+      box-shadow: 0 10px 36px rgba(0, 0, 0, 0.06);
+      transition:
+        border-color var(--t-fast),
+        background var(--t-fast),
+        transform var(--t-fast),
+        box-shadow var(--t-fast);
+    }
+    .blog-card::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 14px;
+      bottom: 14px;
+      width: 3px;
+      border-radius: 0 3px 3px 0;
+      background: linear-gradient(180deg, var(--black), rgba(10, 10, 12, 0.35));
+      opacity: 0.9;
+    }
+    .blog-card:hover {
+      border-color: rgba(0, 0, 0, 0.14);
+      background: var(--blog-surface);
+      transform: translateY(-3px);
+      box-shadow: 0 16px 44px rgba(0, 0, 0, 0.1);
+    }
+    .blog-card:focus-within {
+      border-color: rgba(0, 0, 0, 0.22);
+      outline: none;
+    }
+    .blog-card[hidden] {
+      display: none !important;
+    }
+    .blog-card__meta {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--on-dark-text-3);
+      margin-bottom: var(--space-3);
+    }
+    .blog-card__title {
+      font-weight: 510;
+      font-size: 17px;
+      line-height: 1.35;
+      letter-spacing: -0.3px;
+      margin: 0 0 var(--space-3);
+    }
+    .blog-card__title a {
+      color: var(--black);
+    }
+    .blog-card__title a:hover {
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+    .blog-card__title a:focus-visible {
+      outline: 2px solid rgba(0, 0, 0, 0.35);
+      outline-offset: 3px;
+      border-radius: 2px;
+    }
+    .blog-card__excerpt {
+      font-size: 14px;
+      line-height: 1.55;
+      color: var(--on-dark-text-2);
+      margin: 0 0 var(--space-4);
+    }
+    .blog-card__more {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 510;
+      color: var(--black);
+      text-decoration: none;
+      padding: 8px 0;
+    }
+    .blog-card__more::after {
+      content: "";
+      display: inline-block;
+      width: 0;
+      height: 0;
+      border-left: 5px solid currentColor;
+      border-top: 4px solid transparent;
+      border-bottom: 4px solid transparent;
+      opacity: 0.75;
+      transition: transform var(--t-fast);
+    }
+    .blog-card__more:hover {
+      color: var(--black);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+    .blog-card__more:hover::after { transform: translateX(3px); }
+    .blog-card__more:focus-visible {
+      outline: 2px solid rgba(0, 0, 0, 0.35);
+      outline-offset: 3px;
+      border-radius: 2px;
+    }
+    .blog-archive__empty {
+      display: none;
+      padding: var(--space-8);
+      text-align: center;
+      color: var(--on-dark-text-3);
+      font-size: 15px;
+      border: 1px dashed var(--on-dark-2);
+      border-radius: 6px;
+    }
+    .blog-archive__empty.is-visible {
+      display: block;
     }
     .blog-toc {
       margin-top: var(--space-6);
       padding: var(--space-5);
       border: 1px solid var(--on-dark-2);
-      border-radius: var(--r-sm);
-      background: rgba(255, 255, 255, 0.02);
+      border-radius: 10px;
+      background: var(--blog-surface-muted);
+      max-height: min(420px, 52vh);
+      overflow-y: auto;
+      scrollbar-gutter: stable;
     }
     .blog-toc__title {
       font-size: 12px;
@@ -184,18 +450,122 @@
       margin: 0;
       padding-left: 1.15rem;
       display: grid;
-      gap: var(--space-2);
+      gap: 8px;
       font-size: 14px;
       line-height: 1.45;
       color: var(--on-dark-text-2);
     }
-    .blog-toc a:hover { color: var(--white); text-decoration: underline; text-underline-offset: 3px; }
+    .blog-toc a {
+      display: inline-block;
+      padding: 2px 0;
+    }
+    .blog-toc a:hover { color: var(--black); text-decoration: underline; text-underline-offset: 3px; }
+    .blog-faq {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: var(--space-10) var(--space-6);
+      border-top: 1px solid var(--on-dark-2);
+      background: var(--blog-surface-muted);
+    }
+    .blog-faq__container { max-width: 720px; margin: 0 auto; }
+    .blog-faq__title {
+      font-weight: 510;
+      font-size: clamp(22px, 3vw, 28px);
+      letter-spacing: -0.5px;
+      color: var(--black);
+      margin: 0 0 var(--space-3);
+    }
+    .blog-faq__lead {
+      font-size: 15px;
+      line-height: 1.55;
+      color: var(--on-dark-text-3);
+      margin: 0 0 var(--space-6);
+    }
+    .blog-faq__panel {
+      display: grid;
+      gap: var(--space-3);
+    }
+    .blog-faq__item {
+      border: 1px solid var(--on-dark-2);
+      border-radius: 10px;
+      background: var(--blog-surface);
+      overflow: hidden;
+      transition: border-color var(--t-fast);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+    }
+    .blog-faq__item:hover { border-color: rgba(0, 0, 0, 0.14); }
+    .blog-faq__details { margin: 0; }
+    .blog-faq__summary {
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-4);
+      padding: var(--space-5) var(--space-5);
+      font-size: 15px;
+      font-weight: 510;
+      color: var(--black);
+      line-height: 1.4;
+    }
+    .blog-faq__summary::-webkit-details-marker { display: none; }
+    .blog-faq__summary:focus-visible {
+      outline: 2px solid rgba(0, 0, 0, 0.25);
+      outline-offset: 2px;
+      border-radius: 4px;
+    }
+    .blog-faq__icon {
+      flex-shrink: 0;
+      width: 28px;
+      height: 28px;
+      display: grid;
+      place-items: center;
+      border-radius: 6px;
+      background: var(--on-dark-2);
+      font-size: 16px;
+      line-height: 1;
+      color: var(--on-dark-text-2);
+      transition: transform var(--t-fast), background var(--t-fast), color var(--t-fast);
+    }
+    .blog-faq__details[open] .blog-faq__icon {
+      transform: rotate(45deg);
+      background: var(--black);
+      color: var(--white);
+    }
+    .blog-faq__answer {
+      padding: 0 var(--space-5) var(--space-5);
+      font-size: 14px;
+      line-height: 1.62;
+      color: var(--on-dark-text-2);
+      border-top: 1px solid var(--on-dark-2);
+    }
+    .blog-faq__answer p { margin: 0; }
+    .blog-main-head {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: var(--space-10) var(--space-6) var(--space-6);
+      text-align: center;
+    }
+    .blog-main-head__title {
+      font-weight: 510;
+      font-size: clamp(22px, 3vw, 28px);
+      letter-spacing: -0.5px;
+      color: var(--black);
+      margin: 0 0 var(--space-3);
+    }
+    .blog-main-head__lead {
+      margin: 0;
+      font-size: 15px;
+      line-height: 1.55;
+      color: var(--on-dark-text-3);
+    }
     main { padding-bottom: var(--space-10); }
     .post {
       max-width: 720px;
       margin: 0 auto;
       padding: var(--space-8) var(--space-6);
       border-bottom: 1px solid var(--on-dark-2);
+      scroll-margin-top: calc(var(--nav-height) + 12px);
     }
     .post:last-of-type { border-bottom: none; }
     .post__meta {
@@ -210,7 +580,7 @@
       font-size: clamp(20px, 2.8vw, 26px);
       line-height: 1.28;
       letter-spacing: -0.5px;
-      color: var(--white);
+      color: var(--black);
       margin-bottom: var(--space-5);
       scroll-margin-top: calc(var(--nav-height) + 16px);
     }
@@ -218,6 +588,7 @@
     .footer {
       padding: var(--space-8) var(--space-6);
       border-top: 1px solid var(--on-dark-2);
+      background: var(--blog-surface);
     }
     .footer__inner {
       max-width: 1200px;
@@ -234,7 +605,7 @@
       font-weight: 510;
       color: var(--on-dark-text-2);
     }
-    .footer__inner a:hover { color: var(--white); }
+    .footer__inner a:hover { color: var(--black); }
     .whatsapp-fab {
       position: fixed;
       bottom: calc(22px + env(safe-area-inset-bottom, 0px));
@@ -253,12 +624,13 @@
     .whatsapp-fab svg { width: 28px; height: 28px; display: block; }
     @media (max-width: 600px) {
       .nav__inner { padding: 0 var(--space-4); }
-      .hero-blog, .post { padding-left: var(--space-4); padding-right: var(--space-4); }
+      .hero-blog, .blog-archive, .blog-faq, .post { padding-left: var(--space-4); padding-right: var(--space-4); }
       body { padding-bottom: calc(84px + env(safe-area-inset-bottom, 0px)); }
       .nav__lang-btn { width: 40px; height: 28px; }
     }
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
+      .blog-card:hover { transform: none; }
     }
   </style>
   <script type="application/ld+json">
@@ -266,7 +638,7 @@
     "@context": "https://schema.org",
     "@type": "Blog",
     "name": "Blog M2SCALE",
-    "description": "Artigos sobre gestão de escritório de arquitetura e engenharia, operação em obra, WhatsApp corporativo e conformidade aplicada.",
+    "description": "Guias M2 SCALE · ZIRA AI sobre gestão de escritório de arquitetura e engenharia, obra, cronograma, BIM, RFIs, fornecedores, KPIs, LGPD e segurança em canteiro.",
     "inLanguage": ["pt-BR", "en"],
     "url": "https://www.zira.ai/blog.html",
     "publisher": {
@@ -313,12 +685,111 @@
         "keywords": ["LGPD", "whatsapp corporativo", "dados pessoais", "escritório"],
         "description": "Consentimento documentado e minimização de cópias soltas quando lead e projeto circulam no chat.",
         "url": "https://www.zira.ai/blog.html#lgpd-escritorio"
+      },
+      {
+        "@type": "BlogPosting",
+        "headline": "Cronograma integrado: alinhar projeto, BIM e canteiro sem perder o cliente",
+        "keywords": ["cronograma", "BIM", "canteiro", "planejamento", "obra"],
+        "description": "Linha do tempo compreensível ao cliente e consistente com modelo e campo.",
+        "url": "https://www.zira.ai/blog.html#cronograma-bim-canteiro"
+      },
+      {
+        "@type": "BlogPosting",
+        "headline": "RFIs e submittals: reduzir retrabalho entre projeto, fornecedor e obra",
+        "keywords": ["RFI", "submittal", "engenharia", "fornecedor", "aprovação"],
+        "description": "Protocolo formal e rastro para perguntas técnicas e pacotes de aprovação.",
+        "url": "https://www.zira.ai/blog.html#rfi-submittals-engenharia"
+      },
+      {
+        "@type": "BlogPosting",
+        "headline": "Escritório híbrido: ritmo de entrega com time remoto e visitas de obra",
+        "keywords": ["híbrido", "remoto", "produtividade", "obra", "equipe"],
+        "description": "Sincronizar deep work, coordenação e inspeções sem perder contexto.",
+        "url": "https://www.zira.ai/blog.html#escritorio-hibrido-produtividade"
+      },
+      {
+        "@type": "BlogPosting",
+        "headline": "Comunicação com empreiteiros: decisão registrada e menos ruído no canteiro",
+        "keywords": ["empreiteiro", "canteiro", "comunicação", "obra", "decisão"],
+        "description": "Canais corretos por tipo de decisão e registro mínimo de compromisso.",
+        "url": "https://www.zira.ai/blog.html#fornecedores-comunicacao-obra"
+      },
+      {
+        "@type": "BlogPosting",
+        "headline": "KPIs por projeto: margem, horas técnicas e prazo na mesma leitura",
+        "keywords": ["KPI", "margem", "horas", "projeto", "gestão financeira"],
+        "description": "Indicadores por obra para ver saúde antes do fechamento contábil.",
+        "url": "https://www.zira.ai/blog.html#kpis-financeiros-projetos-ae"
+      },
+      {
+        "@type": "BlogPosting",
+        "headline": "NR-18 e documentação de obra: rastreabilidade que protege escritório e canteiro",
+        "keywords": ["NR-18", "segurança", "documentação", "obra", "compliance"],
+        "description": "Versão única, acesso rápido e prova de orientação quando necessário.",
+        "url": "https://www.zira.ai/blog.html#nr-documentacao-rastreabilidade"
+      }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Este blog substitui uma conversa com o time comercial?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Não. Os artigos ajudam em conceitos e boas práticas; para ver o ZIRA AI no contexto do seu escritório, agende uma demonstração pelo site principal."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "O conteúdo é só para quem usa WhatsApp?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Não. Há temas de obra, priorização, BIM, KPIs e compliance. O WhatsApp aparece quando é canal real em muitos escritórios brasileiros."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Serve para escritório só de arquitetura ou só de engenharia?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Para os dois e para quem reúne as duas frentes. Os guias citam situações típicas de cada perfil."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Dá para aplicar as práticas sem comprar software?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Em parte, sim: processo e disciplina vêm primeiro. Plataforma ajuda quando volume, equipe ou risco exigem histórico e prioridade centralizados."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Como sugerir tema para um novo artigo?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Entre em contato pelo WhatsApp ou formulário do site. Temas reais de operação viram prioridade editorial."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Com que frequência o blog é atualizado?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Buscamos revisar e ampliar conteúdo de forma contínua; artigos podem ganhar novos trechos quando mercado ou regulamentação mudam."
+        }
       }
     ]
   }
   </script>
 </head>
 <body>
+  <a href="#conteudo" class="skip-link" data-i18n="blogPage.skipLink">Ir para o conteúdo</a>
   <header class="nav">
     <div class="nav__inner">
       <a
@@ -326,7 +797,7 @@
         class="nav__brand"
         data-i18n-attr="aria-label:blogPage.navBrandAria"
         aria-label="M2 SCALE · página inicial">
-        <img src="assets/logo-branca.png" alt="" class="nav__logo">
+        <img src="assets/logo-preta.png" alt="" class="nav__logo">
       </a>
       <div
         class="nav__lang"
@@ -359,8 +830,33 @@
   </header>
 
   <section class="hero-blog">
+    <nav class="blog-breadcrumb" data-i18n-attr="aria-label:blogPage.breadcrumbAria" aria-label="Navegação da página">
+      <a href="index.html" data-i18n="blogPage.breadcrumbHome">Início</a>
+      <span aria-hidden="true">/</span>
+      <span aria-current="page" data-i18n="blogPage.heroTitle">Blog</span>
+    </nav>
     <h1 data-i18n="blogPage.heroTitle">Blog</h1>
-    <p data-i18n="blogPage.heroLead">Textos curtos sobre operação real de escritório: prioridade, transparência com o cliente e o que costuma quebrar quando tudo gira em mensagens soltas.</p>
+    <h2 class="hero-blog__subtitle">
+      <span data-i18n="blogPage.heroSubtitleBefore">Tudo sobre operação para escritórios de arquitetura e engenharia com a</span>
+      <strong data-i18n="blogPage.heroSubtitleBrand">M2 SCALE · ZIRA AI</strong>
+    </h2>
+    <p class="hero-blog__lead" data-i18n="blogPage.heroLead">
+      Guias práticos sobre gestão de escritório, obra, atendimento, equipe e compliance — conteúdo pensado para SEO e para quem precisa de operação previsível, com ou sem WhatsApp no centro.
+    </p>
+    <div class="blog-search">
+      <label class="blog-search__label" for="blog-search-input" data-i18n="blogPage.searchLabel">Buscar artigos</label>
+      <div class="blog-search__row">
+        <input
+          type="search"
+          id="blog-search-input"
+          class="blog-search__input"
+          data-i18n-attr="placeholder:blogPage.searchPlaceholder"
+          placeholder="Ex.: WhatsApp, obra, LGPD, cronograma…"
+          autocomplete="off"
+          spellcheck="false">
+      </div>
+      <p class="blog-search__hint" data-i18n="blogPage.searchHint">Filtre por tema ou palavra-chave.</p>
+    </div>
     <nav
       class="blog-toc"
       aria-labelledby="blog-toc-h"
@@ -372,11 +868,179 @@
         <li><a href="#jornada-cliente" data-i18n="blogPage.toc3">Jornada do lead até a obra</a></li>
         <li><a href="#prioridade-inbox" data-i18n="blogPage.toc4">Priorização da caixa de entrada</a></li>
         <li><a href="#lgpd-escritorio" data-i18n="blogPage.toc5">LGPD no escritório e mensagens</a></li>
+        <li><a href="#cronograma-bim-canteiro" data-i18n="blogPage.toc6">Cronograma, BIM e canteiro</a></li>
+        <li><a href="#rfi-submittals-engenharia" data-i18n="blogPage.toc7">RFIs e submittals</a></li>
+        <li><a href="#escritorio-hibrido-produtividade" data-i18n="blogPage.toc8">Escritório híbrido</a></li>
+        <li><a href="#fornecedores-comunicacao-obra" data-i18n="blogPage.toc9">Fornecedores e obra</a></li>
+        <li><a href="#kpis-financeiros-projetos-ae" data-i18n="blogPage.toc10">KPIs por projeto</a></li>
+        <li><a href="#nr-documentacao-rastreabilidade" data-i18n="blogPage.toc11">NR e documentação</a></li>
+        <li><a href="#blog-faq" data-i18n="blogPage.tocFaq">Dúvidas frequentes</a></li>
+        <li><a href="#conteudo" data-i18n="blogPage.tocGuides">Guias completos</a></li>
       </ol>
     </nav>
   </section>
 
-  <main>
+  <section class="blog-archive" aria-labelledby="blog-archive-h">
+    <div class="blog-archive__head">
+      <div>
+        <span class="blog-archive__eyebrow" data-i18n="blogPage.archiveEyebrow">Arquivo</span>
+        <h2 id="blog-archive-h" class="blog-archive__title" data-i18n="blogPage.archiveHeading">Artigos em destaque</h2>
+      </div>
+      <p class="blog-archive__count" id="blog-archive-count" aria-live="polite"></p>
+    </div>
+    <div class="blog-archive__grid" data-blog-archive-grid>
+      <article class="blog-card" data-blog-card data-search="whatsapp retrabalho sistema operação atendimento inbox rework operations">
+        <p class="blog-card__meta" data-i18n="blogPage.post1meta">Operação · 8 min</p>
+        <h3 class="blog-card__title"><a href="#retrabalho-whatsapp" data-i18n="blogPage.post1h2">Como reduzir retrabalho quando o WhatsApp é o “sistema” do escritório</a></h3>
+        <p class="blog-card__excerpt" data-i18n="blogPage.card1excerpt">Entrada fechada por fase, checklists e histórico acessível para parar de reabrir o mesmo assunto dez vezes.</p>
+        <a class="blog-card__more" href="#retrabalho-whatsapp" data-i18n="blogPage.readMore">Leia mais »</a>
+      </article>
+      <article class="blog-card" data-blog-card data-search="gestão indicadores cliente atraso drama painel equipe management telemetry">
+        <p class="blog-card__meta" data-i18n="blogPage.post2meta">Equipe · 6 min</p>
+        <h3 class="blog-card__title"><a href="#gestao-a-vista" data-i18n="blogPage.post2h2">Gestão à vista: o que monitorar antes do atraso virar drama com o cliente</a></h3>
+        <p class="blog-card__excerpt" data-i18n="blogPage.card2excerpt">Responsável, próximo passo e entregas visíveis mudam o tom da cobrança antes do calendário estourar.</p>
+        <a class="blog-card__more" href="#gestao-a-vista" data-i18n="blogPage.readMore">Leia mais »</a>
+      </article>
+      <article class="blog-card" data-blog-card data-search="cliente lead jornada expectativa entrega obra pacing client journey">
+        <p class="blog-card__meta" data-i18n="blogPage.post3meta">Cliente · 7 min</p>
+        <h3 class="blog-card__title"><a href="#jornada-cliente" data-i18n="blogPage.post3h2">Da primeira mensagem à entrega: alinhar expectativa sem prometer milagre</a></h3>
+        <p class="blog-card__excerpt" data-i18n="blogPage.card3excerpt">Cadência e transparência do primeiro contato à obra, sem silêncio que destrói confiança.</p>
+        <a class="blog-card__more" href="#jornada-cliente" data-i18n="blogPage.readMore">Leia mais »</a>
+      </article>
+      <article class="blog-card" data-blog-card data-search="prioridade inbox kanban fila dono triagem backlog priority">
+        <p class="blog-card__meta" data-i18n="blogPage.post4meta">Priorização · 7 min</p>
+        <h3 class="blog-card__title"><a href="#prioridade-inbox" data-i18n="blogPage.post4h2">Caixa de entrada sem dono: como priorizar o que entra antes de virar problema em obra</a></h3>
+        <p class="blog-card__excerpt" data-i18n="blogPage.card4excerpt">Critérios por tipo de obra e filas com dono único até o próximo estado.</p>
+        <a class="blog-card__more" href="#prioridade-inbox" data-i18n="blogPage.readMore">Leia mais »</a>
+      </article>
+      <article class="blog-card" data-blog-card data-search="lgpd privacidade dados consentimento compliance mensagens gdpr privacy">
+        <p class="blog-card__meta" data-i18n="blogPage.post5meta">Compliance · 6 min</p>
+        <h3 class="blog-card__title"><a href="#lgpd-escritorio" data-i18n="blogPage.post5h2">LGPD na prática para escritório de arquitetura: cliente, obra e uso de ferramentas de mensagens</a></h3>
+        <p class="blog-card__excerpt" data-i18n="blogPage.card5excerpt">Minimização de dados, política interna e consentimento documentado quando projeto circula no chat.</p>
+        <a class="blog-card__more" href="#lgpd-escritorio" data-i18n="blogPage.readMore">Leia mais »</a>
+      </article>
+      <article class="blog-card" data-blog-card data-search="cronograma bim canteiro cliente obra planejamento 4d 5d schedule coordination">
+        <p class="blog-card__meta" data-i18n="blogPage.post6meta">Planejamento · 9 min</p>
+        <h3 class="blog-card__title"><a href="#cronograma-bim-canteiro" data-i18n="blogPage.post6h2">Cronograma integrado: alinhar projeto, BIM e canteiro sem perder o cliente</a></h3>
+        <p class="blog-card__excerpt" data-i18n="blogPage.card6excerpt">Uma linha do tempo que o cliente entende e que o time sustenta entre modelo e realidade de campo.</p>
+        <a class="blog-card__more" href="#cronograma-bim-canteiro" data-i18n="blogPage.readMore">Leia mais »</a>
+      </article>
+      <article class="blog-card" data-blog-card data-search="rfi submittal engenharia fornecedor especificação aprovação rfi submittals engineering">
+        <p class="blog-card__meta" data-i18n="blogPage.post7meta">Engenharia · 8 min</p>
+        <h3 class="blog-card__title"><a href="#rfi-submittals-engenharia" data-i18n="blogPage.post7h2">RFIs e submittals: reduzir retrabalho entre projeto, fornecedor e obra</a></h3>
+        <p class="blog-card__excerpt" data-i18n="blogPage.card7excerpt">Perguntas formais e pacotes de aprovação com rastro: menos decisão implícita no grupo.</p>
+        <a class="blog-card__more" href="#rfi-submittals-engenharia" data-i18n="blogPage.readMore">Leia mais »</a>
+      </article>
+      <article class="blog-card" data-blog-card data-search="híbrido remoto home office produtividade obra visita hybrid remote site">
+        <p class="blog-card__meta" data-i18n="blogPage.post8meta">Equipe · 7 min</p>
+        <h3 class="blog-card__title"><a href="#escritorio-hibrido-produtividade" data-i18n="blogPage.post8h2">Escritório híbrido: ritmo de entrega com time remoto e visitas de obra</a></h3>
+        <p class="blog-card__excerpt" data-i18n="blogPage.card8excerpt">Combinar deep work, coordenação síncrona e inspeções sem perder contexto entre salas.</p>
+        <a class="blog-card__more" href="#escritorio-hibrido-produtividade" data-i18n="blogPage.readMore">Leia mais »</a>
+      </article>
+      <article class="blog-card" data-blog-card data-search="fornecedor empreiteiro comunicação obra canteiro decisão gc subcontractor">
+        <p class="blog-card__meta" data-i18n="blogPage.post9meta">Obra · 8 min</p>
+        <h3 class="blog-card__title"><a href="#fornecedores-comunicacao-obra" data-i18n="blogPage.post9h2">Comunicação com empreiteiros: decisão registrada e menos ruído no canteiro</a></h3>
+        <p class="blog-card__excerpt" data-i18n="blogPage.card9excerpt">Canal oficial, ata curta e responsável por frente evitam “achismo” que custa caro na execução.</p>
+        <a class="blog-card__more" href="#fornecedores-comunicacao-obra" data-i18n="blogPage.readMore">Leia mais »</a>
+      </article>
+      <article class="blog-card" data-blog-card data-search="kpi financeiro margem horas prazo projeto indicador finance kpis margin">
+        <p class="blog-card__meta" data-i18n="blogPage.post10meta">Gestão · 9 min</p>
+        <h3 class="blog-card__title"><a href="#kpis-financeiros-projetos-ae" data-i18n="blogPage.post10h2">KPIs por projeto: margem, horas técnicas e prazo na mesma leitura</a></h3>
+        <p class="blog-card__excerpt" data-i18n="blogPage.card10excerpt">O que medir por obra para o sócio enxergar saúde antes do fechamento contábil.</p>
+        <a class="blog-card__more" href="#kpis-financeiros-projetos-ae" data-i18n="blogPage.readMore">Leia mais »</a>
+      </article>
+      <article class="blog-card" data-blog-card data-search="nr18 segurança documentação obra rastreabilidade canteiro compliance safety">
+        <p class="blog-card__meta" data-i18n="blogPage.post11meta">Compliance · 8 min</p>
+        <h3 class="blog-card__title"><a href="#nr-documentacao-rastreabilidade" data-i18n="blogPage.post11h2">NR-18 e documentação de obra: rastreabilidade que protege escritório e canteiro</a></h3>
+        <p class="blog-card__excerpt" data-i18n="blogPage.card11excerpt">Registros mínimos, versão única e acesso rápido quando auditoria ou incidente aparece.</p>
+        <a class="blog-card__more" href="#nr-documentacao-rastreabilidade" data-i18n="blogPage.readMore">Leia mais »</a>
+      </article>
+    </div>
+    <p class="blog-archive__empty" id="blog-archive-empty" data-i18n="blogPage.noResults">Nenhum artigo encontrado. Tente outras palavras.</p>
+  </section>
+
+  <section class="blog-faq" id="blog-faq" aria-labelledby="blog-faq-title">
+    <div class="blog-faq__container">
+      <h2 class="blog-faq__title" id="blog-faq-title" data-i18n="blogPage.faqTitle">Dúvidas frequentes</h2>
+      <p class="blog-faq__lead" data-i18n="blogPage.faqLead">
+        Respostas diretas sobre o propósito deste blog, público-alvo e como combinar leitura com uma demonstração do ZIRA AI.
+      </p>
+      <div class="blog-faq__panel" role="list">
+        <article class="blog-faq__item" role="listitem">
+          <details class="blog-faq__details" name="blog-faq">
+            <summary class="blog-faq__summary">
+              <span data-i18n="blogPage.faq1q">Este blog substitui uma conversa com o time comercial?</span>
+              <span class="blog-faq__icon" aria-hidden="true">+</span>
+            </summary>
+            <div class="blog-faq__answer">
+              <p data-i18n="blogPage.faq1a">Não. Os artigos ajudam em conceitos e boas práticas; para ver o ZIRA AI no contexto do seu escritório, agende uma demonstração pelo site principal.</p>
+            </div>
+          </details>
+        </article>
+        <article class="blog-faq__item" role="listitem">
+          <details class="blog-faq__details" name="blog-faq">
+            <summary class="blog-faq__summary">
+              <span data-i18n="blogPage.faq2q">O conteúdo é só para quem usa WhatsApp?</span>
+              <span class="blog-faq__icon" aria-hidden="true">+</span>
+            </summary>
+            <div class="blog-faq__answer">
+              <p data-i18n="blogPage.faq2a">Não. Há temas de obra, priorização, BIM, KPIs e compliance. O WhatsApp aparece quando é canal real em muitos escritórios brasileiros.</p>
+            </div>
+          </details>
+        </article>
+        <article class="blog-faq__item" role="listitem">
+          <details class="blog-faq__details" name="blog-faq">
+            <summary class="blog-faq__summary">
+              <span data-i18n="blogPage.faq3q">Serve para escritório só de arquitetura ou só de engenharia?</span>
+              <span class="blog-faq__icon" aria-hidden="true">+</span>
+            </summary>
+            <div class="blog-faq__answer">
+              <p data-i18n="blogPage.faq3a">Para os dois e para quem reúne as duas frentes. Os guias citam situações típicas de cada perfil.</p>
+            </div>
+          </details>
+        </article>
+        <article class="blog-faq__item" role="listitem">
+          <details class="blog-faq__details" name="blog-faq">
+            <summary class="blog-faq__summary">
+              <span data-i18n="blogPage.faq4q">Dá para aplicar as práticas sem comprar software?</span>
+              <span class="blog-faq__icon" aria-hidden="true">+</span>
+            </summary>
+            <div class="blog-faq__answer">
+              <p data-i18n="blogPage.faq4a">Em parte, sim: processo e disciplina vêm primeiro. Plataforma ajuda quando volume, equipe ou risco exigem histórico e prioridade centralizados.</p>
+            </div>
+          </details>
+        </article>
+        <article class="blog-faq__item" role="listitem">
+          <details class="blog-faq__details" name="blog-faq">
+            <summary class="blog-faq__summary">
+              <span data-i18n="blogPage.faq5q">Como sugerir tema para um novo artigo?</span>
+              <span class="blog-faq__icon" aria-hidden="true">+</span>
+            </summary>
+            <div class="blog-faq__answer">
+              <p data-i18n="blogPage.faq5a">Entre em contato pelo WhatsApp ou formulário do site. Temas reais de operação viram prioridade editorial.</p>
+            </div>
+          </details>
+        </article>
+        <article class="blog-faq__item" role="listitem">
+          <details class="blog-faq__details" name="blog-faq">
+            <summary class="blog-faq__summary">
+              <span data-i18n="blogPage.faq6q">Com que frequência o blog é atualizado?</span>
+              <span class="blog-faq__icon" aria-hidden="true">+</span>
+            </summary>
+            <div class="blog-faq__answer">
+              <p data-i18n="blogPage.faq6a">Buscamos revisar e ampliar conteúdo de forma contínua; artigos podem ganhar novos trechos quando mercado ou regulamentação mudam.</p>
+            </div>
+          </details>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <main id="conteudo">
+    <header class="blog-main-head">
+      <h2 class="blog-main-head__title" data-i18n="blogPage.guidesTitle">Guias completos</h2>
+      <p class="blog-main-head__lead" data-i18n="blogPage.guidesLead">Leitura linear dos artigos abaixo — ideal para aprofundar depois de filtrar o arquivo acima.</p>
+    </header>
     <article class="post" id="retrabalho-whatsapp">
       <p class="post__meta" data-i18n="blogPage.post1meta">Operação · 8 min</p>
       <h2 data-i18n="blogPage.post1h2">Como reduzir retrabalho quando o WhatsApp é o “sistema” do escritório</h2>
@@ -453,6 +1117,60 @@
         Um blog com página única bem estruturada (títulos, meta descrições e FAQs internas aos artigos) soma texto relevante sobre temas que clientes pesquisam: gestão em obra de arquitetura, ferramentas de equipe para engenharia, operação multidisciplinar no Brasil.
       </p>
     </article>
+
+    <article class="post" id="cronograma-bim-canteiro">
+      <p class="post__meta" data-i18n="blogPage.post6meta">Planejamento · 9 min</p>
+      <h2 data-i18n="blogPage.post6h2">Cronograma integrado: alinhar projeto, BIM e canteiro sem perder o cliente</h2>
+      <p data-i18n="blogPage.post6p1">Cliente de obra não compra modelo 3D: compra previsibilidade. Quando o cronograma do escritório vive só no Gantt interno e o canteiro opera por “combinado no rádio”, nascem duas narrativas conflitantes sobre o mesmo projeto. O caminho é publicar uma linha do tempo que traduz BIM e etapas técnicas em linguagem de marco — com dono e data de corte explícitos.</p>
+      <p data-i18n="blogPage.post6p2">Integrar BIM ao planejamento não é adicionar mais software; é definir o que muda status (emissão de pacote, aprovação de loja, liberação de compra) e quem valida. Assim, clash e revisão deixam de ser “surpresa” e passam a ser eventos esperados com folga orçada.</p>
+      <p data-i18n="blogPage.post6p3">No canteiro, fotos e atas curtas amarradas ao mesmo ID de obra reduzem discussão sobre “qual versão vale”. Para SEO e autoridade, páginas que explicam como o escritório amarra modelo, compra e execução aparecem em buscas de gestão de obra integrada, cronograma 4D/5D e coordenação multidisciplinar.</p>
+      <p data-i18n="blogPage.post6p4">Ferramentas como o Zira ajudam quando o marco visível ao cliente e a fila interna compartilham a mesma prioridade: menos retrabalho entre projeto e obra, mais clareza sobre o que está bloqueado hoje.</p>
+    </article>
+
+    <article class="post" id="rfi-submittals-engenharia">
+      <p class="post__meta" data-i18n="blogPage.post7meta">Engenharia · 8 min</p>
+      <h2 data-i18n="blogPage.post7h2">RFIs e submittals: reduzir retrabalho entre projeto, fornecedor e obra</h2>
+      <p data-i18n="blogPage.post7p1">RFI mal escrito vira conversa infinita; submittal sem checklist vira ida e volta de semanas. Escritórios de engenharia e arquitetura que escalam tratam esses artefatos como contrato operacional: número, impacto no cronograma, responsável pela resposta e prazo máximo.</p>
+      <p data-i18n="blogPage.post7p2">Centralizar RFIs evita que a mesma dúvida apareça no WhatsApp, no e-mail e na reunião sem registro. Submittals ganham valor quando há trilha: envio, revisão, aprovação condicionada e distribuição ao canteiro com versão única.</p>
+      <p data-i18n="blogPage.post7p3">Do ponto de vista de SEO, conteúdo que ensina fluxo de RFIs em obra, aprovação de materiais e compatibilização reforça buscas de quem procura disciplina em projeto executivo e redução de custo de mudança tardia.</p>
+      <p data-i18n="blogPage.post7p4">Quando o inbox conversacional está ligado ao protocolo formal, menos decisão fica implícita — e menos retrabalho aparece na última semana antes da concretagem ou da entrega de vedação.</p>
+    </article>
+
+    <article class="post" id="escritorio-hibrido-produtividade">
+      <p class="post__meta" data-i18n="blogPage.post8meta">Equipe · 7 min</p>
+      <h2 data-i18n="blogPage.post8h2">Escritório híbrido: ritmo de entrega com time remoto e visitas de obra</h2>
+      <p data-i18n="blogPage.post8p1">Arquitetura e engenharia misturam trabalho profundo (cálculo, detalhamento) com interrupções úteis (obra, cliente). Em modelo híbrido, o problema não é localização — é perda de contexto entre quem está no escritório e quem está em campo.</p>
+      <p data-i18n="blogPage.post8p2">Combinar janelas síncronas curtas com registro assíncrono de decisão mantém ritmo. Visitas de obra devem gerar checklist mínimo: o que foi visto, o que mudou, próximo passo e dono — senão o conhecimento morre na viagem de volta.</p>
+      <p data-i18n="blogPage.post8p3">Para SEO, artigos sobre produtividade em escritório de projeto, colaboração remota em BIM e segurança de informação em times distribuídos captam buscadores de gestores que reformularam política de trabalho após 2020.</p>
+      <p data-i18n="blogPage.post8p4">Uma plataforma que mostra fila por pessoa e por obra reduz a sensação de “ninguém sabe o que o outro fez”, típica de times híbridos mal instrumentados.</p>
+    </article>
+
+    <article class="post" id="fornecedores-comunicacao-obra">
+      <p class="post__meta" data-i18n="blogPage.post9meta">Obra · 8 min</p>
+      <h2 data-i18n="blogPage.post9h2">Comunicação com empreiteiros: decisão registrada e menos ruído no canteiro</h2>
+      <p data-i18n="blogPage.post9p1">Canteiro eficiente não é canteiro silencioso: é canteiro com canal certo para o tipo de decisão. Misturar pedido de compra, discussão de método construtivo e reclamação de vizinho no mesmo grupo gera ruído e apaga responsabilidade.</p>
+      <p data-i18n="blogPage.post9p2">Defina onde nasce compromisso: ata de reunião curta, e-mail com cópia ao gestor ou ticket com SLA. O empreiteiro precisa saber qual canal “vale” para mudança de escopo — caso contrário, tudo vira urgência aparente.</p>
+      <p data-i18n="blogPage.post9p3">Em termos de conteúdo para Google, textos sobre gestão de subempreiteiros, comunicação em obra e registro de ordem de serviço atraem buscas comerciais de construtoras e escritórios que terceirizam execução.</p>
+      <p data-i18n="blogPage.post9p4">Histórico pesquisável e prioridade explícita — inclusive quando parte do fluxo passa por mensagens — impedem que a mesma divergência seja negociada três vezes com três níveis de preço diferentes.</p>
+    </article>
+
+    <article class="post" id="kpis-financeiros-projetos-ae">
+      <p class="post__meta" data-i18n="blogPage.post10meta">Gestão · 9 min</p>
+      <h2 data-i18n="blogPage.post10h2">KPIs por projeto: margem, horas técnicas e prazo na mesma leitura</h2>
+      <p data-i18n="blogPage.post10p1">Escritório de arquitetura e engenharia muitas vezes só descobre que o projeto “não fechou” no fechamento contábil. KPIs operacionais por obra — horas consumidas vs. orçamento, receita reconhecida, desvio de escopo — antecipam conversa difícil com o cliente.</p>
+      <p data-i18n="blogPage.post10p2">Margem por projeto exige custeio de horas real, não só rateio mensal. Prazo e fila de trabalho impactam capital de giro: atraso costuma vir com horas extras não faturadas e replanejamento de equipe.</p>
+      <p data-i18n="blogPage.post10p3">Do ponto de vista de SEO B2B, páginas que explicam indicadores para escritório de projeto, precificação de honorários e controle de escopo reforçam autoridade em buscas de sócios e CFOs de firmas de AE.</p>
+      <p data-i18n="blogPage.post10p4">Quando atendimento e execução compartilham visibilidade de carga, fica mais fácil dizer “não” a pedidos fora de contrato sem parecer desorganizado.</p>
+    </article>
+
+    <article class="post" id="nr-documentacao-rastreabilidade">
+      <p class="post__meta" data-i18n="blogPage.post11meta">Compliance · 8 min</p>
+      <h2 data-i18n="blogPage.post11h2">NR-18 e documentação de obra: rastreabilidade que protege escritório e canteiro</h2>
+      <p data-i18n="blogPage.post11p1">NR-18 e boas práticas de segurança exigem prova de orientação, treinamento e medidas adotadas. Documento solto em pasta pessoal ou print perdido no celular não escala quando há fiscalização ou incidente.</p>
+      <p data-i18n="blogPage.post11p2">Versão única do PPCI, ART correlata e ordens de serviço devem estar acessíveis ao responsável de campo. Rastreabilidade é saber quem recebeu qual versão e quando — não é burocracia extra, é redução de risco jurídico e operacional.</p>
+      <p data-i18n="blogPage.post11p3">Artigos sobre documentação de canteiro, integração entre escritório técnico e segurança do trabalho melhoram SEO para buscas de compliance em obra, auditoria e gestão de riscos em construção.</p>
+      <p data-i18n="blogPage.post11p4">Integrar comunicação de campo a repositório estruturado evita que informação crítica fique apenas em mensagens efêmeras — sem matar a agilidade do canteiro.</p>
+    </article>
   </main>
 
   <footer class="footer">
@@ -481,6 +1199,64 @@
       if (typeof ZiraI18n !== 'undefined') {
         ZiraI18n.init();
       }
+      (function initBlogArchiveFilter() {
+        var input = document.getElementById('blog-search-input');
+        var cards = document.querySelectorAll('[data-blog-card]');
+        var empty = document.getElementById('blog-archive-empty');
+        if (!input || !cards.length) return;
+        function norm(s) {
+          return String(s || '')
+            .toLowerCase()
+            .replace(/\s+/g, ' ')
+            .trim();
+        }
+        function tokens(q) {
+          return norm(q)
+            .split(' ')
+            .filter(function (t) {
+              return t.length > 0;
+            });
+        }
+        var countEl = document.getElementById('blog-archive-count');
+        function updateCount(visible, total, filtered) {
+          if (!countEl || typeof ZiraI18n === 'undefined') return;
+          var lang = ZiraI18n.getLang();
+          var B = ZiraI18n.STRINGS[lang] && ZiraI18n.STRINGS[lang].blogPage;
+          if (!B) return;
+          if (!filtered) {
+            countEl.textContent = String(B.countIdle || '').replace('{n}', String(total));
+          } else {
+            countEl.textContent = String(B.countFiltered || '')
+              .replace('{n}', String(visible))
+              .replace('{total}', String(total));
+          }
+        }
+        function apply() {
+          var ts = tokens(input.value);
+          var visible = 0;
+          for (var i = 0; i < cards.length; i++) {
+            var card = cards[i];
+            var hay = norm(
+              (card.getAttribute('data-search') || '') + ' ' + card.textContent
+            );
+            var ok =
+              ts.length === 0 ||
+              ts.every(function (t) {
+                return hay.indexOf(t) !== -1;
+              });
+            card.hidden = !ok;
+            if (ok) visible += 1;
+          }
+          if (empty) {
+            empty.classList.toggle('is-visible', visible === 0 && ts.length > 0);
+          }
+          updateCount(visible, cards.length, ts.length > 0);
+        }
+        input.addEventListener('input', apply);
+        input.addEventListener('search', apply);
+        document.addEventListener('zira:lang', apply);
+        apply();
+      })();
     });
   </script>
 </body>

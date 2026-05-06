@@ -37,11 +37,12 @@
       hero: {
         title:
           'A plataforma que organiza atendimento, equipe, obras e prazos para escritórios de arquitetura e engenharia.',
+        scrollHint: 'Descer para a próxima seção',
         counterLabel: 'escritórios já evoluíram com a ZIRA AI',
         sr:
           'ZIRA AI, plataforma para arquitetura e engenharia. Mais de 100 escritórios já evoluíram para uma operação mais clara, integrada e previsível.',
         proof:
-          'Mais de 100 escritórios já evoluíram para uma operação mais clara, integrada e previsível.',
+          'Escritórios que padronizam a operação reduzem retrabalho, aceleram resposta e ganham margem para crescer.',
       },
       zira: {
         desc:
@@ -49,11 +50,12 @@
         imageAlt: '',
       },
       problem: {
-        title: 'O problema não está só em captar clientes. Está em perder controle da operação.',
+        title:
+          'Seu problema não é falta de cliente. É falta de controle depois que o cliente entra.',
         caption:
-          'Quando tudo depende de mensagens soltas, memória e urgência improvisada, o escritório perde contexto, a equipe reage em vez de conduzir, e a operação deixa de ser previsível.',
+          'Quando o processo depende de mensagem solta, memória e urgência do dia, o escritório apaga incêndio em vez de escalar com segurança.',
         outro:
-          'Menos ruído operacional. Mais clareza sobre o que precisa acontecer, quem precisa agir e o que ainda está pendente.',
+          'Com operação orientada por fluxo, você sabe o que está travado, quem atua agora e qual etapa vem depois.',
         b1: 'WhatsApp desorganizado',
         b2: 'Tarefas perdidas',
         b3: 'Obras sem acompanhamento claro',
@@ -64,9 +66,9 @@
         imageAlt: 'Atendimento e tarefas no celular com Zira AI',
       },
       workflow: {
-        title: 'Do primeiro contato à entrega da obra, tudo conectado.',
+        title: 'Da primeira mensagem ao pós-obra: uma operação única, mensurável e sem ruído.',
         caption:
-          'Sete pontos ligados como um ciclo · do primeiro ping no WhatsApp à equipe trabalhando com o mesmo panorama, incluindo priorização ativa, mensagens quando o cliente é difícil, follow-ups e projeto integrado a alertas.',
+          'Um ciclo operacional que conecta captação, qualificação, priorização, follow-up, execução e acompanhamento da equipe no mesmo sistema.',
         kicker:
           'Setas mostram sequência entre etapas · curva conecta a última volta do atendimento à mesma entrada do fluxo.',
         flowAria:
@@ -96,9 +98,9 @@
       },
       tracking: {
         title:
-          'Saiba o que cada arquiteto, engenheiro e membro da equipe está fazendo, o que está atrasado e o que exige atenção agora.',
+          'Veja em tempo real quem está produzindo, o que está atrasado e onde sua operação está perdendo dinheiro.',
         caption:
-          'Aqui, gestão de obra e gestão de equipe deixam de ficar separadas. O escritório enxerga quem responde por cada frente, o que está em andamento e onde estão os gargalos, sem planilha paralela e sem leitura fragmentada da operação.',
+          'Gestão de obra e gestão de equipe deixam de ficar separadas. Você acompanha responsáveis, gargalos e pendências sem planilhas paralelas.',
         p1: 'Tarefas por responsável',
         p2: 'Histórico de ações',
         p3: 'Pendências e atrasos',
@@ -106,16 +108,16 @@
         p5: 'Visão individual da equipe',
       },
       calendar: {
-        title: 'Prazos, reuniões, retornos e etapas em uma única visualização.',
+        title: 'Prazos, reuniões, retornos e etapas em uma única tela de decisão.',
         caption:
-          'Quando prazo, reunião e etapa do projeto aparecem no mesmo fluxo, o escritório inteiro trabalha com a mesma leitura da operação. Menos divergência, menos retrabalho e mais previsibilidade sobre o que precisa acontecer a seguir.',
+          'Quando o time inteiro enxerga o mesmo calendário operacional, os conflitos caem, os atrasos diminuem e as entregas ganham previsibilidade.',
         kicker: 'Prazos e etapas organizados em um único fluxo visual.',
         imageAlt: 'Prazos e etapas num único quadro',
       },
       faq: {
         title: 'Perguntas frequentes',
         caption:
-          'Respostas diretas sobre implementação, privacidade, operação e como o Zira se adapta à rotina real do escritório.',
+          'Respostas objetivas sobre implantação, segurança, operação e retorno prático para o escritório.',
         q1: 'O Zira AI substitui o WhatsApp do escritório?',
         a1:
           'Não: o time continua no WhatsApp que o escritório já usa. O Zira organiza leads, prioridades e histórico por cima dessa mesma linha de atendimento, para ninguém depender de grupos soltos ou print.',
@@ -137,11 +139,77 @@
         q7: 'O sistema se adapta ao fluxo do meu escritório ou exige um modelo pronto?',
         a7:
           'O Zira é configurado à realidade do seu escritório: tipos de obra, etapas, responsáveis e prioridades alinhamos na implantação. Não existe um molde rígido único para todos: há um núcleo comum de atendimento e obra que mapeamos para como vocês já trabalham hoje.',
+        q8:
+          'O Zira atende só escritório de arquitetura, só de engenharia ou os dois juntos?',
+        a8:
+          'Os três casos: escritório focado em arquitetura, focado em engenharia ou com as duas frentes no mesmo time. A plataforma organiza atendimento e obra do jeito que você opera hoje, sem obrigar um modelo único.',
+      },
+      trustStats: {
+        ariaLabel: 'Indicadores de confiança',
+        clientsLabel: 'clientes satisfeitos',
+        ratingLabel: 'avaliações positivas',
+      },
+      register: {
+        title:
+          'Agende uma demonstração para entender o que a ferramenta tem a oferecer.',
+        stepsAria: 'Como funciona',
+        step1Tag: 'Passo 1',
+        step2Tag: 'Passo 2',
+        step1Title: 'Complete o formulário',
+        step1Desc:
+          'Forneça suas informações de contato. Garantimos a segurança total de seus dados. Serão usados apenas para contato.',
+        step2Title: 'Receba uma ligação personalizada',
+        step2Desc:
+          'Em um prazo de até 8 horas, um dos nossos especialistas entrará em contato diretamente para agendar a reunião mais crucial com você.',
+        errSend:
+          'Não foi possível enviar agora. Verifique os campos e tente de novo.',
+        labelName: 'Nome',
+        labelEmail: 'Email',
+        labelPhone: 'Telefone',
+        labelCompany: 'Nome da Empresa',
+        phName: 'Seu nome',
+        phEmail: 'Seu melhor e-mail',
+        phPhone: 'Telefone',
+        phCompany: 'Nome da empresa',
+        countryAria: 'Selecionar país e DDI',
+        countryBR: 'Brasil (+55)',
+        countryUS: 'Estados Unidos (+1)',
+        countryAR: 'Argentina (+54)',
+        countryCL: 'Chile (+56)',
+        countryCO: 'Colômbia (+57)',
+        countryES: 'Espanha (+34)',
+        countryPT: 'Portugal (+351)',
+        countryUK: 'Reino Unido (+44)',
+        countryDE: 'Alemanha (+49)',
+        countryFR: 'França (+33)',
+        segmentLabel: 'Selecionar segmento',
+        segmentPh: 'Qual o seu segmento?',
+        segmentEng: 'Engenharia',
+        segmentArch: 'Arquitetura',
+        segmentDesign: 'Design',
+        segmentBoth: 'Engenharia / Arquitetura',
+        revenueLabel: 'Selecionar faturamento',
+        revenuePh: 'Faturamento mensal',
+        rev1: 'Até R$ 50 mil/mês',
+        rev2: 'R$ 50 mil – R$ 100 mil/mês',
+        rev3: 'R$ 100 mil – R$ 250 mil/mês',
+        rev4: 'R$ 250 mil – R$ 500 mil/mês',
+        rev5: 'R$ 500 mil – R$ 1 milhão/mês',
+        rev6: 'R$ 1 milhão – R$ 3 milhões/mês',
+        rev7: 'Acima de R$ 3 milhões/mês',
+        rev8: 'Prefiro não informar',
+        submit: 'Receber mais informações',
+        sending: 'Enviando…',
+        toastAria: 'Cadastro enviado com sucesso',
+        toastTitle: 'Cadastro enviado!',
+        toastDesc:
+          'Em até 8 horas um especialista do nosso time entra em contato.',
+        toastClose: 'Fechar',
       },
       blogSection: {
-        title: 'Conteúdo para quem lidera obra',
+        title: 'Conteúdo para quem lidera operação e quer escala com controle',
         caption:
-          'Artigos sobre gestão de escritório, comunicação com cliente e operação em canteiro, em linguagem direta.',
+          'Guias práticos para reduzir retrabalho, profissionalizar atendimento e ganhar performance no dia a dia.',
         link: 'Ver blog completo',
         c1topic: 'Operação',
         c1title:
@@ -161,14 +229,14 @@
           'Como manter transparência na jornada do lead sem sobrecarregar o time técnico.',
       },
       adapt: {
-        title: 'Cada escritório opera de um jeito. O sistema se adapta a isso.',
+        title: 'Seu escritório é único. O fluxo da plataforma se adapta ao seu método.',
         logoAlt: 'ZIRA AI',
       },
       cta: {
         title:
-          'Saia na frente na operação, sem abrir mão do que já funciona no escritório.',
+          'Ganhe eficiência operacional sem trocar o que já funciona no seu escritório.',
         desc:
-          'Na conversa, você vê onde ganha clareza e previsibilidade. Mostramos como integrar ao procedimento que vocês já usam e como adaptamos etapas, papéis e fluxo à rotina da equipe, para decidir com segurança.',
+          'Na demonstração, mapeamos gargalos reais da sua rotina e mostramos como a M2SCALE organiza atendimento, equipe e obra para você crescer com previsibilidade.',
         btn: 'Agendar conversa',
       },
       footer: {
@@ -235,22 +303,85 @@
       },
       blogPage: {
         metaTitle:
-          'Blog M2SCALE · Gestão de escritório, obra, WhatsApp e engenharia',
+          'Blog M2 SCALE · ZIRA AI · Gestão de escritório, obra, BIM, KPIs e compliance',
         metaDesc:
-          'Artigos sobre gestão de escritório de arquitetura e engenharia: retrabalho no WhatsApp, priorização da equipe, jornada do cliente na obra e LGPD. Conteúdo para escalar operação sem perder contexto.',
+          'Mais de 10 guias sobre operação para escritórios de arquitetura e engenharia: atendimento, equipe, obra, cronograma, BIM, RFIs, fornecedores, KPIs, LGPD e NR-18. Conteúdo para SEO e operação previsível.',
         ogTitle:
-          'Blog M2SCALE · Operação em escritório e obra',
+          'Blog M2 SCALE · ZIRA AI · Operação em escritório e obra',
         ogDesc:
-          'Guias sobre retrabalho, gestão à vista, expectativa do cliente e compliance — para escritórios que usam WhatsApp mas precisam de previsibilidade.',
+          'Arquivo de artigos: retrabalho, gestão à vista, jornada do cliente, priorização, LGPD, cronograma, RFIs, obra e indicadores.',
         twitterTitle:
-          'Blog M2SCALE · Gestão de escritório e obra',
+          'Blog M2 SCALE · Arquitetura, engenharia e obra',
         twitterDesc:
-          'Gestão de escritório, obra, relacionamento com cliente e melhores práticas LGPD para arquitetura e engenharia.',
+          'Guias práticos para gestão de escritório, canteiro, compliance e performance por projeto.',
         navBrandAria: 'M2 SCALE · página inicial',
         navBack: '← Voltar ao site',
         heroTitle: 'Blog',
+        heroSubtitleBefore:
+          'Tudo sobre operação para escritórios de arquitetura e engenharia com a ',
+        heroSubtitleBrand: 'M2 SCALE · ZIRA AI',
         heroLead:
-          'Textos curtos sobre operação real de escritório: prioridade, transparência com o cliente e o que costuma quebrar quando tudo gira em mensagens soltas.',
+          'Guias práticos sobre gestão de escritório, obra, atendimento, equipe e compliance — conteúdo pensado para SEO e para quem precisa de operação previsível, com ou sem WhatsApp no centro.',
+        searchLabel: 'Buscar artigos',
+        searchPlaceholder: 'Ex.: WhatsApp, obra, LGPD, cronograma…',
+        searchHint: 'Filtre por tema ou palavra-chave.',
+        readMore: 'Leia mais »',
+        noResults: 'Nenhum artigo encontrado. Tente outras palavras.',
+        archiveHeading: 'Artigos em destaque',
+        archiveEyebrow: 'Arquivo',
+        countIdle: '{n} artigos · use a busca para filtrar',
+        countFiltered: '{n} de {total} artigos com esta busca',
+        skipLink: 'Ir para o conteúdo',
+        breadcrumbAria: 'Você está aqui',
+        breadcrumbHome: 'Início',
+        tocFaq: 'Dúvidas frequentes',
+        tocGuides: 'Guias completos',
+        faqTitle: 'Dúvidas frequentes',
+        faqLead:
+          'Respostas diretas sobre o propósito deste blog, público-alvo e como combinar leitura com uma demonstração do ZIRA AI.',
+        faq1q: 'Este blog substitui uma conversa com o time comercial?',
+        faq1a:
+          'Não. Os artigos ajudam em conceitos e boas práticas; para ver o ZIRA AI no contexto do seu escritório, agende uma demonstração pelo site principal.',
+        faq2q: 'O conteúdo é só para quem usa WhatsApp?',
+        faq2a:
+          'Não. Há temas de obra, priorização, BIM, KPIs e compliance. O WhatsApp aparece quando é canal real em muitos escritórios brasileiros.',
+        faq3q: 'Serve para escritório só de arquitetura ou só de engenharia?',
+        faq3a:
+          'Para os dois e para quem reúne as duas frentes. Os guias citam situações típicas de cada perfil.',
+        faq4q: 'Dá para aplicar as práticas sem comprar software?',
+        faq4a:
+          'Em parte, sim: processo e disciplina vêm primeiro. Plataforma ajuda quando volume, equipe ou risco exigem histórico e prioridade centralizados.',
+        faq5q: 'Como sugerir tema para um novo artigo?',
+        faq5a:
+          'Entre em contato pelo WhatsApp ou formulário do site. Temas reais de operação viram prioridade editorial.',
+        faq6q: 'Com que frequência o blog é atualizado?',
+        faq6a:
+          'Buscamos revisar e ampliar conteúdo de forma contínua; artigos podem ganhar novos trechos quando mercado ou regulamentação mudam.',
+        guidesTitle: 'Guias completos',
+        guidesLead:
+          'Leitura linear dos artigos abaixo — ideal para aprofundar depois de filtrar o arquivo acima.',
+        card1excerpt:
+          'Entrada fechada por fase, checklists e histórico acessível para parar de reabrir o mesmo assunto dez vezes.',
+        card2excerpt:
+          'Responsável, próximo passo e entregas visíveis mudam o tom da cobrança antes do calendário estourar.',
+        card3excerpt:
+          'Cadência e transparência do primeiro contato à obra, sem silêncio que destrói confiança.',
+        card4excerpt:
+          'Critérios por tipo de obra e filas com dono único até o próximo estado.',
+        card5excerpt:
+          'Minimização de dados, política interna e consentimento documentado quando projeto circula no chat.',
+        card6excerpt:
+          'Uma linha do tempo que o cliente entende e que o time sustenta entre modelo e realidade de campo.',
+        card7excerpt:
+          'Perguntas formais e pacotes de aprovação com rastro: menos decisão implícita no grupo.',
+        card8excerpt:
+          'Combinar deep work, coordenação síncrona e inspeções sem perder contexto entre salas.',
+        card9excerpt:
+          'Canal oficial, ata curta e responsável por frente evitam “achismo” que custa caro na execução.',
+        card10excerpt:
+          'O que medir por obra para o sócio enxergar saúde antes do fechamento contábil.',
+        card11excerpt:
+          'Registros mínimos, versão única e acesso rápido quando auditoria ou incidente aparece.',
         post1meta: 'Operação · 8 min',
         post1h2:
           'Como reduzir retrabalho quando o WhatsApp é o “sistema” do escritório',
@@ -306,6 +437,72 @@
           'Sistemas que minimizam cópias soltas ou prints em grupo ajudam a auditar quando necessário, sem transformar cada conversa num processo burocrático.',
         post5p4:
           'Um blog com página única bem estruturada (títulos, meta descrições e FAQs internas aos artigos) soma texto relevante sobre temas que clientes pesquisam: gestão em obra de arquitetura, ferramentas de equipe para engenharia, operação multidisciplinar no Brasil.',
+        post6meta: 'Planejamento · 9 min',
+        post6h2:
+          'Cronograma integrado: alinhar projeto, BIM e canteiro sem perder o cliente',
+        post6p1:
+          'Cliente de obra não compra modelo 3D: compra previsibilidade. Quando o cronograma do escritório vive só no Gantt interno e o canteiro opera por “combinado no rádio”, nascem duas narrativas conflitantes sobre o mesmo projeto. O caminho é publicar uma linha do tempo que traduz BIM e etapas técnicas em linguagem de marco — com dono e data de corte explícitos.',
+        post6p2:
+          'Integrar BIM ao planejamento não é adicionar mais software; é definir o que muda status (emissão de pacote, aprovação de loja, liberação de compra) e quem valida. Assim, clash e revisão deixam de ser “surpresa” e passam a ser eventos esperados com folga orçada.',
+        post6p3:
+          'No canteiro, fotos e atas curtas amarradas ao mesmo ID de obra reduzem discussão sobre “qual versão vale”. Para SEO e autoridade, páginas que explicam como o escritório amarra modelo, compra e execução aparecem em buscas de gestão de obra integrada, cronograma 4D/5D e coordenação multidisciplinar.',
+        post6p4:
+          'Ferramentas como o Zira ajudam quando o marco visível ao cliente e a fila interna compartilham a mesma prioridade: menos retrabalho entre projeto e obra, mais clareza sobre o que está bloqueado hoje.',
+        post7meta: 'Engenharia · 8 min',
+        post7h2:
+          'RFIs e submittals: reduzir retrabalho entre projeto, fornecedor e obra',
+        post7p1:
+          'RFI mal escrito vira conversa infinita; submittal sem checklist vira ida e volta de semanas. Escritórios de engenharia e arquitetura que escalam tratam esses artefatos como contrato operacional: número, impacto no cronograma, responsável pela resposta e prazo máximo.',
+        post7p2:
+          'Centralizar RFIs evita que a mesma dúvida apareça no WhatsApp, no e-mail e na reunião sem registro. Submittals ganham valor quando há trilha: envio, revisão, aprovação condicionada e distribuição ao canteiro com versão única.',
+        post7p3:
+          'Do ponto de vista de SEO, conteúdo que ensina fluxo de RFIs em obra, aprovação de materiais e compatibilização reforça buscas de quem procura disciplina em projeto executivo e redução de custo de mudança tardia.',
+        post7p4:
+          'Quando o inbox conversacional está ligado ao protocolo formal, menos decisão fica implícita — e menos retrabalho aparece na última semana antes da concretagem ou da entrega de vedação.',
+        post8meta: 'Equipe · 7 min',
+        post8h2:
+          'Escritório híbrido: ritmo de entrega com time remoto e visitas de obra',
+        post8p1:
+          'Arquitetura e engenharia misturam trabalho profundo (cálculo, detalhamento) com interrupções úteis (obra, cliente). Em modelo híbrido, o problema não é localização — é perda de contexto entre quem está no escritório e quem está em campo.',
+        post8p2:
+          'Combinar janelas síncronas curtas com registro assíncrono de decisão mantém ritmo. Visitas de obra devem gerar checklist mínimo: o que foi visto, o que mudou, próximo passo e dono — senão o conhecimento morre na viagem de volta.',
+        post8p3:
+          'Para SEO, artigos sobre produtividade em escritório de projeto, colaboração remota em BIM e segurança de informação em times distribuídos captam buscadores de gestores que reformularam política de trabalho após 2020.',
+        post8p4:
+          'Uma plataforma que mostra fila por pessoa e por obra reduz a sensação de “ninguém sabe o que o outro fez”, típica de times híbridos mal instrumentados.',
+        post9meta: 'Obra · 8 min',
+        post9h2:
+          'Comunicação com empreiteiros: decisão registrada e menos ruído no canteiro',
+        post9p1:
+          'Canteiro eficiente não é canteiro silencioso: é canteiro com canal certo para o tipo de decisão. Misturar pedido de compra, discussão de método construtivo e reclamação de vizinho no mesmo grupo gera ruído e apaga responsabilidade.',
+        post9p2:
+          'Defina onde nasce compromisso: ata de reunião curta, e-mail com cópia ao gestor ou ticket com SLA. O empreiteiro precisa saber qual canal “vale” para mudança de escopo — caso contrário, tudo vira urgência aparente.',
+        post9p3:
+          'Em termos de conteúdo para Google, textos sobre gestão de subempreiteiros, comunicação em obra e registro de ordem de serviço atraem buscas comerciais de construtoras e escritórios que terceirizam execução.',
+        post9p4:
+          'Histórico pesquisável e prioridade explícita — inclusive quando parte do fluxo passa por mensagens — impedem que a mesma divergência seja negociada três vezes com três níveis de preço diferentes.',
+        post10meta: 'Gestão · 9 min',
+        post10h2:
+          'KPIs por projeto: margem, horas técnicas e prazo na mesma leitura',
+        post10p1:
+          'Escritório de arquitetura e engenharia muitas vezes só descobre que o projeto “não fechou” no fechamento contábil. KPIs operacionais por obra — horas consumidas vs. orçamento, receita reconhecida, desvio de escopo — antecipam conversa difícil com o cliente.',
+        post10p2:
+          'Margem por projeto exige custeio de horas real, não só rateio mensal. Prazo e fila de trabalho impactam capital de giro: atraso costuma vir com horas extras não faturadas e replanejamento de equipe.',
+        post10p3:
+          'Do ponto de vista de SEO B2B, páginas que explicam indicadores para escritório de projeto, precificação de honorários e controle de escopo reforçam autoridade em buscas de sócios e CFOs de firmas de AE.',
+        post10p4:
+          'Quando atendimento e execução compartilham visibilidade de carga, fica mais fácil dizer “não” a pedidos fora de contrato sem parecer desorganizado.',
+        post11meta: 'Compliance · 8 min',
+        post11h2:
+          'NR-18 e documentação de obra: rastreabilidade que protege escritório e canteiro',
+        post11p1:
+          'NR-18 e boas práticas de segurança exigem prova de orientação, treinamento e medidas adotadas. Documento solto em pasta pessoal ou print perdido no celular não escala quando há fiscalização ou incidente.',
+        post11p2:
+          'Versão única do PPCI, ART correlata e ordens de serviço devem estar acessíveis ao responsável de campo. Rastreabilidade é saber quem recebeu qual versão e quando — não é burocracia extra, é redução de risco jurídico e operacional.',
+        post11p3:
+          'Artigos sobre documentação de canteiro, integração entre escritório técnico e segurança do trabalho melhoram SEO para buscas de compliance em obra, auditoria e gestão de riscos em construção.',
+        post11p4:
+          'Integrar comunicação de campo a repositório estruturado evita que informação crítica fique apenas em mensagens efêmeras — sem matar a agilidade do canteiro.',
         footerCr: '© M2 SCALE',
         footerSite: 'Site principal',
         tocTitle: 'Nesta página',
@@ -315,6 +512,12 @@
         toc3: 'Jornada do lead até a obra',
         toc4: 'Priorização da caixa de entrada',
         toc5: 'LGPD para escritório e mensagens',
+        toc6: 'Cronograma, BIM e canteiro',
+        toc7: 'RFIs e submittals',
+        toc8: 'Escritório híbrido',
+        toc9: 'Fornecedores e obra',
+        toc10: 'KPIs por projeto',
+        toc11: 'NR e documentação',
       },
       adminPage: {
         metaTitle: 'Painel · Leads · M2SCALE',
@@ -387,7 +590,8 @@
       },
       hero: {
         title:
-          'The platform that organizes client intake, staffing, jobs, and deadlines for architecture and engineering offices.',
+          'The platform that organizes intake, team, projects, and deadlines for architecture and engineering firms.',
+        scrollHint: 'Scroll to the next section',
         counterLabel: 'firms have moved to clearer operations with ZIRA AI',
         sr:
           'ZIRA AI, operations for architecture & engineering. Over 100 firms have moved to clearer, integrated, more predictable work.',
@@ -400,7 +604,8 @@
         imageAlt: '',
       },
       problem: {
-        title: 'The pain is not only lead gen. It is losing grip on execution.',
+        title:
+          'Your problem is not lack of clients. It is lack of control once the client is in.',
         caption:
           'When everything runs on loose messages, memory, and improvised urgency, you lose context; the team reacts instead of steering, and execution stops being predictable.',
         outro:
@@ -491,6 +696,69 @@
         q7: 'Does the product adapt to how we already work, or force one cookie cutter model?',
         a7:
           'Zira maps to how your studio actually behaves: scopes, milestones, responsibilities, and priorities tuned during onboarding. No single rigid template for everyone: there’s a shared backbone for intake and builds that aligns with your current playbook.',
+        q8:
+          'Is Zira for architecture-only firms, engineering-only practices, or both?',
+        a8:
+          'All three: architecture-only studios, engineering-only practices, or firms that combine both. Zira organizes intake and delivery around how you already work, without forcing a single rigid playbook.',
+      },
+      trustStats: {
+        ariaLabel: 'Trust indicators',
+        clientsLabel: 'satisfied clients',
+        ratingLabel: 'positive ratings',
+      },
+      register: {
+        title: 'Book a demo to see what the platform can offer.',
+        stepsAria: 'How it works',
+        step1Tag: 'Step 1',
+        step2Tag: 'Step 2',
+        step1Title: 'Complete the form',
+        step1Desc:
+          'Share your contact details. We protect your data and use it only to get in touch.',
+        step2Title: 'Get a tailored call',
+        step2Desc:
+          'Within 8 hours, a specialist will contact you to schedule the most important conversation with your firm.',
+        errSend: 'We could not send right now. Check the fields and try again.',
+        labelName: 'Name',
+        labelEmail: 'Email',
+        labelPhone: 'Phone',
+        labelCompany: 'Company name',
+        phName: 'Your name',
+        phEmail: 'Your best email',
+        phPhone: 'Phone number',
+        phCompany: 'Company name',
+        countryAria: 'Select country and country code',
+        countryBR: 'Brazil (+55)',
+        countryUS: 'United States (+1)',
+        countryAR: 'Argentina (+54)',
+        countryCL: 'Chile (+56)',
+        countryCO: 'Colombia (+57)',
+        countryES: 'Spain (+34)',
+        countryPT: 'Portugal (+351)',
+        countryUK: 'United Kingdom (+44)',
+        countryDE: 'Germany (+49)',
+        countryFR: 'France (+33)',
+        segmentLabel: 'Industry segment',
+        segmentPh: 'What is your segment?',
+        segmentEng: 'Engineering',
+        segmentArch: 'Architecture',
+        segmentDesign: 'Design',
+        segmentBoth: 'Engineering / Architecture',
+        revenueLabel: 'Monthly revenue (BRL)',
+        revenuePh: 'Select a monthly range (BRL)',
+        rev1: 'Up to R$ 50,000 / month',
+        rev2: 'R$ 50,000 – R$ 100,000 / month',
+        rev3: 'R$ 100,000 – R$ 250,000 / month',
+        rev4: 'R$ 250,000 – R$ 500,000 / month',
+        rev5: 'R$ 500,000 – R$ 1,000,000 / month',
+        rev6: 'R$ 1,000,000 – R$ 3,000,000 / month',
+        rev7: 'Above R$ 3,000,000 / month',
+        rev8: 'Prefer not to say',
+        submit: 'Request more information',
+        sending: 'Sending…',
+        toastAria: 'Registration sent successfully',
+        toastTitle: "You're on the list!",
+        toastDesc: 'A specialist will reach out within 8 hours.',
+        toastClose: 'Close',
       },
       blogSection: {
         title: 'For leaders running real jobsites',
@@ -588,22 +856,85 @@
       },
       blogPage: {
         metaTitle:
-          'M2SCALE Blog · Architecture firm ops, WhatsApp discipline & field coordination',
+          'M2 SCALE · ZIRA AI Blog · AE firm ops, jobsites, BIM, KPIs & compliance',
         metaDesc:
-          'Operational articles for AE firms: rework when chat is HQ, telemetry before crises, client pacing, backlog ownership, lightweight compliance. Readable guidance for principals running real builds.',
+          '10+ playbooks for architecture & engineering firms: intake, staffing, field coordination, schedules, BIM, RFIs, subs, KPIs, privacy and safety documentation. SEO-rich, practitioner-first guidance.',
         ogTitle:
-          'M2SCALE Blog · Studio operations without noisy inboxes',
+          'M2 SCALE · ZIRA AI Blog · Studio & field operations',
         ogDesc:
-          'Stories on rework, leadership telemetry, stakeholder alignment and pragmatic privacy workflows for multidisciplinary teams.',
+          'Article archive: rework control, telemetry, client pacing, triage, privacy, schedules, RFIs, hybrid teams, trade communication, KPIs, safety docs.',
         twitterTitle:
-          'M2SCALE Blog · Architecture & engineering ops',
+          'M2 SCALE Blog · Architecture, engineering & construction ops',
         twitterDesc:
-          'Operational insight for principals: intake priority, WhatsApp workflows, mobilization pacing and compliance-lite habits.',
+          'Practical guides on studio management, jobsites, compliance and per-project performance.',
         navBrandAria: 'M2 SCALE · homepage',
         navBack: '← Back to site',
         heroTitle: 'Blog',
+        heroSubtitleBefore:
+          'Everything architecture & engineering firms need to run calmer operations with ',
+        heroSubtitleBrand: 'M2 SCALE · ZIRA AI',
         heroLead:
-          'Notes on grounded studio mechanics: sequencing work, projecting calm to owners, and what breaks fastest when chats become your source of truth.',
+          'Practical guides on studio management, jobsites, intake, staffing and compliance — written for SEO and for teams that need predictable delivery, with or without chat at the center.',
+        searchLabel: 'Search articles',
+        searchPlaceholder: 'e.g. WhatsApp, jobsite, privacy, schedule…',
+        searchHint: 'Filter by topic or keyword.',
+        readMore: 'Read more »',
+        noResults: 'No articles match. Try different words.',
+        archiveHeading: 'Featured articles',
+        archiveEyebrow: 'Archive',
+        countIdle: '{n} articles · use search to filter',
+        countFiltered: '{n} of {total} articles match your search',
+        skipLink: 'Skip to content',
+        breadcrumbAria: 'Breadcrumb',
+        breadcrumbHome: 'Home',
+        tocFaq: 'FAQ',
+        tocGuides: 'Full guides',
+        faqTitle: 'Frequently asked questions',
+        faqLead:
+          'Straight answers about this blog, who it is for, and how reading pairs with a ZIRA AI walkthrough.',
+        faq1q: 'Does this blog replace a sales conversation?',
+        faq1a:
+          'No. Articles explain concepts and habits; book a demo on the main site to see ZIRA AI in your studio context.',
+        faq2q: 'Is the content only for WhatsApp-heavy teams?',
+        faq2a:
+          'No. We cover jobsites, prioritization, BIM, KPIs and compliance. WhatsApp shows up because it is a real channel for many Brazilian firms.',
+        faq3q: 'Does it apply to architecture-only or engineering-only firms?',
+        faq3a:
+          'Yes to both, and to multidisciplinary practices. Guides call out scenarios for each profile.',
+        faq4q: 'Can we apply the practices without buying software?',
+        faq4a:
+          'Partly—process and discipline come first. Platforms help when volume, staffing or risk require centralized history and priority.',
+        faq5q: 'How do we suggest a new article topic?',
+        faq5a:
+          'Reach out via WhatsApp or the site contact form. Real operations pain points rise on our editorial backlog.',
+        faq6q: 'How often is the blog updated?',
+        faq6a:
+          'We expand and refresh content continuously; articles may gain new sections when markets or regulations shift.',
+        guidesTitle: 'Full guides',
+        guidesLead:
+          'Read the long-form posts below—best after you have skimmed or filtered the archive above.',
+        card1excerpt:
+          'Phase gates, checklists and searchable history so the same issue stops reopening ten times.',
+        card2excerpt:
+          'Owner, next commitment and shipped work visible early—before the calendar becomes the argument.',
+        card3excerpt:
+          'Cadence and transparency from first DM to mobilization without silence that erodes trust.',
+        card4excerpt:
+          'Rules per job type and single-owner queues until the next state change.',
+        card5excerpt:
+          'Data minimization, internal policy and documented consent when projects live in chat.',
+        card6excerpt:
+          'A timeline clients understand and builders can defend between model and field reality.',
+        card7excerpt:
+          'Formal Q&A and approval packages with a trail—fewer implicit decisions in group chat.',
+        card8excerpt:
+          'Blend deep work, sync windows and site walks without losing context across locations.',
+        card9excerpt:
+          'Official channel, short minutes and trade owners—less guesswork that taxes execution.',
+        card10excerpt:
+          'What to measure per job so partners see health before accounting closes the month.',
+        card11excerpt:
+          'Minimum records, single version and fast access when audits or incidents appear.',
         post1meta: 'Operations · 8 min',
         post1h2:
           'Shrinking rework when WhatsApp doubles as headquarters',
@@ -659,6 +990,72 @@
           'Systems that constrain scattershot forwarding make audits humane without turning everyday dialogue into paralysis.',
         post5p4:
           'Publishing a single well structured evergreen page with purposeful headings FAQs inside articles reinforces queries prospects actually run searches about AE operations discipline multidisciplinary Brazil delivery.',
+        post6meta: 'Planning · 9 min',
+        post6h2:
+          'Integrated master schedule: align design, BIM and field without losing the owner',
+        post6p1:
+          'Owners buy predictability, not a pretty 3D snapshot. When the studio schedule lives only in an internal Gantt and the field runs on verbal agreements, two conflicting stories emerge. Publish milestones that translate BIM and technical gates into owner language—with named owners and cut dates.',
+        post6p2:
+          'BIM integration is not “more apps”; it is defining what changes status (package issuance, shop approval, procurement release) and who validates. Clash and redesign then become planned events with float instead of surprises.',
+        post6p3:
+          'On site, short photo logs tied to a single job ID settle “which version counts” debates. Educational pages that explain how design, procurement and construction connect rank for integrated construction operations, 4D/5D scheduling and multidisciplinary coordination.',
+        post6p4:
+          'Platforms like Zira help when client-visible milestones and internal queues share the same priority—less rework between design and field, clearer view of what is blocked today.',
+        post7meta: 'Engineering · 8 min',
+        post7h2:
+          'RFIs & submittals: cut rework across design, vendors and field',
+        post7p1:
+          'A vague RFI becomes endless chatter; a submittal without a checklist burns weeks. Mature AE firms treat both as operational contracts: ID, schedule impact, responder and deadline.',
+        post7p2:
+          'Central RFIs stop the same question from living in chat, email and a meeting note. Submittals earn their keep with a trail: submit, review, conditional approval, distribution to field as one version.',
+        post7p3:
+          'SEO-wise, teaching RFI workflow, material approvals and coordination captures searches from teams tightening executive documentation and late-change costs.',
+        post7p4:
+          'When conversational intake links to formal protocol, fewer decisions stay implicit—and less last-minute rework hits concrete pours or enclosure milestones.',
+        post8meta: 'People · 7 min',
+        post8h2:
+          'Hybrid studios: delivery rhythm with remote staff and site visits',
+        post8p1:
+          'Architecture and engineering blend deep work (calculation, detailing) with valuable interruptions (site, client). In hybrid mode the risk isn’t location—it’s context loss between office and field.',
+        post8p2:
+          'Short synchronous windows plus asynchronous decision logs preserve pace. Site visits need a minimum checklist: observed, changed, next step, owner—or knowledge dies on the drive back.',
+        post8p3:
+          'SEO articles on project-office productivity, remote BIM collaboration and information security for distributed teams attract leaders revisiting workplace policy.',
+        post8p4:
+          'A platform surfacing queues per person and per job reduces the “nobody knows what the other shipped” feeling common in poorly instrumented hybrids.',
+        post9meta: 'Field · 8 min',
+        post9h2:
+          'Trade communication: recorded decisions and less noise on site',
+        post9p1:
+          'An efficient site isn’t a quiet site—it’s one with the right channel per decision type. Mixing procurement, means-and-methods and neighbor complaints in one thread erases accountability.',
+        post9p2:
+          'Define where commitments are born: short meeting minutes, emailed summaries or tickets with SLA. Trades need to know which channel governs scope changes—or everything feels urgent.',
+        post9p3:
+          'For Google, guides on subcontractor management, site communication and work-order logs attract commercial searches from builders and design-led contractors.',
+        post9p4:
+          'Searchable history and explicit priority—even when part of the flow is messaging—stop the same dispute from being negotiated three times at three price levels.',
+        post10meta: 'Management · 9 min',
+        post10h2:
+          'Per-project KPIs: margin, technical hours and schedule in one read',
+        post10p1:
+          'Many AE firms only learn a job “didn’t work” at month-end close. Operational KPIs per project—hours vs. budget, recognized revenue, scope drift—surface hard client conversations earlier.',
+        post10p2:
+          'Per-job margin needs real hour costing, not only monthly allocation. Queue and schedule pressure working capital: delay often brings unfunded overtime and staffing reshuffles.',
+        post10p3:
+          'B2B SEO benefits from pages explaining studio metrics, fee pricing and scope control—content partners and CFOs actually search.',
+        post10p4:
+          'When intake and execution share workload visibility, saying “no” to out-of-contract asks looks disciplined—not chaotic.',
+        post11meta: 'Compliance · 8 min',
+        post11h2:
+          'Safety documentation & traceability that protect studio and site',
+        post11p1:
+          'Safety programs require proof of orientation, training and controls. Files on a personal drive or screenshots lost on a phone don’t scale for inspections or incidents.',
+        post11p2:
+          'Single versions of safety plans, registrations and directives must reach field leads. Traceability means knowing who received which version when—not extra bureaucracy, but lower legal and operational risk.',
+        post11p3:
+          'Articles on site documentation and alignment between technical studio and safety teams rank for construction compliance, audits and risk management queries.',
+        post11p4:
+          'Connecting field communication to structured repositories keeps critical facts out of ephemeral chat only—without killing site speed.',
         footerCr: '© M2 SCALE',
         footerSite: 'Main website',
         tocTitle: 'On this page',
@@ -668,6 +1065,12 @@
         toc3: 'Lead journey into execution',
         toc4: 'Inbox triage discipline',
         toc5: 'Privacy for studios + chats',
+        toc6: 'Schedule, BIM & field',
+        toc7: 'RFIs & submittals',
+        toc8: 'Hybrid studio',
+        toc9: 'Trades & site',
+        toc10: 'Per-project KPIs',
+        toc11: 'Safety & documentation',
       },
       adminPage: {
         metaTitle: 'Dashboard · Leads · M2SCALE',
@@ -948,6 +1351,11 @@
             '@type': 'Question',
             name: f.q7,
             acceptedAnswer: { '@type': 'Answer', text: f.a7 },
+          },
+          {
+            '@type': 'Question',
+            name: f.q8,
+            acceptedAnswer: { '@type': 'Answer', text: f.a8 },
           },
         ],
       },

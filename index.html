@@ -766,7 +766,7 @@
       position: relative;
       min-height: 100vh;
       min-height: 100dvh;
-      padding: var(--space-10) var(--space-6) var(--space-12);
+      padding: var(--space-10) var(--space-6) max(var(--space-12), clamp(4.5rem, 11vh, 6.75rem));
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -924,6 +924,78 @@
     @keyframes hero-caret-blink {
       0%, 45% { opacity: 1; }
       50%, 100% { opacity: 0.15; }
+    }
+
+    .hero__scroll-hint-wrap {
+      position: absolute;
+      left: 50%;
+      bottom: max(var(--space-6), env(safe-area-inset-bottom));
+      z-index: 2;
+      transform: translateX(-50%);
+      transition:
+        opacity 0.45s var(--ease-out),
+        transform 0.45s var(--ease-out);
+      pointer-events: auto;
+    }
+
+    .hero__scroll-hint-wrap.is-hidden {
+      opacity: 0;
+      transform: translateX(-50%) translateY(12px);
+      pointer-events: none;
+    }
+
+    .hero__scroll-hint {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 14px;
+      color: rgba(255, 255, 255, 0.92);
+      border-radius: var(--r-pill);
+      background: rgba(0, 0, 0, 0.22);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      transition: background var(--t-fast), border-color var(--t-fast), color var(--t-fast);
+    }
+
+    .hero__scroll-hint:hover {
+      color: #ffffff;
+      background: rgba(0, 0, 0, 0.38);
+      border-color: rgba(255, 255, 255, 0.35);
+    }
+
+    .hero__scroll-hint:focus-visible {
+      outline: 2px solid rgba(255, 255, 255, 0.85);
+      outline-offset: 3px;
+    }
+
+    .hero__scroll-hint-icon {
+      display: block;
+      line-height: 0;
+      animation: hero-scroll-hint-bounce 1.35s ease-in-out infinite;
+    }
+
+    .hero__scroll-hint-icon svg {
+      display: block;
+      width: 26px;
+      height: 26px;
+    }
+
+    @keyframes hero-scroll-hint-bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(8px); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .hero__scroll-hint-icon {
+        animation: none;
+      }
+      .hero__scroll-hint-wrap {
+        transition: opacity 0.25s ease;
+      }
+      .hero__scroll-hint-wrap.is-hidden {
+        transform: translateX(-50%);
+      }
     }
 
     /* ============================================================
@@ -2864,13 +2936,10 @@
        Footer
        ============================================================ */
     .footer {
-      padding: var(--space-9) var(--space-6) var(--space-7);
+      padding: var(--space-10) var(--space-6) var(--space-7);
       background:
-        linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01)),
-        rgba(4, 4, 6, 0.88);
-      border-top: 1px solid rgba(255, 255, 255, 0.12);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
+        linear-gradient(180deg, rgba(8, 8, 8, 0.98), rgba(0, 0, 0, 1));
+      border-top: 1px solid rgba(255, 255, 255, 0.16);
     }
 
     .footer__container {
@@ -2882,16 +2951,16 @@
 
     .footer__top {
       display: grid;
-      grid-template-columns: minmax(220px, 1.25fr) repeat(3, minmax(150px, 1fr));
+      grid-template-columns: minmax(240px, 1.35fr) repeat(3, minmax(150px, 1fr));
       gap: var(--space-7);
       align-items: start;
     }
 
     .footer__top > * {
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 14px;
-      background: rgba(255, 255, 255, 0.02);
-      padding: 18px 16px;
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+      padding: 0;
     }
 
     .footer__brand-wrap {
@@ -2907,16 +2976,17 @@
     }
 
     .footer__logo {
-      width: 28px;
-      height: 28px;
+      width: 120px;
+      height: auto;
       object-fit: contain;
     }
 
     .footer__name {
-      font-size: var(--fs-caption);
+      font-size: var(--fs-small);
       font-weight: var(--weight-medium);
       color: var(--white);
-      letter-spacing: -0.13px;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
     }
 
     .footer__desc {
@@ -2925,6 +2995,31 @@
       font-size: var(--fs-caption);
       line-height: 1.55;
       letter-spacing: -0.12px;
+    }
+    .footer__social {
+      display: inline-flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .footer__social a {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--on-dark-text-2);
+      border: 1px solid rgba(255, 255, 255, 0.26);
+      text-decoration: none;
+      background: transparent;
+      transition: background var(--t-fast), color var(--t-fast), border-color var(--t-fast);
+    }
+    .footer__social a:hover {
+      color: var(--white);
+      border-color: rgba(255, 255, 255, 0.56);
+      background: rgba(255, 255, 255, 0.08);
     }
 
     .footer__heading {
@@ -3019,6 +3114,81 @@
 
     .footer__legal a:hover {
       color: var(--white);
+    }
+    .footer__partners {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      padding-top: var(--space-4);
+    }
+    .footer__partner-item {
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.76);
+      border: 0;
+      border-radius: 0;
+      padding: 0;
+      background: transparent;
+      white-space: nowrap;
+    }
+
+    /* ============================================================
+       Calendário + trust stats · faixa escura contínua (mesmo preto)
+       ============================================================ */
+    .calendar-trust-belt {
+      background: #0a0a0c;
+      overflow-x: clip;
+    }
+
+    /* ============================================================
+       Trust stats · contadores (acima do FAQ)
+       ============================================================ */
+    .trust-stats {
+      padding: clamp(48px, 7vw, 96px) var(--space-6) clamp(56px, 9vw, 112px);
+      background: transparent;
+      border-top: none;
+    }
+    .trust-stats__container {
+      max-width: 920px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(28px, 5vw, 72px);
+      align-items: start;
+    }
+    @media (max-width: 640px) {
+      .trust-stats__container {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+    }
+    .trust-stats__item {
+      text-align: center;
+    }
+    .trust-stats__value {
+      margin: 0 0 14px;
+      font-size: clamp(40px, 9vw, 76px);
+      font-weight: var(--weight-medium);
+      letter-spacing: -0.035em;
+      line-height: 1;
+      color: #ffffff;
+      font-variant-numeric: tabular-nums;
+    }
+    .trust-stats__num {
+      display: inline-block;
+    }
+    .trust-stats__label {
+      margin: 0;
+      font-size: var(--fs-body);
+      font-weight: var(--weight-regular);
+      line-height: 1.45;
+      letter-spacing: var(--ls-body-lg);
+      color: rgba(255, 255, 255, 0.7);
+      max-width: 280px;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     /* ============================================================
@@ -3551,6 +3721,7 @@
         overflow-x: hidden !important;
       }
       main > section,
+      .calendar-trust-belt,
       .adapt-cta-wrap,
       .footer {
         overflow-x: clip !important;
@@ -3883,6 +4054,25 @@
           <span class="hero__proof-text" id="hero-proof-text"></span><span class="hero__proof-caret" id="hero-proof-caret" aria-hidden="true"></span>
         </p>
       </div>
+
+      <div class="hero__scroll-hint-wrap" id="hero-scroll-hint-wrap">
+        <a
+          class="hero__scroll-hint"
+          href="#zira"
+          data-i18n-attr="aria-label:hero.scrollHint"
+          aria-label="Descer para a próxima seção">
+          <span class="hero__scroll-hint-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M12 5v14M5 13l7 7 7-7"
+                stroke="currentColor"
+                stroke-width="1.85"
+                stroke-linecap="round"
+                stroke-linejoin="round"/>
+            </svg>
+          </span>
+        </a>
+      </div>
     </section>
 
     <section class="zira has-arch-deco" id="zira" aria-labelledby="zira-title">
@@ -3968,7 +4158,7 @@
           data-reveal
           data-motion-split="words"
           data-i18n="problem.title">
-          O problema não está só em captar clientes. Está em perder controle da operação.
+          Seu problema não é falta de cliente. É falta de controle depois que o cliente entra.
         </h2>
         <p
           class="section-caption"
@@ -4277,6 +4467,7 @@
       </div>
     </section>
 
+    <div class="calendar-trust-belt">
     <section class="calendar" id="calendar" aria-labelledby="calendar-title">
       <div class="calendar__container">
         <h2
@@ -4385,6 +4576,40 @@
       </div>
     </section>
 
+    <section
+      class="trust-stats"
+      id="trust-stats"
+      data-i18n-attr="aria-label:trustStats.ariaLabel"
+      aria-label="Indicadores de confiança">
+      <div class="trust-stats__container">
+        <div class="trust-stats__item" data-reveal>
+          <p class="trust-stats__value">
+            <span
+              class="trust-stats__num"
+              data-trust-count="100"
+              data-trust-prefix="+"
+              aria-hidden="true">+0</span>
+          </p>
+          <p class="trust-stats__label" data-i18n="trustStats.clientsLabel">
+            clientes satisfeitos
+          </p>
+        </div>
+        <div class="trust-stats__item" data-reveal style="--reveal-delay: 80ms">
+          <p class="trust-stats__value">
+            <span
+              class="trust-stats__num"
+              data-trust-count="99"
+              data-trust-suffix="%"
+              aria-hidden="true">0%</span>
+          </p>
+          <p class="trust-stats__label" data-i18n="trustStats.ratingLabel">
+            avaliações positivas
+          </p>
+        </div>
+      </div>
+    </section>
+    </div>
+
     <section class="faq" id="faq" aria-labelledby="faq-title">
       <div class="faq__container">
         <h2
@@ -4401,7 +4626,7 @@
           data-reveal
           style="--reveal-delay: 90ms"
           data-i18n="faq.caption">
-          Respostas diretas sobre implementação, privacidade, operação e como o Zira se adapta à rotina real do escritório.
+          Respostas objetivas sobre implantação, segurança, operação e retorno prático para o escritório.
         </p>
         <div class="faq__panel" role="list">
           <article class="faq__item" data-reveal style="--reveal-delay: 0ms" role="listitem">
@@ -4481,6 +4706,17 @@
               </div>
             </details>
           </article>
+          <article class="faq__item" data-reveal style="--reveal-delay: 350ms" role="listitem">
+            <details class="faq__details" name="zira-faq">
+              <summary class="faq__summary">
+                <span class="faq__summary-text" data-i18n="faq.q8">O Zira atende só escritório de arquitetura, só de engenharia ou os dois juntos?</span>
+                <span class="faq__icon" aria-hidden="true">+</span>
+              </summary>
+              <div class="faq__answer">
+                <p data-i18n="faq.a8">Os três casos: escritório focado em arquitetura, focado em engenharia ou com as duas frentes no mesmo time. A plataforma organiza atendimento e obra do jeito que você opera hoje, sem obrigar um modelo único.</p>
+              </div>
+            </details>
+          </article>
         </div>
       </div>
     </section>
@@ -4511,15 +4747,23 @@
         <div class="cta__container">
           <div class="cta-register">
           <div class="cta-register__intro">
-            <h2 class="cta-register__title" id="cta-title" data-motion-split="words" data-reveal>
-              Cadastre-se e receba o contato do nosso time!
+            <h2
+              class="cta-register__title"
+              id="cta-title"
+              data-motion-split="words"
+              data-reveal
+              data-i18n="register.title">
+              Agende uma demonstração para entender o que a ferramenta tem a oferecer.
             </h2>
 
-            <ol class="cta-register__steps" aria-label="Como funciona">
+            <ol
+              class="cta-register__steps"
+              data-i18n-attr="aria-label:register.stepsAria"
+              aria-label="Como funciona">
               <li class="cta-register__step" data-reveal style="--reveal-delay: 80ms">
                 <div class="cta-register__step-rule" aria-hidden="true">
                   <span class="cta-register__step-line"></span>
-                  <span class="cta-register__step-tag">Passo 1</span>
+                  <span class="cta-register__step-tag" data-i18n="register.step1Tag">Passo 1</span>
                 </div>
                 <div class="cta-register__step-row">
                   <div class="cta-register__step-icon" aria-hidden="true">
@@ -4529,8 +4773,8 @@
                     </svg>
                   </div>
                   <div class="cta-register__step-body">
-                    <h3 class="cta-register__step-title">Complete o formulário</h3>
-                    <p class="cta-register__step-desc">
+                    <h3 class="cta-register__step-title" data-i18n="register.step1Title">Complete o formulário</h3>
+                    <p class="cta-register__step-desc" data-i18n="register.step1Desc">
                       Forneça suas informações de contato. Garantimos a segurança total de seus dados. Serão usados apenas para contato.
                     </p>
                   </div>
@@ -4540,7 +4784,7 @@
               <li class="cta-register__step" data-reveal style="--reveal-delay: 160ms">
                 <div class="cta-register__step-rule" aria-hidden="true">
                   <span class="cta-register__step-line"></span>
-                  <span class="cta-register__step-tag">Passo 2</span>
+                  <span class="cta-register__step-tag" data-i18n="register.step2Tag">Passo 2</span>
                 </div>
                 <div class="cta-register__step-row">
                   <div class="cta-register__step-icon" aria-hidden="true">
@@ -4549,8 +4793,8 @@
                     </svg>
                   </div>
                   <div class="cta-register__step-body">
-                    <h3 class="cta-register__step-title">Receba uma ligação personalizada</h3>
-                    <p class="cta-register__step-desc">
+                    <h3 class="cta-register__step-title" data-i18n="register.step2Title">Receba uma ligação personalizada</h3>
+                    <p class="cta-register__step-desc" data-i18n="register.step2Desc">
                       Em um prazo de até 8 horas, um dos nossos especialistas entrará em contato diretamente para agendar a reunião mais crucial com você.
                     </p>
                   </div>
@@ -4569,22 +4813,40 @@
               id="zira-register-err"
               class="cta-register__err"
               role="alert"
-              hidden>
+              hidden
+              data-i18n="register.errSend">
               Não foi possível enviar agora. Verifique os campos e tente de novo.
             </p>
 
             <div class="cta-register__field">
-              <label for="reg-name" class="is-sr">Nome</label>
-              <input id="reg-name" name="name" type="text" autocomplete="name" required maxlength="120" placeholder="Seu nome">
+              <label for="reg-name" class="is-sr" data-i18n="register.labelName">Nome</label>
+              <input
+                id="reg-name"
+                name="name"
+                type="text"
+                autocomplete="name"
+                required
+                maxlength="120"
+                data-i18n-attr="placeholder:register.phName"
+                placeholder="Seu nome">
             </div>
 
             <div class="cta-register__field">
-              <label for="reg-email" class="is-sr">Email</label>
-              <input id="reg-email" name="email" type="email" autocomplete="email" required inputmode="email" maxlength="254" placeholder="Seu melhor e-mail">
+              <label for="reg-email" class="is-sr" data-i18n="register.labelEmail">Email</label>
+              <input
+                id="reg-email"
+                name="email"
+                type="email"
+                autocomplete="email"
+                required
+                inputmode="email"
+                maxlength="254"
+                data-i18n-attr="placeholder:register.phEmail"
+                placeholder="Seu melhor e-mail">
             </div>
 
             <div class="cta-register__field">
-              <label for="reg-phone" class="is-sr">Telefone</label>
+              <label for="reg-phone" class="is-sr" data-i18n="register.labelPhone">Telefone</label>
               <div class="cta-register__phone" id="reg-phone-wrap">
                 <div class="cta-register__phone-flag">
                   <span class="cta-register__phone-country-value" id="reg-country-value">
@@ -4595,58 +4857,76 @@
                     id="reg-country"
                     name="countryDial"
                     class="cta-register__phone-country-select"
+                    data-i18n-attr="aria-label:register.countryAria"
                     aria-label="Selecionar país e DDI">
-                    <option value="+55" data-flag="🇧🇷" selected>Brasil (+55)</option>
-                    <option value="+1" data-flag="🇺🇸">Estados Unidos (+1)</option>
-                    <option value="+54" data-flag="🇦🇷">Argentina (+54)</option>
-                    <option value="+56" data-flag="🇨🇱">Chile (+56)</option>
-                    <option value="+57" data-flag="🇨🇴">Colômbia (+57)</option>
-                    <option value="+34" data-flag="🇪🇸">Espanha (+34)</option>
-                    <option value="+351" data-flag="🇵🇹">Portugal (+351)</option>
-                    <option value="+44" data-flag="🇬🇧">Reino Unido (+44)</option>
-                    <option value="+49" data-flag="🇩🇪">Alemanha (+49)</option>
-                    <option value="+33" data-flag="🇫🇷">França (+33)</option>
+                    <option value="+55" data-flag="🇧🇷" selected data-i18n="register.countryBR">Brasil (+55)</option>
+                    <option value="+1" data-flag="🇺🇸" data-i18n="register.countryUS">Estados Unidos (+1)</option>
+                    <option value="+54" data-flag="🇦🇷" data-i18n="register.countryAR">Argentina (+54)</option>
+                    <option value="+56" data-flag="🇨🇱" data-i18n="register.countryCL">Chile (+56)</option>
+                    <option value="+57" data-flag="🇨🇴" data-i18n="register.countryCO">Colômbia (+57)</option>
+                    <option value="+34" data-flag="🇪🇸" data-i18n="register.countryES">Espanha (+34)</option>
+                    <option value="+351" data-flag="🇵🇹" data-i18n="register.countryPT">Portugal (+351)</option>
+                    <option value="+44" data-flag="🇬🇧" data-i18n="register.countryUK">Reino Unido (+44)</option>
+                    <option value="+49" data-flag="🇩🇪" data-i18n="register.countryDE">Alemanha (+49)</option>
+                    <option value="+33" data-flag="🇫🇷" data-i18n="register.countryFR">França (+33)</option>
                   </select>
                 </div>
-                <input id="reg-phone" name="phone" type="tel" autocomplete="tel" required inputmode="tel" maxlength="32" placeholder="Telefone">
+                <input
+                  id="reg-phone"
+                  name="phone"
+                  type="tel"
+                  autocomplete="tel"
+                  required
+                  inputmode="tel"
+                  maxlength="32"
+                  data-i18n-attr="placeholder:register.phPhone"
+                  placeholder="Telefone">
               </div>
             </div>
 
             <div class="cta-register__field">
-              <label for="reg-company" class="is-sr">Nome da Empresa</label>
-              <input id="reg-company" name="company" type="text" autocomplete="organization" maxlength="160" placeholder="Nome da empresa">
+              <label for="reg-company" class="is-sr" data-i18n="register.labelCompany">Nome da Empresa</label>
+              <input
+                id="reg-company"
+                name="company"
+                type="text"
+                autocomplete="organization"
+                maxlength="160"
+                data-i18n-attr="placeholder:register.phCompany"
+                placeholder="Nome da empresa">
             </div>
 
             <div class="cta-register__field">
-              <label for="reg-segment" class="is-shown">Selecionar segmento</label>
+              <label for="reg-segment" class="is-shown" data-i18n="register.segmentLabel">Selecionar segmento</label>
               <select id="reg-segment" name="segment" required>
-                <option value="" disabled selected>Qual o seu segmento?</option>
-                <option value="engenharia">Engenharia</option>
-                <option value="arquitetura">Arquitetura</option>
-                <option value="design">Design</option>
-                <option value="engenharia-arquitetura">Engenharia / Arquitetura</option>
+                <option value="" disabled selected data-i18n="register.segmentPh">Qual o seu segmento?</option>
+                <option value="engenharia" data-i18n="register.segmentEng">Engenharia</option>
+                <option value="arquitetura" data-i18n="register.segmentArch">Arquitetura</option>
+                <option value="design" data-i18n="register.segmentDesign">Design</option>
+                <option value="engenharia-arquitetura" data-i18n="register.segmentBoth">Engenharia / Arquitetura</option>
               </select>
             </div>
 
             <div class="cta-register__field">
-              <label for="reg-revenue" class="is-shown">Selecionar faturamento</label>
+              <label for="reg-revenue" class="is-shown" data-i18n="register.revenueLabel">Selecionar faturamento</label>
               <select id="reg-revenue" name="revenue" required>
-                <option value="" disabled selected>Faturamento mensal</option>
-                <option value="ate-50k">Até R$ 50 mil/mês</option>
-                <option value="50k-100k">R$ 50 mil – R$ 100 mil/mês</option>
-                <option value="100k-250k">R$ 100 mil – R$ 250 mil/mês</option>
-                <option value="250k-500k">R$ 250 mil – R$ 500 mil/mês</option>
-                <option value="500k-1m">R$ 500 mil – R$ 1 milhão/mês</option>
-                <option value="1m-3m">R$ 1 milhão – R$ 3 milhões/mês</option>
-                <option value="acima-3m">Acima de R$ 3 milhões/mês</option>
-                <option value="prefiro-nao-informar">Prefiro não informar</option>
+                <option value="" disabled selected data-i18n="register.revenuePh">Faturamento mensal</option>
+                <option value="ate-50k" data-i18n="register.rev1">Até R$ 50 mil/mês</option>
+                <option value="50k-100k" data-i18n="register.rev2">R$ 50 mil – R$ 100 mil/mês</option>
+                <option value="100k-250k" data-i18n="register.rev3">R$ 100 mil – R$ 250 mil/mês</option>
+                <option value="250k-500k" data-i18n="register.rev4">R$ 250 mil – R$ 500 mil/mês</option>
+                <option value="500k-1m" data-i18n="register.rev5">R$ 500 mil – R$ 1 milhão/mês</option>
+                <option value="1m-3m" data-i18n="register.rev6">R$ 1 milhão – R$ 3 milhões/mês</option>
+                <option value="acima-3m" data-i18n="register.rev7">Acima de R$ 3 milhões/mês</option>
+                <option value="prefiro-nao-informar" data-i18n="register.rev8">Prefiro não informar</option>
               </select>
             </div>
 
             <button
               type="submit"
               id="reg-submit-btn"
-              class="btn btn--solid-light cta-register__submit">
+              class="btn btn--solid-light cta-register__submit"
+              data-i18n="register.submit">
               Receber mais informações
             </button>
           </form>
@@ -4657,14 +4937,18 @@
     </div>
   </main>
 
-  <div
+    <div
     id="zira-toast"
     class="zira-toast"
     role="status"
     aria-live="polite"
     aria-atomic="true"
     hidden>
-    <div class="zira-toast__panel" role="alertdialog" aria-label="Cadastro enviado com sucesso">
+    <div
+      class="zira-toast__panel"
+      role="alertdialog"
+      data-i18n-attr="aria-label:register.toastAria"
+      aria-label="Cadastro enviado com sucesso">
       <div class="zira-toast__icon" aria-hidden="true">
         <svg class="zira-toast__svg" viewBox="0 0 72 72" width="64" height="64" role="presentation">
           <circle class="zira-toast__circle" cx="36" cy="36" r="32"></circle>
@@ -4672,10 +4956,15 @@
         </svg>
       </div>
       <div class="zira-toast__body">
-        <p class="zira-toast__title">Cadastro enviado!</p>
-        <p class="zira-toast__desc">Em até 8 horas um especialista do nosso time entra em contato.</p>
+        <p class="zira-toast__title" data-i18n="register.toastTitle">Cadastro enviado!</p>
+        <p class="zira-toast__desc" data-i18n="register.toastDesc">Em até 8 horas um especialista do nosso time entra em contato.</p>
       </div>
-      <button type="button" class="zira-toast__close" aria-label="Fechar" data-toast-close>
+      <button
+        type="button"
+        class="zira-toast__close"
+        data-i18n-attr="aria-label:register.toastClose"
+        aria-label="Fechar"
+        data-toast-close>
         <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true">
           <path d="M3 3 L13 13 M13 3 L3 13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
         </svg>
@@ -4694,6 +4983,12 @@
           <p class="footer__desc" data-i18n="footer.desc">
             Plataforma para escritórios de arquitetura e engenharia com operação conectada do WhatsApp ao acompanhamento de equipe, obra e prazos.
           </p>
+          <div class="footer__social" aria-label="Redes sociais M2 SCALE">
+            <a href="#" aria-label="LinkedIn M2 SCALE" rel="noopener noreferrer">in</a>
+            <a href="#" aria-label="Instagram M2 SCALE" rel="noopener noreferrer">ig</a>
+            <a href="#" aria-label="YouTube M2 SCALE" rel="noopener noreferrer">yt</a>
+            <a href="#" aria-label="X M2 SCALE" rel="noopener noreferrer">x</a>
+          </div>
         </div>
 
         <nav data-i18n-attr="aria-label:footer.navAria" aria-label="Links principais do rodapé">
@@ -4740,6 +5035,13 @@
           <a href="./#faq" data-i18n="footer.privacy">Privacidade e dados</a>
           <a href="./#cta" data-i18n="footer.terms">Termos comerciais</a>
         </div>
+      </div>
+      <div class="footer__partners" aria-label="Ecossistema e tecnologias">
+        <span class="footer__partner-item">M2 SCALE</span>
+        <span class="footer__partner-item">Evolution API</span>
+        <span class="footer__partner-item">Supabase</span>
+        <span class="footer__partner-item">Vercel</span>
+        <span class="footer__partner-item">WhatsApp Cloud Ops</span>
       </div>
     </div>
   </footer>
@@ -5050,6 +5352,26 @@
             { passive: true }
           );
         }
+
+        (function bindHeroScrollHint() {
+          var wrap = document.getElementById('hero-scroll-hint-wrap');
+          var heroEl = document.getElementById('hero');
+          if (!wrap || !heroEl) return;
+          var rafId = 0;
+          function tick() {
+            rafId = 0;
+            var y = window.scrollY || window.pageYOffset || 0;
+            var threshold = Math.min(Math.round(heroEl.offsetHeight * 0.07), 88);
+            if (y > threshold) wrap.classList.add('is-hidden');
+            else wrap.classList.remove('is-hidden');
+          }
+          function onScroll() {
+            if (rafId) return;
+            rafId = requestAnimationFrame(tick);
+          }
+          window.addEventListener('scroll', onScroll, { passive: true });
+          tick();
+        })();
 
         /* ----------------------------------------------------------
            Scrollbar · polegar preto/branco por zona (Hero / até .adapt / CTA / footer)
@@ -5588,11 +5910,13 @@
               return;
             }
 
-            var prevText = regBtn ? regBtn.textContent : '';
             if (regBtn) {
               regBtn.disabled = true;
               regBtn.setAttribute('aria-busy', 'true');
-              regBtn.textContent = 'Enviando…';
+              regBtn.textContent =
+                typeof ZiraI18n !== 'undefined'
+                  ? ZiraI18n.t('register.sending')
+                  : 'Enviando…';
             }
 
             ZiraLeads.submitLead(
@@ -5625,7 +5949,10 @@
                 if (regBtn) {
                   regBtn.disabled = false;
                   regBtn.removeAttribute('aria-busy');
-                  regBtn.textContent = prevText || 'Receber mais informações';
+                  regBtn.textContent =
+                    typeof ZiraI18n !== 'undefined'
+                      ? ZiraI18n.t('register.submit')
+                      : 'Receber mais informações';
                 }
               });
           });
@@ -5776,11 +6103,69 @@
         );
       }
 
+      function initTrustStatsCounters() {
+        var root = document.getElementById('trust-stats');
+        if (!root) return;
+        var nums = root.querySelectorAll('[data-trust-count]');
+        if (!nums.length) return;
+        var reduced =
+          window.matchMedia &&
+          window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        var fired = false;
+        function formatNum(el, n) {
+          var pre = el.getAttribute('data-trust-prefix') || '';
+          var suf = el.getAttribute('data-trust-suffix') || '';
+          el.textContent = pre + Math.round(n) + suf;
+        }
+        function run() {
+          if (fired) return;
+          fired = true;
+          for (var i = 0; i < nums.length; i++) {
+            (function (el) {
+              var target = parseInt(el.getAttribute('data-trust-count'), 10);
+              if (!isFinite(target)) target = 0;
+              if (reduced) {
+                formatNum(el, target);
+                return;
+              }
+              var start = null;
+              var duration = 1300;
+              function tick(ts) {
+                if (start === null) start = ts;
+                var p = Math.min((ts - start) / duration, 1);
+                var eased = 1 - Math.pow(1 - p, 3);
+                formatNum(el, target * eased);
+                if (p < 1) requestAnimationFrame(tick);
+              }
+              requestAnimationFrame(tick);
+            })(nums[i]);
+          }
+        }
+        if ('IntersectionObserver' in window) {
+          var obs = new IntersectionObserver(
+            function (entries, o) {
+              for (var j = 0; j < entries.length; j++) {
+                if (entries[j].isIntersecting) {
+                  run();
+                  o.disconnect();
+                  break;
+                }
+              }
+            },
+            { threshold: 0.2 }
+          );
+          obs.observe(root);
+        } else {
+          run();
+        }
+      }
+
       document.addEventListener('DOMContentLoaded', function () {
         if (typeof ZiraI18n !== 'undefined') {
           ZiraI18n.init();
         }
         bindUi();
+        initTrustStatsCounters();
         runHeroTyping();
         document.addEventListener('zira:lang', runHeroTyping);
 
