@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-i18n-page="blog">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), payment=(), usb=()">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; object-src 'none'; base-uri 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https:; connect-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com https:; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests">
+  <meta name="description" content="Artigos sobre gestão de escritório de arquitetura e engenharia: retrabalho no WhatsApp, priorização da equipe, jornada do cliente na obra, LGPD. Conteúdo ZIRA AI para operações previsíveis.">
+  <meta name="keywords" content="gestão escritório arquitetura, engenharia, WhatsApp obra, retrabalho, gestão projeto, escritório BIM, obra, cliente, LGPD, ZIRA AI, M2 SCALE">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#000000">
+  <meta name="author" content="M2 SCALE">
+  <title>Blog ZIRA AI · Gestão de escritório, obra e WhatsApp</title>
+  <link rel="canonical" href="https://www.zira.ai/blog.html">
+  <meta property="og:type" content="website">
+  <meta property="og:title" id="og-title" content="Blog ZIRA AI · Gestão de escritório, obra e operações">
+  <meta property="og:description" id="og-desc" content="Guias sobre retrabalho em WhatsApp, gestão à vista, jornada do cliente e LGPD para escritórios de arquitetura e engenharia.">
+  <meta property="og:url" content="https://www.zira.ai/blog.html">
+  <meta property="og:image" content="https://www.zira.ai/assets/hero-bg.jpg">
+  <meta property="og:locale" id="og-locale" content="pt_BR">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" id="twitter-title" content="Blog ZIRA AI · Gestão de escritório e obra">
+  <meta name="twitter:description" id="twitter-desc" content="Operação real de escritório: WhatsApp organizado, equipe focada em prioridade e clareza com o cliente.">
+  <link rel="icon" href="assets/favicon.png" type="image/svg+xml" sizes="any">
+  <link rel="apple-touch-icon" href="assets/favicon.png">
+  <link rel="icon" type="image/png" sizes="48x48" href="assets/favicon.png">
+  <link rel="icon" type="image/png" sizes="48x48" href="assets/favicon.png" media="(prefers-color-scheme: dark)">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --black: #000000;
+      --white: #ffffff;
+      --on-dark-1: rgba(255, 255, 255, 0.04);
+      --on-dark-2: rgba(255, 255, 255, 0.08);
+      --on-dark-3: rgba(255, 255, 255, 0.16);
+      --on-dark-text-2: rgba(255, 255, 255, 0.72);
+      --on-dark-text-3: rgba(255, 255, 255, 0.45);
+      --font-sans: 'Inter', system-ui, sans-serif;
+      --nav-height: 60px;
+      --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+      --t-fast: 180ms var(--ease-out);
+      --space-2: 8px;
+      --space-4: 16px;
+      --space-5: 20px;
+      --space-6: 24px;
+      --space-8: 48px;
+      --space-10: 80px;
+      --r-sm: 4px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; }
+    html {
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+      scrollbar-gutter: stable;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(255, 255, 255, 0.28) rgba(255, 255, 255, 0.04);
+    }
+    html::-webkit-scrollbar { width: 10px; height: 10px; }
+    html::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.03);
+      border-left: 1px solid rgba(255, 255, 255, 0.07);
+    }
+    html::-webkit-scrollbar-thumb {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.34), rgba(255, 255, 255, 0.14));
+      border-radius: 100px;
+      border: 2px solid rgba(0, 0, 0, 0.35);
+      background-clip: padding-box;
+    }
+    html::-webkit-scrollbar-thumb:hover {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.52), rgba(255, 255, 255, 0.26));
+    }
+    html::-webkit-scrollbar-corner { background: #000000; }
+    body {
+      font-family: var(--font-sans);
+      background: var(--black);
+      color: var(--on-dark-text-2);
+      font-size: 16px;
+      line-height: 1.56;
+      min-height: 100vh;
+    }
+    a { color: inherit; text-decoration: none; transition: color var(--t-fast); }
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      height: var(--nav-height);
+      background: rgba(10, 10, 10, 0.92);
+      border-bottom: 1px solid var(--on-dark-2);
+      backdrop-filter: blur(12px);
+    }
+    .nav__inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 var(--space-6);
+      height: 100%;
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
+    }
+    .nav__brand {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-4);
+      font-weight: 510;
+      font-size: 14px;
+      letter-spacing: -0.04em;
+      color: var(--white);
+    }
+    .nav__logo { width: 28px; height: 28px; object-fit: contain; }
+    .nav__lang {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      flex-shrink: 0;
+      margin-right: auto;
+    }
+    .nav__lang-btn {
+      display: inline-grid;
+      place-items: center;
+      width: 44px;
+      height: 30px;
+      padding: 0;
+      border-radius: var(--r-sm);
+      border: 1px solid var(--on-dark-3);
+      background: var(--on-dark-1);
+      overflow: hidden;
+      cursor: pointer;
+      opacity: 0.48;
+      transition: opacity var(--t-fast), border-color var(--t-fast), box-shadow var(--t-fast);
+    }
+    .nav__lang-btn img { width: 100%; height: 100%; object-fit: cover; }
+    .nav__lang-btn:hover { opacity: 0.85; border-color: var(--on-dark-text-3); }
+    .nav__lang-btn[data-active='true'] {
+      opacity: 1;
+      border-color: rgba(255, 255, 255, 0.85);
+      box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.22);
+    }
+    .nav__back {
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+    .nav__back:hover { color: var(--white); text-decoration: underline; text-underline-offset: 3px; }
+    .hero-blog {
+      padding: var(--space-10) var(--space-6) var(--space-8);
+      border-bottom: 1px solid var(--on-dark-2);
+      max-width: 720px;
+      margin: 0 auto;
+    }
+    .hero-blog h1 {
+      font-weight: 510;
+      font-size: clamp(28px, 4.5vw, 40px);
+      line-height: 1.1;
+      letter-spacing: -1.3px;
+      color: var(--white);
+      margin-bottom: var(--space-5);
+    }
+    .hero-blog p {
+      color: var(--on-dark-text-3);
+      font-size: 15px;
+      max-width: 36rem;
+    }
+    .blog-toc {
+      margin-top: var(--space-6);
+      padding: var(--space-5);
+      border: 1px solid var(--on-dark-2);
+      border-radius: var(--r-sm);
+      background: rgba(255, 255, 255, 0.02);
+    }
+    .blog-toc__title {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--on-dark-text-3);
+      margin-bottom: var(--space-3);
+      font-weight: 510;
+    }
+    .blog-toc ol {
+      margin: 0;
+      padding-left: 1.15rem;
+      display: grid;
+      gap: var(--space-2);
+      font-size: 14px;
+      line-height: 1.45;
+      color: var(--on-dark-text-2);
+    }
+    .blog-toc a:hover { color: var(--white); text-decoration: underline; text-underline-offset: 3px; }
+    main { padding-bottom: var(--space-10); }
+    .post {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: var(--space-8) var(--space-6);
+      border-bottom: 1px solid var(--on-dark-2);
+    }
+    .post:last-of-type { border-bottom: none; }
+    .post__meta {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--on-dark-text-3);
+      margin-bottom: var(--space-4);
+    }
+    .post h2 {
+      font-weight: 510;
+      font-size: clamp(20px, 2.8vw, 26px);
+      line-height: 1.28;
+      letter-spacing: -0.5px;
+      color: var(--white);
+      margin-bottom: var(--space-5);
+      scroll-margin-top: calc(var(--nav-height) + 16px);
+    }
+    .post p + p { margin-top: var(--space-4); }
+    .footer {
+      padding: var(--space-8) var(--space-6);
+      border-top: 1px solid var(--on-dark-2);
+    }
+    .footer__inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-4);
+      font-size: 13px;
+      color: var(--on-dark-text-3);
+    }
+    .footer__inner a {
+      font-weight: 510;
+      color: var(--on-dark-text-2);
+    }
+    .footer__inner a:hover { color: var(--white); }
+    .whatsapp-fab {
+      position: fixed;
+      bottom: calc(22px + env(safe-area-inset-bottom, 0px));
+      right: calc(18px + env(safe-area-inset-right, 0px));
+      z-index: 90;
+      display: grid;
+      place-items: center;
+      width: 54px;
+      height: 54px;
+      border-radius: 9999px;
+      background: #25d366;
+      color: #fff;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+    }
+    .whatsapp-fab:hover { transform: translateY(-2px); }
+    .whatsapp-fab svg { width: 28px; height: 28px; display: block; }
+    @media (max-width: 600px) {
+      .nav__inner { padding: 0 var(--space-4); }
+      .hero-blog, .post { padding-left: var(--space-4); padding-right: var(--space-4); }
+      body { padding-bottom: calc(84px + env(safe-area-inset-bottom, 0px)); }
+      .nav__lang-btn { width: 40px; height: 28px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+    }
+  </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    "name": "Blog ZIRA AI · M2 SCALE",
+    "description": "Artigos sobre gestão de escritório de arquitetura e engenharia, operação em obra, WhatsApp corporativo e conformidade aplicada.",
+    "inLanguage": ["pt-BR", "en"],
+    "url": "https://www.zira.ai/blog.html",
+    "publisher": {
+      "@type": "Organization",
+      "name": "M2 SCALE",
+      "url": "https://www.zira.ai/",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://www.zira.ai/assets/logo-preta.png"
+      }
+    },
+    "blogPost": [
+      {
+        "@type": "BlogPosting",
+        "headline": "Como reduzir retrabalho quando o WhatsApp é o sistema do escritório",
+        "keywords": ["arquitetura", "obra", "WhatsApp", "retrabalho", "prioridade"],
+        "description": "Definir entrada fechada por fase, checklists rápidos e histórico acessível reduzem retrabalho quando o canal principal é WhatsApp.",
+        "url": "https://www.zira.ai/blog.html#retrabalho-whatsapp"
+      },
+      {
+        "@type": "BlogPosting",
+        "headline": "Gestão à vista: o que monitorar antes do atraso virar drama com o cliente",
+        "keywords": ["gestão obra", "indicadores", "transparência", "equipe técnica"],
+        "description": "Indicadores leves antes do atraso vira pressão política sobre o relacionamento com o cliente da obra.",
+        "url": "https://www.zira.ai/blog.html#gestao-a-vista"
+      },
+      {
+        "@type": "BlogPosting",
+        "headline": "Da primeira mensagem à entrega: alinhar expectativa sem prometer milagre",
+        "keywords": ["jornada do cliente", "expectativa", "obra", "cronograma"],
+        "description": "Expectativas alinhadas e cadência comunicada antes que o projeto chegue ao canteiro.",
+        "url": "https://www.zira.ai/blog.html#jornada-cliente"
+      },
+      {
+        "@type": "BlogPosting",
+        "headline": "Caixa de entrada sem dono: priorizar o que entra antes de virar problema em obra",
+        "keywords": ["priorização", "inbox", "tipologia de projeto", "operacional"],
+        "description": "Triagem por tipo de obra, filas com dono e menos urgência fictícia no time.",
+        "url": "https://www.zira.ai/blog.html#prioridade-inbox"
+      },
+      {
+        "@type": "BlogPosting",
+        "headline": "LGPD na prática para escritório de arquitetura: cliente, obra e uso de ferramentas de mensagens",
+        "keywords": ["LGPD", "whatsapp corporativo", "dados pessoais", "escritório"],
+        "description": "Consentimento documentado e minimização de cópias soltas quando lead e projeto circulam no chat.",
+        "url": "https://www.zira.ai/blog.html#lgpd-escritorio"
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <header class="nav">
+    <div class="nav__inner">
+      <a
+        href="index.html"
+        class="nav__brand"
+        data-i18n-attr="aria-label:blogPage.navBrandAria"
+        aria-label="M2 SCALE · página inicial">
+        <img src="assets/logo-branca.png" alt="" class="nav__logo">
+      </a>
+      <div
+        class="nav__lang"
+        role="group"
+        data-i18n-attr="aria-label:nav.langGroup"
+        aria-label="Idioma">
+        <button
+          type="button"
+          class="nav__lang-btn"
+          data-lang-btn="pt-BR"
+          data-active="true"
+          aria-pressed="true"
+          title="Português"
+          aria-label="Português">
+          <img src="assets/brasil-logo.gif" alt="" width="40" height="28" decoding="async" fetchpriority="low">
+        </button>
+        <button
+          type="button"
+          class="nav__lang-btn"
+          data-lang-btn="en"
+          data-active="false"
+          aria-pressed="false"
+          title="English"
+          aria-label="English">
+          <img src="assets/usa-logo.jpg" alt="" width="40" height="28" decoding="async" fetchpriority="low">
+        </button>
+      </div>
+      <a href="index.html" class="nav__back" data-i18n="blogPage.navBack">← Voltar ao site</a>
+    </div>
+  </header>
+
+  <section class="hero-blog">
+    <h1 data-i18n="blogPage.heroTitle">Blog</h1>
+    <p data-i18n="blogPage.heroLead">Textos curtos sobre operação real de escritório: prioridade, transparência com o cliente e o que costuma quebrar quando tudo gira em mensagens soltas.</p>
+    <nav
+      class="blog-toc"
+      aria-labelledby="blog-toc-h"
+      data-i18n-attr="aria-label:blogPage.tocAriaLabel">
+      <p id="blog-toc-h" class="blog-toc__title" data-i18n="blogPage.tocTitle">Nesta página</p>
+      <ol>
+        <li><a href="#retrabalho-whatsapp" data-i18n="blogPage.toc1">Retrabalho e WhatsApp como “sistema”</a></li>
+        <li><a href="#gestao-a-vista" data-i18n="blogPage.toc2">Gestão à vista antes do drama com o cliente</a></li>
+        <li><a href="#jornada-cliente" data-i18n="blogPage.toc3">Jornada do lead até a obra</a></li>
+        <li><a href="#prioridade-inbox" data-i18n="blogPage.toc4">Priorização da caixa de entrada</a></li>
+        <li><a href="#lgpd-escritorio" data-i18n="blogPage.toc5">LGPD no escritório e mensagens</a></li>
+      </ol>
+    </nav>
+  </section>
+
+  <main>
+    <article class="post" id="retrabalho-whatsapp">
+      <p class="post__meta" data-i18n="blogPage.post1meta">Operação · 8 min</p>
+      <h2 data-i18n="blogPage.post1h2">Como reduzir retrabalho quando o WhatsApp é o “sistema” do escritório</h2>
+      <p data-i18n="blogPage.post1p1">Quando o inbox vira backlog sem dono, a equipe técnica reabre o mesmo arquivo três vezes porque ninguém sabe qual era a última decisão válida. O primeiro passo não é ferramenta nova por si só: é definir o que conta como “entrada fechada” em cada tipo de obra e quem fecha.</p>
+      <p data-i18n="blogPage.post1p2">Listas rápidas de verificação por fase (projeto, compatibilização, canteiro) reduzem ida e volta de WhatsApp que não adiciona informação. O Zira encaixa nessa lógica ao manter histórico e prioridade visíveis para quem executa, sem depender de print em grupo.</p>
+      <p data-i18n="blogPage.post1p3">
+        Em escritórios médios e grandes, o custo real do retrabalho não é só hora técnica: é prazo perdido com fornecedor, revisão em cima da hora e estresse nas relações com o cliente e com o canteiro.
+      </p>
+      <p data-i18n="blogPage.post1p4">
+        Se o WhatsApp é o sistema, o mínimo viável para SEO operacional é: um dono por conversa até fechar escopo; histórico pesquisável; e prioridade explícita.
+      </p>
+    </article>
+
+    <article class="post" id="gestao-a-vista">
+      <p class="post__meta" data-i18n="blogPage.post2meta">Equipe · 6 min</p>
+      <h2 data-i18n="blogPage.post2h2">Gestão à vista: o que monitorar antes do atraso virar drama com o cliente</h2>
+      <p data-i18n="blogPage.post2p1">Cliente cobra quando percebe vazio de informação, não quando a etapa atrasou um dia. Mostrar responsável atual, próximo compromisso e o que já foi entregue muda completamente o tom da cobrança, mesmo que o calendário ainda esteja apertado.</p>
+      <p data-i18n="blogPage.post2p2">Um painel simples por pessoa ou por obra evita aquela sensação de urgência artificial em tudo ao mesmo tempo. Você distribui tensão onde ela faz diferença, em vez de apagar incêndio em fila cronológica maluca.</p>
+      <p data-i18n="blogPage.post2p3">
+        Indicadores leves já ajudam: fila média por responsável, obra com mais dias sem atualização oficial e SLA interno só para retrorno ao cliente, não para todas as mensagens internas.
+      </p>
+      <p data-i18n="blogPage.post2p4">
+        Quando existe painel único ligado ao fluxo que o time já usa, o gestor deixa de ser “filtro humano” e passa a atuar só onde há exceção.
+      </p>
+    </article>
+
+    <article class="post" id="jornada-cliente">
+      <p class="post__meta" data-i18n="blogPage.post3meta">Cliente · 7 min</p>
+      <h2 data-i18n="blogPage.post3h2">Da primeira mensagem à entrega: alinhar expectativa sem prometer milagre</h2>
+      <p data-i18n="blogPage.post3p1">O lead quer velocidade e o time quer precisão. Narrar etapas de forma objetiva (“o que já foi decidido”, “o que falta pra fechar o pacote atual”) atravessa períodos lentos sem destruir confiança. Silêncio pesa mais que uma data honesta bem explicada.</p>
+      <p data-i18n="blogPage.post3p2">Fluxos bem desenhados deixam o cliente enxergar o caminho do primeiro “oi” até a obra em execução, sem depender que alguém lembre de atualizar grupo à mão todas as tardes.</p>
+      <p data-i18n="blogPage.post3p3">
+        Normalize uma cadência simples — por exemplo segunda e quinta para obras críticas, semanalmente para cobrança de pagamento quando aplicável — e comunique esse ritmo ao cliente cedo.
+      </p>
+      <p data-i18n="blogPage.post3p4">
+        O Google e clientes avaliam bem páginas e processos onde o escritório parece estar no comando da informação; em reputação aplicada à obra, consistência conta tanto quanto velocidade pontual.
+      </p>
+    </article>
+
+    <article class="post" id="prioridade-inbox">
+      <p class="post__meta" data-i18n="blogPage.post4meta">Priorização · 7 min</p>
+      <h2 data-i18n="blogPage.post4h2">
+        Caixa de entrada sem dono: como priorizar o que entra antes de virar problema em obra
+      </h2>
+      <p data-i18n="blogPage.post4p1">
+        Nem todo lead é igual e nem toda urgência gritada no grupo é importante. Um critério claro por tipo de obra — reforma rápida, novo empreendimento, corporativo — evita que a equipe viva em modo “turbo” eterno.
+      </p>
+      <p data-i18n="blogPage.post4p2">
+        Listas Kanban ou filas nomeadas já melhoram, desde que cada card tenha dono único até o próximo estado. Mensagens perdidas são sintoma quase sempre de backlog sem ordenação.
+      </p>
+      <p data-i18n="blogPage.post4p3">
+        Ao integrar atendimento a etapas reais da obra — da proposta à visita técnica — você reduz a sensação caótica tanto para dentro quanto para fora do escritório.
+      </p>
+      <p data-i18n="blogPage.post4p4">
+        Por fim: medir retrabalho por tipo de projeto mostra onde investir playbook ou modelo de briefing, em vez de “processo genérico” que não pega bem em projeto de alta complexidade.
+      </p>
+    </article>
+
+    <article class="post" id="lgpd-escritorio">
+      <p class="post__meta" data-i18n="blogPage.post5meta">Compliance · 6 min</p>
+      <h2 data-i18n="blogPage.post5h2">
+        LGPD na prática para escritório de arquitetura: cliente, obra e uso de ferramentas de mensagens
+      </h2>
+      <p data-i18n="blogPage.post5p1">
+        Tratar WhatsApp apenas como canal informal aumenta risco quando há dados cadastrais, plantas e valores em circulação. Políticas internas devem definir onde cada tipo de dado pode ficar e por quanto tempo.
+      </p>
+      <p data-i18n="blogPage.post5p2">
+        Consentimento pode ser combinado verbalmente mas precisa estar documentado no contrato e na coleta inicial: finalidade dos dados e contato oficial do responsável tratam bem a maior parte das dúvidas do cliente final.
+      </p>
+      <p data-i18n="blogPage.post5p3">
+        Sistemas que minimizam cópias soltas ou prints em grupo ajudam a auditar quando necessário, sem transformar cada conversa num processo burocrático.
+      </p>
+      <p data-i18n="blogPage.post5p4">
+        Um blog com página única bem estruturada (títulos, meta descrições e FAQs internas aos artigos) soma texto relevante sobre temas que clientes pesquisam: gestão em obra de arquitetura, ferramentas de equipe para engenharia, operação multidisciplinar no Brasil.
+      </p>
+    </article>
+  </main>
+
+  <footer class="footer">
+    <div class="footer__inner">
+      <span data-i18n="blogPage.footerCr">© M2 SCALE</span>
+      <a href="index.html" data-i18n="blogPage.footerSite">Site principal</a>
+    </div>
+  </footer>
+
+  <a
+    class="whatsapp-fab"
+    href="#"
+    data-wa-link
+    target="_blank"
+    rel="noopener noreferrer"
+    data-i18n-attr="aria-label:wa.aria"
+    aria-label="Atendimento ZIRA AI no WhatsApp">
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.149-.197.297-.767.967-.94 1.164-.173.198-.347.223-.644.074-.297-.15-1.255-.463-2.39-1.475-.884-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.134.297-.347.446-.52.149-.173.198-.297.297-.495.099-.198.05-.371-.025-.52-.074-.148-.673-1.618-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.569-.01-.198 0-.52.074-.792.372-.271.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.095 3.2 5.076 4.487.709.306 1.262.489 1.694.625.712.226 1.359.195 1.871.118.571-.084 1.758-.719 2.006-1.413.248-.694.248-1.288.173-1.413-.074-.124-.272-.197-.569-.347m-5.419 7.403h-.004a9.87 9.87 0 01-5.03-1.378l-.361-.215-3.741.983.998-3.648-.236-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.887-9.884 2.641 0 5.119 1.03 6.986 2.897a9.825 9.825 0 012.892 7.003c-.003 5.45-4.435 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.688 5.949L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+    </svg>
+  </a>
+
+  <script src="assets/i18n.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      if (typeof ZiraI18n !== 'undefined') {
+        ZiraI18n.init();
+      }
+    });
+  </script>
+</body>
+</html>
