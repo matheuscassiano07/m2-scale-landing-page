@@ -54,13 +54,17 @@
       font-size: 15px;
       line-height: 1.45;
       color: var(--black);
-      background: var(--white);
+      background:
+        linear-gradient(rgba(8, 10, 14, 0.72), rgba(8, 10, 14, 0.72)),
+        url('assets/section-total.jpg') center / cover fixed no-repeat;
       -webkit-font-smoothing: antialiased;
     }
 
     @media (prefers-color-scheme: dark) {
       body {
-        background: var(--black);
+        background:
+          linear-gradient(rgba(6, 8, 12, 0.8), rgba(6, 8, 12, 0.8)),
+          url('assets/section-total.jpg') center / cover fixed no-repeat;
         color: #f2f2f2;
         --black: #f2f2f2;
         --white: #0a0a0a;
@@ -85,6 +89,11 @@
       max-width: 1200px;
       margin: 0 auto;
       padding: 20px clamp(18px, 4vw, 40px) 56px;
+    }
+    @media (max-width: 899px) {
+      body {
+        background-attachment: scroll;
+      }
     }
 
     .adm-top {
