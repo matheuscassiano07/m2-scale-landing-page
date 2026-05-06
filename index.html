@@ -2864,26 +2864,13 @@
        Footer
        ============================================================ */
     .footer {
-      position: relative;
       padding: var(--space-10) var(--space-6) var(--space-7);
       background:
-        radial-gradient(120% 90% at 0% 0%, rgba(42, 118, 255, 0.28), transparent 62%),
-        radial-gradient(120% 90% at 100% 0%, rgba(25, 214, 170, 0.24), transparent 58%),
-        linear-gradient(180deg, rgba(7, 10, 22, 0.94), rgba(10, 16, 32, 0.97)),
-        url('assets/section-total.jpg') center / cover no-repeat;
-      border-top: 1px solid rgba(255, 255, 255, 0.12);
-      overflow: hidden;
-    }
-    .footer::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(180deg, rgba(8, 12, 26, 0.16), rgba(8, 12, 26, 0.42));
-      pointer-events: none;
+        linear-gradient(180deg, rgba(8, 8, 8, 0.98), rgba(0, 0, 0, 1));
+      border-top: 1px solid rgba(255, 255, 255, 0.16);
     }
 
     .footer__container {
-      position: relative;
       max-width: var(--content-max);
       margin: 0 auto;
       display: grid;
@@ -2898,12 +2885,10 @@
     }
 
     .footer__top > * {
-      border: 1px solid rgba(255, 255, 255, 0.09);
-      border-radius: 16px;
-      background: rgba(255, 255, 255, 0.04);
-      padding: 20px 18px;
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+      padding: 0;
     }
 
     .footer__brand-wrap {
@@ -2956,13 +2941,13 @@
       color: var(--on-dark-text-2);
       border: 1px solid rgba(255, 255, 255, 0.26);
       text-decoration: none;
-      background: rgba(255, 255, 255, 0.06);
+      background: transparent;
       transition: background var(--t-fast), color var(--t-fast), border-color var(--t-fast);
     }
     .footer__social a:hover {
       color: var(--white);
       border-color: rgba(255, 255, 255, 0.56);
-      background: rgba(255, 255, 255, 0.16);
+      background: rgba(255, 255, 255, 0.08);
     }
 
     .footer__heading {
@@ -3070,10 +3055,10 @@
       letter-spacing: 0.08em;
       text-transform: uppercase;
       color: rgba(255, 255, 255, 0.76);
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      border-radius: 999px;
-      padding: 7px 12px;
-      background: rgba(255, 255, 255, 0.05);
+      border: 0;
+      border-radius: 0;
+      padding: 0;
+      background: transparent;
       white-space: nowrap;
     }
 
@@ -4534,6 +4519,17 @@
               </summary>
               <div class="faq__answer">
                 <p data-i18n="faq.a7">O Zira é configurado à realidade do seu escritório: tipos de obra, etapas, responsáveis e prioridades alinhamos na implantação. Não existe um molde rígido único para todos: há um núcleo comum de atendimento e obra que mapeamos para como vocês já trabalham hoje.</p>
+              </div>
+            </details>
+          </article>
+          <article class="faq__item" data-reveal style="--reveal-delay: 350ms" role="listitem">
+            <details class="faq__details" name="zira-faq">
+              <summary class="faq__summary">
+                <span class="faq__summary-text" data-i18n="faq.q8">Preciso ter arquitetura e engenharia no mesmo escritório para usar?</span>
+                <span class="faq__icon" aria-hidden="true">+</span>
+              </summary>
+              <div class="faq__answer">
+                <p data-i18n="faq.a8">Não. A M2SCALE atende escritório só de arquitetura, só de engenharia ou com as duas frentes juntas. Na implantação ajustamos etapas, papéis e fluxo ao perfil do seu time.</p>
               </div>
             </details>
           </article>

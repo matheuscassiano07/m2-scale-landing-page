@@ -13,13 +13,13 @@
       meta: {
         title: 'M2SCALE · Plataforma para Escritórios de Arquitetura e Engenharia',
         description:
-          'M2SCALE · Organiza atendimento, equipe, obras e prazos para escritórios de arquitetura e engenharia. Operação clara no WhatsApp, desktop e obra.',
+          'M2SCALE · Para escritórios só de arquitetura, só de engenharia ou com as duas frentes: organiza atendimento, equipe, obras e prazos. Operação clara no WhatsApp, desktop e obra.',
         ogTitle: 'M2SCALE · Plataforma para Escritórios de Arquitetura e Engenharia',
         ogDescription:
-          'Organiza atendimento, equipe, obras e prazos. Operação real no escritório, do WhatsApp à obra, com mais clareza e previsibilidade.',
+          'Funciona para escritório só de arquitetura, só de engenharia ou multidisciplinar. Atendimento, equipe, obras e prazos com mais clareza e previsibilidade.',
         twitterTitle: 'M2SCALE · Plataforma para Escritórios',
         twitterDescription:
-          'Atendimento, equipe, obras e prazos organizados para escritórios de arquitetura e engenharia.',
+          'Arquitetura, engenharia ou os dois: atendimento, equipe, obras e prazos organizados no mesmo fluxo.',
       },
       nav: {
         brandAria: 'M2 SCALE · Página inicial',
@@ -36,12 +36,12 @@
       },
       hero: {
         title:
-          'Transforme WhatsApp em operação previsível: atendimento, equipe, obra e prazo no mesmo controle.',
+          'Transforme WhatsApp em operação previsível: atendimento, equipe, obra e prazo no mesmo controle — para escritório só de arquitetura, só de engenharia ou com as duas frentes.',
         counterLabel: 'escritórios já evoluíram com a ZIRA AI',
         sr:
           'ZIRA AI, plataforma para arquitetura e engenharia. Mais de 100 escritórios já evoluíram para uma operação mais clara, integrada e previsível.',
         proof:
-          'Escritórios que padronizam a operação reduzem retrabalho, aceleram resposta e ganham margem para crescer.',
+          'Se você é só arquitetura, só engenharia ou as duas disciplinas no mesmo escritório, a operação fica no mesmo padrão: menos retrabalho, resposta mais rápida e margem para crescer.',
       },
       zira: {
         desc:
@@ -137,6 +137,9 @@
         q7: 'O sistema se adapta ao fluxo do meu escritório ou exige um modelo pronto?',
         a7:
           'O Zira é configurado à realidade do seu escritório: tipos de obra, etapas, responsáveis e prioridades alinhamos na implantação. Não existe um molde rígido único para todos: há um núcleo comum de atendimento e obra que mapeamos para como vocês já trabalham hoje.',
+        q8: 'Preciso ter arquitetura e engenharia no mesmo escritório para usar?',
+        a8:
+          'Não. A M2SCALE atende escritório só de arquitetura, só de engenharia ou com as duas frentes juntas. Na implantação ajustamos etapas, papéis e fluxo ao perfil do seu time.',
       },
       blogSection: {
         title: 'Conteúdo para quem lidera operação e quer escala com controle',
@@ -177,7 +180,7 @@
         opsAria: 'Operação do rodapé',
         brand: 'M2 SCALE',
         desc:
-          'Plataforma para escritórios de arquitetura e engenharia com operação conectada do WhatsApp ao acompanhamento de equipe, obra e prazos.',
+          'Para escritórios só de arquitetura, só de engenharia ou com as duas disciplinas: operação conectada do WhatsApp ao acompanhamento de equipe, obra e prazos.',
         colPlatform: 'Plataforma',
         colContent: 'Conteúdo',
         colOps: 'Operação',
@@ -231,7 +234,7 @@
       schema: {
         organizationName: 'M2 SCALE',
         softwareDesc:
-          'Plataforma que organiza atendimento, equipe, obras e prazos para escritórios de arquitetura e engenharia, com atendimento integrado via WhatsApp.',
+          'Plataforma que organiza atendimento, equipe, obras e prazos para escritórios só de arquitetura, só de engenharia ou com as duas frentes, com atendimento integrado via WhatsApp.',
       },
       blogPage: {
         metaTitle:
@@ -364,13 +367,13 @@
       meta: {
         title: 'M2SCALE · Platform for Architecture & Engineering Firms',
         description:
-          'M2SCALE · Client intake, staffing, projects, and deadlines aligned for architecture & engineering firms: from WhatsApp to the field.',
+          'M2SCALE · For architecture-only, engineering-only, or multidisciplinary firms: aligned intake, staffing, projects, and deadlines from WhatsApp to the field.',
         ogTitle: 'M2SCALE · Platform for Architecture & Engineering Firms',
         ogDescription:
-          'Aligns intake, team, projects, and timelines. Real world firm operations from WhatsApp to the site, with clarity and predictability.',
+          'Works for architecture-only studios, engineering-only practices, or both. Aligns intake, team, projects, and timelines with clarity and predictability.',
         twitterTitle: 'M2SCALE · Firm Operations Platform',
         twitterDescription:
-          'Aligned intake, staffing, jobs, and deadlines for architecture & engineering studios.',
+          'Architecture-only, engineering-only, or both: aligned intake, staffing, jobs, and deadlines.',
       },
       nav: {
         brandAria: 'M2 SCALE · Home',
@@ -387,12 +390,12 @@
       },
       hero: {
         title:
-          'The platform that organizes client intake, staffing, jobs, and deadlines for architecture and engineering offices.',
+          'The platform that organizes client intake, staffing, jobs, and deadlines — for architecture-only, engineering-only, or multidisciplinary firms.',
         counterLabel: 'firms have moved to clearer operations with ZIRA AI',
         sr:
           'ZIRA AI, operations for architecture & engineering. Over 100 firms have moved to clearer, integrated, more predictable work.',
         proof:
-          'Over 100 firms have moved to clearer, integrated, more predictable operations.',
+          'Whether you run architecture only, engineering only, or both under one roof, the same operating rhythm cuts rework, speeds response, and creates room to scale.',
       },
       zira: {
         desc:
@@ -491,6 +494,9 @@
         q7: 'Does the product adapt to how we already work, or force one cookie cutter model?',
         a7:
           'Zira maps to how your studio actually behaves: scopes, milestones, responsibilities, and priorities tuned during onboarding. No single rigid template for everyone: there’s a shared backbone for intake and builds that aligns with your current playbook.',
+        q8: 'Do we need architecture and engineering in the same firm to use it?',
+        a8:
+          'No. M2SCALE works for architecture-only firms, engineering-only practices, or multidisciplinary teams. We tune stages, roles, and flows to your actual lineup during onboarding.',
       },
       blogSection: {
         title: 'For leaders running real jobsites',
@@ -531,7 +537,7 @@
         opsAria: 'Footer operations links',
         brand: 'M2 SCALE',
         desc:
-          'Platform for architecture and engineering firms with connected operations from WhatsApp intake to team, project and deadline tracking.',
+          'For architecture-only, engineering-only, or multidisciplinary firms: connected operations from WhatsApp intake to team, project, and deadline tracking.',
         colPlatform: 'Platform',
         colContent: 'Content',
         colOps: 'Operations',
@@ -584,7 +590,7 @@
       schema: {
         organizationName: 'M2 SCALE',
         softwareDesc:
-          'Platform that aligns intake, staffing, projects, and deadlines for architecture and engineering firms, with WhatsApp native orchestration.',
+          'Platform that aligns intake, staffing, projects, and deadlines for architecture-only, engineering-only, or multidisciplinary firms, with WhatsApp-native orchestration.',
       },
       blogPage: {
         metaTitle:
@@ -948,6 +954,11 @@
             '@type': 'Question',
             name: f.q7,
             acceptedAnswer: { '@type': 'Answer', text: f.a7 },
+          },
+          {
+            '@type': 'Question',
+            name: f.q8,
+            acceptedAnswer: { '@type': 'Answer', text: f.a8 },
           },
         ],
       },
