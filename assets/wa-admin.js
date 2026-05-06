@@ -148,9 +148,11 @@
       .then(function (data) {
         if (!data || data.ok === false) {
           setBadge(tx('erro', 'error'), 'bad');
+          var reason = data && data.error ? data.error : 'rede';
+          var detail = data && data.message ? String(data.message) : '';
           els.hint.textContent = tx(
-            'Falha ao buscar QR (' + (data && data.error || 'rede') + ').',
-            'Failed to fetch QR (' + (data && data.error || 'network') + ').'
+            'Falha ao buscar QR (' + reason + ')' + (detail ? ': ' + detail : '.') ,
+            'Failed to fetch QR (' + reason + ')' + (detail ? ': ' + detail : '.')
           );
           schedule(POLL_ERROR_MS);
           return;
