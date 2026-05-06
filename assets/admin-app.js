@@ -413,7 +413,14 @@
           if (resp.status === 401) {
             err.textContent = window.ZiraI18n.t('adminPage.loginInvalid');
           } else if (resp.status === 503) {
-            err.textContent = window.ZiraI18n.t('adminPage.loginNotConfigured');
+            var missing = resp && resp.data && Array.isArray(resp.data.missing)
+              ? resp.data.missing
+              : [];
+            if (missing.indexOf('SESSION_SECRET') !== -1) {
+              err.textContent = window.ZiraI18n.t('adminPage.securityWarn');
+            } else {
+              err.textContent = window.ZiraI18n.t('adminPage.loginNotConfigured');
+            }
           } else if (resp.status === 429) {
             err.textContent = window.ZiraI18n.t('adminPage.loginRate');
           } else {
