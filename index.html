@@ -2381,6 +2381,7 @@
       padding: 0 12px 0 16px;
       color: rgba(255, 255, 255, 0.7);
       font-size: 14px;
+      position: relative;
     }
     .cta-register__phone-flag::after {
       content: '';
@@ -2391,6 +2392,40 @@
       margin-left: 4px;
     }
     .cta-register__phone-flag svg { width: 22px; height: 16px; border-radius: 2px; display: block; }
+    .cta-register__phone-country-value {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      pointer-events: none;
+      user-select: none;
+      font-variant-numeric: tabular-nums;
+    }
+    .cta-register__phone-country-value::after {
+      content: '▾';
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.58);
+      margin-left: 2px;
+      line-height: 1;
+    }
+    .cta-register__phone-country-value .emoji-flag {
+      font-size: 17px;
+      line-height: 1;
+    }
+    .cta-register__phone-country-select {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      cursor: pointer;
+      border: 0;
+      appearance: none;
+      -webkit-appearance: none;
+      background: transparent;
+    }
+    .cta-register__phone-country-select:focus-visible {
+      outline: none;
+    }
     .cta-register__phone input {
       flex: 1;
       background: transparent;
@@ -2641,6 +2676,65 @@
 
     .schedule-modal__field input[aria-invalid='true'] {
       border-color: #b42318;
+    }
+    .schedule-modal__phone {
+      display: flex;
+      align-items: center;
+      border: 1px solid rgba(0, 0, 0, 0.14);
+      border-radius: var(--r-sm);
+      background: var(--white);
+      overflow: hidden;
+    }
+    .schedule-modal__phone:focus-within {
+      outline: 2px solid rgba(0, 0, 0, 0.25);
+      outline-offset: 1px;
+    }
+    .schedule-modal__phone[data-invalid='true'] {
+      border-color: #b42318;
+    }
+    .schedule-modal__phone-prefix {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0 10px 0 12px;
+      min-height: 46px;
+      border-right: 1px solid rgba(0, 0, 0, 0.14);
+      font-size: 14px;
+      color: rgba(0, 0, 0, 0.78);
+      font-variant-numeric: tabular-nums;
+      user-select: none;
+    }
+    .schedule-modal__phone-prefix::after {
+      content: '▾';
+      font-size: 11px;
+      color: rgba(0, 0, 0, 0.45);
+      margin-left: 2px;
+      line-height: 1;
+    }
+    .schedule-modal__phone-prefix .emoji-flag {
+      font-size: 17px;
+      line-height: 1;
+    }
+    .schedule-modal__phone-select {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      cursor: pointer;
+      border: 0;
+      appearance: none;
+      -webkit-appearance: none;
+      background: transparent;
+    }
+    .schedule-modal__phone input {
+      border: 0;
+      border-radius: 0;
+      padding: 12px 14px;
+    }
+    .schedule-modal__phone input:focus {
+      outline: none;
     }
 
     .schedule-modal__actions {
@@ -4492,14 +4586,28 @@
             <div class="cta-register__field">
               <label for="reg-phone" class="is-sr">Telefone</label>
               <div class="cta-register__phone" id="reg-phone-wrap">
-                <span class="cta-register__phone-flag" aria-hidden="true">
-                  <svg viewBox="0 0 28 20" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="28" height="20" rx="2" fill="#009C3B"/>
-                    <path d="M14 3 L25 10 L14 17 L3 10 Z" fill="#FFDF00"/>
-                    <circle cx="14" cy="10" r="4" fill="#002776"/>
-                    <path d="M10.5 10.2 q3.5 -1.3 7 0" stroke="#fff" stroke-width="0.7" fill="none"/>
-                  </svg>
-                </span>
+                <div class="cta-register__phone-flag">
+                  <span class="cta-register__phone-country-value" id="reg-country-value">
+                    <span class="emoji-flag" id="reg-country-flag" aria-hidden="true">🇧🇷</span>
+                    <span id="reg-country-dial" aria-hidden="true">+55</span>
+                  </span>
+                  <select
+                    id="reg-country"
+                    name="countryDial"
+                    class="cta-register__phone-country-select"
+                    aria-label="Selecionar país e DDI">
+                    <option value="+55" data-flag="🇧🇷" selected>Brasil (+55)</option>
+                    <option value="+1" data-flag="🇺🇸">Estados Unidos (+1)</option>
+                    <option value="+54" data-flag="🇦🇷">Argentina (+54)</option>
+                    <option value="+56" data-flag="🇨🇱">Chile (+56)</option>
+                    <option value="+57" data-flag="🇨🇴">Colômbia (+57)</option>
+                    <option value="+34" data-flag="🇪🇸">Espanha (+34)</option>
+                    <option value="+351" data-flag="🇵🇹">Portugal (+351)</option>
+                    <option value="+44" data-flag="🇬🇧">Reino Unido (+44)</option>
+                    <option value="+49" data-flag="🇩🇪">Alemanha (+49)</option>
+                    <option value="+33" data-flag="🇫🇷">França (+33)</option>
+                  </select>
+                </div>
                 <input id="reg-phone" name="phone" type="tel" autocomplete="tel" required inputmode="tel" maxlength="32" placeholder="Telefone">
               </div>
             </div>
@@ -4684,7 +4792,29 @@
           </div>
           <div class="schedule-modal__field">
             <label for="schedule-phone" data-i18n="schedule.labelPhone">Telefone (com DDD)</label>
-            <input id="schedule-phone" name="phone" type="tel" autocomplete="tel" required inputmode="tel" maxlength="32">
+            <div class="schedule-modal__phone" id="schedule-phone-wrap">
+              <span class="schedule-modal__phone-prefix">
+                <span id="schedule-country-flag" class="emoji-flag" aria-hidden="true">🇧🇷</span>
+                <span id="schedule-country-dial" aria-hidden="true">+55</span>
+                <select
+                  id="schedule-country"
+                  name="scheduleCountryDial"
+                  class="schedule-modal__phone-select"
+                  aria-label="Selecionar país e DDI">
+                  <option value="+55" data-flag="🇧🇷" selected>Brasil (+55)</option>
+                  <option value="+1" data-flag="🇺🇸">Estados Unidos (+1)</option>
+                  <option value="+54" data-flag="🇦🇷">Argentina (+54)</option>
+                  <option value="+56" data-flag="🇨🇱">Chile (+56)</option>
+                  <option value="+57" data-flag="🇨🇴">Colômbia (+57)</option>
+                  <option value="+34" data-flag="🇪🇸">Espanha (+34)</option>
+                  <option value="+351" data-flag="🇵🇹">Portugal (+351)</option>
+                  <option value="+44" data-flag="🇬🇧">Reino Unido (+44)</option>
+                  <option value="+49" data-flag="🇩🇪">Alemanha (+49)</option>
+                  <option value="+33" data-flag="🇫🇷">França (+33)</option>
+                </select>
+              </span>
+              <input id="schedule-phone" name="phone" type="tel" autocomplete="tel" required inputmode="tel" maxlength="32">
+            </div>
           </div>
           <div class="schedule-modal__field">
             <label for="schedule-company">
@@ -5137,6 +5267,10 @@
         var scheduleNameEl = scheduleForm ? document.getElementById('schedule-name') : null;
         var scheduleEmailEl = scheduleForm ? document.getElementById('schedule-email') : null;
         var schedulePhoneEl = scheduleForm ? document.getElementById('schedule-phone') : null;
+        var schedulePhoneWrapEl = scheduleForm ? document.getElementById('schedule-phone-wrap') : null;
+        var scheduleCountryEl = scheduleForm ? document.getElementById('schedule-country') : null;
+        var scheduleCountryFlagEl = scheduleForm ? document.getElementById('schedule-country-flag') : null;
+        var scheduleCountryDialEl = scheduleForm ? document.getElementById('schedule-country-dial') : null;
         var scheduleCompanyEl = scheduleForm ? document.getElementById('schedule-company') : null;
         var scheduleLastFocusEl = null;
 
@@ -5147,6 +5281,55 @@
         function setFieldInvalid(inp, invalid) {
           if (!inp) return;
           inp.setAttribute('aria-invalid', invalid ? 'true' : 'false');
+          if (inp.id === 'schedule-phone' && schedulePhoneWrapEl) {
+            if (invalid) schedulePhoneWrapEl.setAttribute('data-invalid', 'true');
+            else schedulePhoneWrapEl.removeAttribute('data-invalid');
+          }
+        }
+        function scheduleOnlyDigits(v) {
+          return String(v || '').replace(/\D/g, '');
+        }
+        function getScheduleDialCode() {
+          return scheduleCountryEl && scheduleCountryEl.value ? String(scheduleCountryEl.value) : '+55';
+        }
+        function updateScheduleCountryLabel() {
+          if (!scheduleCountryEl) return;
+          var opt = scheduleCountryEl.options[scheduleCountryEl.selectedIndex];
+          var flag = opt ? String(opt.getAttribute('data-flag') || '🌐') : '🌐';
+          var dial = getScheduleDialCode();
+          if (scheduleCountryFlagEl) scheduleCountryFlagEl.textContent = flag;
+          if (scheduleCountryDialEl) scheduleCountryDialEl.textContent = dial;
+        }
+        function formatSchedulePhone(raw, dialCode) {
+          var digits = scheduleOnlyDigits(raw);
+          if (dialCode === '+55') {
+            digits = digits.slice(0, 11);
+            if (digits.length <= 2) return digits ? '(' + digits : '';
+            if (digits.length <= 7) return '(' + digits.slice(0, 2) + ') ' + digits.slice(2);
+            return '(' + digits.slice(0, 2) + ') ' + digits.slice(2, 7) + '-' + digits.slice(7);
+          }
+          digits = digits.slice(0, 15);
+          if (digits.length <= 3) return digits;
+          if (digits.length <= 7) return digits.slice(0, 3) + ' ' + digits.slice(3);
+          if (digits.length <= 11) return digits.slice(0, 3) + ' ' + digits.slice(3, 7) + ' ' + digits.slice(7);
+          return (
+            digits.slice(0, 3) +
+            ' ' +
+            digits.slice(3, 7) +
+            ' ' +
+            digits.slice(7, 11) +
+            ' ' +
+            digits.slice(11)
+          );
+        }
+        function applySchedulePhoneMask() {
+          if (!schedulePhoneEl) return;
+          schedulePhoneEl.value = formatSchedulePhone(schedulePhoneEl.value, getScheduleDialCode());
+        }
+        function buildSchedulePhoneForSubmit() {
+          var dial = getScheduleDialCode();
+          var local = schedulePhoneEl ? schedulePhoneEl.value.trim() : '';
+          return (dial + ' ' + local).trim();
         }
 
         function resetScheduleModalFlows() {
@@ -5169,6 +5352,7 @@
           ) {
             setFieldInvalid(inp, false);
           });
+          updateScheduleCountryLabel();
         }
 
         function triggerScheduleSuccessAnimation() {
@@ -5273,6 +5457,9 @@
         var regNameEl = document.getElementById('reg-name');
         var regEmailEl = document.getElementById('reg-email');
         var regPhoneEl = document.getElementById('reg-phone');
+        var regCountryEl = document.getElementById('reg-country');
+        var regCountryFlagEl = document.getElementById('reg-country-flag');
+        var regCountryDialEl = document.getElementById('reg-country-dial');
         var regCompanyEl = document.getElementById('reg-company');
         var regSegmentEl = document.getElementById('reg-segment');
         var regRevenueEl = document.getElementById('reg-revenue');
@@ -5291,8 +5478,67 @@
             }
           }
         }
+        function onlyDigits(v) {
+          return String(v || '').replace(/\D/g, '');
+        }
+        function getRegDialCode() {
+          return regCountryEl && regCountryEl.value ? String(regCountryEl.value) : '+55';
+        }
+        function updateRegCountryLabel() {
+          if (!regCountryEl) return;
+          var opt = regCountryEl.options[regCountryEl.selectedIndex];
+          var flag = opt ? String(opt.getAttribute('data-flag') || '🌐') : '🌐';
+          var dial = getRegDialCode();
+          if (regCountryFlagEl) regCountryFlagEl.textContent = flag;
+          if (regCountryDialEl) regCountryDialEl.textContent = dial;
+        }
+        function formatRegPhone(raw, dialCode) {
+          var digits = onlyDigits(raw);
+          if (dialCode === '+55') {
+            digits = digits.slice(0, 11);
+            if (digits.length <= 2) return digits ? '(' + digits : '';
+            if (digits.length <= 7) return '(' + digits.slice(0, 2) + ') ' + digits.slice(2);
+            return '(' + digits.slice(0, 2) + ') ' + digits.slice(2, 7) + '-' + digits.slice(7);
+          }
+          digits = digits.slice(0, 15);
+          if (digits.length <= 3) return digits;
+          if (digits.length <= 7) return digits.slice(0, 3) + ' ' + digits.slice(3);
+          if (digits.length <= 11) return digits.slice(0, 3) + ' ' + digits.slice(3, 7) + ' ' + digits.slice(7);
+          return (
+            digits.slice(0, 3) +
+            ' ' +
+            digits.slice(3, 7) +
+            ' ' +
+            digits.slice(7, 11) +
+            ' ' +
+            digits.slice(11)
+          );
+        }
+        function applyRegPhoneMask() {
+          if (!regPhoneEl) return;
+          regPhoneEl.value = formatRegPhone(regPhoneEl.value, getRegDialCode());
+        }
+        function buildRegPhoneForSubmit() {
+          var dial = getRegDialCode();
+          var local = regPhoneEl ? regPhoneEl.value.trim() : '';
+          return (dial + ' ' + local).trim();
+        }
 
         if (regForm) {
+          updateRegCountryLabel();
+          applyRegPhoneMask();
+          if (regCountryEl) {
+            regCountryEl.addEventListener('change', function () {
+              updateRegCountryLabel();
+              applyRegPhoneMask();
+              regSetInvalid(regPhoneEl, false);
+            });
+          }
+          if (regPhoneEl) {
+            regPhoneEl.addEventListener('input', function () {
+              applyRegPhoneMask();
+            });
+          }
           [regNameEl, regEmailEl, regPhoneEl, regCompanyEl, regSegmentEl, regRevenueEl].forEach(function (el) {
             if (!el) return;
             var ev = el.tagName === 'SELECT' ? 'change' : 'input';
@@ -5312,7 +5558,7 @@
 
             var name = regNameEl ? regNameEl.value.trim() : '';
             var email = regEmailEl ? regEmailEl.value.trim() : '';
-            var phone = regPhoneEl ? regPhoneEl.value.trim() : '';
+            var phone = buildRegPhoneForSubmit();
             var company = regCompanyEl ? regCompanyEl.value.trim() : '';
             var segment = regSegmentEl ? regSegmentEl.value : '';
             var revenue = regRevenueEl ? regRevenueEl.value : '';
@@ -5364,6 +5610,7 @@
                 if (result && result.ok) {
                   regShowToast();
                   if (regForm) regForm.reset();
+                  updateRegCountryLabel();
                   [regNameEl, regEmailEl, regPhoneEl, regCompanyEl, regSegmentEl, regRevenueEl].forEach(function (el) {
                     regSetInvalid(el, false);
                   });
@@ -5393,6 +5640,20 @@
         }
 
         if (scheduleForm && scheduleModal) {
+          updateScheduleCountryLabel();
+          applySchedulePhoneMask();
+          if (scheduleCountryEl) {
+            scheduleCountryEl.addEventListener('change', function () {
+              updateScheduleCountryLabel();
+              applySchedulePhoneMask();
+              setFieldInvalid(schedulePhoneEl, false);
+            });
+          }
+          if (schedulePhoneEl) {
+            schedulePhoneEl.addEventListener('input', function () {
+              applySchedulePhoneMask();
+            });
+          }
           scheduleForm.addEventListener('submit', function (e) {
             e.preventDefault();
             if (typeof ZiraI18n === 'undefined') return;
@@ -5404,7 +5665,7 @@
 
             var name = scheduleNameEl ? scheduleNameEl.value.trim() : '';
             var email = scheduleEmailEl ? scheduleEmailEl.value.trim() : '';
-            var phone = schedulePhoneEl ? schedulePhoneEl.value.trim() : '';
+            var phone = buildSchedulePhoneForSubmit();
             var company = scheduleCompanyEl ? scheduleCompanyEl.value.trim() : '';
 
             if (scheduleSubmitErr) scheduleSubmitErr.setAttribute('hidden', '');
