@@ -4,6 +4,17 @@ const auth = require('../_lib/auth.js');
 const lib = require('../_lib/evolution.js');
 const rl = require('../_lib/rateLimit.js');
 
+function missingAuthEnv() {
+  const missing = [];
+  const username = String(process.env.ADMIN_USERNAME || '').trim();
+  const password = String(process.env.ADMIN_PASSWORD || '');
+  const secret = String(process.env.SESSION_SECRET || '').trim();
+  if (!username) missing.push('ADMIN_USERNAME');
+  if (!password) missing.push('ADMIN_PASSWORD');
+  if (!secret || secret.length < 32) missing.push('SESSION_SECRET');
+  return missing;
+}
+
 module.exports = async function handler(req, res) {
   res.setHeader('Cache-Control', 'no-store, max-age=0');
 
@@ -30,7 +41,11 @@ module.exports = async function handler(req, res) {
   const password = String(body.password || '').slice(0, 200);
 
   if (!auth.authConfigured()) {
-    res.status(503).json({ ok: false, error: 'admin-not-configured' });
+    res.status(503).json({
+      ok: false,
+      error: 'admin-not-configured',
+      missing: missingAuthEnv(),
+    });
     return;
   }
   const cred = auth.adminCredentials();
