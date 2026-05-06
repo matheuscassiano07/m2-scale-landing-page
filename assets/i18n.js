@@ -36,12 +36,12 @@
       },
       hero: {
         title:
-          'A plataforma que organiza atendimento, equipe, obras e prazos para escritórios de arquitetura e engenharia.',
+          'Transforme WhatsApp em operação previsível: atendimento, equipe, obra e prazo no mesmo controle.',
         counterLabel: 'escritórios já evoluíram com a ZIRA AI',
         sr:
           'ZIRA AI, plataforma para arquitetura e engenharia. Mais de 100 escritórios já evoluíram para uma operação mais clara, integrada e previsível.',
         proof:
-          'Mais de 100 escritórios já evoluíram para uma operação mais clara, integrada e previsível.',
+          'Escritórios que padronizam a operação reduzem retrabalho, aceleram resposta e ganham margem para crescer.',
       },
       zira: {
         desc:
@@ -49,11 +49,11 @@
         imageAlt: '',
       },
       problem: {
-        title: 'O problema não está só em captar clientes. Está em perder controle da operação.',
+        title: 'Seu problema não é falta de lead. É falta de controle depois que o lead entra.',
         caption:
-          'Quando tudo depende de mensagens soltas, memória e urgência improvisada, o escritório perde contexto, a equipe reage em vez de conduzir, e a operação deixa de ser previsível.',
+          'Quando o processo depende de mensagem solta, memória e urgência do dia, o escritório apaga incêndio em vez de escalar com segurança.',
         outro:
-          'Menos ruído operacional. Mais clareza sobre o que precisa acontecer, quem precisa agir e o que ainda está pendente.',
+          'Com operação orientada por fluxo, você sabe o que está travado, quem atua agora e qual etapa vem depois.',
         b1: 'WhatsApp desorganizado',
         b2: 'Tarefas perdidas',
         b3: 'Obras sem acompanhamento claro',
@@ -64,9 +64,9 @@
         imageAlt: 'Atendimento e tarefas no celular com Zira AI',
       },
       workflow: {
-        title: 'Do primeiro contato à entrega da obra, tudo conectado.',
+        title: 'Da primeira mensagem ao pós-obra: uma operação única, mensurável e sem ruído.',
         caption:
-          'Sete pontos ligados como um ciclo · do primeiro ping no WhatsApp à equipe trabalhando com o mesmo panorama, incluindo priorização ativa, mensagens quando o cliente é difícil, follow-ups e projeto integrado a alertas.',
+          'Um ciclo operacional que conecta captação, qualificação, priorização, follow-up, execução e acompanhamento da equipe no mesmo sistema.',
         kicker:
           'Setas mostram sequência entre etapas · curva conecta a última volta do atendimento à mesma entrada do fluxo.',
         flowAria:
@@ -96,9 +96,9 @@
       },
       tracking: {
         title:
-          'Saiba o que cada arquiteto, engenheiro e membro da equipe está fazendo, o que está atrasado e o que exige atenção agora.',
+          'Veja em tempo real quem está produzindo, o que está atrasado e onde sua operação está perdendo dinheiro.',
         caption:
-          'Aqui, gestão de obra e gestão de equipe deixam de ficar separadas. O escritório enxerga quem responde por cada frente, o que está em andamento e onde estão os gargalos, sem planilha paralela e sem leitura fragmentada da operação.',
+          'Gestão de obra e gestão de equipe deixam de ficar separadas. Você acompanha responsáveis, gargalos e pendências sem planilhas paralelas.',
         p1: 'Tarefas por responsável',
         p2: 'Histórico de ações',
         p3: 'Pendências e atrasos',
@@ -106,16 +106,16 @@
         p5: 'Visão individual da equipe',
       },
       calendar: {
-        title: 'Prazos, reuniões, retornos e etapas em uma única visualização.',
+        title: 'Prazos, reuniões, retornos e etapas em uma única tela de decisão.',
         caption:
-          'Quando prazo, reunião e etapa do projeto aparecem no mesmo fluxo, o escritório inteiro trabalha com a mesma leitura da operação. Menos divergência, menos retrabalho e mais previsibilidade sobre o que precisa acontecer a seguir.',
+          'Quando o time inteiro enxerga o mesmo calendário operacional, os conflitos caem, os atrasos diminuem e as entregas ganham previsibilidade.',
         kicker: 'Prazos e etapas organizados em um único fluxo visual.',
         imageAlt: 'Prazos e etapas num único quadro',
       },
       faq: {
         title: 'Perguntas frequentes',
         caption:
-          'Respostas diretas sobre implementação, privacidade, operação e como o Zira se adapta à rotina real do escritório.',
+          'Respostas objetivas sobre implantação, segurança, operação e retorno prático para o escritório.',
         q1: 'O Zira AI substitui o WhatsApp do escritório?',
         a1:
           'Não: o time continua no WhatsApp que o escritório já usa. O Zira organiza leads, prioridades e histórico por cima dessa mesma linha de atendimento, para ninguém depender de grupos soltos ou print.',
@@ -139,9 +139,9 @@
           'O Zira é configurado à realidade do seu escritório: tipos de obra, etapas, responsáveis e prioridades alinhamos na implantação. Não existe um molde rígido único para todos: há um núcleo comum de atendimento e obra que mapeamos para como vocês já trabalham hoje.',
       },
       blogSection: {
-        title: 'Conteúdo para quem lidera obra',
+        title: 'Conteúdo para quem lidera operação e quer escala com controle',
         caption:
-          'Artigos sobre gestão de escritório, comunicação com cliente e operação em canteiro, em linguagem direta.',
+          'Guias práticos para reduzir retrabalho, profissionalizar atendimento e ganhar performance no dia a dia.',
         link: 'Ver blog completo',
         c1topic: 'Operação',
         c1title:
@@ -161,14 +161,14 @@
           'Como manter transparência na jornada do lead sem sobrecarregar o time técnico.',
       },
       adapt: {
-        title: 'Cada escritório opera de um jeito. O sistema se adapta a isso.',
+        title: 'Seu escritório é único. O fluxo da plataforma se adapta ao seu método.',
         logoAlt: 'ZIRA AI',
       },
       cta: {
         title:
-          'Saia na frente na operação, sem abrir mão do que já funciona no escritório.',
+          'Ganhe eficiência operacional sem trocar o que já funciona no seu escritório.',
         desc:
-          'Na conversa, você vê onde ganha clareza e previsibilidade. Mostramos como integrar ao procedimento que vocês já usam e como adaptamos etapas, papéis e fluxo à rotina da equipe, para decidir com segurança.',
+          'Na demonstração, mapeamos gargalos reais da sua rotina e mostramos como a M2SCALE organiza atendimento, equipe e obra para você crescer com previsibilidade.',
         btn: 'Agendar conversa',
       },
       footer: {
