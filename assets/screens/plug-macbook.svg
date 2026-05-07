@@ -1,0 +1,444 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="900" viewBox="0 0 1440 900" role="presentation" font-family="-apple-system, 'SF Pro Display', 'Inter', system-ui, sans-serif">
+  <defs>
+    <linearGradient id="mbBg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0e0e11"/>
+      <stop offset="100%" stop-color="#070709"/>
+    </linearGradient>
+    <linearGradient id="mbSide" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0c0c10"/>
+      <stop offset="100%" stop-color="#070708"/>
+    </linearGradient>
+    <linearGradient id="mbCard" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="rgba(255,255,255,0.045)"/>
+      <stop offset="100%" stop-color="rgba(255,255,255,0.015)"/>
+    </linearGradient>
+    <linearGradient id="mbHeat" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#0e0e11"/>
+      <stop offset="40%" stop-color="#1d1d22"/>
+      <stop offset="80%" stop-color="#3a3a44"/>
+      <stop offset="100%" stop-color="#5b5b66"/>
+    </linearGradient>
+    <pattern id="mbGrid" width="80" height="80" patternUnits="userSpaceOnUse">
+      <path d="M80 0 L0 0 0 80" fill="none" stroke="rgba(255,255,255,0.025)" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <rect width="1440" height="900" fill="url(#mbBg)"/>
+
+  <!-- Sidebar -->
+  <rect x="0" y="0" width="240" height="900" fill="url(#mbSide)"/>
+  <line x1="240" y1="0" x2="240" y2="900" stroke="rgba(255,255,255,0.06)"/>
+
+  <g transform="translate(28 36)">
+    <rect x="0" y="0" width="36" height="36" rx="10" fill="rgba(255,255,255,0.08)"/>
+    <text x="18" y="25" font-size="18" font-weight="700" fill="#ffffff" text-anchor="middle" letter-spacing="-0.5">Z</text>
+  </g>
+  <text x="76" y="61" font-size="16" font-weight="600" fill="#ffffff" letter-spacing="-0.3">ZIRA AI</text>
+  <text x="76" y="78" font-size="11" fill="#ffffff" opacity="0.5">Andrade Arquitetura</text>
+
+  <g font-size="13" font-weight="500" fill="#ffffff">
+    <g transform="translate(20 130)">
+      <rect x="0" y="0" width="200" height="36" rx="10" fill="rgba(255,255,255,0.06)"/>
+      <g transform="translate(14 11)" stroke="#ffffff" stroke-width="1.5" fill="none" opacity="0.9">
+        <rect x="0" y="0" width="14" height="14" rx="3"/>
+        <path d="M0 5 L14 5"/>
+      </g>
+      <text x="40" y="23">Calendário</text>
+    </g>
+    <g transform="translate(20 174)" opacity="0.6">
+      <g transform="translate(14 11)" stroke="#ffffff" stroke-width="1.5" fill="none">
+        <rect x="0" y="0" width="14" height="14" rx="2"/>
+        <path d="M3 7 L6 10 L11 4"/>
+      </g>
+      <text x="40" y="23">Tarefas</text>
+    </g>
+    <g transform="translate(20 214)" opacity="0.6">
+      <g transform="translate(14 11)" stroke="#ffffff" stroke-width="1.5" fill="none">
+        <circle cx="7" cy="5" r="3"/>
+        <path d="M1 14 q6 -6 12 0"/>
+      </g>
+      <text x="40" y="23">Equipe</text>
+    </g>
+    <g transform="translate(20 254)" opacity="0.6">
+      <g transform="translate(14 11)" stroke="#ffffff" stroke-width="1.5" fill="none">
+        <path d="M1 12 a6 6 0 1 1 12 0"/>
+        <circle cx="7" cy="12" r="1.4" fill="#ffffff"/>
+      </g>
+      <text x="40" y="23">Atendimentos</text>
+    </g>
+    <g transform="translate(20 294)" opacity="0.6">
+      <g transform="translate(14 11)" stroke="#ffffff" stroke-width="1.5" fill="none">
+        <path d="M2 12 L2 4 M7 12 L7 7 M12 12 L12 1"/>
+      </g>
+      <text x="40" y="23">Relatórios</text>
+    </g>
+    <g transform="translate(20 334)" opacity="0.6">
+      <g transform="translate(14 11)" stroke="#ffffff" stroke-width="1.5" fill="none">
+        <circle cx="7" cy="7" r="2"/>
+        <path d="M7 1 L7 3 M7 11 L7 13 M1 7 L3 7 M11 7 L13 7"/>
+      </g>
+      <text x="40" y="23">Configurações</text>
+    </g>
+  </g>
+
+  <!-- Sidebar projects -->
+  <text x="34" y="430" font-size="10" font-weight="600" fill="#ffffff" opacity="0.4" letter-spacing="1.2">PROJETOS</text>
+  <g font-size="12" fill="#ffffff" opacity="0.75">
+    <g transform="translate(34 450)">
+      <circle cx="6" cy="8" r="4" fill="#7adfb1"/>
+      <text x="20" y="12">Edif. Aurora · Apto 1402</text>
+    </g>
+    <g transform="translate(34 478)">
+      <circle cx="6" cy="8" r="4" fill="#f1c14a"/>
+      <text x="20" y="12">Casa Jardim Paulista</text>
+    </g>
+    <g transform="translate(34 506)">
+      <circle cx="6" cy="8" r="4" fill="#9aa6ff"/>
+      <text x="20" y="12">Reforma Pinheiros</text>
+    </g>
+    <g transform="translate(34 534)">
+      <circle cx="6" cy="8" r="4" fill="#ff8a8a"/>
+      <text x="20" y="12">Loft Vila Madalena</text>
+    </g>
+    <g transform="translate(34 562)">
+      <circle cx="6" cy="8" r="4" fill="rgba(255,255,255,0.4)"/>
+      <text x="20" y="12">Condomínio Atlas</text>
+    </g>
+  </g>
+
+  <!-- User chip -->
+  <g transform="translate(20 832)">
+    <rect x="0" y="0" width="200" height="48" rx="12" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.06)"/>
+    <circle cx="24" cy="24" r="14" fill="rgba(255,255,255,0.1)"/>
+    <text x="24" y="28" font-size="11" font-weight="700" fill="#ffffff" text-anchor="middle">RA</text>
+    <text x="48" y="22" font-size="12" font-weight="600" fill="#ffffff">Renata Andrade</text>
+    <text x="48" y="36" font-size="10" fill="#ffffff" opacity="0.55">Sócia · Arquiteta</text>
+  </g>
+
+  <!-- Top bar -->
+  <g transform="translate(280 32)">
+    <text x="0" y="20" font-size="22" font-weight="600" fill="#ffffff" letter-spacing="-0.6">Calendário</text>
+    <text x="0" y="44" font-size="13" fill="#ffffff" opacity="0.55">Novembro 2026 · prazos, reuniões e etapas em uma única visualização</text>
+  </g>
+
+  <!-- Search -->
+  <g transform="translate(820 36)">
+    <rect x="0" y="0" width="280" height="36" rx="10" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.08)"/>
+    <g transform="translate(12 11)" stroke="#ffffff" stroke-width="1.4" fill="none" opacity="0.55">
+      <circle cx="6" cy="6" r="5"/>
+      <path d="M10 10 L14 14"/>
+    </g>
+    <text x="36" y="23" font-size="12" fill="#ffffff" opacity="0.45">Buscar tarefa, projeto ou cliente</text>
+  </g>
+
+  <!-- View toggle -->
+  <g transform="translate(1116 36)">
+    <rect x="0" y="0" width="160" height="36" rx="10" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.08)"/>
+    <rect x="4" y="4" width="50" height="28" rx="7" fill="rgba(255,255,255,0.1)"/>
+    <text x="29" y="23" font-size="12" font-weight="600" fill="#ffffff" text-anchor="middle">Mês</text>
+    <text x="80" y="23" font-size="12" fill="#ffffff" opacity="0.55" text-anchor="middle">Sem.</text>
+    <text x="132" y="23" font-size="12" fill="#ffffff" opacity="0.55" text-anchor="middle">Dia</text>
+  </g>
+
+  <!-- New task -->
+  <g transform="translate(1294 36)">
+    <rect x="0" y="0" width="120" height="36" rx="10" fill="#ffffff"/>
+    <path d="M16 18 L26 18 M21 13 L21 23" stroke="#0a0a0c" stroke-width="1.6"/>
+    <text x="68" y="23" font-size="12" font-weight="600" fill="#0a0a0c" text-anchor="middle">Nova tarefa</text>
+  </g>
+
+  <!-- KPI cards -->
+  <g transform="translate(280 100)">
+    <rect x="0" y="0" width="248" height="80" rx="14" fill="url(#mbCard)" stroke="rgba(255,255,255,0.06)"/>
+    <text x="20" y="28" font-size="11" fill="#ffffff" opacity="0.55">Tarefas hoje</text>
+    <text x="20" y="58" font-size="24" font-weight="600" fill="#ffffff" letter-spacing="-0.6">23</text>
+    <text x="60" y="58" font-size="11" fill="#7adfb1">+4 vs ontem</text>
+  </g>
+  <g transform="translate(548 100)">
+    <rect x="0" y="0" width="248" height="80" rx="14" fill="url(#mbCard)" stroke="rgba(255,255,255,0.06)"/>
+    <text x="20" y="28" font-size="11" fill="#ffffff" opacity="0.55">Reuniões na semana</text>
+    <text x="20" y="58" font-size="24" font-weight="600" fill="#ffffff" letter-spacing="-0.6">11</text>
+    <text x="60" y="58" font-size="11" fill="#ffffff" opacity="0.55">7 confirmadas</text>
+  </g>
+  <g transform="translate(816 100)">
+    <rect x="0" y="0" width="248" height="80" rx="14" fill="url(#mbCard)" stroke="rgba(255,255,255,0.06)"/>
+    <text x="20" y="28" font-size="11" fill="#ffffff" opacity="0.55">Prazos críticos</text>
+    <text x="20" y="58" font-size="24" font-weight="600" fill="#ffffff" letter-spacing="-0.6">3</text>
+    <text x="60" y="58" font-size="11" fill="#ff8a8a">2 vencem hoje</text>
+  </g>
+  <g transform="translate(1084 100)">
+    <rect x="0" y="0" width="330" height="80" rx="14" fill="url(#mbCard)" stroke="rgba(255,255,255,0.06)"/>
+    <text x="20" y="28" font-size="11" fill="#ffffff" opacity="0.55">No prazo</text>
+    <text x="20" y="58" font-size="24" font-weight="600" fill="#ffffff" letter-spacing="-0.6">94%</text>
+    <rect x="80" y="46" width="232" height="6" rx="3" fill="rgba(255,255,255,0.08)"/>
+    <rect x="80" y="46" width="218" height="6" rx="3" fill="#7adfb1"/>
+  </g>
+
+  <!-- Calendar grid -->
+  <g transform="translate(280 200)">
+    <rect x="0" y="0" width="794" height="640" rx="16" fill="url(#mbCard)" stroke="rgba(255,255,255,0.06)"/>
+    <rect x="0" y="0" width="794" height="640" rx="16" fill="url(#mbGrid)"/>
+
+    <!-- Week header -->
+    <g font-size="11" font-weight="600" fill="#ffffff" opacity="0.55" letter-spacing="0.6">
+      <text x="58" y="32" text-anchor="middle">SEG</text>
+      <text x="171" y="32" text-anchor="middle">TER</text>
+      <text x="284" y="32" text-anchor="middle">QUA</text>
+      <text x="397" y="32" text-anchor="middle">QUI</text>
+      <text x="510" y="32" text-anchor="middle">SEX</text>
+      <text x="623" y="32" text-anchor="middle">SÁB</text>
+      <text x="736" y="32" text-anchor="middle">DOM</text>
+    </g>
+    <line x1="0" y1="48" x2="794" y2="48" stroke="rgba(255,255,255,0.06)"/>
+
+    <!-- vertical separators -->
+    <g stroke="rgba(255,255,255,0.05)">
+      <line x1="113" y1="48" x2="113" y2="640"/>
+      <line x1="226" y1="48" x2="226" y2="640"/>
+      <line x1="339" y1="48" x2="339" y2="640"/>
+      <line x1="452" y1="48" x2="452" y2="640"/>
+      <line x1="565" y1="48" x2="565" y2="640"/>
+      <line x1="678" y1="48" x2="678" y2="640"/>
+    </g>
+    <!-- horizontal separators -->
+    <g stroke="rgba(255,255,255,0.05)">
+      <line x1="0" y1="166" x2="794" y2="166"/>
+      <line x1="0" y1="284" x2="794" y2="284"/>
+      <line x1="0" y1="402" x2="794" y2="402"/>
+      <line x1="0" y1="520" x2="794" y2="520"/>
+    </g>
+
+    <!-- Day numbers -->
+    <g font-size="11" fill="#ffffff" opacity="0.55">
+      <text x="14" y="68">27</text><text x="127" y="68">28</text><text x="240" y="68">29</text><text x="353" y="68">30</text><text x="466" y="68">31</text>
+      <text x="579" y="68" fill="#ffffff" opacity="0.95" font-weight="600">1</text>
+      <text x="692" y="68" fill="#ffffff" opacity="0.95" font-weight="600">2</text>
+
+      <text x="14" y="186" fill="#ffffff" opacity="0.95" font-weight="600">3</text>
+      <text x="127" y="186" fill="#ffffff" opacity="0.95" font-weight="600">4</text>
+      <!-- today: 5 -->
+      <g transform="translate(240 174)">
+        <circle cx="0" cy="0" r="11" fill="#ffffff"/>
+        <text x="0" y="4" font-size="11" font-weight="700" fill="#0a0a0c" text-anchor="middle">5</text>
+      </g>
+      <text x="353" y="186" fill="#ffffff" opacity="0.95" font-weight="600">6</text>
+      <text x="466" y="186" fill="#ffffff" opacity="0.95" font-weight="600">7</text>
+      <text x="579" y="186" fill="#ffffff" opacity="0.95" font-weight="600">8</text>
+      <text x="692" y="186" fill="#ffffff" opacity="0.95" font-weight="600">9</text>
+
+      <text x="14" y="304" fill="#ffffff" opacity="0.95" font-weight="600">10</text>
+      <text x="127" y="304" fill="#ffffff" opacity="0.95" font-weight="600">11</text>
+      <text x="240" y="304" fill="#ffffff" opacity="0.95" font-weight="600">12</text>
+      <text x="353" y="304" fill="#ffffff" opacity="0.95" font-weight="600">13</text>
+      <text x="466" y="304" fill="#ffffff" opacity="0.95" font-weight="600">14</text>
+      <text x="579" y="304" fill="#ffffff" opacity="0.95" font-weight="600">15</text>
+      <text x="692" y="304" fill="#ffffff" opacity="0.95" font-weight="600">16</text>
+
+      <text x="14" y="422" fill="#ffffff" opacity="0.95" font-weight="600">17</text>
+      <text x="127" y="422" fill="#ffffff" opacity="0.95" font-weight="600">18</text>
+      <text x="240" y="422" fill="#ffffff" opacity="0.95" font-weight="600">19</text>
+      <text x="353" y="422" fill="#ffffff" opacity="0.95" font-weight="600">20</text>
+      <text x="466" y="422" fill="#ffffff" opacity="0.95" font-weight="600">21</text>
+      <text x="579" y="422" fill="#ffffff" opacity="0.95" font-weight="600">22</text>
+      <text x="692" y="422" fill="#ffffff" opacity="0.95" font-weight="600">23</text>
+
+      <text x="14" y="540" fill="#ffffff" opacity="0.95" font-weight="600">24</text>
+      <text x="127" y="540" fill="#ffffff" opacity="0.95" font-weight="600">25</text>
+      <text x="240" y="540" fill="#ffffff" opacity="0.95" font-weight="600">26</text>
+      <text x="353" y="540" fill="#ffffff" opacity="0.95" font-weight="600">27</text>
+      <text x="466" y="540" fill="#ffffff" opacity="0.95" font-weight="600">28</text>
+      <text x="579" y="540" fill="#ffffff" opacity="0.95" font-weight="600">29</text>
+      <text x="692" y="540" fill="#ffffff" opacity="0.95" font-weight="600">30</text>
+    </g>
+
+    <!-- Today highlight column -->
+    <rect x="226" y="158" width="113" height="126" fill="rgba(255,255,255,0.03)"/>
+
+    <!-- Events -->
+    <!-- 1 (sat) -->
+    <g transform="translate(572 76)">
+      <rect width="100" height="20" rx="5" fill="rgba(154,166,255,0.18)" stroke="rgba(154,166,255,0.4)"/>
+      <text x="8" y="14" font-size="10" font-weight="600" fill="#cdd3ff">Reunião sócios</text>
+    </g>
+
+    <!-- 4 -->
+    <g transform="translate(120 194)">
+      <rect width="100" height="20" rx="5" fill="rgba(122,223,177,0.18)" stroke="rgba(122,223,177,0.45)"/>
+      <text x="8" y="14" font-size="10" font-weight="600" fill="#7adfb1">Visita Aurora</text>
+    </g>
+    <g transform="translate(120 218)">
+      <rect width="100" height="20" rx="5" fill="rgba(241,193,74,0.16)" stroke="rgba(241,193,74,0.4)"/>
+      <text x="8" y="14" font-size="10" font-weight="600" fill="#f1c14a">Memorial · J.P.</text>
+    </g>
+
+    <!-- 5 today -->
+    <g transform="translate(233 194)">
+      <rect width="100" height="20" rx="5" fill="rgba(255,138,138,0.18)" stroke="rgba(255,138,138,0.45)"/>
+      <text x="8" y="14" font-size="10" font-weight="600" fill="#ff8a8a">Entrega ART</text>
+    </g>
+    <g transform="translate(233 218)">
+      <rect width="100" height="20" rx="5" fill="rgba(122,223,177,0.18)" stroke="rgba(122,223,177,0.45)"/>
+      <text x="8" y="14" font-size="10" font-weight="600" fill="#7adfb1">Cliente · 14h</text>
+    </g>
+    <g transform="translate(233 242)">
+      <rect width="100" height="20" rx="5" fill="rgba(154,166,255,0.18)" stroke="rgba(154,166,255,0.4)"/>
+      <text x="8" y="14" font-size="10" font-weight="600" fill="#cdd3ff">Aprov. projeto</text>
+    </g>
+
+    <!-- 6 -->
+    <g transform="translate(346 194)">
+      <rect width="100" height="20" rx="5" fill="rgba(241,193,74,0.16)" stroke="rgba(241,193,74,0.4)"/>
+      <text x="8" y="14" font-size="10" font-weight="600" fill="#f1c14a">Vistoria 1402</text>
+    </g>
+
+    <!-- 7 -->
+    <g transform="translate(459 194)">
+      <rect width="100" height="20" rx="5" fill="rgba(122,223,177,0.18)" stroke="rgba(122,223,177,0.45)"/>
+      <text x="8" y="14" font-size="10" font-weight="600" fill="#7adfb1">Reunião obra</text>
+    </g>
+
+    <!-- 11 -->
+    <g transform="translate(120 312)">
+      <rect width="100" height="20" rx="5" fill="rgba(154,166,255,0.18)" stroke="rgba(154,166,255,0.4)"/>
+      <text x="8" y="14" font-size="10" font-weight="600" fill="#cdd3ff">Brief Atlas</text>
+    </g>
+
+    <!-- 12 -->
+    <g transform="translate(233 312)">
+      <rect width="100" height="20" rx="5" fill="rgba(255,138,138,0.18)" stroke="rgba(255,138,138,0.45)"/>
+      <text x="8" y="14" font-size="10" font-weight="600" fill="#ff8a8a">Prazo PDF final</text>
+    </g>
+    <g transform="translate(233 336)">
+      <rect width="100" height="20" rx="5" fill="rgba(122,223,177,0.18)" stroke="rgba(122,223,177,0.45)"/>
+      <text x="8" y="14" font-size="10" font-weight="600" fill="#7adfb1">Cliente · 16h</text>
+    </g>
+
+    <!-- 14 -->
+    <g transform="translate(459 312)">
+      <rect width="100" height="20" rx="5" fill="rgba(241,193,74,0.16)" stroke="rgba(241,193,74,0.4)"/>
+      <text x="8" y="14" font-size="10" font-weight="600" fill="#f1c14a">Visita Pinheiros</text>
+    </g>
+
+    <!-- 18 -->
+    <g transform="translate(120 430)">
+      <rect width="100" height="20" rx="5" fill="rgba(154,166,255,0.18)" stroke="rgba(154,166,255,0.4)"/>
+      <text x="8" y="14" font-size="10" font-weight="600" fill="#cdd3ff">Apresentação</text>
+    </g>
+
+    <!-- 20 -->
+    <g transform="translate(346 430)">
+      <rect width="100" height="20" rx="5" fill="rgba(122,223,177,0.18)" stroke="rgba(122,223,177,0.45)"/>
+      <text x="8" y="14" font-size="10" font-weight="600" fill="#7adfb1">Aprov. cliente</text>
+    </g>
+
+    <!-- 25 -->
+    <g transform="translate(120 548)">
+      <rect width="100" height="20" rx="5" fill="rgba(241,193,74,0.16)" stroke="rgba(241,193,74,0.4)"/>
+      <text x="8" y="14" font-size="10" font-weight="600" fill="#f1c14a">Inspeção final</text>
+    </g>
+
+    <!-- 27 -->
+    <g transform="translate(346 548)">
+      <rect width="100" height="20" rx="5" fill="rgba(255,138,138,0.18)" stroke="rgba(255,138,138,0.45)"/>
+      <text x="8" y="14" font-size="10" font-weight="600" fill="#ff8a8a">Entrega obra</text>
+    </g>
+
+  </g>
+
+  <!-- Right column: Today / Team -->
+  <g transform="translate(1094 200)">
+    <rect x="0" y="0" width="320" height="304" rx="16" fill="url(#mbCard)" stroke="rgba(255,255,255,0.06)"/>
+    <text x="20" y="28" font-size="13" font-weight="600" fill="#ffffff">Hoje · 5 nov</text>
+    <text x="280" y="28" font-size="11" fill="#ffffff" opacity="0.55" text-anchor="end">Ver tudo</text>
+
+    <g transform="translate(20 48)">
+      <rect x="0" y="0" width="280" height="58" rx="10" fill="rgba(255,255,255,0.04)"/>
+      <rect x="0" y="6" width="3" height="46" rx="1.5" fill="#ff8a8a"/>
+      <text x="14" y="22" font-size="12" font-weight="600" fill="#ffffff">Entrega ART · Edif. Aurora</text>
+      <text x="14" y="38" font-size="10" fill="#ffffff" opacity="0.6">Eng. Lucas · vence 18:00</text>
+      <g transform="translate(14 44)">
+        <rect width="64" height="14" rx="7" fill="rgba(255,138,138,0.18)"/>
+        <text x="32" y="10" font-size="9" font-weight="600" fill="#ff8a8a" text-anchor="middle">crítico</text>
+      </g>
+    </g>
+
+    <g transform="translate(20 116)">
+      <rect x="0" y="0" width="280" height="58" rx="10" fill="rgba(255,255,255,0.04)"/>
+      <rect x="0" y="6" width="3" height="46" rx="1.5" fill="#7adfb1"/>
+      <text x="14" y="22" font-size="12" font-weight="600" fill="#ffffff">Reunião · Marina (cliente)</text>
+      <text x="14" y="38" font-size="10" fill="#ffffff" opacity="0.6">Renata · 14:00 · Sala 2</text>
+      <g transform="translate(14 44)">
+        <rect width="74" height="14" rx="7" fill="rgba(122,223,177,0.18)"/>
+        <text x="37" y="10" font-size="9" font-weight="600" fill="#7adfb1" text-anchor="middle">confirmada</text>
+      </g>
+    </g>
+
+    <g transform="translate(20 184)">
+      <rect x="0" y="0" width="280" height="58" rx="10" fill="rgba(255,255,255,0.04)"/>
+      <rect x="0" y="6" width="3" height="46" rx="1.5" fill="#9aa6ff"/>
+      <text x="14" y="22" font-size="12" font-weight="600" fill="#ffffff">Aprovar projeto · Pinheiros</text>
+      <text x="14" y="38" font-size="10" fill="#ffffff" opacity="0.6">Arq. Camila · 17:30</text>
+      <g transform="translate(14 44)">
+        <rect width="62" height="14" rx="7" fill="rgba(154,166,255,0.18)"/>
+        <text x="31" y="10" font-size="9" font-weight="600" fill="#cdd3ff" text-anchor="middle">interno</text>
+      </g>
+    </g>
+
+    <g transform="translate(20 252)">
+      <rect x="0" y="0" width="280" height="38" rx="10" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.06)"/>
+      <text x="14" y="22" font-size="11" fill="#ffffff" opacity="0.7">+ 8 follow-ups com cliente difícil</text>
+    </g>
+  </g>
+
+  <!-- Team load -->
+  <g transform="translate(1094 520)">
+    <rect x="0" y="0" width="320" height="320" rx="16" fill="url(#mbCard)" stroke="rgba(255,255,255,0.06)"/>
+    <text x="20" y="28" font-size="13" font-weight="600" fill="#ffffff">Carga da equipe</text>
+    <text x="280" y="28" font-size="11" fill="#ffffff" opacity="0.55" text-anchor="end">esta semana</text>
+
+    <g transform="translate(20 56)">
+      <circle cx="14" cy="14" r="14" fill="rgba(255,255,255,0.12)"/>
+      <text x="14" y="18" font-size="10" font-weight="700" fill="#ffffff" text-anchor="middle">RA</text>
+      <text x="38" y="14" font-size="12" font-weight="600" fill="#ffffff">Renata Andrade</text>
+      <text x="38" y="28" font-size="10" fill="#ffffff" opacity="0.55">12 tarefas · 2 reuniões</text>
+      <rect x="180" y="10" width="100" height="6" rx="3" fill="rgba(255,255,255,0.08)"/>
+      <rect x="180" y="10" width="78" height="6" rx="3" fill="#7adfb1"/>
+      <text x="284" y="16" font-size="10" fill="#ffffff" opacity="0.6">78%</text>
+    </g>
+
+    <g transform="translate(20 110)">
+      <circle cx="14" cy="14" r="14" fill="rgba(255,255,255,0.12)"/>
+      <text x="14" y="18" font-size="10" font-weight="700" fill="#ffffff" text-anchor="middle">LC</text>
+      <text x="38" y="14" font-size="12" font-weight="600" fill="#ffffff">Eng. Lucas Costa</text>
+      <text x="38" y="28" font-size="10" fill="#ffffff" opacity="0.55">9 tarefas · 3 visitas</text>
+      <rect x="180" y="10" width="100" height="6" rx="3" fill="rgba(255,255,255,0.08)"/>
+      <rect x="180" y="10" width="92" height="6" rx="3" fill="#f1c14a"/>
+      <text x="284" y="16" font-size="10" fill="#ffffff" opacity="0.6">92%</text>
+    </g>
+
+    <g transform="translate(20 164)">
+      <circle cx="14" cy="14" r="14" fill="rgba(255,255,255,0.12)"/>
+      <text x="14" y="18" font-size="10" font-weight="700" fill="#ffffff" text-anchor="middle">CM</text>
+      <text x="38" y="14" font-size="12" font-weight="600" fill="#ffffff">Arq. Camila M.</text>
+      <text x="38" y="28" font-size="10" fill="#ffffff" opacity="0.55">7 tarefas</text>
+      <rect x="180" y="10" width="100" height="6" rx="3" fill="rgba(255,255,255,0.08)"/>
+      <rect x="180" y="10" width="60" height="6" rx="3" fill="#7adfb1"/>
+      <text x="284" y="16" font-size="10" fill="#ffffff" opacity="0.6">60%</text>
+    </g>
+
+    <g transform="translate(20 218)">
+      <circle cx="14" cy="14" r="14" fill="rgba(255,255,255,0.12)"/>
+      <text x="14" y="18" font-size="10" font-weight="700" fill="#ffffff" text-anchor="middle">JT</text>
+      <text x="38" y="14" font-size="12" font-weight="600" fill="#ffffff">Estag. João T.</text>
+      <text x="38" y="28" font-size="10" fill="#ffffff" opacity="0.55">5 tarefas</text>
+      <rect x="180" y="10" width="100" height="6" rx="3" fill="rgba(255,255,255,0.08)"/>
+      <rect x="180" y="10" width="42" height="6" rx="3" fill="#9aa6ff"/>
+      <text x="284" y="16" font-size="10" fill="#ffffff" opacity="0.6">42%</text>
+    </g>
+
+    <g transform="translate(20 270)">
+      <rect x="0" y="0" width="280" height="36" rx="10" fill="rgba(122,223,177,0.08)" stroke="rgba(122,223,177,0.18)"/>
+      <text x="14" y="22" font-size="11" fill="#7adfb1">↑ Eficiência +18% após Zira AI</text>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,14 @@
+{
+  "name": "zira-ai-landing",
+  "version": "1.0.0",
+  "private": true,
+  "description": "ZIRA AI landing page (estática) com integração Evolution API serverless na Vercel",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "dev": "vercel dev --listen 3000",
+    "start": "npx --yes serve@14 . -l 3000",
+    "security-check": "node scripts/security-check.cjs"
+  }
+}

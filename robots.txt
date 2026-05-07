@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Atualize para a URL absoluta do site em produção.
+Sitemap: https://www.zira.ai/sitemap.xml
