@@ -222,12 +222,6 @@
       z-index: -3;
     }
 
-    @media (prefers-reduced-motion: reduce) {
-      .chrome-liquid-bg {
-        display: none !important;
-      }
-    }
-
     body {
       font-family: var(--font-sans);
       font-feature-settings: "cv01", "ss03";
@@ -369,50 +363,6 @@
         transform 1.05s cubic-bezier(0.16, 0.76, 0.18, 1),
         filter 0.95s cubic-bezier(0.2, 0.65, 0.2, 1);
       transition-delay: var(--reveal-delay, 0ms);
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      [data-reveal] {
-        opacity: 1 !important;
-        transform: none !important;
-        transition: none !important;
-      }
-
-      .section-title::after,
-      .section-title::before,
-      .zira__image-wrap--featured::before,
-      .zira__image-wrap--featured::after,
-      .zira__image-wrap--aside::before,
-      .zira__image-wrap--aside::after,
-      .problem__visual::before,
-      .problem__visual::after,
-      .frame--macbook::before,
-      .frame--macbook::after {
-        animation: none !important;
-      }
-
-      .section-title {
-        text-shadow: none !important;
-      }
-
-      .frame--macbook .device-shell {
-        animation: none !important;
-      }
-
-      [data-reveal-variant='photo'] .zira__image,
-      [data-reveal-variant='photo'] .device-shell,
-      [data-reveal-variant='photo'] .adapt__logo {
-        opacity: 1 !important;
-        transform: none !important;
-        filter: none !important;
-      }
-
-      .motion-split__unit,
-      .hero.hero--motion .motion-split__unit {
-        opacity: 1 !important;
-        transform: none !important;
-        transition: none !important;
-      }
     }
 
     /* ============================================================
@@ -988,18 +938,6 @@
       50% { transform: translateY(8px); }
     }
 
-    @media (prefers-reduced-motion: reduce) {
-      .hero__scroll-hint-icon {
-        animation: none;
-      }
-      .hero__scroll-hint-wrap {
-        transition: opacity 0.25s ease;
-      }
-      .hero__scroll-hint-wrap.is-hidden {
-        transform: translateX(-50%);
-      }
-    }
-
     /* ============================================================
        Motivos arquitetônicos (wireframe só em algumas seções)
        ============================================================ */
@@ -1063,16 +1001,6 @@
 
       .arch-deco--problem svg {
         top: -2%;
-      }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .arch-deco--zira svg {
-        transform: none;
-      }
-
-      .arch-deco--problem svg {
-        transform: none;
       }
     }
 
@@ -2102,25 +2030,6 @@
       }
     }
 
-    @media (prefers-reduced-motion: reduce) {
-      .frame--workflow-flow .workflow-flow__step,
-      .frame--workflow-flow .workflow-flow__chev,
-      .frame--workflow-flow .workflow-cycle__braid,
-      .frame--workflow-flow .workflow-cycle__loop-wrap {
-        opacity: 1 !important;
-        transform: none !important;
-        transition: none !important;
-      }
-
-      .frame--workflow-flow[data-revealed='true'] .workflow-flow__chev svg {
-        animation: none;
-      }
-
-      .workflow-flow__chev-svg {
-        transform: none !important;
-      }
-    }
-
     @media (max-width: 900px) {
       .workflow-cycle {
         padding-left: 0;
@@ -2678,13 +2587,6 @@
       .zira-toast__title { font-size: 20px; }
       .zira-toast__desc { font-size: 13px; }
     }
-    @media (prefers-reduced-motion: reduce) {
-      .zira-toast { transition: none; }
-      .zira-toast__panel { transition: none; transform: none; }
-      .zira-toast.is-open .zira-toast__circle,
-      .zira-toast.is-open .zira-toast__check { animation: none; stroke-dashoffset: 0; }
-    }
-
     .cta__desc {
       margin: 0;
       max-width: min(38rem, 92vw);
@@ -2956,23 +2858,6 @@
       margin-bottom: var(--space-7);
       max-width: 22rem;
       margin-inline: auto;
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .schedule-modal__panel {
-        scroll-behavior: auto;
-      }
-
-      .schedule-success.schedule-success--animate .schedule-success__circle {
-        animation-duration: 0.01ms;
-        opacity: 1;
-        transform: scale(1);
-      }
-
-      .schedule-success.schedule-success--animate .schedule-success__check {
-        animation-duration: 0.01ms;
-        stroke-dashoffset: 0;
-      }
     }
 
     /* ============================================================
@@ -3974,36 +3859,6 @@
     /* scroll inertia em listas horizontais */
     .adm-scroll, .blog-grid { -webkit-overflow-scrolling: touch; }
 
-    /* ============================================================
-       Reduced motion · kill all non-essential animation
-       ============================================================ */
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-        scroll-behavior: auto !important;
-      }
-
-      .whatsapp-fab {
-        animation: none !important;
-        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
-      }
-
-      .hero__proof-caret {
-        animation: none !important;
-        opacity: 0 !important;
-      }
-
-      .hero__bg {
-        animation: none !important;
-        transform: scale(1.09);
-      }
-
-      .site-led-layer {
-        display: none;
-      }
-    }
   </style>
 </head>
 <body>
@@ -5319,10 +5174,7 @@
       var heroTypingToken = 0;
 
       function heroReducedMotion() {
-        return (
-          typeof window.matchMedia === 'function' &&
-          window.matchMedia('(prefers-reduced-motion: reduce)').matches
-        );
+        return false;
       }
 
       function runHeroTyping() {
@@ -5526,13 +5378,8 @@
 
         function scrollToBlogPreferSmooth(sec) {
           if (!sec) return;
-          var smooth =
-            !(
-              window.matchMedia &&
-              window.matchMedia('(prefers-reduced-motion: reduce)').matches
-            );
           sec.scrollIntoView({
-            behavior: smooth ? 'smooth' : 'auto',
+            behavior: 'smooth',
             block: 'start',
           });
         }
@@ -6187,9 +6034,6 @@
         if (!root) return;
         var nums = root.querySelectorAll('[data-trust-count]');
         if (!nums.length) return;
-        var reduced =
-          window.matchMedia &&
-          window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         var fired = false;
         function formatNum(el, n) {
           var pre = el.getAttribute('data-trust-prefix') || '';
@@ -6203,10 +6047,6 @@
             (function (el) {
               var target = parseInt(el.getAttribute('data-trust-count'), 10);
               if (!isFinite(target)) target = 0;
-              if (reduced) {
-                formatNum(el, target);
-                return;
-              }
               var start = null;
               var duration = 1300;
               function tick(ts) {

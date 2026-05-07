@@ -5,10 +5,7 @@
   'use strict';
 
   function reducedMotion() {
-    return !!(
-      global.matchMedia &&
-      global.matchMedia('(prefers-reduced-motion: reduce)').matches
-    );
+    return false;
   }
 
   /**

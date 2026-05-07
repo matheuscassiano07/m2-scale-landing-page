@@ -8,36 +8,7 @@
   if (!canvas || typeof canvas.getContext !== 'function') return;
 
   var ctx = canvas.getContext('2d');
-  var mqReduce =
-    typeof window.matchMedia === 'function'
-      ? window.matchMedia('(prefers-reduced-motion: reduce)')
-      : null;
-
-  var reduced = !!(mqReduce && mqReduce.matches);
   var running = true;
-
-  function syncReducedMotion() {
-    reduced = !!(mqReduce && mqReduce.matches);
-    if (reduced) {
-      canvas.style.display = 'none';
-      document.documentElement.style.background = '#050607';
-      document.body.style.background = '#050607';
-    } else {
-      canvas.style.display = '';
-      document.documentElement.style.background = '';
-      document.body.style.background = '';
-      resize();
-      initBlobs();
-      ripples.length = 0;
-    }
-  }
-
-  mqReduce &&
-    mqReduce.addEventListener &&
-    mqReduce.addEventListener('change', syncReducedMotion);
-  syncReducedMotion();
-
-  if (reduced) return;
 
   var dpr = 1;
   var w = window.innerWidth || 960;
