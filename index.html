@@ -382,6 +382,8 @@
       .section-title::before,
       .zira__image-wrap--featured::before,
       .zira__image-wrap--featured::after,
+      .zira__image-wrap--aside::before,
+      .zira__image-wrap--aside::after,
       .problem__visual::before,
       .problem__visual::after,
       .frame--macbook::before,
@@ -1417,6 +1419,46 @@
     .problem__visual::after {
       animation-delay: -2.1s;
       opacity: 0.36;
+    }
+
+    /* LEDs no thumbnail Zira: no desktop o efeito está no wrap featured; no ≤680px esse wrap
+       fica oculto — replicamos a mesma linguagem no wrap aside visível. */
+    .zira__image-wrap--aside {
+      isolation: isolate;
+    }
+
+    .zira__image-wrap--aside::before {
+      content: "";
+      position: absolute;
+      top: 2%;
+      right: 2%;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.92);
+      box-shadow:
+        0 0 8px rgba(255, 255, 255, 0.92),
+        0 0 18px rgba(255, 255, 255, 0.38);
+      pointer-events: none;
+      z-index: 2;
+      animation: ledPulseWhite 2.4s ease-in-out infinite;
+      animation-delay: -0.4s;
+    }
+
+    .zira__image-wrap--aside::after {
+      content: "";
+      position: absolute;
+      inset: -45% -40% -30% -40%;
+      border-radius: 48px;
+      background:
+        radial-gradient(circle at 30% 40%, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0) 58%),
+        radial-gradient(circle at 70% 65%, rgba(180, 210, 255, 0.14), rgba(180, 210, 255, 0) 62%);
+      filter: blur(14px);
+      opacity: 0.4;
+      z-index: -1;
+      pointer-events: none;
+      animation: ledBackwash 6.6s ease-in-out infinite;
+      animation-delay: -1.2s;
     }
 
     .frame--macbook .device-shell {
