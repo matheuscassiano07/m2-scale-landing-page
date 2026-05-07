@@ -5474,6 +5474,8 @@
         var revealTargets = document.querySelectorAll('[data-reveal]');
 
         if ('IntersectionObserver' in window && revealTargets.length) {
+          /* threshold 0: blocos muito altos (ex. workflow no mobile) nunca atingiam 12% de área visível,
+             e motion-split ficava preso em opacity 0. rootMargin positivo dispara um pouco antes do viewport. */
           var revealObserver = new IntersectionObserver(
             function (entries) {
               entries.forEach(function (entry) {
@@ -5483,11 +5485,33 @@
                 }
               });
             },
-            { threshold: 0.12, rootMargin: '0px 0px -8% 0px' }
+            { threshold: 0, rootMargin: '0px 0px 18% 0px' }
           );
+
+          function scanRevealInViewport() {
+            var vh = window.innerHeight || document.documentElement.clientHeight || 0;
+            if (!vh) return;
+            var pad = Math.round(vh * 0.1);
+            revealTargets.forEach(function (el) {
+              if (el.getAttribute('data-revealed') === 'true') return;
+              var rect = el.getBoundingClientRect();
+              if (rect.bottom > -pad && rect.top < vh + pad) {
+                el.setAttribute('data-revealed', 'true');
+                revealObserver.unobserve(el);
+              }
+            });
+          }
 
           revealTargets.forEach(function (el) {
             revealObserver.observe(el);
+          });
+
+          window.requestAnimationFrame(function () {
+            window.requestAnimationFrame(scanRevealInViewport);
+          });
+          window.addEventListener('load', scanRevealInViewport);
+          window.addEventListener('orientationchange', function () {
+            window.setTimeout(scanRevealInViewport, 180);
           });
         } else {
           revealTargets.forEach(function (el) {
@@ -6196,8 +6220,20 @@
             })(nums[i]);
           }
         }
+        var obs = null;
+        function tryTrustStatsFromLayout() {
+          if (fired) return;
+          var vh = window.innerHeight || document.documentElement.clientHeight || 0;
+          var pad = Math.round((vh || 640) * 0.12);
+          var rect = root.getBoundingClientRect();
+          if (rect.bottom > -pad && rect.top < (vh || 640) + pad) {
+            run();
+            if (obs) obs.disconnect();
+          }
+        }
+
         if ('IntersectionObserver' in window) {
-          var obs = new IntersectionObserver(
+          obs = new IntersectionObserver(
             function (entries, o) {
               for (var j = 0; j < entries.length; j++) {
                 if (entries[j].isIntersecting) {
@@ -6207,9 +6243,16 @@
                 }
               }
             },
-            { threshold: 0.2 }
+            { threshold: 0, rootMargin: '0px 0px 22% 0px' }
           );
           obs.observe(root);
+          window.requestAnimationFrame(function () {
+            window.requestAnimationFrame(tryTrustStatsFromLayout);
+          });
+          window.addEventListener('load', tryTrustStatsFromLayout);
+          window.addEventListener('orientationchange', function () {
+            window.setTimeout(tryTrustStatsFromLayout, 200);
+          });
         } else {
           run();
         }
