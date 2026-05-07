@@ -3081,18 +3081,36 @@
     .trust-stats__container {
       max-width: 920px;
       margin: 0 auto;
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-      gap: clamp(14px, 4vw, 72px);
-      align-items: start;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 12px;
     }
-    .trust-stats__item {
-      text-align: center;
+
+    /* Duas colunas sempre: números na mesma linha, labels na linha de baixo (nunca empilhar em coluna única). */
+    .trust-stats__nums,
+    .trust-stats__labels {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      justify-content: center;
+      align-items: baseline;
+      gap: clamp(10px, 3.5vw, 56px);
+      width: 100%;
       min-width: 0;
     }
+
+    .trust-stats__nums .trust-stats__value,
+    .trust-stats__labels .trust-stats__label {
+      flex: 1 1 0;
+      min-width: 0;
+      text-align: center;
+    }
+
     .trust-stats__value {
-      margin: 0 0 14px;
-      font-size: clamp(26px, 7.5vw, 76px);
+      margin: 0;
+      font-size: clamp(22px, 6.5vw, 76px);
       font-weight: var(--weight-medium);
       letter-spacing: -0.035em;
       line-height: 1;
@@ -3104,14 +3122,15 @@
     }
     .trust-stats__label {
       margin: 0;
-      font-size: clamp(13px, 2.8vw, var(--fs-body));
+      font-size: clamp(12px, 2.6vw, var(--fs-body));
       font-weight: var(--weight-regular);
-      line-height: 1.45;
+      line-height: 1.35;
       letter-spacing: var(--ls-body-lg);
       color: rgba(255, 255, 255, 0.7);
-      max-width: min(280px, 42vw);
-      margin-left: auto;
-      margin-right: auto;
+      max-width: none;
+      padding: 0 2px;
+      hyphens: auto;
+      overflow-wrap: anywhere;
     }
 
     /* ============================================================
@@ -3592,10 +3611,6 @@
         padding-bottom: clamp(4rem, 12vw, 6.5rem);
         padding-left: var(--space-4);
         padding-right: var(--space-4);
-      }
-
-      .trust-stats__container {
-        gap: clamp(14px, 4vw, 48px);
       }
 
       .problem__header {
@@ -4491,8 +4506,8 @@
       id="trust-stats"
       data-i18n-attr="aria-label:trustStats.ariaLabel"
       aria-label="Indicadores de confiança">
-      <div class="trust-stats__container">
-        <div class="trust-stats__item" data-reveal>
+      <div class="trust-stats__container" data-reveal>
+        <div class="trust-stats__nums">
           <p class="trust-stats__value">
             <span
               class="trust-stats__num"
@@ -4500,17 +4515,17 @@
               data-trust-prefix="+"
               aria-hidden="true">+0</span>
           </p>
-          <p class="trust-stats__label" data-i18n="trustStats.clientsLabel">
-            clientes satisfeitos
-          </p>
-        </div>
-        <div class="trust-stats__item" data-reveal style="--reveal-delay: 80ms">
           <p class="trust-stats__value">
             <span
               class="trust-stats__num"
               data-trust-count="99"
               data-trust-suffix="%"
               aria-hidden="true">0%</span>
+          </p>
+        </div>
+        <div class="trust-stats__labels">
+          <p class="trust-stats__label" data-i18n="trustStats.clientsLabel">
+            clientes satisfeitos
           </p>
           <p class="trust-stats__label" data-i18n="trustStats.ratingLabel">
             avaliações positivas
