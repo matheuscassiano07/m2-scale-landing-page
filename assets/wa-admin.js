@@ -181,15 +181,16 @@
       .then(function (r) {
         if (r.status === 401) return { ok: false, error: 'unauthorized', state: 'auth' };
         return r.json().catch(function () {
-          return { ok: false };
+          return { ok: false, error: 'parse' };
         });
       })
       .catch(function () {
-        return { ok: false };
+        return { ok: false, error: 'network' };
       });
   }
 
-  function fetchQr() {
+  function fetchQr(fromManual) {
+    var manual = fromManual === true;
     setBadge(tx('gerando QR…', 'generating QR…'), 'warn');
     fetch('/api/wa/qrcode', fetchOpts({ method: 'GET' }))
       .then(function (r) {
@@ -203,6 +204,7 @@
           setBadge(tx('erro', 'error'), 'bad');
           var reason = data && data.error ? data.error : 'rede';
           var detail = data && data.message ? String(data.message) : '';
+          if (detail.length > 220) detail = detail.slice(0, 217) + '…';
           els.hint.textContent = tx(
             'Falha ao buscar QR (' + reason + ')' + (detail ? ': ' + detail : '.'),
             'Failed to fetch QR (' + reason + ')' + (detail ? ': ' + detail : '.')
@@ -215,7 +217,16 @@
       })
       .catch(function () {
         setBadge(tx('erro', 'error'), 'bad');
+        els.hint.textContent = tx(
+          'Falha ao buscar QR (rede). Tente de novo ou confira as variáveis Evolution na Vercel.',
+          'Failed to fetch QR (network). Retry or check Evolution env vars on the host.'
+        );
         schedule(POLL_ERROR_MS);
+      })
+      .finally(function () {
+        if (manual && els.btnRefresh && state.current !== 'open') {
+          els.btnRefresh.disabled = false;
+        }
       });
   }
 
@@ -228,6 +239,10 @@
       }
       if (!data || data.ok === false) {
         setBadge(tx('sem resposta', 'no response'), 'bad');
+        if (data && data.message && els.hint) {
+          var sm = String(data.message);
+          els.hint.textContent = sm.length > 220 ? sm.slice(0, 217) + '…' : sm;
+        }
         schedule(POLL_ERROR_MS);
         return;
       }
@@ -236,7 +251,7 @@
         schedule(POLL_OPEN_MS);
         return;
       }
-      fetchQr();
+      fetchQr(false);
     });
   }
 
@@ -388,7 +403,7 @@
     btnRefresh.textContent = tx('Atualizar QR', 'Refresh QR');
     btnRefresh.addEventListener('click', function () {
       btnRefresh.disabled = true;
-      fetchQr();
+      fetchQr(true);
     });
     actions.appendChild(btnRefresh);
 

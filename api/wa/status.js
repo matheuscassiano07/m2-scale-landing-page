@@ -52,6 +52,10 @@ module.exports = async function handler(req, res) {
     }
     res.status(200).json({ ok: true, state: state || 'unknown', number: String(number || '') });
   } catch (e) {
-    res.status(502).json({ ok: false, error: 'upstream-failed' });
+    res.status(502).json({
+      ok: false,
+      error: 'upstream-failed',
+      message: String((e && e.message) || e),
+    });
   }
 };

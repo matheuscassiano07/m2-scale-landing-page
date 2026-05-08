@@ -119,6 +119,11 @@ module.exports = async function handler(req, res) {
     });
     res.status(200).json(outConn);
   } catch (e) {
-    res.status(502).json({ ok: false, error: 'upstream-failed', message: String(e && e.message || e) });
+    res.status(502).json({
+      ok: false,
+      error: 'upstream-failed',
+      message: String((e && e.message) || e),
+      code: e && e.code ? String(e.code) : undefined,
+    });
   }
 };

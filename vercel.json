@@ -2,6 +2,11 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "cleanUrls": true,
   "trailingSlash": false,
+  "functions": {
+    "api/wa/qrcode.js": { "maxDuration": 60 },
+    "api/wa/status.js": { "maxDuration": 30 },
+    "api/wa/notify.js": { "maxDuration": 30 }
+  },
   "rewrites": [
     { "source": "/admin", "destination": "/admin.html" },
     { "source": "/blog", "destination": "/blog.html" }
