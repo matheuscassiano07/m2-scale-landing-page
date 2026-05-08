@@ -27,6 +27,15 @@
     return Math.random();
   }
 
+  /** Telefone / touch primário: sem ripple nem “puxão” de blobs ao toque (evita efeito de clique). */
+  function isTouchPrimary() {
+    try {
+      return window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+    } catch (e) {
+      return false;
+    }
+  }
+
   function initBlobs() {
     blobs.length = 0;
     var i;
@@ -82,6 +91,7 @@
   }
 
   function onPress(e) {
+    if (isTouchPrimary()) return;
     var x = e.clientX;
     var y = e.clientY;
     ripples.push({ x: x, y: y, rad: 0, life: 1 });
