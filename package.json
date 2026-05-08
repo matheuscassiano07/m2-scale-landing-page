@@ -12,6 +12,7 @@
   "scripts": {
     "dev": "vercel dev --listen 3000",
     "start": "npx --yes serve@14 . -l 3000",
-    "security-check": "node scripts/security-check.cjs"
+    "security-check": "node scripts/security-check.cjs",
+    "evo-qr": "node scripts/evo-qr.cjs"
   }
 }
