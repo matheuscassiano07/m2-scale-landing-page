@@ -407,6 +407,32 @@
     });
     actions.appendChild(btnRefresh);
 
+    var btnDiag = document.createElement('button');
+    btnDiag.type = 'button';
+    btnDiag.className = 'wa-btn wa-btn--ghost';
+    btnDiag.textContent = tx('Diagnóstico', 'Diagnostics');
+    btnDiag.addEventListener('click', function () {
+      btnDiag.disabled = true;
+      fetch('/api/wa/diag', fetchOpts({ method: 'GET' }))
+        .then(function (r) {
+          return r.json().catch(function () {
+            return { ok: false, parseError: true };
+          });
+        })
+        .then(function (data) {
+          els.diagWrap.hidden = false;
+          els.diagPre.textContent = JSON.stringify(data, null, 2);
+        })
+        .catch(function () {
+          els.diagWrap.hidden = false;
+          els.diagPre.textContent = JSON.stringify({ ok: false, error: 'network' }, null, 2);
+        })
+        .finally(function () {
+          btnDiag.disabled = false;
+        });
+    });
+    actions.appendChild(btnDiag);
+
     info.appendChild(connected);
     info.appendChild(hint);
     info.appendChild(pairWrap);
@@ -417,6 +443,15 @@
     card.appendChild(body);
 
     host.appendChild(card);
+
+    var diagWrap = document.createElement('div');
+    diagWrap.className = 'wa-diag-wrap';
+    diagWrap.hidden = true;
+    var diagPre = document.createElement('pre');
+    diagPre.className = 'wa-diag-pre';
+    diagPre.setAttribute('aria-live', 'polite');
+    diagWrap.appendChild(diagPre);
+    host.appendChild(diagWrap);
 
     els.card = card;
     els.badge = badge;
@@ -429,6 +464,9 @@
     els.pairCode = pairCode;
     els.copyBtn = copyBtn;
     els.btnRefresh = btnRefresh;
+    els.btnDiag = btnDiag;
+    els.diagWrap = diagWrap;
+    els.diagPre = diagPre;
   }
 
   function start() {

@@ -101,12 +101,29 @@ Endpoints novos: `/api/auth/login`, `/api/auth/logout`, `/api/auth/me`.
 | `/api/leads/list`   | GET  | cookie + same-origin estrito      | Lista leads para o painel `/admin` (Supabase quando configurado). |
 | `/api/wa/status`    | GET  | cookie + same-origin estrito      | Retorna `{ state, number }` da instância. |
 | `/api/wa/qrcode`    | GET  | cookie + same-origin estrito      | Cria instância se faltar e devolve QR base64 + pairing code. |
+| `/api/wa/diag`      | GET  | cookie + same-origin estrito      | Diagnóstico JSON (presença de env, hostname, upstream, tentativa QR sem base64). |
 | `/api/wa/notify`    | POST | same-origin estrito                | Recebe `{ name, email, phone, company, segment, revenue, lang }` da landing e envia WhatsApp. |
 
-Rate-limit em memória: 30 req/min para o QR, 60 req/min para status, 8
+Rate-limit em memória: 30 req/min para o QR, 12 req/min para diag, 60 req/min para status, 8
 req/min/IP + 240/min global para notify. Como Vercel reusa instâncias
 serverless, o limit é por instância — para algo mais firme, plugue um
 provider externo (Upstash Redis ou KV).
+
+### 5.1 Troubleshooting QR (`/admin`)
+
+Alterar variáveis em **Settings → Environment Variables** na Vercel **não aplica** sozinho às funções já implantadas: é obrigatório fazer **Redeploy** (aba *Deployments* → menu do deploy → **Redeploy**). Só guardar na UI ou “reiniciar” o projeto não atualiza o runtime das serverless functions.
+
+| Sintoma no painel / em `upstream` | Causa provável | Correção |
+|-----------------------------------|----------------|------------|
+| `ENOTFOUND` / hostname não resolve | Subdomínio sem registo **A** ou **CNAME** no DNS | Criar registo apontando para o IP/hostname onde a Evolution corre; aguardar propagação (TTL). |
+| `ECONNREFUSED` | Evolution parada, porta errada ou firewall a bloquear | Subir o serviço; abrir porta; testar `curl` a partir de outra máquina na internet. |
+| `upstream-failed` / `fetch failed` | `EVOLUTION_API_URL` inalcançável **a partir da Vercel** (`localhost`, `127.0.0.1`, IP privado, host só na LAN) | Usar URL **HTTPS pública** da API (VPS, túnel tipo ngrok em testes, ou host gerido). |
+| Erro TLS / certificado | HTTPS com certificado não confiável pelo Node | Se aceitável: `EVOLUTION_TLS_INSECURE=1` nas env vars (e redeploy). |
+| HTTP 200 mas QR vazio / `renderedPng: false` | Evolution ainda sem materializar QR (count 0, só código, etc.) | **Atualizar QR** no painel; com `ZIRA_DEBUG_WA=1` a resposta de `/api/wa/qrcode` pode incluir `qrDebug`. |
+| `SESSION_SECRET` falso no diagnóstico | Menos de 32 caracteres ou vazio | Definir `SESSION_SECRET` com 32+ caracteres; redeploy. |
+| `evolutionUrlInfo.isPublic: false` | URL aponta para localhost / RFC1918 | Mesmo que “fetch failed”: a Vercel não alcança a tua máquina; use host público. |
+
+Diagnóstico no painel: após login, botão **Diagnóstico** no cartão WhatsApp chama `GET /api/wa/diag`. No terminal local (com `.env`): `npm run evo-diag`.
 
 ## 6. Endpoints da Evolution API consumidos
 

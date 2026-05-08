@@ -1,5 +1,8 @@
 /**
- * Liquid chrome futuristic background — mouse follow + ripple on pointer tap
+ * Liquid chrome background — segue cursor / dedo (mousemove + touchmove).
+ * Sem ripple nem reação a clique. Opacidade do canvas sobe após o evento
+ * `zira:hero-typing-done` (digitação da linha de prova no hero) ou fallback.
+ * Perto do topo da página o brilho/blobs atenuam levemente (scroll).
  */
 (function () {
   'use strict';
@@ -9,6 +12,12 @@
 
   var ctx = canvas.getContext('2d');
   var running = true;
+
+  /** 1 = efeito cheio; perto do scroll 0 fica ~0.78 e sobe suavemente ao rolar */
+  var scrollAtten = 1;
+  var TOP_ATTEN_MIN = 0.78;
+  var TOP_ATTEN_RANGE = 1 - TOP_ATTEN_MIN;
+  var TOP_ATTEN_SCROLL = 360;
 
   var dpr = 1;
   var w = window.innerWidth || 960;
@@ -20,20 +29,10 @@
 
   var blobs = [];
   var nBlob = 6;
-  var ripples = [];
   var tick = 0;
 
   function rnd() {
     return Math.random();
-  }
-
-  /** Telefone / touch primário: sem ripple nem “puxão” de blobs ao toque (evita efeito de clique). */
-  function isTouchPrimary() {
-    try {
-      return window.matchMedia('(hover: none) and (pointer: coarse)').matches;
-    } catch (e) {
-      return false;
-    }
   }
 
   function initBlobs() {
@@ -82,31 +81,9 @@
 
   function onTouchStart(e) {
     var tc = touchClient(e);
-    if (!tc) return;
-    onPress(tc);
-    if (w && h) {
-      mx = tc.clientX / w;
-      my = tc.clientY / h;
-    }
-  }
-
-  function onPress(e) {
-    if (isTouchPrimary()) return;
-    var x = e.clientX;
-    var y = e.clientY;
-    ripples.push({ x: x, y: y, rad: 0, life: 1 });
-    if (ripples.length > 12) ripples.splice(0, ripples.length - 12);
-
-    var k;
-    var nx = x / w;
-    var ny = y / h;
-    for (k = 0; k < blobs.length; k++) {
-      var blob = blobs[k];
-      blob.x += (nx - blob.x) * 0.15;
-      blob.y += (ny - blob.y) * 0.15;
-      blob.x = Math.min(0.94, Math.max(0.06, blob.x));
-      blob.y = Math.min(0.94, Math.max(0.06, blob.y));
-    }
+    if (!tc || !w || !h) return;
+    mx = tc.clientX / w;
+    my = tc.clientY / h;
   }
 
   function loop() {
@@ -122,6 +99,14 @@
     smx += (mx - smx) * 0.045;
     smy += (my - smy) * 0.045;
 
+    var scrollY =
+      (typeof window.pageYOffset === 'number' ? window.pageYOffset : 0) ||
+      (doc.documentElement && doc.documentElement.scrollTop) ||
+      (doc.body && doc.body.scrollTop) ||
+      0;
+    var targetAtten = TOP_ATTEN_MIN + TOP_ATTEN_RANGE * Math.min(1, scrollY / TOP_ATTEN_SCROLL);
+    scrollAtten += (targetAtten - scrollAtten) * 0.06;
+
     var M = Math.min(w, h);
     var bi;
     var b;
@@ -134,8 +119,6 @@
     var by;
     var R;
     var grad;
-    var i;
-    var ri;
 
     for (bi = 0; bi < blobs.length; bi++) {
       b = blobs[bi];
@@ -154,6 +137,7 @@
     ctx.fillStyle = '#030406';
     ctx.fillRect(0, 0, w, h);
     ctx.globalCompositeOperation = 'lighter';
+    ctx.globalAlpha = scrollAtten;
 
     for (bi = 0; bi < blobs.length; bi++) {
       b = blobs[bi];
@@ -181,31 +165,40 @@
     var pad = sR * 1.15;
     ctx.fillRect(sx - pad, sy - pad, pad * 2, pad * 2);
 
-    ctx.globalCompositeOperation = 'source-over';
-
-    for (i = 0; i < ripples.length; i++) {
-      ri = ripples[i];
-      ri.rad += Math.min(42, 8 + ri.life * 26);
-      ri.life *= 0.965;
-      ctx.beginPath();
-      ctx.arc(ri.x, ri.y, ri.rad, 0, Math.PI * 2);
-      ctx.strokeStyle = 'rgba(200,215,235,' + (ri.life * 0.35).toFixed(3) + ')';
-      ctx.lineWidth = 1.2 + (1 - ri.life) * 2;
-      ctx.stroke();
-    }
-
-    for (i = ripples.length - 1; i >= 0; i--) {
-      if (ripples[i].life < 0.03) ripples.splice(i, 1);
-    }
-
+    ctx.globalAlpha = 1;
     requestAnimationFrame(loop);
+  }
+
+  function wireReveal() {
+    var revealed = false;
+    function reveal() {
+      if (revealed) return;
+      revealed = true;
+      canvas.classList.add('chrome-liquid-bg--visible');
+    }
+
+    function onTypingDone() {
+      window.setTimeout(reveal, 520);
+    }
+
+    window.addEventListener('zira:hero-typing-done', onTypingDone);
+    window.setTimeout(function () {
+      if (!canvas.classList.contains('chrome-liquid-bg--visible')) {
+        reveal();
+      }
+    }, 7200);
   }
 
   window.addEventListener('resize', resize, { passive: true });
   window.addEventListener('mousemove', onMove, { passive: true });
-  window.addEventListener('click', onPress);
   window.addEventListener('touchmove', onTouchMove, { passive: true });
   window.addEventListener('touchstart', onTouchStart, { passive: true });
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', wireReveal);
+  } else {
+    wireReveal();
+  }
 
   resize();
   initBlobs();

@@ -996,6 +996,32 @@
     }
     .wa-btn:disabled { opacity: 0.45; cursor: default; }
     .wa-btn:hover:not(:disabled) { opacity: 0.92; transform: translateY(-1px); }
+    .wa-btn--ghost {
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+    }
+    .wa-btn--ghost:hover:not(:disabled) {
+      background: rgba(255, 255, 255, 0.16);
+    }
+    .wa-diag-wrap {
+      margin-top: 14px;
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(0, 0, 0, 0.35);
+      max-height: min(360px, 52vh);
+      overflow: auto;
+    }
+    .wa-diag-pre {
+      margin: 0;
+      font-family: ui-monospace, "Cascadia Code", "SF Mono", Consolas, monospace;
+      font-size: 11px;
+      line-height: 1.45;
+      color: rgba(255, 255, 255, 0.88);
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
     @media (prefers-color-scheme: dark) {
       html {
         color-scheme: dark;

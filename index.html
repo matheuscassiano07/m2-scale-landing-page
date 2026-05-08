@@ -220,6 +220,12 @@
       display: block;
       pointer-events: none;
       z-index: -3;
+      opacity: 0;
+      transition: opacity 1.35s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .chrome-liquid-bg.chrome-liquid-bg--visible {
+      opacity: 1;
     }
 
     body {
@@ -2104,44 +2110,8 @@
     }
 
     .tracking__pills {
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--space-3);
-      justify-content: center;
-    }
-
-    .tracking__pill {
-      display: inline-flex;
-      align-items: center;
-      gap: var(--space-3);
-      padding: var(--space-3) var(--space-5);
-      background: transparent;
-      border: 1px solid var(--on-dark-2);
-      border-radius: var(--r-pill);
-      font-size: var(--fs-caption-lg);
-      font-weight: var(--weight-medium);
-      color: var(--on-dark-text-2);
-      letter-spacing: -0.182px;
-      transition:
-        background var(--t-fast),
-        color var(--t-fast),
-        border-color var(--t-fast),
-        transform var(--t-fast);
-    }
-
-    .tracking__pill:hover {
-      background: var(--white);
-      color: var(--black);
-      border-color: var(--white);
-      transform: translateY(-3px);
-      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.22);
-    }
-
-    .tracking__pill-dot {
-      width: 4px;
-      height: 4px;
-      border-radius: 50%;
-      background: currentColor;
+      max-width: 560px;
+      margin: 0 auto;
     }
 
     /* ============================================================
@@ -4451,12 +4421,12 @@
           data-i18n="tracking.caption">
           Aqui, gestão de obra e gestão de equipe deixam de ficar separadas. O escritório enxerga quem responde por cada frente, o que está em andamento e onde estão os gargalos, sem planilha paralela e sem leitura fragmentada da operação.
         </p>
-        <ul class="tracking__pills">
-          <li class="tracking__pill" data-reveal style="--reveal-delay: 0ms"><span class="tracking__pill-dot" aria-hidden="true"></span><span data-i18n="tracking.p1">Tarefas por responsável</span></li>
-          <li class="tracking__pill" data-reveal style="--reveal-delay: 80ms"><span class="tracking__pill-dot" aria-hidden="true"></span><span data-i18n="tracking.p2">Histórico de ações</span></li>
-          <li class="tracking__pill" data-reveal style="--reveal-delay: 160ms"><span class="tracking__pill-dot" aria-hidden="true"></span><span data-i18n="tracking.p3">Pendências e atrasos</span></li>
-          <li class="tracking__pill" data-reveal style="--reveal-delay: 240ms"><span class="tracking__pill-dot" aria-hidden="true"></span><span data-i18n="tracking.p4">Por arquiteto ou engenheiro</span></li>
-          <li class="tracking__pill" data-reveal style="--reveal-delay: 320ms"><span class="tracking__pill-dot" aria-hidden="true"></span><span data-i18n="tracking.p5">Visão individual da equipe</span></li>
+        <ul class="problem__bullets tracking__pills">
+          <li class="problem__bullet" data-reveal style="--reveal-delay: 0ms"><span class="problem__bullet-marker" aria-hidden="true"></span><span data-i18n="tracking.p1">Tarefas por responsável</span></li>
+          <li class="problem__bullet" data-reveal style="--reveal-delay: 80ms"><span class="problem__bullet-marker" aria-hidden="true"></span><span data-i18n="tracking.p2">Histórico de ações</span></li>
+          <li class="problem__bullet" data-reveal style="--reveal-delay: 160ms"><span class="problem__bullet-marker" aria-hidden="true"></span><span data-i18n="tracking.p3">Pendências e atrasos</span></li>
+          <li class="problem__bullet" data-reveal style="--reveal-delay: 240ms"><span class="problem__bullet-marker" aria-hidden="true"></span><span data-i18n="tracking.p4">Por arquiteto ou engenheiro</span></li>
+          <li class="problem__bullet" data-reveal style="--reveal-delay: 320ms"><span class="problem__bullet-marker" aria-hidden="true"></span><span data-i18n="tracking.p5">Visão individual da equipe</span></li>
         </ul>
       </div>
     </section>
@@ -5274,11 +5244,20 @@
         heroProofEl.textContent = '';
         heroCaretEl.classList.remove('hero__proof-caret--off');
 
-        if (!heroProofCopy) return;
+        if (!heroProofCopy) {
+          heroCaretEl.classList.add('hero__proof-caret--off');
+          window.setTimeout(function () {
+            window.dispatchEvent(new CustomEvent('zira:hero-typing-done'));
+          }, 320);
+          return;
+        }
 
         if (heroReducedMotion()) {
           heroProofEl.textContent = heroProofCopy;
           heroCaretEl.classList.add('hero__proof-caret--off');
+          window.setTimeout(function () {
+            window.dispatchEvent(new CustomEvent('zira:hero-typing-done'));
+          }, 400);
           return;
         }
 
@@ -5291,6 +5270,9 @@
             window.setTimeout(tick, 36);
           } else {
             heroCaretEl.classList.add('hero__proof-caret--off');
+            window.setTimeout(function () {
+              window.dispatchEvent(new CustomEvent('zira:hero-typing-done'));
+            }, 650);
           }
         }
         window.setTimeout(tick, 980);
