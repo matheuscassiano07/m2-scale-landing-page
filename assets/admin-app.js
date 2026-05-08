@@ -152,6 +152,106 @@
       .catch(function () {});
   }
 
+  function renderWeekChart(all, lang) {
+    var el = document.getElementById('adm-chart');
+    if (!el) return;
+    var localeStr = loc(lang);
+    var dayStarts = [];
+    var i;
+    for (i = 6; i >= 0; i--) {
+      var d = new Date();
+      d.setHours(0, 0, 0, 0);
+      d.setDate(d.getDate() - i);
+      dayStarts.push(d.getTime());
+    }
+    var endMs = dayStarts[6] + DAY;
+    var buckets = [0, 0, 0, 0, 0, 0, 0];
+    all.forEach(function (r) {
+      var t = Date.parse(r.createdAt);
+      if (isNaN(t) || t < dayStarts[0] || t >= endMs) return;
+      for (var j = 0; j < 7; j++) {
+        if (t >= dayStarts[j] && t < dayStarts[j] + DAY) {
+          buckets[j]++;
+          break;
+        }
+      }
+    });
+    var max = Math.max(1, Math.max.apply(null, buckets));
+    var W = 720;
+    var H = 168;
+    var padL = 8;
+    var padR = 8;
+    var padT = 18;
+    var padB = 34;
+    var gap = 6;
+    var n = 7;
+    var innerW = W - padL - padR - gap * (n - 1);
+    var bw = innerW / n;
+    var sh = H - padT - padB;
+    var rects = [];
+    for (i = 0; i < n; i++) {
+      var c = buckets[i];
+      var bh = Math.round((c / max) * sh);
+      if (bh < 3 && c > 0) bh = 3;
+      var x = padL + i * (bw + gap);
+      var y = padT + (sh - bh);
+      rects.push(
+        '<rect x="' +
+          x +
+          '" y="' +
+          y +
+          '" width="' +
+          bw +
+          '" height="' +
+          bh +
+          '" rx="6" fill="var(--adm-chart-bar)" stroke="var(--adm-chart-bar-stroke)" stroke-width="1"/>'
+      );
+      if (c > 0) {
+        rects.push(
+          '<text x="' +
+            (x + bw / 2) +
+            '" y="' +
+            (y - 6) +
+            '" text-anchor="middle" font-size="11" font-weight="650" fill="var(--adm-chart-value)">' +
+            c +
+            '</text>'
+        );
+      }
+    }
+    var labels = [];
+    for (i = 0; i < 7; i++) {
+      var lab = new Date(dayStarts[i]).toLocaleDateString(localeStr, { day: '2-digit', month: '2-digit' });
+      var lx = padL + i * (bw + gap) + bw / 2;
+      labels.push(
+        '<text x="' +
+          lx +
+          '" y="' +
+          (H - 10) +
+          '" text-anchor="middle" font-size="11" font-weight="600" fill="var(--adm-chart-label)">' +
+          lab +
+          '</text>'
+      );
+    }
+    var svg =
+      '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' +
+      W +
+      ' ' +
+      H +
+      '" preserveAspectRatio="xMidYMid meet" aria-hidden="true">' +
+      '<rect x="0" y="0" width="' +
+      W +
+      '" height="' +
+      H +
+      '" rx="12" fill="var(--adm-chart-surface)" stroke="var(--adm-chart-surface-stroke)"/>' +
+      rects.join('') +
+      labels.join('') +
+      '</svg>';
+    el.innerHTML = svg;
+    if (typeof window.ZiraI18n !== 'undefined') {
+      el.setAttribute('aria-label', window.ZiraI18n.t('adminPage.chartAria'));
+    }
+  }
+
   function render() {
     if (typeof window.ZiraI18n === 'undefined') return;
     layout();
@@ -190,6 +290,8 @@
     document.getElementById('n1').textContent = String(all.length);
     document.getElementById('n2').textContent = String(cD);
     document.getElementById('n3').textContent = String(cW);
+
+    renderWeekChart(all, lng);
 
     var sub = filterRows(all, qEl.value);
     document.getElementById('vacant').classList.toggle('on', sub.length === 0);

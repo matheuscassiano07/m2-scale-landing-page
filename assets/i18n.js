@@ -561,6 +561,24 @@
         securityWarn:
           'Configure ADMIN_USERNAME, ADMIN_PASSWORD e SESSION_SECRET nas variáveis da Vercel.',
         unauthorized: 'Faça login para ver os dados.',
+        chartTitle: 'Leads nos últimos 7 dias',
+        chartSub: 'Volume por dia (meia-noite a meia-noite, fuso local)',
+        chartAria: 'Gráfico de barras com o número de leads por dia na última semana.',
+        waSectionAria: 'Conexão WhatsApp via Evolution API',
+        waEvoTitle: 'Evolution API · WhatsApp',
+        waBadgeConnected: 'conectado',
+        waBadgeAwait: 'aguardando ligação',
+        waHintOpen:
+          'WhatsApp ligado via Evolution API. Novos leads disparam notificação para este número.',
+        waHintQr:
+          'Use o código de 8 dígitos no WhatsApp (Aparelhos conectados → Ligar com número) ou escaneie o QR.',
+        waConnectedTitle: 'WhatsApp conectado',
+        waConnectedSub:
+          'O código de pareamento fica oculto enquanto a sessão Evolution estiver ativa.',
+        waPairingTitle: 'Código Evolution (8 dígitos)',
+        waQrCaption: 'Ou escaneie o QR',
+        waCopy: 'Copiar código',
+        waCopied: 'Copiado',
       },
     },
     en: {
@@ -1114,6 +1132,23 @@
         securityWarn:
           'Configure ADMIN_USERNAME, ADMIN_PASSWORD and SESSION_SECRET as Vercel env vars.',
         unauthorized: 'Sign in to view leads.',
+        chartTitle: 'Leads over the last 7 days',
+        chartSub: 'Volume per calendar day (local midnight to midnight)',
+        chartAria: 'Bar chart of lead count per day over the past week.',
+        waSectionAria: 'WhatsApp connection via Evolution API',
+        waEvoTitle: 'Evolution API · WhatsApp',
+        waBadgeConnected: 'connected',
+        waBadgeAwait: 'awaiting link',
+        waHintOpen:
+          'WhatsApp is connected via Evolution API. New leads trigger a notification to this number.',
+        waHintQr:
+          'Use the 8-digit code in WhatsApp (Linked devices → Link with phone number) or scan the QR.',
+        waConnectedTitle: 'WhatsApp connected',
+        waConnectedSub: 'The pairing code stays hidden while the Evolution session is active.',
+        waPairingTitle: 'Evolution pairing code (8 digits)',
+        waQrCaption: 'Or scan the QR',
+        waCopy: 'Copy code',
+        waCopied: 'Copied',
       },
     },
   };

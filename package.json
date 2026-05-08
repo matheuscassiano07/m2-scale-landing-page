@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "private": true,
   "description": "ZIRA AI landing page (estática) com integração Evolution API serverless na Vercel",
+  "dependencies": {
+    "qrcode": "^1.5.4"
+  },
   "engines": {
     "node": ">=18"
   },

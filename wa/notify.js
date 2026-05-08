@@ -37,34 +37,47 @@ function cap(s, max) {
 
 function buildMessage(lead) {
   const lang = lead.lang === 'en' ? 'en' : 'pt';
+  const line = '━━━━━━━━━━━━━━━━━━━━';
   if (lang === 'en') {
     return [
-      '*ZIRA AI - New lead*',
+      line,
+      '✨ *ZIRA AI · New lead*',
+      line,
       '',
-      'Name: ' + (lead.name || '-'),
-      'Phone: ' + (lead.phone || '-'),
-      'Email: ' + (lead.email || '-'),
-      lead.company ? 'Company: ' + lead.company : null,
-      lead.segment ? 'Segment: ' + labelSegment(lead.segment) : null,
-      lead.revenue ? 'Revenue: ' + labelRevenue(lead.revenue) : null,
+      '👤 *Name*\n' + (lead.name || '—'),
+      '📞 *Phone*\n' + (lead.phone || '—'),
+      '📧 *Email*\n' + (lead.email || '—'),
+      lead.company ? '🏢 *Company*\n' + lead.company : null,
+      lead.segment ? '📂 *Segment*\n' + labelSegment(lead.segment) : null,
+      lead.revenue ? '💰 *Revenue*\n' + labelRevenue(lead.revenue) : null,
       '',
-      'Source: zira-landing',
-      'Received: ' + new Date().toISOString(),
-    ].filter(Boolean).join('\n');
+      line,
+      '🌐 _Source:_ zira-landing',
+      '🕐 _Received:_ ' + new Date().toISOString(),
+      line,
+    ]
+      .filter(Boolean)
+      .join('\n\n');
   }
   return [
-    '*ZIRA AI - Novo lead*',
+    line,
+    '✨ *ZIRA AI · Novo lead*',
+    line,
     '',
-    'Nome: ' + (lead.name || '-'),
-    'Telefone: ' + (lead.phone || '-'),
-    'E-mail: ' + (lead.email || '-'),
-    lead.company ? 'Empresa: ' + lead.company : null,
-    lead.segment ? 'Segmento: ' + labelSegment(lead.segment) : null,
-    lead.revenue ? 'Faturamento: ' + labelRevenue(lead.revenue) : null,
+    '👤 *Nome*\n' + (lead.name || '—'),
+    '📞 *Telefone*\n' + (lead.phone || '—'),
+    '📧 *E-mail*\n' + (lead.email || '—'),
+    lead.company ? '🏢 *Empresa*\n' + lead.company : null,
+    lead.segment ? '📂 *Segmento*\n' + labelSegment(lead.segment) : null,
+    lead.revenue ? '💰 *Faturamento*\n' + labelRevenue(lead.revenue) : null,
     '',
-    'Origem: landing zira-ai',
-    'Recebido em: ' + new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }),
-  ].filter(Boolean).join('\n');
+    line,
+    '🌐 _Origem:_ landing zira-ai',
+    '🕐 _Recebido:_ ' + new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }),
+    line,
+  ]
+    .filter(Boolean)
+    .join('\n\n');
 }
 
 module.exports = async function handler(req, res) {

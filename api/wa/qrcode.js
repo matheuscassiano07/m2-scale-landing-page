@@ -1,8 +1,23 @@
 'use strict';
 
 const lib = require('../_lib/evolution.js');
+const evoQr = require('../_lib/evoQrResolve.js');
 const rl = require('../_lib/rateLimit.js');
 const auth = require('../_lib/auth.js');
+
+function attachQrDebugIfEnabled(body, debugPayload) {
+  if (!evoQr.qrDebugEnabled() || !debugPayload) return;
+  body.qrDebug = Object.assign(
+    {
+      reason: evoQr.qrDebugReason(),
+      envHint: {
+        vercelEnv: process.env.VERCEL_ENV || null,
+        nodeEnv: process.env.NODE_ENV || null,
+      },
+    },
+    debugPayload
+  );
+}
 
 module.exports = async function handler(req, res) {
   res.setHeader('Cache-Control', 'no-store, max-age=0');
@@ -51,8 +66,33 @@ module.exports = async function handler(req, res) {
           integration: 'WHATSAPP-BAILEYS',
         }),
       });
-      const qr = extractQr(created.data);
-      res.status(200).json({ ok: true, state: 'connecting', qrcode: qr.base64 || '', pairingCode: qr.pairingCode || '', created: true });
+      const qrAfterCreate = await evoQr.resolveFromPayload(created.data);
+      let qr = qrAfterCreate;
+      let bundleAfterCreate = null;
+      if (!qr.base64) {
+        bundleAfterCreate = await evoQr.fetchConnectUntilQr(lib, cfg);
+        qr = bundleAfterCreate.qr;
+      }
+      const outCreate = {
+        ok: true,
+        state: 'connecting',
+        qrcode: qr.base64 || '',
+        pairingCode: qr.pairingCode || '',
+        created: true,
+      };
+      attachQrDebugIfEnabled(outCreate, {
+        phase: 'instance-create',
+        afterCreate: evoQr.qrDebugStep(qrAfterCreate.parsed, qrAfterCreate, null, null),
+        afterConnect: bundleAfterCreate
+          ? evoQr.qrDebugStep(
+              bundleAfterCreate.parsed,
+              bundleAfterCreate.qr,
+              bundleAfterCreate.conn,
+              bundleAfterCreate.meta
+            )
+          : null,
+      });
+      res.status(200).json(outCreate);
       return;
     }
 
@@ -61,29 +101,24 @@ module.exports = async function handler(req, res) {
       return;
     }
 
-    const conn = await lib.evoFetch('/instance/connect/' + encodeURIComponent(cfg.instance), {});
-    const qr = extractQr(conn.data);
-    res.status(200).json({
+    const bundle = await evoQr.fetchConnectUntilQr(lib, cfg);
+    const qr = bundle.qr;
+    var clientState = state || 'connecting';
+    if ((qr.base64 || qr.pairingCode) && clientState === 'close') {
+      clientState = 'connecting';
+    }
+    const outConn = {
       ok: true,
-      state: state || 'connecting',
+      state: clientState,
       qrcode: qr.base64 || '',
       pairingCode: qr.pairingCode || '',
+    };
+    attachQrDebugIfEnabled(outConn, {
+      phase: 'instance-connect',
+      afterConnect: evoQr.qrDebugStep(bundle.parsed, bundle.qr, bundle.conn, bundle.meta),
     });
+    res.status(200).json(outConn);
   } catch (e) {
     res.status(502).json({ ok: false, error: 'upstream-failed', message: String(e && e.message || e) });
   }
 };
-
-function extractQr(data) {
-  if (!data || typeof data !== 'object') return { base64: '', pairingCode: '' };
-  const base =
-    data.base64 ||
-    (data.qrcode && data.qrcode.base64) ||
-    (data.qr && data.qr.base64) ||
-    '';
-  const pairing =
-    data.pairingCode ||
-    (data.qrcode && data.qrcode.pairingCode) ||
-    '';
-  return { base64: String(base || ''), pairingCode: String(pairing || '') };
-}
