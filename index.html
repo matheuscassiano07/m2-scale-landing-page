@@ -1433,6 +1433,18 @@
       }
     }
 
+    /* FAQ · barra sob o título (tom escuro, movimento mais lento e suave) */
+    @keyframes faqTitleLightBar {
+      0%, 100% {
+        opacity: 0.22;
+        transform: translateX(-5%) scaleX(0.82);
+      }
+      50% {
+        opacity: 0.42;
+        transform: translateX(5%) scaleX(1.02);
+      }
+    }
+
     @keyframes ledBackwash {
       0%, 100% {
         opacity: 0.3;
@@ -3063,10 +3075,11 @@
     }
 
     /* ============================================================
-       Calendário + trust stats · faixa escura contínua (mesmo preto)
+       Calendário + blog + trust + FAQ · mesma leitura visual que workflow/tracking
+       (fundo transparente → chrome liquid + animações data-reveal contínuas)
        ============================================================ */
     .calendar-trust-belt {
-      background: #0a0a0c;
+      background: transparent;
       overflow-x: clip;
     }
 
@@ -3134,14 +3147,39 @@
     }
 
     /* ============================================================
-       FAQ · details nativo + acabamento editorial
+       FAQ · details nativo + fundo final-section.png
+       Estreito: escala pela altura da secção (auto 100%) → corta só as laterais.
+       Largo: estica à caixa da secção (100% 100%).
+       Landscape baixo: prioriza largura (100% auto) para não “vazar” bandas.
        ============================================================ */
     .faq {
+      position: relative;
+      isolation: isolate;
+      overflow-x: clip;
       padding: var(--space-12) var(--space-6);
-      background:
-        linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.94)),
-        url('assets/final-section.png') center center / cover no-repeat;
-      border-top: 1px solid rgba(0, 0, 0, 0.08);
+      border-top: 1px solid rgba(0, 0, 0, 0.1);
+      background-color: #e8e8e8;
+      background-image:
+        linear-gradient(rgba(0, 0, 0, 0.14), rgba(0, 0, 0, 0.1)),
+        url('assets/final-section.png');
+      background-repeat: no-repeat, no-repeat;
+      background-position: center center, center center;
+      background-origin: padding-box, padding-box;
+      /* Estreito: altura da secção define a escala; excedente horizontal é recortado */
+      background-size: auto 100%, auto 100%;
+    }
+
+    @media (orientation: landscape) and (max-height: 520px) {
+      .faq {
+        /* Telemóvel/tablet deitado: preenche a largura, corta topo/base se preciso */
+        background-size: 100% auto, 100% auto;
+      }
+    }
+
+    @media (min-width: 900px) {
+      .faq {
+        background-size: 100% 100%, 100% 100%;
+      }
     }
 
     .faq__container {
@@ -3149,16 +3187,45 @@
       margin: 0 auto;
     }
 
+    .faq .section-title {
+      color: var(--black);
+      text-shadow: none;
+      animation: none;
+    }
+
+    .faq .section-title::after {
+      display: none;
+    }
+
+    .faq .section-title::before {
+      content: "";
+      position: absolute;
+      left: -14%;
+      right: -14%;
+      bottom: -0.2em;
+      height: 0.24em;
+      border-radius: 999px;
+      display: block;
+      background: linear-gradient(
+        90deg,
+        rgba(0, 0, 0, 0) 0%,
+        rgba(0, 0, 0, 0.06) 38%,
+        rgba(0, 0, 0, 0.11) 50%,
+        rgba(0, 0, 0, 0.06) 62%,
+        rgba(0, 0, 0, 0) 100%
+      );
+      filter: blur(11px);
+      transform-origin: 50% 50%;
+      animation: faqTitleLightBar 11.5s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+      pointer-events: none;
+    }
+
     .faq .section-caption {
       margin-bottom: var(--space-9);
       text-align: center;
       margin-left: auto;
       margin-right: auto;
-      color: #0a0a0a;
-    }
-
-    .faq .section-title {
-      color: #0a0a0a;
+      color: var(--on-light-text-2);
     }
 
     .faq__panel {
@@ -3167,15 +3234,16 @@
     }
 
     .faq__item {
-      border: 1px solid rgba(0, 0, 0, 0.12);
+      border: 1px solid var(--on-light-2);
       border-radius: var(--r-panel);
-      background: rgba(255, 255, 255, 0.66);
+      background: var(--white);
       overflow: hidden;
-      transition: border-color var(--t-base), background var(--t-base), transform var(--t-base);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+      transition: border-color var(--t-fast), transform var(--t-base);
     }
 
     .faq__item:hover {
-      border-color: rgba(0, 0, 0, 0.2);
+      border-color: rgba(0, 0, 0, 0.14);
     }
 
     .faq__details {
@@ -3199,9 +3267,15 @@
       padding: var(--space-5) var(--space-6);
       font-size: var(--fs-body);
       font-weight: var(--weight-medium);
-      color: #0a0a0a;
+      color: var(--black);
       letter-spacing: var(--ls-h3);
       line-height: 1.35;
+    }
+
+    .faq__summary:focus-visible {
+      outline: 2px solid rgba(0, 0, 0, 0.25);
+      outline-offset: 2px;
+      border-radius: 4px;
     }
 
     .faq__summary::-webkit-details-marker {
@@ -3215,24 +3289,24 @@
       display: grid;
       place-items: center;
       border-radius: var(--r-sm);
-      background: rgba(0, 0, 0, 0.08);
-      transition: transform var(--t-fast), background var(--t-fast);
-      color: rgba(0, 0, 0, 0.65);
+      background: var(--on-light-2);
+      transition: transform var(--t-fast), background var(--t-fast), color var(--t-fast);
+      color: var(--on-light-text-2);
     }
 
     .faq__details[open] .faq__icon {
       transform: rotate(45deg);
-      background: #0a0a0a;
-      color: #ffffff;
+      background: var(--black);
+      color: var(--white);
     }
 
     .faq__answer {
       padding: 0 var(--space-6) var(--space-6);
       font-size: var(--fs-small);
       line-height: 1.62;
-      color: #0a0a0a;
+      color: var(--on-light-text-2);
       letter-spacing: var(--ls-body-lg);
-      border-top: 1px solid rgba(0, 0, 0, 0.08);
+      border-top: 1px solid var(--on-light-2);
       margin-top: calc(-1 * var(--space-1));
       animation: faqReveal var(--t-base) var(--ease-out);
     }
@@ -3623,11 +3697,6 @@
         background-position: center top, center 32%;
         background-attachment: scroll;
         background-repeat: no-repeat, no-repeat;
-      }
-
-      .faq {
-        background-size: cover;
-        background-position: center top;
       }
 
       .footer__container {
@@ -4533,7 +4602,6 @@
         </div>
       </div>
     </section>
-    </div>
 
     <section class="faq" id="faq" aria-labelledby="faq-title">
       <div class="faq__container">
@@ -4645,6 +4713,7 @@
         </div>
       </div>
     </section>
+    </div>
 
     <div class="adapt-cta-wrap">
       <section class="adapt" aria-labelledby="adapt-title">

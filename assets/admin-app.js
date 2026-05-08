@@ -412,6 +412,7 @@
     if (who && currentUser) who.textContent = currentUser;
     wire();
     fetchServerLeads().then(render);
+    window.dispatchEvent(new CustomEvent('zira:admin-session'));
   }
 
   function showGate() {

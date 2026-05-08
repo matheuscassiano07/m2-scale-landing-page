@@ -433,6 +433,18 @@
     });
   }
 
+  global.addEventListener('zira:admin-session', function () {
+    global.setTimeout(function () {
+      var host = global.document.getElementById('wa-panel');
+      if (!host || !host.firstChild) return;
+      if (state.timer) {
+        clearTimeout(state.timer);
+        state.timer = null;
+      }
+      tick();
+    }, 0);
+  });
+
   if (global.document.readyState === 'loading') {
     global.document.addEventListener('DOMContentLoaded', start);
   } else {
