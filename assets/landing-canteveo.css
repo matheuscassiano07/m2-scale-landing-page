@@ -1,0 +1,472 @@
+/**
+ * CANTEVO · paleta de marca (somente landing — index.html)
+ * Não importar em admin, dashboard ou app interno.
+ */
+:root {
+  --canteveo-black: #0b0b0b;
+  --canteveo-off-black: #111111;
+  --canteveo-off-white: #f7f3ed;
+  --canteveo-gray-light: #d9d9d9;
+  --canteveo-gray-mid: #8a8a8a;
+  --canteveo-gray-dark: #2b2b2b;
+  --canteveo-caramel: #a8794a;
+  --canteveo-caramel-elegant: #b88a5a;
+  --canteveo-bege: #d8c3a5;
+  --canteveo-green: #1f3a32;
+
+  --white: #ffffff;
+  --white-soft: var(--canteveo-off-white);
+  --black: var(--canteveo-black);
+  --black-soft: var(--canteveo-off-black);
+
+  --accent: var(--canteveo-caramel);
+  --accent-hover: #91683d;
+  --accent-elegant: var(--canteveo-caramel-elegant);
+  --accent-soft: var(--canteveo-bege);
+  --accent-muted: rgba(168, 121, 74, 0.14);
+  --accent-border: rgba(168, 121, 74, 0.38);
+
+  --on-light-1: rgba(43, 43, 43, 0.04);
+  --on-light-2: rgba(43, 43, 43, 0.09);
+  --on-light-3: rgba(168, 121, 74, 0.16);
+  --on-light-text-2: rgba(43, 43, 43, 0.78);
+  --on-light-text-3: var(--canteveo-gray-mid);
+
+  --on-dark-1: rgba(247, 243, 237, 0.05);
+  --on-dark-2: rgba(216, 195, 165, 0.12);
+  --on-dark-3: rgba(216, 195, 165, 0.24);
+  --on-dark-text-2: rgba(247, 243, 237, 0.9);
+  --on-dark-text-3: rgba(217, 217, 217, 0.68);
+
+  --shadow-soft: 0 10px 36px rgba(11, 11, 11, 0.12);
+  --shadow-card-hover: 0 12px 40px rgba(11, 11, 11, 0.14);
+  --focus-ring: 2px solid var(--canteveo-caramel);
+}
+
+html {
+  background: var(--canteveo-black);
+  --scrollbar-thumb: var(--canteveo-caramel);
+  --scrollbar-thumb-hover: var(--accent-hover);
+}
+
+html[data-scrollbar-zone="mid-dark"],
+html[data-scrollbar-zone="footer"] {
+  --scrollbar-thumb: var(--canteveo-bege);
+  --scrollbar-thumb-hover: var(--canteveo-caramel-elegant);
+}
+
+html[data-scrollbar-zone="hero"],
+html[data-scrollbar-zone="cta"] {
+  --scrollbar-thumb: var(--canteveo-caramel);
+  --scrollbar-thumb-hover: var(--accent-hover);
+}
+
+::selection {
+  background: var(--canteveo-caramel);
+  color: var(--white);
+}
+
+:focus-visible {
+  outline-color: var(--canteveo-caramel);
+}
+
+/* —— Nav —— */
+.nav {
+  background: rgba(11, 11, 11, 0.78);
+  border-bottom-color: var(--on-dark-2);
+}
+
+.nav[data-visible="true"][data-compact="true"] {
+  background: rgba(11, 11, 11, 0.9);
+}
+
+.nav__item:hover {
+  color: var(--canteveo-off-white);
+}
+
+.nav__item::after {
+  background: var(--canteveo-caramel);
+}
+
+.nav__cta {
+  background: var(--canteveo-caramel);
+  color: var(--white);
+  border: 1px solid transparent;
+}
+
+.nav__cta:hover {
+  background: var(--accent-hover);
+  color: var(--white);
+}
+
+.nav__lang-btn[data-active="true"] {
+  border-color: var(--accent-border);
+  box-shadow: 0 0 0 1px var(--accent-muted);
+}
+
+/* —— Botões —— */
+.btn--solid-dark {
+  background: var(--canteveo-caramel);
+  color: var(--white);
+  border-color: var(--canteveo-caramel);
+}
+
+.btn--solid-dark:hover {
+  background: var(--accent-hover);
+  border-color: var(--accent-hover);
+  box-shadow: 0 8px 28px rgba(168, 121, 74, 0.28);
+}
+
+.btn--outline-dark {
+  color: var(--canteveo-black);
+  border-color: var(--accent-border);
+  background: transparent;
+}
+
+.btn--outline-dark:hover {
+  background: var(--accent-muted);
+  color: var(--canteveo-black);
+  border-color: var(--canteveo-caramel);
+}
+
+.btn--solid-light {
+  background: var(--canteveo-caramel);
+  color: var(--white);
+  border-color: var(--canteveo-caramel);
+}
+
+.btn--solid-light:hover {
+  background: var(--accent-hover);
+  border-color: var(--accent-hover);
+  box-shadow: 0 8px 28px rgba(168, 121, 74, 0.32);
+}
+
+.btn--outline-light {
+  color: var(--canteveo-off-white);
+  border-color: rgba(216, 195, 165, 0.55);
+}
+
+.btn--outline-light:hover {
+  background: rgba(168, 121, 74, 0.18);
+  color: var(--white);
+  border-color: var(--canteveo-caramel-elegant);
+}
+
+.btn::before {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.14) 50%,
+    transparent 100%
+  );
+}
+
+/* —— Hero —— */
+.hero {
+  background: var(--canteveo-off-white);
+  color: var(--canteveo-black);
+}
+
+.hero__title,
+.hero__subtitle,
+.hero__proof,
+.hero__proof-text {
+  color: var(--canteveo-caramel);
+}
+
+.hero__title::selection,
+.hero__subtitle::selection,
+.hero__proof::selection,
+.hero__proof-text::selection {
+  background: var(--canteveo-caramel);
+  color: var(--white);
+}
+
+.hero__title::-moz-selection,
+.hero__subtitle::-moz-selection,
+.hero__proof::-moz-selection,
+.hero__proof-text::-moz-selection {
+  background: var(--canteveo-caramel);
+  color: var(--white);
+}
+
+.hero::before {
+  background: radial-gradient(
+    ellipse at 50% 42%,
+    rgba(255, 255, 255, 0.72) 0%,
+    rgba(247, 243, 237, 0.35) 50%,
+    transparent 82%
+  );
+}
+
+.hero::after {
+  background: linear-gradient(
+    180deg,
+    rgba(247, 243, 237, 0) 0%,
+    rgba(11, 11, 11, 0.04) 22%,
+    rgba(11, 11, 11, 0.42) 58%,
+    rgba(11, 11, 11, 0.94) 92%,
+    var(--canteveo-black) 100%
+  );
+}
+
+.hero__proof-caret {
+  background: var(--canteveo-caramel);
+}
+
+.hero__scroll-hint {
+  border-color: var(--accent-border);
+  color: var(--canteveo-gray-dark);
+}
+
+.hero__scroll-hint:hover {
+  border-color: var(--canteveo-caramel);
+  color: var(--canteveo-black);
+}
+
+/* —— Títulos e detalhes —— */
+.section-title::before {
+  background: linear-gradient(
+    90deg,
+    rgba(168, 121, 74, 0) 0%,
+    rgba(168, 121, 74, 0.22) 50%,
+    rgba(168, 121, 74, 0) 100%
+  );
+}
+
+.section-title::after {
+  background: var(--canteveo-caramel-elegant);
+  box-shadow:
+    0 0 10px rgba(184, 138, 90, 0.55),
+    0 0 22px rgba(168, 121, 74, 0.28);
+}
+
+@keyframes titleGlowSweep {
+  0%,
+  100% {
+    text-shadow:
+      0 0 12px rgba(184, 138, 90, 0.08),
+      0 0 28px rgba(168, 121, 74, 0.05);
+  }
+  45% {
+    text-shadow:
+      0 0 16px rgba(184, 138, 90, 0.14),
+      0 0 38px rgba(168, 121, 74, 0.1);
+  }
+  60% {
+    text-shadow:
+      0 0 14px rgba(184, 138, 90, 0.1),
+      0 0 32px rgba(168, 121, 74, 0.08);
+  }
+}
+
+.zira__divider {
+  background: linear-gradient(90deg, var(--canteveo-caramel) 0%, transparent 100%);
+}
+
+/* —— Cards / listas —— */
+.problem__bullet {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: var(--on-dark-2);
+}
+
+.problem__bullet:hover {
+  background: rgba(168, 121, 74, 0.08);
+  border-color: var(--accent-border);
+  color: var(--white);
+}
+
+.problem__bullet-marker {
+  background: var(--canteveo-bege);
+}
+
+.problem__bullet:hover .problem__bullet-marker {
+  background: var(--canteveo-caramel-elegant);
+}
+
+.problem__bullet[data-revealed="true"]:hover {
+  box-shadow:
+    0 0 0 1px var(--accent-muted),
+    var(--shadow-card-hover);
+}
+
+.frame {
+  border-color: var(--on-dark-2);
+}
+
+.frame:hover {
+  border-color: var(--accent-border);
+  box-shadow: var(--shadow-soft);
+}
+
+.workflow-flow__card:hover {
+  border-color: var(--accent-border);
+}
+
+.workflow-flow__index {
+  color: var(--canteveo-bege);
+  border-color: var(--on-dark-2);
+}
+
+.workflow-flow__card:hover .workflow-flow__index {
+  border-color: var(--accent-border);
+  color: var(--canteveo-caramel-elegant);
+}
+
+/* LEDs · tom caramelo */
+.zira__image-wrap--featured::before,
+.problem__visual::before,
+.frame--macbook::before,
+.frame--macbook::after,
+.zira__image-wrap--aside::before {
+  background: var(--canteveo-caramel-elegant);
+  box-shadow:
+    0 0 10px rgba(184, 138, 90, 0.75),
+    0 0 24px rgba(168, 121, 74, 0.35);
+}
+
+.zira__image-wrap--featured::after,
+.problem__visual::after,
+.zira__image-wrap--aside::after {
+  background:
+    radial-gradient(circle at 30% 40%, rgba(184, 138, 90, 0.18), rgba(184, 138, 90, 0) 58%),
+    radial-gradient(circle at 70% 65%, rgba(168, 121, 74, 0.12), rgba(168, 121, 74, 0) 62%);
+}
+
+@keyframes ledImageBreath {
+  0%,
+  100% {
+    filter:
+      drop-shadow(0 18px 48px rgba(0, 0, 0, 0.55))
+      drop-shadow(0 0 0 rgba(184, 138, 90, 0));
+  }
+  50% {
+    filter:
+      drop-shadow(0 18px 48px rgba(0, 0, 0, 0.5))
+      drop-shadow(0 0 20px rgba(168, 121, 74, 0.22));
+  }
+}
+
+/* —— Adapt / impacto —— */
+.adapt-cta-wrap {
+  background-image:
+    linear-gradient(rgba(11, 11, 11, 0.9), rgba(11, 11, 11, 0.94)),
+    url('section-total.jpg');
+}
+
+/* —— FAQ (seção clara) —— */
+.faq {
+  background-color: var(--canteveo-off-white);
+  border-top-color: rgba(168, 121, 74, 0.12);
+}
+
+.faq .section-title,
+.faq .section-caption {
+  color: var(--canteveo-black);
+}
+
+.faq__summary,
+.faq__summary-text,
+.faq__answer,
+.faq__answer p {
+  color: var(--canteveo-caramel);
+}
+
+.faq .section-title::selection,
+.faq .section-caption::selection {
+  background: var(--canteveo-caramel);
+  color: var(--white);
+}
+
+.faq .section-title::-moz-selection,
+.faq .section-caption::-moz-selection {
+  background: var(--canteveo-caramel);
+  color: var(--white);
+}
+
+.faq__summary::selection,
+.faq__summary-text::selection,
+.faq__answer::selection,
+.faq__answer p::selection {
+  background: var(--canteveo-caramel);
+  color: var(--white);
+}
+
+.faq__summary::-moz-selection,
+.faq__summary-text::-moz-selection,
+.faq__answer::-moz-selection,
+.faq__answer p::-moz-selection {
+  background: var(--canteveo-caramel);
+  color: var(--white);
+}
+
+.faq .section-title::before {
+  background: linear-gradient(
+    90deg,
+    rgba(168, 121, 74, 0) 0%,
+    rgba(168, 121, 74, 0.14) 50%,
+    rgba(168, 121, 74, 0) 100%
+  );
+}
+
+.faq__item {
+  border-color: rgba(216, 195, 165, 0.65);
+  background: var(--white);
+}
+
+.faq__item:hover {
+  border-color: var(--accent-border);
+}
+
+.faq__summary:focus-visible {
+  outline-color: var(--canteveo-caramel);
+}
+
+.faq__icon {
+  background: var(--canteveo-off-white);
+  color: var(--canteveo-caramel);
+}
+
+.faq__details[open] .faq__icon {
+  background: var(--canteveo-caramel);
+  color: var(--white);
+}
+
+/* —— CTA registro —— */
+.cta-register__step-line {
+  background: var(--canteveo-caramel-elegant);
+}
+
+.cta-register__step-icon {
+  background: var(--canteveo-caramel);
+  color: var(--white);
+}
+
+/* —— Footer —— */
+.footer {
+  background: linear-gradient(180deg, var(--canteveo-off-black) 0%, var(--canteveo-black) 100%);
+  border-top-color: var(--on-dark-2);
+}
+
+.footer__social a:hover {
+  color: var(--white);
+  border-color: var(--canteveo-caramel);
+  background: var(--accent-muted);
+}
+
+.footer__links a:hover,
+.footer__legal a:hover {
+  color: var(--canteveo-caramel-elegant);
+}
+
+.footer__bottom {
+  border-top-color: var(--on-dark-2);
+}
+
+/* —— LEDs de fundo (camada fixa) —— */
+.site-led {
+  background: var(--canteveo-caramel-elegant);
+  box-shadow:
+    0 0 7px rgba(184, 138, 90, 0.75),
+    0 0 18px rgba(168, 121, 74, 0.28);
+}

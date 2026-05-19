@@ -43,7 +43,7 @@
         x: rnd() * 0.86 + 0.07,
         y: rnd() * 0.86 + 0.07,
         r: 0.18 + rnd() * 0.32,
-        hue: 200 + rnd() * 55,
+        hue: 28 + rnd() * 22,
         phase: rnd() * Math.PI * 2,
       });
     }
@@ -134,7 +134,7 @@
     }
 
     ctx.globalCompositeOperation = 'source-over';
-    ctx.fillStyle = '#030406';
+    ctx.fillStyle = '#0B0B0B';
     ctx.fillRect(0, 0, w, h);
     ctx.globalCompositeOperation = 'lighter';
     ctx.globalAlpha = scrollAtten;
@@ -145,10 +145,10 @@
       by = b.y * h;
       R = b.r * M * 0.95;
       grad = ctx.createRadialGradient(bx, by, 0, bx, by, R);
-      grad.addColorStop(0, 'hsla(' + (b.hue | 0) + ',35%,78%,0.16)');
-      grad.addColorStop(0.38, 'rgba(52,62,74,0.48)');
-      grad.addColorStop(0.82, 'rgba(12,16,22,0.15)');
-      grad.addColorStop(1, 'rgba(5,8,14,0)');
+      grad.addColorStop(0, 'hsla(' + (b.hue | 0) + ',32%,58%,0.14)');
+      grad.addColorStop(0.38, 'rgba(43,35,28,0.42)');
+      grad.addColorStop(0.82, 'rgba(17,17,17,0.18)');
+      grad.addColorStop(1, 'rgba(11,11,11,0)');
       ctx.fillStyle = grad;
       ctx.fillRect(bx - R, by - R, R * 2, R * 2);
     }
@@ -158,8 +158,8 @@
     var sy = smy * h;
     var sR = M * 0.22;
     grad = ctx.createRadialGradient(sx, sy, 0, sx, sy, sR);
-    grad.addColorStop(0, 'rgba(240,246,255,0.22)');
-    grad.addColorStop(0.35, 'rgba(120,148,178,0.08)');
+    grad.addColorStop(0, 'rgba(216,195,165,0.2)');
+    grad.addColorStop(0.35, 'rgba(168,121,74,0.1)');
     grad.addColorStop(1, 'rgba(0,0,0,0)');
     ctx.fillStyle = grad;
     var pad = sR * 1.15;

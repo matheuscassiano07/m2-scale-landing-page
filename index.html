@@ -7,10 +7,10 @@
   <meta http-equiv="X-Content-Type-Options" content="nosniff">
   <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), payment=(), usb=()">
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; object-src 'none'; base-uri 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https:; connect-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com https:; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests">
-  <meta name="description" content="ZIRA AI · Organiza atendimento, equipe, obras e prazos para escritórios de arquitetura e engenharia. Operação clara no WhatsApp, desktop e obra.">
-  <meta name="theme-color" content="#ffffff">
-  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000000">
-  <title>M2SCALE · Plataforma para Escritórios de Arquitetura e Engenharia</title>
+  <meta name="description" content="John AI · Organiza atendimento, equipe, obras e prazos para escritórios de arquitetura e engenharia. Operação clara no WhatsApp, desktop e obra.">
+  <meta name="theme-color" content="#F7F3ED">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0B0B0B">
+  <title>Cantevo · Plataforma para Escritórios de Arquitetura e Engenharia</title>
   <!-- Atualize as URLs absolutas ao publicar em produção -->
   <link rel="canonical" href="https://www.zira.ai/">
   <meta name="robots" content="index, follow, max-image-preview:large">
@@ -18,32 +18,32 @@
   <!-- Pinterest: bloquear save de imagens -->
   <meta name="pinterest" content="nopin">
   <meta name="pinterest-rich-pin" content="false">
-  <meta name="author" content="M2 SCALE">
+  <meta name="author" content="Cantevo">
   <meta property="og:locale" id="og-locale" content="pt_BR">
   <meta property="og:type" content="website">
-  <meta property="og:site_name" content="M2 SCALE">
-  <meta property="og:title" id="og-title" content="ZIRA AI · Plataforma para Escritórios de Arquitetura e Engenharia">
+  <meta property="og:site_name" content="Cantevo">
+  <meta property="og:title" id="og-title" content="John AI · Plataforma para Escritórios de Arquitetura e Engenharia">
   <meta property="og:description" id="og-desc" content="Organiza atendimento, equipe, obras e prazos. Operação real no escritório, do WhatsApp à obra, com mais clareza e previsibilidade.">
   <meta property="og:image" content="https://www.zira.ai/assets/hero-bg.jpg">
-  <meta property="og:image:alt" content="Dashboard da plataforma ZIRA AI para escritórios de arquitetura e engenharia.">
+  <meta property="og:image:alt" content="Dashboard da plataforma John AI para escritórios de arquitetura e engenharia.">
   <meta property="og:url" content="https://www.zira.ai/">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" id="twitter-title" content="M2SCALE · Plataforma para Escritórios">
+  <meta name="twitter:title" id="twitter-title" content="Cantevo · Plataforma para Escritórios">
   <meta name="twitter:description" id="twitter-desc" content="Atendimento, equipe, obras e prazos organizados para escritórios de arquitetura e engenharia.">
   <meta name="twitter:image" content="https://www.zira.ai/assets/hero-bg.jpg">
-  <meta name="twitter:image:alt" content="Visão de operação integrada do ZIRA AI para arquitetura e engenharia.">
+  <meta name="twitter:image:alt" content="Visão de operação integrada do John AI para arquitetura e engenharia.">
   <link rel="alternate" href="https://www.zira.ai/" hreflang="pt-BR">
   <link rel="alternate" href="https://www.zira.ai/" hreflang="x-default">
-  <link rel="icon" href="assets/favicon.png" type="image/png" sizes="any">
-  <link rel="apple-touch-icon" href="assets/favicon.png">
-  <link rel="icon" type="image/png" sizes="48x48" href="assets/favicon.png">
-  <link rel="icon" type="image/png" sizes="48x48" href="assets/favicon.png" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="assets/cantevo-logo.png" type="image/png" sizes="any">
+  <link rel="apple-touch-icon" href="assets/cantevo-logo.png">
+  <link rel="icon" type="image/png" sizes="48x48" href="assets/cantevo-logo.png">
+  <link rel="icon" type="image/png" sizes="48x48" href="assets/cantevo-logo.png" media="(prefers-color-scheme: dark)">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
   <style>
     /* ============================================================
-       Tokens · pure black & white only
+       Tokens · base layout (paleta CANTEVO em assets/landing-canteveo.css)
        Typography rigor kept from Linear (Inter Variable, weight 510,
        cv01/ss03 OpenType features, tight display tracking).
        ============================================================ */
@@ -743,9 +743,9 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      opacity: 0.35;
+      opacity: 0.52;
       mix-blend-mode: multiply;
-      filter: grayscale(100%) contrast(1.05);
+      filter: grayscale(18%) contrast(1.04) saturate(1.05);
       z-index: -2;
       pointer-events: none;
       transform-origin: 50% 42%;
@@ -827,6 +827,17 @@
     @keyframes hero-fade-in {
       from { opacity: 0; transform: translateY(16px); }
       to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero__subtitle {
+      margin-top: var(--space-6);
+      max-width: min(720px, 92vw);
+      font-size: clamp(15px, 1.35vw, 18px);
+      font-weight: var(--weight-medium);
+      letter-spacing: var(--ls-body-lg);
+      line-height: 1.5;
+      text-align: center;
+      text-wrap: balance;
     }
 
     .hero__title {
@@ -1011,7 +1022,7 @@
     }
 
     /* ============================================================
-       ZIRA brand intro · black canvas, white text
+       John AI brand intro · black canvas, white text
        ============================================================ */
     .zira {
       padding: var(--space-12) var(--space-6) var(--space-11);
@@ -1056,6 +1067,10 @@
       letter-spacing: var(--ls-body-lg);
       color: var(--on-dark-text-2);
       max-width: 560px;
+    }
+
+    .zira__description + .zira__description {
+      margin-top: var(--space-5);
     }
 
     .zira__lead {
@@ -1355,7 +1370,7 @@
       opacity: 0.36;
     }
 
-    /* LEDs no thumbnail Zira: no desktop o efeito está no wrap featured; no ≤680px esse wrap
+    /* LEDs no thumbnail John: no desktop o efeito está no wrap featured; no ≤680px esse wrap
        fica oculto — replicamos a mesma linguagem no wrap aside visível. */
     .zira__image-wrap--aside {
       isolation: isolate;
@@ -3914,6 +3929,7 @@
     .adm-scroll, .blog-grid { -webkit-overflow-scrolling: touch; }
 
   </style>
+  <link rel="stylesheet" href="assets/landing-canteveo.css">
 </head>
 <body>
   <canvas id="chrome-liquid-bg" class="chrome-liquid-bg" role="presentation" aria-hidden="true"></canvas>
@@ -3931,8 +3947,8 @@
         href="./#hero"
         class="nav__brand"
         data-i18n-attr="aria-label:nav.brandAria"
-        aria-label="M2 SCALE · Página inicial">
-        <img src="assets/logo-branca.png" alt="" class="nav__logo">
+        aria-label="Cantevo · Página inicial">
+        <img src="assets/cantevo-logo.png" alt="" class="nav__logo">
       </a>
 
       <div
@@ -3994,13 +4010,13 @@
   <main>
     <section class="hero" id="hero" aria-labelledby="hero-title">
       <img
-        src="assets/hero-bg.jpg"
+        src="assets/hero-bg.jpg?v=3"
         alt=""
         class="hero__bg"
         aria-hidden="true">
 
       <div class="hero__top-brand">
-        <img src="assets/logo-preta.png" alt="" width="120" height="48" decoding="async">
+        <img src="assets/cantevo-logo.png" alt="" width="120" height="48" decoding="async">
       </div>
 
       <div class="hero__content">
@@ -4011,8 +4027,8 @@
           data-motion-split="words">
           A plataforma que organiza atendimento, equipe, obras e prazos para escritórios de arquitetura e engenharia.
         </h1>
-        <p class="sr-only" data-i18n="hero.sr">
-          ZIRA AI, plataforma para arquitetura e engenharia. Mais de 100 escritórios já evoluíram para uma operação mais clara, integrada e previsível.
+        <p class="hero__subtitle" data-i18n="hero.sr">
+          John AI, plataforma para arquitetura e engenharia. Mais de 100 escritórios já evoluíram para uma operação mais clara, integrada e previsível.
         </p>
         <p class="hero__proof" aria-hidden="true">
           <span class="hero__proof-text" id="hero-proof-text"></span><span class="hero__proof-caret" id="hero-proof-caret" aria-hidden="true"></span>
@@ -4060,12 +4076,12 @@
             <div class="zira__brand" data-reveal>
               <div class="zira__title-group">
                 <h2 class="zira__title" id="zira-title">
-                  Zira AI
+                  John AI
                 </h2>
               </div>
               <div class="zira__image-wrap zira__image-wrap--aside" aria-hidden="true">
                 <img
-                  src="assets/zira-inteiro.png"
+                  src="assets/john-foto.png"
                   alt=""
                   class="zira__image zira__image--aside anim-zira-hero"
                   width="132"
@@ -4080,8 +4096,16 @@
               data-motion-split="words"
               data-reveal
               style="--reveal-delay: 60ms"
-              data-i18n="zira.desc">
-              No WhatsApp, o Zira identifica a solicitação, separa oportunidades comerciais de outros assuntos, prioriza o que exige atenção do time e organiza o contexto para que cada atendimento avance com mais clareza. Quando a resposta não deve ser automatizada, o sistema encaminha o caso corretamente, sem ruído e sem improviso.
+              data-i18n="zira.desc1">
+              O John AI entende o que chega, interpreta o que o cliente tentou dizer e conecta essa solicitação ao contexto real do escritório. Ele sabe quando uma mensagem é um novo lead, quando é uma dúvida de obra, quando é cobrança, quando precisa virar tarefa e quando deve ser encaminhada para um responsável.
+            </p>
+            <p
+              class="zira__description"
+              data-motion-split="words"
+              data-reveal
+              style="--reveal-delay: 120ms"
+              data-i18n="zira.desc2">
+              Antes de sugerir uma resposta, ele consulta o que já existe no CANTEVO: cliente, obra, projeto, histórico, prazos, tarefas e responsáveis. Isso permite que o atendimento avance com clareza, sem depender de memória, improviso ou busca manual em conversas antigas.
             </p>
           </div>
         </div>
@@ -4091,7 +4115,7 @@
           data-reveal-variant="photo"
           style="--reveal-delay: 140ms">
           <img
-            src="assets/zira-inteiro.png"
+            src="assets/john-foto.png"
             data-i18n-attr="alt:zira.imageAlt"
             alt=""
             class="zira__image zira__image--featured anim-zira-hero"
@@ -4169,7 +4193,7 @@
         <div class="problem__visual" data-reveal data-reveal-variant="photo" style="--reveal-delay: 220ms">
           <!-- Imagem do ecrã: substitua assets/screens/plug-iphone.svg ou altere o src abaixo para o seu JPG/PNG. -->
           <figure class="device-shell device-shell--iphone">
-            <figcaption class="sr-only" data-i18n="problem.imageAlt">Atendimento e tarefas no celular com Zira AI</figcaption>
+            <figcaption class="sr-only" data-i18n="problem.imageAlt">Atendimento e tarefas no celular com John AI</figcaption>
             <div class="device-shell__body">
               <div class="device-shell__screen">
                 <span class="device-shell__island" aria-hidden="true"></span>
@@ -4272,16 +4296,16 @@
                   <div class="workflow-flow__icon-slot workflow-flow__icon-slot--zira" aria-hidden="true">
                     <img
                       class="workflow-flow__zira"
-                      src="assets/avatar-zira.png"
+                      src="assets/avatar-john.png"
                       alt=""
                       data-i18n-attr="alt:workflow.ziraMascotAlt"
                       loading="lazy"
                       width="52"
                       height="52">
                   </div>
-                  <h3 class="workflow-flow__title" data-i18n="workflow.s2Title">ZIRA AI organiza a demanda</h3>
+                  <h3 class="workflow-flow__title" data-i18n="workflow.s2Title">John AI organiza a demanda</h3>
                   <p class="workflow-flow__desc" data-i18n="workflow.s2Body">
-                    Mesmo quando o cliente não consegue explicar direito o que quer, o Zira ajuda a estruturar a solicitação e transforma uma conversa solta em contexto útil para o time.
+                    Mesmo quando o cliente não consegue explicar direito o que quer, o John ajuda a estruturar a solicitação e transforma uma conversa solta em contexto útil para o time.
                   </p>
                 </div>
               </article>
@@ -4595,11 +4619,11 @@
           <article class="faq__item" data-reveal style="--reveal-delay: 0ms" role="listitem">
             <details class="faq__details" name="zira-faq">
               <summary class="faq__summary">
-                <span class="faq__summary-text" data-i18n="faq.q1">O Zira AI substitui o WhatsApp do escritório?</span>
+                <span class="faq__summary-text" data-i18n="faq.q1">O John AI substitui o WhatsApp do escritório?</span>
                 <span class="faq__icon" aria-hidden="true">+</span>
               </summary>
               <div class="faq__answer">
-                <p data-i18n="faq.a1">Não: o time continua no WhatsApp que o escritório já usa. O Zira organiza leads, prioridades e histórico por cima dessa mesma linha de atendimento, para ninguém depender de grupos soltos ou print.</p>
+                <p data-i18n="faq.a1">Não: o time continua no WhatsApp que o escritório já usa. O John organiza leads, prioridades e histórico por cima dessa mesma linha de atendimento, para ninguém depender de grupos soltos ou print.</p>
               </div>
             </details>
           </article>
@@ -4665,14 +4689,14 @@
                 <span class="faq__icon" aria-hidden="true">+</span>
               </summary>
               <div class="faq__answer">
-                <p data-i18n="faq.a7">O Zira é configurado à realidade do seu escritório: tipos de obra, etapas, responsáveis e prioridades alinhamos na implantação. Não existe um molde rígido único para todos: há um núcleo comum de atendimento e obra que mapeamos para como vocês já trabalham hoje.</p>
+                <p data-i18n="faq.a7">O John é configurado à realidade do seu escritório: tipos de obra, etapas, responsáveis e prioridades alinhamos na implantação. Não existe um molde rígido único para todos: há um núcleo comum de atendimento e obra que mapeamos para como vocês já trabalham hoje.</p>
               </div>
             </details>
           </article>
           <article class="faq__item" data-reveal style="--reveal-delay: 350ms" role="listitem">
             <details class="faq__details" name="zira-faq">
               <summary class="faq__summary">
-                <span class="faq__summary-text" data-i18n="faq.q8">O Zira atende só escritório de arquitetura, só de engenharia ou os dois juntos?</span>
+                <span class="faq__summary-text" data-i18n="faq.q8">O John atende só escritório de arquitetura, só de engenharia ou os dois juntos?</span>
                 <span class="faq__icon" aria-hidden="true">+</span>
               </summary>
               <div class="faq__answer">
@@ -4698,9 +4722,9 @@
           </h2>
           <div class="adapt__logo-wrap" data-reveal data-reveal-variant="photo" style="--reveal-delay: 200ms">
             <img
-              src="assets/logo-branca.png"
+              src="assets/cantevo-logo.png"
               data-i18n-attr="alt:adapt.logoAlt"
-              alt="ZIRA AI"
+              alt="John AI"
               class="adapt__logo"
               loading="lazy">
           </div>
@@ -4941,17 +4965,17 @@
       <div class="footer__top">
         <div class="footer__brand-wrap">
           <div class="footer__brand">
-            <img src="assets/logo-branca.png" alt="" class="footer__logo">
-            <span class="footer__name" data-i18n="footer.brand">M2 SCALE</span>
+            <img src="assets/cantevo-logo.png" alt="" class="footer__logo">
+            <span class="footer__name" data-i18n="footer.brand">Cantevo</span>
           </div>
           <p class="footer__desc" data-i18n="footer.desc">
             Plataforma para escritórios de arquitetura e engenharia com operação conectada do WhatsApp ao acompanhamento de equipe, obra e prazos.
           </p>
-          <div class="footer__social" aria-label="Redes sociais M2 SCALE">
-            <a href="#" aria-label="LinkedIn M2 SCALE" rel="noopener noreferrer">in</a>
-            <a href="#" aria-label="Instagram M2 SCALE" rel="noopener noreferrer">ig</a>
-            <a href="#" aria-label="YouTube M2 SCALE" rel="noopener noreferrer">yt</a>
-            <a href="#" aria-label="X M2 SCALE" rel="noopener noreferrer">x</a>
+          <div class="footer__social" aria-label="Redes sociais Cantevo">
+            <a href="#" aria-label="LinkedIn Cantevo" rel="noopener noreferrer">in</a>
+            <a href="#" aria-label="Instagram Cantevo" rel="noopener noreferrer">ig</a>
+            <a href="#" aria-label="YouTube Cantevo" rel="noopener noreferrer">yt</a>
+            <a href="#" aria-label="X Cantevo" rel="noopener noreferrer">x</a>
           </div>
         </div>
 
@@ -4993,7 +5017,7 @@
 
       <div class="footer__bottom">
         <p class="footer__copyright" data-i18n="footer.copy">
-          © 2026 M2 SCALE · ZIRA AI. Todos os direitos reservados.
+          © 2026 Cantevo · John AI. Todos os direitos reservados.
         </p>
         <div class="footer__legal">
           <a href="./#faq" data-i18n="footer.privacy">Privacidade e dados</a>
@@ -5001,7 +5025,7 @@
         </div>
       </div>
       <div class="footer__partners" aria-label="Ecossistema e tecnologias">
-        <span class="footer__partner-item">M2 SCALE</span>
+        <span class="footer__partner-item">Cantevo</span>
         <span class="footer__partner-item">Evolution API</span>
         <span class="footer__partner-item">Supabase</span>
         <span class="footer__partner-item">Vercel</span>
@@ -5017,7 +5041,7 @@
     target="_blank"
     rel="noopener noreferrer"
     data-i18n-attr="aria-label:wa.aria"
-    aria-label="Atendimento ZIRA AI no WhatsApp">
+    aria-label="Atendimento John AI no WhatsApp">
     <svg class="whatsapp-fab__icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false">
       <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.149-.197.297-.767.967-.94 1.164-.173.198-.347.223-.644.074-.297-.15-1.255-.463-2.39-1.475-.884-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.134.297-.347.446-.52.149-.173.198-.297.297-.495.099-.198.05-.371-.025-.52-.074-.148-.673-1.618-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.569-.01-.198 0-.52.074-.792.372-.271.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.095 3.2 5.076 4.487.709.306 1.262.489 1.694.625.712.226 1.359.195 1.871.118.571-.084 1.758-.719 2.006-1.413.248-.694.248-1.288.173-1.413-.074-.124-.272-.197-.569-.347m-5.419 7.403h-.004a9.87 9.87 0 01-5.03-1.378l-.361-.215-3.741.983.998-3.648-.236-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.887-9.884 2.641 0 5.119 1.03 6.986 2.897a9.825 9.825 0 012.892 7.003c-.003 5.45-4.435 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.688 5.949L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
     </svg>
@@ -5126,21 +5150,21 @@
       {
         "@type": "Organization",
         "@id": "https://www.zira.ai/#organization",
-        "name": "M2 SCALE",
+        "name": "Cantevo",
         "url": "https://www.zira.ai/",
-        "logo": "https://www.zira.ai/assets/logo-preta.png"
+        "logo": "https://www.zira.ai/assets/cantevo-logo.png"
       },
       {
         "@type": "WebSite",
         "@id": "https://www.zira.ai/#website",
         "url": "https://www.zira.ai/",
-        "name": "M2 SCALE",
+        "name": "Cantevo",
         "inLanguage": "pt-BR",
         "publisher": { "@id": "https://www.zira.ai/#organization" }
       },
       {
         "@type": "SoftwareApplication",
-        "name": "ZIRA AI",
+        "name": "John AI",
         "applicationCategory": "BusinessApplication",
         "operatingSystem": "Web",
         "description": "Plataforma que organiza atendimento, equipe, obras e prazos para escritórios de arquitetura e engenharia, com atendimento integrado via WhatsApp."
@@ -5150,10 +5174,10 @@
         "mainEntity": [
           {
             "@type": "Question",
-            "name": "O Zira AI substitui o WhatsApp do escritório?",
+            "name": "O John AI substitui o WhatsApp do escritório?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Não: o time continua no WhatsApp que o escritório já usa. O Zira organiza leads, prioridades e histórico por cima dessa mesma linha de atendimento, para ninguém depender de grupos soltos ou print."
+              "text": "Não: o time continua no WhatsApp que o escritório já usa. O John organiza leads, prioridades e histórico por cima dessa mesma linha de atendimento, para ninguém depender de grupos soltos ou print."
             }
           },
           {
@@ -5201,7 +5225,7 @@
             "name": "O sistema se adapta ao fluxo do meu escritório ou exige um modelo pronto?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "O Zira é configurado à realidade do seu escritório: tipos de obra, etapas, responsáveis e prioridades alinhamos na implantação. Não existe um molde rígido único para todos: há um núcleo comum de atendimento e obra que mapeamos para como vocês já trabalham hoje."
+              "text": "O John é configurado à realidade do seu escritório: tipos de obra, etapas, responsáveis e prioridades alinhamos na implantação. Não existe um molde rígido único para todos: há um núcleo comum de atendimento e obra que mapeamos para como vocês já trabalham hoje."
             }
           }
         ]

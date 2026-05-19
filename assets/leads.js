@@ -1,5 +1,5 @@
 /**
- * ZIRA AI · armazenamento local de leads (landing) + webhook opcional
+ * Cantevo / John AI · armazenamento local de leads (landing) + webhook opcional
  * window.ZIRA_LEADS = { webhookUrl: 'https://...' } em admin-config.js
  *
  * Mitigações: sanitização leve, webhook só HTTPS válido, fetch sem credenciais,

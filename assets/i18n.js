@@ -1,5 +1,5 @@
 /**
- * ZIRA AI · i18n (pt-BR / en)
+ * John AI · i18n (pt-BR / en)
  * Persistência: localStorage "zira-lang"
  */
 (function (global) {
@@ -11,18 +11,18 @@
   var STRINGS = {
     'pt-BR': {
       meta: {
-        title: 'M2SCALE · Plataforma para Escritórios de Arquitetura e Engenharia',
+        title: 'Cantevo · Plataforma para Escritórios de Arquitetura e Engenharia',
         description:
-          'M2SCALE · Organiza atendimento, equipe, obras e prazos para escritórios de arquitetura e engenharia. Operação clara no WhatsApp, desktop e obra.',
-        ogTitle: 'M2SCALE · Plataforma para Escritórios de Arquitetura e Engenharia',
+          'Cantevo · Organiza atendimento, equipe, obras e prazos para escritórios de arquitetura e engenharia. Operação clara no WhatsApp, desktop e obra.',
+        ogTitle: 'Cantevo · Plataforma para Escritórios de Arquitetura e Engenharia',
         ogDescription:
           'Organiza atendimento, equipe, obras e prazos. Operação real no escritório, do WhatsApp à obra, com mais clareza e previsibilidade.',
-        twitterTitle: 'M2SCALE · Plataforma para Escritórios',
+        twitterTitle: 'Cantevo · Plataforma para Escritórios',
         twitterDescription:
           'Atendimento, equipe, obras e prazos organizados para escritórios de arquitetura e engenharia.',
       },
       nav: {
-        brandAria: 'M2 SCALE · Página inicial',
+        brandAria: 'Cantevo · Página inicial',
         platform: 'Plataforma',
         flow: 'Fluxo',
         team: 'Equipe',
@@ -38,16 +38,18 @@
         title:
           'A plataforma que organiza atendimento, equipe, obras e prazos para escritórios de arquitetura e engenharia.',
         scrollHint: 'Descer para a próxima seção',
-        counterLabel: 'escritórios já evoluíram com a ZIRA AI',
+        counterLabel: 'escritórios já evoluíram com a John AI',
         sr:
-          'ZIRA AI, plataforma para arquitetura e engenharia. Mais de 100 escritórios já evoluíram para uma operação mais clara, integrada e previsível.',
+          'John AI, plataforma para arquitetura e engenharia. Mais de 100 escritórios já evoluíram para uma operação mais clara, integrada e previsível.',
         proof:
           'Escritórios que padronizam a operação reduzem retrabalho, aceleram resposta e ganham margem para crescer.',
       },
       zira: {
-        desc:
-          'No WhatsApp, o Zira identifica a solicitação, separa oportunidades comerciais de outros assuntos, prioriza o que exige atenção do time e organiza o contexto para que cada atendimento avance com mais clareza. Quando a resposta não deve ser automatizada, o sistema encaminha o caso corretamente, sem ruído e sem improviso.',
-        imageAlt: '',
+        desc1:
+          'O John AI entende o que chega, interpreta o que o cliente tentou dizer e conecta essa solicitação ao contexto real do escritório. Ele sabe quando uma mensagem é um novo lead, quando é uma dúvida de obra, quando é cobrança, quando precisa virar tarefa e quando deve ser encaminhada para um responsável.',
+        desc2:
+          'Antes de sugerir uma resposta, ele consulta o que já existe no CANTEVO: cliente, obra, projeto, histórico, prazos, tarefas e responsáveis. Isso permite que o atendimento avance com clareza, sem depender de memória, improviso ou busca manual em conversas antigas.',
+        imageAlt: 'Mascote John AI com capacete de obra',
       },
       problem: {
         title:
@@ -63,7 +65,7 @@
         b5: 'Equipe sem prioridade definida',
         b6: 'Prazos estourando',
         b7: 'Informações espalhadas',
-        imageAlt: 'Atendimento e tarefas no celular com Zira AI',
+        imageAlt: 'Atendimento e tarefas no celular com John AI',
       },
       workflow: {
         title: 'Da primeira mensagem ao pós-obra: uma operação única, mensurável e sem ruído.',
@@ -76,9 +78,9 @@
         s1Title: 'Lead no WhatsApp',
         s1Body:
           'O primeiro contato acontece no canal em que o cliente já está, sem fricção e sem perder velocidade no atendimento.',
-        s2Title: 'ZIRA AI organiza a demanda',
+        s2Title: 'John AI organiza a demanda',
         s2Body:
-          'Mesmo quando o cliente não consegue explicar direito o que quer, o Zira ajuda a estruturar a solicitação e transforma uma conversa solta em contexto útil para o time.',
+          'Mesmo quando o cliente não consegue explicar direito o que quer, o John ajuda a estruturar a solicitação e transforma uma conversa solta em contexto útil para o time.',
         s3Title: 'Intenção clara, prioridade definida',
         s3Body:
           'O sistema identifica o que o lead quer, separa curiosos de oportunidades reais e ajuda o escritório a decidir o que merece atenção primeiro.',
@@ -94,7 +96,7 @@
         s7Title: 'Equipe alinhada no mesmo lugar',
         s7Body:
           'Prazos, tarefas e histórico deixam de ficar espalhados. O time enxerga o que precisa acontecer agora e decide com mais clareza, menos ruído e menos retrabalho.',
-        ziraMascotAlt: 'ZIRA AI',
+        ziraMascotAlt: 'John AI',
       },
       tracking: {
         title:
@@ -118,9 +120,9 @@
         title: 'Perguntas frequentes',
         caption:
           'Respostas objetivas sobre implantação, segurança, operação e retorno prático para o escritório.',
-        q1: 'O Zira AI substitui o WhatsApp do escritório?',
+        q1: 'O John AI substitui o WhatsApp do escritório?',
         a1:
-          'Não: o time continua no WhatsApp que o escritório já usa. O Zira organiza leads, prioridades e histórico por cima dessa mesma linha de atendimento, para ninguém depender de grupos soltos ou print.',
+          'Não: o time continua no WhatsApp que o escritório já usa. O John organiza leads, prioridades e histórico por cima dessa mesma linha de atendimento, para ninguém depender de grupos soltos ou print.',
         q2: 'Funciona para obras já em andamento ou só para novos projetos?',
         a2:
           'Os dois cenários: atendimento de novos contatos e acompanhamento de obras que já estão na rua. O foco é dar visibilidade de etapa, pendência e responsável, independentemente de o cliente ter entrado ontem ou há meses.',
@@ -138,9 +140,9 @@
           'Há canal dedicado para dúvidas de produto e ajustes operacionais, com SLA combinado conforme o plano. Novas integrações ou customizações de fluxo tratamos como projeto à parte quando fizer sentido.',
         q7: 'O sistema se adapta ao fluxo do meu escritório ou exige um modelo pronto?',
         a7:
-          'O Zira é configurado à realidade do seu escritório: tipos de obra, etapas, responsáveis e prioridades alinhamos na implantação. Não existe um molde rígido único para todos: há um núcleo comum de atendimento e obra que mapeamos para como vocês já trabalham hoje.',
+          'O John é configurado à realidade do seu escritório: tipos de obra, etapas, responsáveis e prioridades alinhamos na implantação. Não existe um molde rígido único para todos: há um núcleo comum de atendimento e obra que mapeamos para como vocês já trabalham hoje.',
         q8:
-          'O Zira atende só escritório de arquitetura, só de engenharia ou os dois juntos?',
+          'O John atende só escritório de arquitetura, só de engenharia ou os dois juntos?',
         a8:
           'Os três casos: escritório focado em arquitetura, focado em engenharia ou com as duas frentes no mesmo time. A plataforma organiza atendimento e obra do jeito que você opera hoje, sem obrigar um modelo único.',
       },
@@ -230,20 +232,20 @@
       },
       adapt: {
         title: 'Seu escritório é único. O fluxo da plataforma se adapta ao seu método.',
-        logoAlt: 'ZIRA AI',
+        logoAlt: 'John AI',
       },
       cta: {
         title:
           'Ganhe eficiência operacional sem trocar o que já funciona no seu escritório.',
         desc:
-          'Na demonstração, mapeamos gargalos reais da sua rotina e mostramos como a M2SCALE organiza atendimento, equipe e obra para você crescer com previsibilidade.',
+          'Na demonstração, mapeamos gargalos reais da sua rotina e mostramos como a Cantevo organiza atendimento, equipe e obra para você crescer com previsibilidade.',
         btn: 'Agendar conversa',
       },
       footer: {
         navAria: 'Links do rodapé',
         contentAria: 'Conteúdo do rodapé',
         opsAria: 'Operação do rodapé',
-        brand: 'M2 SCALE',
+        brand: 'Cantevo',
         desc:
           'Plataforma para escritórios de arquitetura e engenharia com operação conectada do WhatsApp ao acompanhamento de equipe, obra e prazos.',
         colPlatform: 'Plataforma',
@@ -260,14 +262,14 @@
         wa: 'Atendimento no WhatsApp',
         schedule: 'Agendar conversa',
         adminLeads: 'Painel · leads',
-        copy: '© 2026 M2 SCALE · ZIRA AI. Todos os direitos reservados.',
+        copy: '© 2026 Cantevo · John AI. Todos os direitos reservados.',
         privacy: 'Privacidade e dados',
         terms: 'Termos comerciais',
       },
       wa: {
-        aria: 'Atendimento ZIRA AI no WhatsApp',
+        aria: 'Atendimento John AI no WhatsApp',
         message:
-          'Olá! Gostaria de falar sobre o ZIRA AI.',
+          'Olá! Gostaria de falar sobre o John AI.',
       },
       schedule: {
         title: 'Agendar conversa',
@@ -289,7 +291,7 @@
         successSubtitle:
           'Em breve entraremos em contato pelo e-mail ou telefone que você informou.',
         btnDone: 'Fechar',
-        intro: 'Olá! Gostaria de agendar uma conversa sobre o ZIRA AI.',
+        intro: 'Olá! Gostaria de agendar uma conversa sobre o John AI.',
         lineName: 'Nome',
         lineEmail: 'E-mail',
         linePhone: 'Telefone',
@@ -297,29 +299,29 @@
         ariaCloseOverlay: 'Fechar',
       },
       schema: {
-        organizationName: 'M2 SCALE',
+        organizationName: 'Cantevo',
         softwareDesc:
           'Plataforma que organiza atendimento, equipe, obras e prazos para escritórios de arquitetura e engenharia, com atendimento integrado via WhatsApp.',
       },
       blogPage: {
         metaTitle:
-          'Blog M2 SCALE · ZIRA AI · Gestão de escritório, obra, BIM, KPIs e compliance',
+          'Blog Cantevo · John AI · Gestão de escritório, obra, BIM, KPIs e compliance',
         metaDesc:
           'Mais de 10 guias sobre operação para escritórios de arquitetura e engenharia: atendimento, equipe, obra, cronograma, BIM, RFIs, fornecedores, KPIs, LGPD e NR-18. Conteúdo para SEO e operação previsível.',
         ogTitle:
-          'Blog M2 SCALE · ZIRA AI · Operação em escritório e obra',
+          'Blog Cantevo · John AI · Operação em escritório e obra',
         ogDesc:
           'Arquivo de artigos: retrabalho, gestão à vista, jornada do cliente, priorização, LGPD, cronograma, RFIs, obra e indicadores.',
         twitterTitle:
-          'Blog M2 SCALE · Arquitetura, engenharia e obra',
+          'Blog Cantevo · Arquitetura, engenharia e obra',
         twitterDesc:
           'Guias práticos para gestão de escritório, canteiro, compliance e performance por projeto.',
-        navBrandAria: 'M2 SCALE · página inicial',
+        navBrandAria: 'Cantevo · página inicial',
         navBack: '← Voltar ao site',
         heroTitle: 'Blog',
         heroSubtitleBefore:
           'Tudo sobre operação para escritórios de arquitetura e engenharia com a ',
-        heroSubtitleBrand: 'M2 SCALE · ZIRA AI',
+        heroSubtitleBrand: 'Cantevo · John AI',
         heroLead:
           'Guias práticos sobre gestão de escritório, obra, atendimento, equipe e compliance — conteúdo pensado para SEO e para quem precisa de operação previsível, com ou sem WhatsApp no centro.',
         searchLabel: 'Buscar artigos',
@@ -338,10 +340,10 @@
         tocGuides: 'Guias completos',
         faqTitle: 'Dúvidas frequentes',
         faqLead:
-          'Respostas diretas sobre o propósito deste blog, público-alvo e como combinar leitura com uma demonstração do ZIRA AI.',
+          'Respostas diretas sobre o propósito deste blog, público-alvo e como combinar leitura com uma demonstração do John AI.',
         faq1q: 'Este blog substitui uma conversa com o time comercial?',
         faq1a:
-          'Não. Os artigos ajudam em conceitos e boas práticas; para ver o ZIRA AI no contexto do seu escritório, agende uma demonstração pelo site principal.',
+          'Não. Os artigos ajudam em conceitos e boas práticas; para ver o John AI no contexto do seu escritório, agende uma demonstração pelo site principal.',
         faq2q: 'O conteúdo é só para quem usa WhatsApp?',
         faq2a:
           'Não. Há temas de obra, priorização, BIM, KPIs e compliance. O WhatsApp aparece quando é canal real em muitos escritórios brasileiros.',
@@ -388,7 +390,7 @@
         post1p1:
           'Quando o inbox vira backlog sem dono, a equipe técnica reabre o mesmo arquivo três vezes porque ninguém sabe qual era a última decisão válida. O primeiro passo não é ferramenta nova por si só: é definir o que conta como “entrada fechada” em cada tipo de obra e quem fecha.',
         post1p2:
-          'Listas rápidas de verificação por fase (projeto, compatibilização, canteiro) reduzem ida e volta de WhatsApp que não adiciona informação. O Zira encaixa nessa lógica ao manter histórico e prioridade visíveis para quem executa, sem depender de print em grupo.',
+          'Listas rápidas de verificação por fase (projeto, compatibilização, canteiro) reduzem ida e volta de WhatsApp que não adiciona informação. O John encaixa nessa lógica ao manter histórico e prioridade visíveis para quem executa, sem depender de print em grupo.',
         post2meta: 'Equipe · 6 min',
         post2h2:
           'Gestão à vista: o que monitorar antes do atraso virar drama com o cliente',
@@ -406,7 +408,7 @@
         post1p3:
           'Em escritórios médios e grandes, o custo real do retrabalho não é só hora técnica: é prazo perdido com fornecedor, revisão em cima da hora e estresse nas relações com o cliente e com o canteiro. Registrar decisão única por canal evita aquele pingue-pongue de “acho que combinamos outra coisa”.',
         post1p4:
-          'Se o WhatsApp é o sistema, o mínimo viável para SEO operacional é: um dono por conversa até fechar escopo; histórico pesquisável; e prioridade explícita. Ferramentas como o Zira sustentam isso ao ligar inbox a etapa da obra sem exigir que o time mude de canal da noite para o dia.',
+          'Se o WhatsApp é o sistema, o mínimo viável para SEO operacional é: um dono por conversa até fechar escopo; histórico pesquisável; e prioridade explícita. Ferramentas como o John sustentam isso ao ligar inbox a etapa da obra sem exigir que o time mude de canal da noite para o dia.',
         post2p3:
           'Indicadores leves já ajudam: fila média por responsável, obra com mais dias sem atualização oficial e SLA interno só para retrorno ao cliente, não para todas as mensagens internas.',
         post2p4:
@@ -447,7 +449,7 @@
         post6p3:
           'No canteiro, fotos e atas curtas amarradas ao mesmo ID de obra reduzem discussão sobre “qual versão vale”. Para SEO e autoridade, páginas que explicam como o escritório amarra modelo, compra e execução aparecem em buscas de gestão de obra integrada, cronograma 4D/5D e coordenação multidisciplinar.',
         post6p4:
-          'Ferramentas como o Zira ajudam quando o marco visível ao cliente e a fila interna compartilham a mesma prioridade: menos retrabalho entre projeto e obra, mais clareza sobre o que está bloqueado hoje.',
+          'Ferramentas como o John ajudam quando o marco visível ao cliente e a fila interna compartilham a mesma prioridade: menos retrabalho entre projeto e obra, mais clareza sobre o que está bloqueado hoje.',
         post7meta: 'Engenharia · 8 min',
         post7h2:
           'RFIs e submittals: reduzir retrabalho entre projeto, fornecedor e obra',
@@ -503,7 +505,7 @@
           'Artigos sobre documentação de canteiro, integração entre escritório técnico e segurança do trabalho melhoram SEO para buscas de compliance em obra, auditoria e gestão de riscos em construção.',
         post11p4:
           'Integrar comunicação de campo a repositório estruturado evita que informação crítica fique apenas em mensagens efêmeras — sem matar a agilidade do canteiro.',
-        footerCr: '© M2 SCALE',
+        footerCr: '© Cantevo',
         footerSite: 'Site principal',
         tocTitle: 'Nesta página',
         tocAriaLabel: 'Artigos nesta página',
@@ -520,14 +522,14 @@
         toc11: 'NR e documentação',
       },
       adminPage: {
-        metaTitle: 'Painel · Leads · M2SCALE',
+        metaTitle: 'Painel · Leads · Cantevo',
         metaDesc:
-          'Visualize solicitações de contato enviadas pela landing ZIRA AI. Acesso restrito.',
-        ogTitle: 'Painel · Leads · M2SCALE',
+          'Visualize solicitações de contato enviadas pela landing John AI. Acesso restrito.',
+        ogTitle: 'Painel · Leads · Cantevo',
         ogDesc: 'Solicitações de agendamento e dados de contato.',
-        twitterTitle: 'Painel · Leads · M2SCALE',
-        twitterDesc: 'Solicitações de contato · M2SCALE.',
-        brand: 'M2 SCALE',
+        twitterTitle: 'Painel · Leads · Cantevo',
+        twitterDesc: 'Solicitações de contato · Cantevo.',
+        brand: 'Cantevo',
         pageTitle: 'Leads',
         pageSubtitle: 'Agendamentos pela landing',
         statTotal: 'Total',
@@ -583,18 +585,18 @@
     },
     en: {
       meta: {
-        title: 'M2SCALE · Platform for Architecture & Engineering Firms',
+        title: 'Cantevo · Platform for Architecture & Engineering Firms',
         description:
-          'M2SCALE · Client intake, staffing, projects, and deadlines aligned for architecture & engineering firms: from WhatsApp to the field.',
-        ogTitle: 'M2SCALE · Platform for Architecture & Engineering Firms',
+          'Cantevo · Client intake, staffing, projects, and deadlines aligned for architecture & engineering firms: from WhatsApp to the field.',
+        ogTitle: 'Cantevo · Platform for Architecture & Engineering Firms',
         ogDescription:
           'Aligns intake, team, projects, and timelines. Real world firm operations from WhatsApp to the site, with clarity and predictability.',
-        twitterTitle: 'M2SCALE · Firm Operations Platform',
+        twitterTitle: 'Cantevo · Firm Operations Platform',
         twitterDescription:
           'Aligned intake, staffing, jobs, and deadlines for architecture & engineering studios.',
       },
       nav: {
-        brandAria: 'M2 SCALE · Home',
+        brandAria: 'Cantevo · Home',
         platform: 'Platform',
         flow: 'Workflow',
         team: 'Team',
@@ -610,16 +612,18 @@
         title:
           'The platform that organizes intake, team, projects, and deadlines for architecture and engineering firms.',
         scrollHint: 'Scroll to the next section',
-        counterLabel: 'firms have moved to clearer operations with ZIRA AI',
+        counterLabel: 'firms have moved to clearer operations with John AI',
         sr:
-          'ZIRA AI, operations for architecture & engineering. Over 100 firms have moved to clearer, integrated, more predictable work.',
+          'John AI, operations for architecture & engineering. Over 100 firms have moved to clearer, integrated, more predictable work.',
         proof:
           'Over 100 firms have moved to clearer, integrated, more predictable operations.',
       },
       zira: {
-        desc:
-          'On WhatsApp, Zira understands each request, separates commercial opportunities from other topics, prioritizes what needs the team’s attention, and frames context so every touchpoint moves forward with clarity. When a reply should not be automated, it routes the case correctly, with no noise and no guesswork.',
-        imageAlt: '',
+        desc1:
+          'John AI understands what comes in, interprets what the client meant, and connects each request to your firm’s real context. It knows when a message is a new lead, a site question, a follow-up, something that must become a task, or something that should go to the right owner.',
+        desc2:
+          'Before suggesting a reply, it checks what already exists in CANTEVO: client, project, site, history, deadlines, tasks, and owners. That keeps service moving with clarity—without relying on memory, guesswork, or digging through old chats.',
+        imageAlt: 'Mascote John AI com capacete de obra',
       },
       problem: {
         title:
@@ -635,7 +639,7 @@
         b5: 'Teams with no enforced priorities',
         b6: 'Deadlines slipping',
         b7: 'Information scattered everywhere',
-        imageAlt: 'Mobilized inquiries and tasks inside Zira AI',
+        imageAlt: 'Mobilized inquiries and tasks inside John AI',
       },
       workflow: {
         title: 'From first touch to handover: one connected thread.',
@@ -648,9 +652,9 @@
         s1Title: 'Lead enters WhatsApp',
         s1Body:
           'The first handshake happens wherever the buyer already communicates, frictionless and fast-paced.',
-        s2Title: 'ZIRA AI organizes the demand',
+        s2Title: 'John AI organizes the demand',
         s2Body:
-          'Even when language is fuzzy ZIRA reshapes chatter into workable scope so one loose thread converts into actionable context.',
+          'Even when language is fuzzy John AI reshapes chatter into workable scope so one loose thread converts into actionable context.',
         s3Title: 'Clear intent · explicit priority',
         s3Body:
           'Engines separate browsers from earnest jobs and elevate what deserves urgency right now.',
@@ -666,7 +670,7 @@
         s7Title: 'Team alignment in one view',
         s7Body:
           'Threads deadlines history unify so everyone reads the same board less noise less rework chasing context.',
-        ziraMascotAlt: 'ZIRA AI',
+        ziraMascotAlt: 'John AI',
       },
       tracking: {
         title:
@@ -691,10 +695,10 @@
       faq: {
         title: 'Frequently asked questions',
         caption:
-          'Direct answers about rollout, privacy, execution, and how Zira adapts to the real rhythms of your office.',
-        q1: 'Does ZIRA replace my studio WhatsApp line?',
+          'Direct answers about rollout, privacy, execution, and how John adapts to the real rhythms of your office.',
+        q1: 'Does John AI replace my studio WhatsApp line?',
         a1:
-          'No: you keep WhatsApp exactly where prospects already ping you. ZIRA organizes leads, sequencing, and history on top of that same channel so no one hunts screenshots or buried groups.',
+          'No: you keep WhatsApp exactly where prospects already ping you. John AI organizes leads, sequencing, and history on top of that same channel so no one hunts screenshots or buried groups.',
         q2:
           'Does it work only for kickoff builds or ongoing construction too?',
         a2:
@@ -713,11 +717,11 @@
           'Dedicated pathways for escalations ship with SLA bands per plan: deeper integrations or bespoke flows become separate initiatives when warranted.',
         q7: 'Does the product adapt to how we already work, or force one cookie cutter model?',
         a7:
-          'Zira maps to how your studio actually behaves: scopes, milestones, responsibilities, and priorities tuned during onboarding. No single rigid template for everyone: there’s a shared backbone for intake and builds that aligns with your current playbook.',
+          'John maps to how your studio actually behaves: scopes, milestones, responsibilities, and priorities tuned during onboarding. No single rigid template for everyone: there’s a shared backbone for intake and builds that aligns with your current playbook.',
         q8:
-          'Is Zira for architecture-only firms, engineering-only practices, or both?',
+          'Is John for architecture-only firms, engineering-only practices, or both?',
         a8:
-          'All three: architecture-only studios, engineering-only practices, or firms that combine both. Zira organizes intake and delivery around how you already work, without forcing a single rigid playbook.',
+          'All three: architecture-only studios, engineering-only practices, or firms that combine both. John organizes intake and delivery around how you already work, without forcing a single rigid playbook.',
       },
       trustStats: {
         ariaLabel: 'Trust indicators',
@@ -802,20 +806,20 @@
       },
       adapt: {
         title: 'Studios behave differently: the platform flexes accordingly.',
-        logoAlt: 'ZIRA AI',
+        logoAlt: 'John AI',
       },
       cta: {
         title:
           'Move ahead on operations without giving up what already works in your firm.',
         desc:
-          'On the call, you see where you gain clarity and predictability. We walk through how Zira fits your current procedures and how we adapt stages, roles, and flows to your team’s routine, so you can decide with confidence.',
+          'On the call, you see where you gain clarity and predictability. We walk through how John fits your current procedures and how we adapt stages, roles, and flows to your team’s routine, so you can decide with confidence.',
         btn: 'Book a call',
       },
       footer: {
         navAria: 'Footer navigation',
         contentAria: 'Footer content links',
         opsAria: 'Footer operations links',
-        brand: 'M2 SCALE',
+        brand: 'Cantevo',
         desc:
           'Platform for architecture and engineering firms with connected operations from WhatsApp intake to team, project and deadline tracking.',
         colPlatform: 'Platform',
@@ -832,13 +836,13 @@
         wa: 'WhatsApp support',
         schedule: 'Book a call',
         adminLeads: 'Leads · dashboard',
-        copy: '© 2026 M2 SCALE · ZIRA AI. All rights reserved.',
+        copy: '© 2026 Cantevo · John AI. All rights reserved.',
         privacy: 'Privacy & data',
         terms: 'Commercial terms',
       },
       wa: {
-        aria: 'Chat with ZIRA AI on WhatsApp',
-        message: 'Hello! I would like to talk about ZIRA AI.',
+        aria: 'Chat with John AI on WhatsApp',
+        message: 'Hello! I would like to talk about John AI.',
       },
       schedule: {
         title: 'Book a call',
@@ -860,7 +864,7 @@
         successSubtitle:
           'We received your details. We will contact you shortly via email or phone.',
         btnDone: 'Close',
-        intro: 'Hello! I’d like to book a conversation about ZIRA AI.',
+        intro: 'Hello! I’d like to book a conversation about John AI.',
         lineName: 'Name',
         lineEmail: 'Email',
         linePhone: 'Phone',
@@ -868,29 +872,29 @@
         ariaCloseOverlay: 'Close',
       },
       schema: {
-        organizationName: 'M2 SCALE',
+        organizationName: 'Cantevo',
         softwareDesc:
           'Platform that aligns intake, staffing, projects, and deadlines for architecture and engineering firms, with WhatsApp native orchestration.',
       },
       blogPage: {
         metaTitle:
-          'M2 SCALE · ZIRA AI Blog · AE firm ops, jobsites, BIM, KPIs & compliance',
+          'Cantevo · John AI Blog · AE firm ops, jobsites, BIM, KPIs & compliance',
         metaDesc:
           '10+ playbooks for architecture & engineering firms: intake, staffing, field coordination, schedules, BIM, RFIs, subs, KPIs, privacy and safety documentation. SEO-rich, practitioner-first guidance.',
         ogTitle:
-          'M2 SCALE · ZIRA AI Blog · Studio & field operations',
+          'Cantevo · John AI Blog · Studio & field operations',
         ogDesc:
           'Article archive: rework control, telemetry, client pacing, triage, privacy, schedules, RFIs, hybrid teams, trade communication, KPIs, safety docs.',
         twitterTitle:
-          'M2 SCALE Blog · Architecture, engineering & construction ops',
+          'Cantevo Blog · Architecture, engineering & construction ops',
         twitterDesc:
           'Practical guides on studio management, jobsites, compliance and per-project performance.',
-        navBrandAria: 'M2 SCALE · homepage',
+        navBrandAria: 'Cantevo · homepage',
         navBack: '← Back to site',
         heroTitle: 'Blog',
         heroSubtitleBefore:
           'Everything architecture & engineering firms need to run calmer operations with ',
-        heroSubtitleBrand: 'M2 SCALE · ZIRA AI',
+        heroSubtitleBrand: 'Cantevo · John AI',
         heroLead:
           'Practical guides on studio management, jobsites, intake, staffing and compliance — written for SEO and for teams that need predictable delivery, with or without chat at the center.',
         searchLabel: 'Search articles',
@@ -909,10 +913,10 @@
         tocGuides: 'Full guides',
         faqTitle: 'Frequently asked questions',
         faqLead:
-          'Straight answers about this blog, who it is for, and how reading pairs with a ZIRA AI walkthrough.',
+          'Straight answers about this blog, who it is for, and how reading pairs with a John AI walkthrough.',
         faq1q: 'Does this blog replace a sales conversation?',
         faq1a:
-          'No. Articles explain concepts and habits; book a demo on the main site to see ZIRA AI in your studio context.',
+          'No. Articles explain concepts and habits; book a demo on the main site to see John AI in your studio context.',
         faq2q: 'Is the content only for WhatsApp-heavy teams?',
         faq2a:
           'No. We cover jobsites, prioritization, BIM, KPIs and compliance. WhatsApp shows up because it is a real channel for many Brazilian firms.',
@@ -959,7 +963,7 @@
         post1p1:
           'When inbound noise never gets an owner, the technical loop reopens CAD four times because nobody trusts which decision was definitive. Fixing that is rarely “more tools”; it starts with naming what qualifies as locked scope per job archetype, and who seals it.',
         post1p2:
-          'Snippet checklists aligned to schematic, coordination, and field phases kill loops that chew bandwidth without conveying new clarity. That is the muscle ZIRA preserves with visible history plus priority for whoever executes, not screenshot archaeology.',
+          'Snippet checklists aligned to schematic, coordination, and field phases kill loops that chew bandwidth without conveying new clarity. That is the muscle John AI preserves with visible history plus priority for whoever executes, not screenshot archaeology.',
         post2meta: 'People · 6 min',
         post2h2:
           'Before delays become melodrama: telemetry that leadership can actually skim',
@@ -977,7 +981,7 @@
         post1p3:
           'Across mid sized shops the rework tax is not hourly alone: slipped vendor releases, frantic redlines at night and frayed GC relationships accumulate. Persisting decisions in once place lowers the “I thought we agreed otherwise” pings.',
         post1p4:
-          'When WhatsApp is your control tower the minimum credible rigor is owned threads until scope settles, searchable history and explicit sequencing. Stacks like Zira bridge inbox to milestone without forcing crews to ditch the channel overnight.',
+          'When WhatsApp is your control tower the minimum credible rigor is owned threads until scope settles, searchable history and explicit sequencing. Stacks like John bridge inbox to milestone without forcing crews to ditch the channel overnight.',
         post2p3:
           'Light gauges help: backlog per steward, stale project clock and an SLA only on owner facing replies—not every internal chatter line.',
         post2p4:
@@ -1018,7 +1022,7 @@
         post6p3:
           'On site, short photo logs tied to a single job ID settle “which version counts” debates. Educational pages that explain how design, procurement and construction connect rank for integrated construction operations, 4D/5D scheduling and multidisciplinary coordination.',
         post6p4:
-          'Platforms like Zira help when client-visible milestones and internal queues share the same priority—less rework between design and field, clearer view of what is blocked today.',
+          'Platforms like John help when client-visible milestones and internal queues share the same priority—less rework between design and field, clearer view of what is blocked today.',
         post7meta: 'Engineering · 8 min',
         post7h2:
           'RFIs & submittals: cut rework across design, vendors and field',
@@ -1074,7 +1078,7 @@
           'Articles on site documentation and alignment between technical studio and safety teams rank for construction compliance, audits and risk management queries.',
         post11p4:
           'Connecting field communication to structured repositories keeps critical facts out of ephemeral chat only—without killing site speed.',
-        footerCr: '© M2 SCALE',
+        footerCr: '© Cantevo',
         footerSite: 'Main website',
         tocTitle: 'On this page',
         tocAriaLabel: 'Articles on this page',
@@ -1091,14 +1095,14 @@
         toc11: 'Safety & documentation',
       },
       adminPage: {
-        metaTitle: 'Dashboard · Leads · M2SCALE',
+        metaTitle: 'Dashboard · Leads · Cantevo',
         metaDesc:
-          'View contact requests captured from the ZIRA AI landing. Restricted area.',
-        ogTitle: 'Dashboard · Leads · M2SCALE',
+          'View contact requests captured from the John AI landing. Restricted area.',
+        ogTitle: 'Dashboard · Leads · Cantevo',
         ogDesc: 'Appointment requests and captured contact fields.',
-        twitterTitle: 'Dashboard · Leads · M2SCALE',
-        twitterDesc: 'Contact submissions · M2SCALE.',
-        brand: 'M2 SCALE',
+        twitterTitle: 'Dashboard · Leads · Cantevo',
+        twitterDesc: 'Contact submissions · Cantevo.',
+        brand: 'Cantevo',
         pageTitle: 'Leads',
         pageSubtitle: 'Captured from landing',
         statTotal: 'Total',
@@ -1310,7 +1314,7 @@
     var S = STRINGS[lang].schema;
     var wsLang = lang === 'en' ? 'en-US' : 'pt-BR';
     var desc = S.softwareDesc;
-    var orgName = S.organizationName || 'M2 SCALE';
+    var orgName = S.organizationName || 'Cantevo';
 
     var graph = [
       {
@@ -1318,7 +1322,7 @@
         '@id': 'https://www.zira.ai/#organization',
         name: orgName,
         url: 'https://www.zira.ai/',
-        logo: 'https://www.zira.ai/assets/logo-preta.png',
+        logo: 'https://www.zira.ai/assets/cantevo-logo.png',
       },
       {
         '@type': 'WebSite',
@@ -1341,7 +1345,7 @@
       {
         '@type': 'SoftwareApplication',
         '@id': 'https://www.zira.ai/#software',
-        name: 'ZIRA AI',
+        name: 'John AI',
         applicationCategory: 'BusinessApplication',
         operatingSystem: 'Web',
         description: desc,
