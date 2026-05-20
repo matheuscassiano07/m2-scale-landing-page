@@ -129,8 +129,9 @@
   var TYPING_VISIBLE_MS = 720;
   var PAUSE_AFTER_CLIENT_MS = 520;
   var PAUSE_AFTER_JOHN_MS = 680;
+  var PAUSE_AFTER_LAST_JOHN_MS = 6000;
   var PAUSE_AFTER_TYPING_MS = 280;
-  var LOOP_PAUSE_MS = 4800;
+  var LOOP_PAUSE_MS = 400;
   var FALLBACK_START_MS = 1600;
   var STOP_DEBOUNCE_MS = 500;
 
@@ -293,6 +294,15 @@
     scrollMessages(root);
   }
 
+  function isLastJohnInScenario(nodes, index) {
+    var i;
+    if (!nodes[index] || nodes[index].def.role !== 'john') return false;
+    for (i = index + 1; i < nodes.length; i++) {
+      if (nodes[i].def.kind === 'bubble' && nodes[i].def.role === 'client') return false;
+    }
+    return true;
+  }
+
   function playStepChain(root, nodes, index, onComplete) {
     if (!root.isConnected) {
       onComplete();
@@ -319,7 +329,10 @@
     }
 
     showBubble(el, root);
-    var pause = def.role === 'client' ? PAUSE_AFTER_CLIENT_MS : PAUSE_AFTER_JOHN_MS;
+    var pause = PAUSE_AFTER_CLIENT_MS;
+    if (def.role === 'john') {
+      pause = isLastJohnInScenario(nodes, index) ? PAUSE_AFTER_LAST_JOHN_MS : PAUSE_AFTER_JOHN_MS;
+    }
     later(function () {
       playStepChain(root, nodes, index + 1, onComplete);
     }, pause);
