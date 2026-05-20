@@ -22,7 +22,11 @@ module.exports = async function handler(req, res) {
 
   try {
     const inquiries = await store.readAll();
-    res.status(200).json({ ok: true, inquiries });
+    res.status(200).json({
+      ok: true,
+      inquiries: inquiries,
+      storage: store.getStorageState(),
+    });
   } catch (e) {
     res.status(500).json({ ok: false, error: 'store-failed' });
   }

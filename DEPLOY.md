@@ -68,7 +68,46 @@ create table if not exists public.leads (
 );
 
 create index if not exists leads_created_at_idx on public.leads (created_at desc);
+
+-- Dúvidas do chat John AI (aba no /admin)
+create table if not exists public.john_inquiries (
+  id text primary key,
+  created_at timestamptz not null default now(),
+  lang text not null default 'pt',
+  source text not null default 'john-chat',
+  session_id text not null default '',
+  user_message text not null default '',
+  assistant_reply text not null default '',
+  kind text not null default 'answer',
+  tokens boolean not null default false
+);
+
+create index if not exists john_inquiries_created_at_idx on public.john_inquiries (created_at desc);
 ```
+
+Arquivo completo: `scripts/supabase-schema.sql`.
+
+### PostgreSQL na Vercel?
+
+A Vercel **não hospeda** um servidor Postgres dentro do seu site. Opções:
+
+| Opção | O que é | Este projeto |
+|-------|---------|--------------|
+| **Supabase** (recomendado aqui) | Postgres na nuvem + API REST | **Já integrado** (`SUPABASE_URL` + `SUPABASE_SERVICE_ROLE_KEY`) |
+| **Vercel Postgres** | Postgres gerido pela Vercel (Neon) | Exigiria reescrever `leadStore.js` / `inquiryStore.js` |
+| Arquivo em `/tmp` | Fallback sem variáveis Supabase | **Dados somem** entre deploys/restarts — não use em produção |
+
+Se o banco “não funciona”, quase sempre é: variáveis ausentes na Vercel, tabelas não criadas, ou projeto Supabase pausado.
+
+### Checklist banco (Supabase)
+
+1. Criar projeto em [supabase.com](https://supabase.com) (plano free serve para começar).
+2. **SQL Editor** → colar e executar `scripts/supabase-schema.sql`.
+3. **Settings → API** → copiar **Project URL** → `SUPABASE_URL` na Vercel.
+4. Copiar **service_role** (secret) → `SUPABASE_SERVICE_ROLE_KEY` na Vercel (**nunca** no front-end).
+5. **Redeploy** na Vercel.
+6. Enviar um lead de teste na landing → `/admin` → aba Leads deve listar.
+7. Se falhar: Vercel → **Deployments → Functions → Logs** e procurar `supabase-read-failed` ou `supabase-insert-failed`.
 
 Endpoints novos: `/api/auth/login`, `/api/auth/logout`, `/api/auth/me`.
 

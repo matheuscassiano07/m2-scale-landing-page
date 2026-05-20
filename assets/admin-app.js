@@ -7,6 +7,40 @@
   var serverLeads = [];
   var serverInquiries = [];
   var admTab = 'leads';
+  var lastStorage = null;
+
+  function renderDbStatus(storage) {
+    if (storage) lastStorage = storage;
+    var el = document.getElementById('adm-db');
+    if (!el || typeof window.ZiraI18n === 'undefined') return;
+    var s = lastStorage;
+    var lng = window.ZiraI18n.getLang();
+    el.setAttribute('aria-label', window.ZiraI18n.t('adminPage.dbStatusAria'));
+
+    if (!s || !s.configured) {
+      el.hidden = false;
+      el.className = 'adm-db-status adm-db-status--warn';
+      el.innerHTML =
+        '<span class="adm-db-status__dot" aria-hidden="true"></span><div><strong>' +
+        (lng === 'en' ? 'Database' : 'Banco') +
+        '</strong><p>' +
+        window.ZiraI18n.t('adminPage.dbNotConfigured') +
+        '</p></div>';
+      return;
+    }
+
+    if (s.supabaseOk === false) {
+      el.hidden = false;
+      el.className = 'adm-db-status adm-db-status--error';
+      el.innerHTML =
+        '<span class="adm-db-status__dot" aria-hidden="true"></span><div><strong>Supabase</strong><p>' +
+        window.ZiraI18n.t('adminPage.dbDown') +
+        '</p><a class="adm-db-status__link" href="https://status.supabase.com/" target="_blank" rel="noopener noreferrer">status.supabase.com</a></div>';
+      return;
+    }
+
+    el.hidden = true;
+  }
 
   function setNavDrawerOpen(open) {
     document.body.classList.toggle('adm-nav-open', !!open);
@@ -166,6 +200,7 @@
         if (data && data.ok && Array.isArray(data.inquiries)) {
           serverInquiries = data.inquiries.slice();
         }
+        if (data && data.storage) renderDbStatus(data.storage);
       })
       .catch(function () {});
   }
@@ -184,6 +219,7 @@
         if (data && data.ok && Array.isArray(data.leads)) {
           serverLeads = data.leads.slice();
         }
+        if (data && data.storage) renderDbStatus(data.storage);
       })
       .catch(function () {});
   }
@@ -862,7 +898,10 @@
     layout();
     wireMobileNavFab();
     window.addEventListener('resize', layout);
-    window.addEventListener('zira:lang', render);
+    window.addEventListener('zira:lang', function () {
+      render();
+      renderDbStatus();
+    });
     window.ZiraI18n.init();
 
     bootstrap();

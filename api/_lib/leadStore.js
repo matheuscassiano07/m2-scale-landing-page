@@ -3,6 +3,7 @@
 const fs = require('fs');
 const fsp = require('fs/promises');
 const path = require('path');
+const storageMeta = require('./storageMeta.js');
 
 const FILE_PATH = process.env.LEADS_FILE_PATH
   ? path.resolve(process.env.LEADS_FILE_PATH)
@@ -120,14 +121,34 @@ async function addLeadToSupabase(lead) {
 }
 
 async function readAll() {
+  storageMeta.setStorageState({
+    configured: hasSupabase(),
+    supabaseOk: null,
+    activeSource: 'file',
+    lastError: '',
+  });
+
   if (hasSupabase()) {
     try {
-      return await readAllFromSupabase();
+      const rows = await readAllFromSupabase();
+      storageMeta.setStorageState({
+        configured: true,
+        supabaseOk: true,
+        activeSource: 'supabase',
+        lastError: '',
+      });
+      return rows;
     } catch (e) {
+      const msg = String((e && e.message) || e);
+      storageMeta.setStorageState({
+        configured: true,
+        supabaseOk: false,
+        activeSource: 'file-fallback',
+        lastError: msg,
+      });
       try {
-        console.warn('[leadStore] Supabase read failed, using local fallback:', String(e && e.message || e));
+        console.warn('[leadStore] Supabase read failed, using local fallback:', msg);
       } catch (_) {}
-      // fallback para arquivo local em ambiente sem tabela pronta
     }
   }
   try {
@@ -141,6 +162,16 @@ async function readAll() {
       if (row && (row.name || row.email || row.phone)) out.push(row);
     }
     out.sort((a, b) => String(b.createdAt || '').localeCompare(String(a.createdAt || '')));
+    if (!hasSupabase()) {
+      storageMeta.setStorageState({
+        configured: false,
+        supabaseOk: null,
+        activeSource: 'file',
+        lastError: '',
+      });
+    } else if (storageMeta.getStorageState().activeSource === 'file-fallback') {
+      /* mantém estado de erro já definido */
+    }
     return out;
   } catch (e) {
     return [];
@@ -182,5 +213,6 @@ module.exports = {
   addLead,
   readAll,
   normalizeLead,
+  getStorageState: storageMeta.getStorageState,
 };
 

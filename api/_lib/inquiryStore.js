@@ -3,6 +3,7 @@
 const fs = require('fs');
 const fsp = require('fs/promises');
 const path = require('path');
+const storageMeta = require('./storageMeta.js');
 
 const FILE_PATH = process.env.INQUIRIES_FILE_PATH
   ? path.resolve(process.env.INQUIRIES_FILE_PATH)
@@ -143,12 +144,33 @@ async function writeAllFile(rows) {
 async function readAll() {
   if (hasSupabase()) {
     try {
-      return await readAllFromSupabase();
+      const rows = await readAllFromSupabase();
+      storageMeta.setStorageState({
+        configured: true,
+        supabaseOk: true,
+        activeSource: 'supabase',
+        lastError: '',
+      });
+      return rows;
     } catch (e) {
+      const msg = String((e && e.message) || e);
+      storageMeta.setStorageState({
+        configured: true,
+        supabaseOk: false,
+        activeSource: 'file-fallback',
+        lastError: msg,
+      });
       try {
-        console.warn('[inquiryStore] Supabase read failed, using file:', String(e && e.message || e));
+        console.warn('[inquiryStore] Supabase read failed, using file:', msg);
       } catch (_) {}
     }
+  } else {
+    storageMeta.setStorageState({
+      configured: false,
+      supabaseOk: null,
+      activeSource: 'file',
+      lastError: '',
+    });
   }
   return readAllFromFile();
 }
@@ -183,4 +205,5 @@ module.exports = {
   addInquiry,
   readAll,
   normalizeInquiry,
+  getStorageState: storageMeta.getStorageState,
 };

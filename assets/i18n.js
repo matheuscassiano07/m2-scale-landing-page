@@ -606,6 +606,14 @@
         loginNet: 'Sem resposta do servidor. Tente novamente.',
         securityWarn:
           'Configure ADMIN_USERNAME, ADMIN_PASSWORD e SESSION_SECRET nas variáveis da Vercel.',
+        dbStatusAria: 'Status do banco de dados',
+        dbNotConfigured:
+          'Supabase não configurado na Vercel (SUPABASE_URL e SUPABASE_SERVICE_ROLE_KEY). Os dados podem sumir entre deploys.',
+        dbDown:
+          'Supabase está fora do ar ou em manutenção. Acompanhe status.supabase.com. O painel pode mostrar só dados temporários do servidor.',
+        dbFallback:
+          'Não foi possível conectar ao Postgres no Supabase. Confira as chaves na Vercel, execute scripts/supabase-schema.sql e faça redeploy.',
+        dbOk: 'PostgreSQL (Supabase) conectado.',
         unauthorized: 'Faça login para ver os dados.',
         chartTitle: 'Leads nos últimos 7 dias',
         chartSub: 'Volume por dia (meia-noite a meia-noite, fuso local)',
@@ -1223,6 +1231,14 @@
         loginNet: 'No response from server. Try again.',
         securityWarn:
           'Configure ADMIN_USERNAME, ADMIN_PASSWORD and SESSION_SECRET as Vercel env vars.',
+        dbStatusAria: 'Database status',
+        dbNotConfigured:
+          'Supabase is not configured on Vercel (SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY). Data may be lost between deploys.',
+        dbDown:
+          'Supabase is down or under maintenance. Check status.supabase.com. The dashboard may only show temporary server data.',
+        dbFallback:
+          'Could not reach Supabase Postgres. Verify Vercel keys, run scripts/supabase-schema.sql, and redeploy.',
+        dbOk: 'PostgreSQL (Supabase) connected.',
         unauthorized: 'Sign in to view leads.',
         chartTitle: 'Leads over the last 7 days',
         chartSub: 'Volume per calendar day (local midnight to midnight)',
