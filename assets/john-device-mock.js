@@ -1,25 +1,160 @@
 (function (global) {
   'use strict';
 
-  var STEPS = [
-    { sel: '[data-step="c1"]', type: 'bubble', ms: 0 },
-    { sel: '[data-step="t1"]', type: 'typing', ms: 700 },
-    { sel: '[data-step="j1"]', type: 'bubble', ms: 1500 },
-    { sel: '[data-step="c2"]', type: 'bubble', ms: 3200 },
-    { sel: '[data-step="t2"]', type: 'typing', ms: 3900 },
-    { sel: '[data-step="j2"]', type: 'bubble', ms: 4700 },
-    { sel: '[data-step="c3"]', type: 'bubble', ms: 6400 },
-    { sel: '[data-step="t3"]', type: 'typing', ms: 7100 },
-    { sel: '[data-step="j3"]', type: 'bubble', ms: 7900 },
+  /**
+   * Cenários de conversa no mock (somente vitrine — não interativo).
+   * Cada loop exibe um cenário diferente; bolhas ficam visíveis até o fim do cenário.
+   */
+  var SCENARIOS = [
+    {
+      id: 'status',
+      lines: [
+        { type: 'client', text: 'Qual o status da obra?' },
+        { type: 'typing' },
+        {
+          type: 'john',
+          html:
+            'Seu projeto está em <strong>compatibilização</strong>. Previsão: <strong>12/06</strong>.',
+        },
+        { type: 'client', text: 'Tem algo pendente do meu lado?' },
+        { type: 'typing' },
+        {
+          type: 'john',
+          html: 'Só a aprovação do memorial até <strong>sexta</strong>. Te lembro por aqui.',
+        },
+      ],
+    },
+    {
+      id: 'prazo',
+      lines: [
+        { type: 'client', text: 'Estou bem irritado. Prometeram entrega semana passada!' },
+        { type: 'typing' },
+        {
+          type: 'john',
+          html:
+            'Entendo sua frustração. Vou sinalizar <strong>prioridade alta</strong> com a equipe agora.',
+        },
+        { type: 'client', text: 'Quero uma data real, não “em breve”.' },
+        { type: 'typing' },
+        {
+          type: 'john',
+          html:
+            'A equipe confirma o cronograma em até <strong>8h</strong>. Te aviso assim que fechar.',
+        },
+      ],
+    },
+    {
+      id: 'responsavel',
+      lines: [
+        { type: 'client', text: 'Quem é o responsável técnico da obra?' },
+        { type: 'typing' },
+        {
+          type: 'john',
+          html: 'O responsável é o <strong>Eng. Lucas</strong>. Quer que eu avise ele?',
+        },
+        { type: 'client', text: 'Pode pedir pra me ligar ainda hoje?' },
+        { type: 'typing' },
+        {
+          type: 'john',
+          html: 'Feito. Deixei recado com <strong>urgência</strong> no painel da equipe.',
+        },
+      ],
+    },
+    {
+      id: 'briefing',
+      lines: [
+        {
+          type: 'client',
+          text: 'Não consigo explicar direito o que quero nesse projeto...',
+        },
+        { type: 'typing' },
+        {
+          type: 'john',
+          html:
+            'Sem problema. Posso te fazer perguntas curtas e montar um <strong>briefing</strong> claro.',
+        },
+        { type: 'client', text: 'Queria estilo minimalista, tons neutros.' },
+        { type: 'typing' },
+        {
+          type: 'john',
+          html:
+            'Anotei: <strong>minimalista</strong>, paleta neutra. Próximo passo: referências visuais.',
+        },
+      ],
+    },
+    {
+      id: 'cobranca',
+      lines: [
+        { type: 'client', text: 'Vocês sumiram no WhatsApp. Preciso de retorno!' },
+        { type: 'typing' },
+        {
+          type: 'john',
+          html:
+            'Desculpe a demora. Há <strong>2 pendências</strong> internas; já acionei quem responde.',
+        },
+        { type: 'client', text: 'O cliente final está cobrando a gente.' },
+        { type: 'typing' },
+        {
+          type: 'john',
+          html:
+            'Entendi. Priorizei seu chat — a equipe assume em instantes com o <strong>status</strong>.',
+        },
+      ],
+    },
+    {
+      id: 'obra',
+      lines: [
+        { type: 'client', text: 'A obra parou? Ninguém apareceu no canteiro hoje.' },
+        { type: 'typing' },
+        {
+          type: 'john',
+          html:
+            'Hoje a equipe está em <strong>projeto executivo</strong> no escritório. Obra retoma <strong>quinta</strong>.',
+        },
+        { type: 'client', text: 'E a vistoria do hidráulico?' },
+        { type: 'typing' },
+        {
+          type: 'john',
+          html:
+            'Agendada para <strong>15/06 às 9h</strong>. Posso enviar o responsável no convite.',
+        },
+      ],
+    },
+    {
+      id: 'orcamento',
+      lines: [
+        { type: 'client', text: 'Quanto fica mais ou menos o projeto completo?' },
+        { type: 'typing' },
+        {
+          type: 'john',
+          html:
+            'Valores fechados a equipe confirma no <strong>formulário de contato</strong> do site.',
+        },
+        { type: 'client', text: 'Só quero uma ideia de faixa.' },
+        { type: 'typing' },
+        {
+          type: 'john',
+          html:
+            'Posso explicar <strong>etapas e escopo</strong> aqui; proposta formal é com consultor.',
+        },
+      ],
+    },
   ];
 
-  var LOOP_PAUSE_MS = 4500;
+  var TYPING_SHOW_MS = 680;
+  var GAP_AFTER_CLIENT_MS = 900;
+  var GAP_AFTER_JOHN_MS = 1100;
+  var GAP_AFTER_TYPING_MS = 750;
+  var LOOP_PAUSE_MS = 5200;
   var FALLBACK_START_MS = 2200;
+  var FIRST_BUBBLE_MS = 500;
+
   var running = false;
   var timers = [];
   var observer = null;
   var revealHost = null;
   var revealObserver = null;
+  var scenarioIndex = 0;
 
   function prefersReducedMotion() {
     try {
@@ -49,11 +184,6 @@
     return isCoarsePointer() || isNarrowViewport();
   }
 
-  /**
-   * Fração da altura do elemento visível no viewport (0–1).
-   * @param {DOMRect} rect
-   * @param {number} vh
-   */
   function visibleHeightRatio(rect, vh) {
     if (!vh || !rect || rect.height <= 0) return 0;
     var visibleH = Math.min(rect.bottom, vh) - Math.max(rect.top, 0);
@@ -69,7 +199,6 @@
     var ratio = visibleHeightRatio(rect, vh);
     var minRatio = useMobileObserve() ? 0.05 : 0.16;
     if (ratio >= minRatio) return true;
-    /* Cabeçalho do telefone visível (secção problem no topo) */
     if (rect.top < vh * 0.92 && rect.bottom > vh * 0.08) return true;
     return false;
   }
@@ -95,8 +224,12 @@
     if (shell) shell.classList.toggle('is-mock-playing', !!on);
   }
 
+  function getFeed(root) {
+    return root.querySelector('[data-mock-feed]');
+  }
+
   function scrollMessages(root) {
-    var list = root.querySelector('.john-chat__messages');
+    var list = getFeed(root) || root.querySelector('.john-chat__messages');
     if (!list) return;
     try {
       list.scrollTo({ top: list.scrollHeight, behavior: 'smooth' });
@@ -105,69 +238,127 @@
     }
   }
 
-  function reset(root) {
-    var steps = root.querySelectorAll('[data-step]');
-    for (var i = 0; i < steps.length; i++) {
-      steps[i].classList.remove('is-visible');
-      if (steps[i].classList.contains('john-device-typing')) {
-        steps[i].hidden = true;
+  function buildTimeline(lines) {
+    var steps = [];
+    var t = FIRST_BUBBLE_MS;
+    var i;
+    for (i = 0; i < lines.length; i++) {
+      var L = lines[i];
+      if (L.type === 'typing') {
+        steps.push({ kind: 'typing', ms: t, hideAfter: TYPING_SHOW_MS });
+        t += GAP_AFTER_TYPING_MS;
+      } else if (L.type === 'client') {
+        steps.push({ kind: 'bubble', role: 'client', text: L.text, ms: t });
+        t += GAP_AFTER_CLIENT_MS;
+      } else if (L.type === 'john') {
+        steps.push({
+          kind: 'bubble',
+          role: 'john',
+          text: L.text || '',
+          html: L.html || '',
+          ms: t,
+        });
+        t += GAP_AFTER_JOHN_MS;
       }
     }
-    setPlaying(root, false);
-    scrollMessages(root);
+    return steps;
   }
 
-  function showAll(root) {
-    var steps = root.querySelectorAll('[data-step]');
+  function renderScenarioDom(root, scenario) {
+    var feed = getFeed(root);
+    if (!feed) return [];
+
+    feed.innerHTML = '<span class="john-chat__day">Hoje</span>';
+    var nodes = [];
+    var steps = buildTimeline(scenario.lines);
+    var i;
+
+    for (i = 0; i < steps.length; i++) {
+      var st = steps[i];
+      var el;
+      if (st.kind === 'typing') {
+        el = document.createElement('div');
+        el.className = 'john-chat__typing john-device-typing';
+        el.setAttribute('data-step', String(i));
+        el.setAttribute('aria-hidden', 'true');
+        el.hidden = true;
+        el.innerHTML = '<span></span><span></span><span></span>';
+      } else {
+        el = document.createElement('p');
+        el.className =
+          'john-bubble ' + (st.role === 'client' ? 'john-bubble--client' : 'john-bubble--john');
+        el.setAttribute('data-step', String(i));
+        if (st.html) {
+          el.innerHTML = st.html;
+        } else {
+          el.textContent = st.text;
+        }
+      }
+      feed.appendChild(el);
+      nodes.push({ el: el, def: st });
+    }
+
+    return nodes;
+  }
+
+  function showAllInFeed(root, scenario) {
+    var feed = getFeed(root);
+    if (!feed) return;
+    renderScenarioDom(root, scenario);
+    var steps = feed.querySelectorAll('[data-step]');
     for (var i = 0; i < steps.length; i++) {
       steps[i].classList.add('is-visible');
       if (steps[i].classList.contains('john-device-typing')) {
         steps[i].hidden = false;
       }
     }
-    setPlaying(root, false);
     scrollMessages(root);
   }
 
-  function hasVisibleBubble(root) {
-    return !!root.querySelector('[data-step].is-visible');
-  }
-
-  function playSequence(root) {
-    if (running || !root) return;
+  function playScenario(root, index) {
+    if (!root || running) return;
     running = true;
     clearTimers();
-    reset(root);
     setPlaying(root, true);
 
-    var i;
-    for (i = 0; i < STEPS.length; i++) {
-      (function (def) {
+    var scenario = SCENARIOS[index % SCENARIOS.length];
+    var nodes = renderScenarioDom(root, scenario);
+    if (!nodes.length) {
+      running = false;
+      setPlaying(root, false);
+      return;
+    }
+
+    var lastMs = FIRST_BUBBLE_MS;
+    var j;
+
+    for (j = 0; j < nodes.length; j++) {
+      (function (item) {
         timers.push(
           global.setTimeout(function () {
             if (!root.isConnected) return;
-            var el = root.querySelector(def.sel);
-            if (!el) return;
-            if (def.type === 'typing') {
+            var el = item.el;
+            var def = item.def;
+            if (def.kind === 'typing') {
               el.hidden = false;
             }
             el.classList.add('is-visible');
             scrollMessages(root);
 
-            if (def.type === 'typing') {
+            if (def.kind === 'typing' && def.hideAfter) {
               timers.push(
                 global.setTimeout(function () {
                   el.classList.remove('is-visible');
                   el.hidden = true;
-                }, 650)
+                }, def.hideAfter)
               );
             }
           }, def.ms)
         );
-      })(STEPS[i]);
+        if (def.ms > lastMs) lastMs = def.ms;
+      })(nodes[j]);
     }
 
-    var lastMs = STEPS[STEPS.length - 1].ms;
     timers.push(
       global.setTimeout(function () {
         running = false;
@@ -175,18 +366,23 @@
         timers.push(
           global.setTimeout(function () {
             if (!root.isConnected || !isMockInView(root)) return;
-            playSequence(root);
+            scenarioIndex = (index + 1) % SCENARIOS.length;
+            playScenario(root, scenarioIndex);
           }, LOOP_PAUSE_MS)
         );
-      }, lastMs + 600)
+      }, lastMs + 900)
     );
+  }
+
+  function hasVisibleBubble(root) {
+    return !!root.querySelector('[data-step].is-visible');
   }
 
   function tryStart(root) {
     if (!root || running || prefersReducedMotion()) return;
     if (revealHost && revealHost.getAttribute('data-revealed') !== 'true') return;
     if (!isMockInView(root)) return;
-    playSequence(root);
+    playScenario(root, scenarioIndex);
   }
 
   function tryStop(root) {
@@ -194,7 +390,7 @@
     if (isMockInView(root)) return;
     running = false;
     clearTimers();
-    reset(root);
+    setPlaying(root, false);
   }
 
   function scheduleFallbackStart(root) {
@@ -282,8 +478,10 @@
     if (!root || root.dataset.mockReady === '1') return;
     root.dataset.mockReady = '1';
 
+    scenarioIndex = Math.floor(Math.random() * SCENARIOS.length);
+
     if (prefersReducedMotion()) {
-      showAll(root);
+      showAllInFeed(root, SCENARIOS[scenarioIndex]);
       return;
     }
 
@@ -299,7 +497,6 @@
     });
   }
 
-  /* Testes Node (scripts/validate-device-mock.cjs) */
   var testApi = {
     visibleHeightRatio: visibleHeightRatio,
     isMockInView: function (rect, vh, mobile) {
@@ -309,7 +506,8 @@
       if (rect.top < vh * 0.92 && rect.bottom > vh * 0.08) return true;
       return false;
     },
-    STEPS: STEPS,
+    SCENARIOS: SCENARIOS,
+    buildTimeline: buildTimeline,
   };
 
   if (typeof module !== 'undefined' && module.exports) {

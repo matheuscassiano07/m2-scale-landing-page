@@ -1597,8 +1597,14 @@
       transition: transform var(--t-slow);
     }
 
-    .problem__visual:hover .device-shell--iphone {
+    .problem__visual:hover .device-shell--iphone.device-shell--john-chat {
       transform: translateY(-6px);
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .problem__visual:hover .device-shell--iphone.device-shell--john-chat.is-mock-playing {
+        transform: translateY(-4px);
+      }
     }
 
     figure.device-shell.device-shell--iphone.device-shell--john-chat {
@@ -1606,6 +1612,14 @@
       max-width: 300px;
       margin-inline: auto;
       flex-shrink: 0;
+      pointer-events: none;
+      touch-action: none;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    .problem__visual .device-shell--john-chat {
+      pointer-events: none;
     }
 
     .device-shell--iphone {
@@ -1664,6 +1678,8 @@
     .device-shell--john-chat .device-shell__screen {
       position: relative;
       overflow: hidden;
+      display: flex;
+      flex-direction: column;
       width: 100%;
       height: auto;
       min-height: 0;
@@ -2018,11 +2034,17 @@
     .john-chat--device-mock {
       pointer-events: none;
       user-select: none;
+      -webkit-user-select: none;
+      cursor: default;
       background: #efeae2;
       padding-top: 38px;
       width: 100%;
       max-width: 100%;
       min-width: 0;
+      min-height: 0;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
       box-sizing: border-box;
       overflow: hidden;
     }
@@ -2060,11 +2082,13 @@
       color: #667781;
     }
 
-    .john-chat--device-mock .john-chat__messages {
-      flex: 1;
+    .john-chat--device-mock .john-chat__messages,
+    .john-chat--device-mock [data-mock-feed] {
+      flex: 1 1 auto;
       min-height: 0;
       min-width: 0;
       overflow-x: hidden;
+      overflow-y: hidden;
       display: flex;
       flex-direction: column;
       gap: 3px;
@@ -2073,6 +2097,7 @@
       background-image:
         radial-gradient(rgba(0, 0, 0, 0.028) 1px, transparent 1px);
       background-size: 18px 18px;
+      pointer-events: none;
     }
 
     .john-chat--device-mock .john-chat__day {
@@ -2265,6 +2290,8 @@
     .device-shell--john-chat .device-shell__body {
       width: 100%;
       box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
     }
 
     .john-chat--device-mock .john-bubble--john + .john-bubble--client,
@@ -4296,7 +4323,7 @@
       }
 
       figure.device-shell.device-shell--iphone.device-shell--john-chat {
-        width: min(300px, 88vw);
+        width: min(300px, 86vw);
         max-width: 300px;
         transform: translateZ(0);
       }
@@ -4305,6 +4332,14 @@
         figure.device-shell.device-shell--iphone.device-shell--john-chat {
           animation: deviceShellFloat 5.6s ease-in-out infinite;
         }
+      }
+
+      .device-shell--john-chat .device-shell__screen {
+        aspect-ratio: 390 / 844;
+        width: 100%;
+        min-height: 0;
+        max-height: none;
+        height: auto;
       }
 
       .zira__container {
@@ -4490,7 +4525,7 @@
       }
 
       figure.device-shell.device-shell--iphone.device-shell--john-chat {
-        width: min(280px, 88vw);
+        width: min(300px, 86vw);
         max-width: 300px;
       }
 
@@ -4503,13 +4538,16 @@
         aspect-ratio: 390 / 844;
         width: 100%;
         min-height: 0;
-        max-height: min(62dvh, 580px);
+        max-height: none;
+        height: auto;
         border-radius: clamp(32px, 10vw, 42px);
       }
 
-      figure.device-shell.device-shell--iphone.device-shell--john-chat {
-        animation: deviceShellFloat 5.2s ease-in-out infinite;
-        transform: translateZ(0);
+      @media (prefers-reduced-motion: no-preference) {
+        figure.device-shell.device-shell--iphone.device-shell--john-chat {
+          animation: deviceShellFloat 5.2s ease-in-out infinite;
+          transform: translateZ(0);
+        }
       }
 
       .device-shell--john-chat.is-mock-playing .device-shell__screen {
@@ -5035,34 +5073,8 @@
                       <span class="john-chat__status-line">online · Cantevo</span>
                     </div>
                   </header>
-                  <div class="john-chat__messages">
+                  <div class="john-chat__messages" data-mock-feed aria-live="polite">
                     <span class="john-chat__day">Hoje</span>
-                    <p class="john-bubble john-bubble--client" data-step="c1">Qual o status da obra?</p>
-                    <div class="john-chat__typing john-device-typing" data-step="t1" hidden aria-hidden="true">
-                      <span></span><span></span><span></span>
-                    </div>
-                    <p class="john-bubble john-bubble--john" data-step="j1">
-                      Seu projeto está em etapa de <strong>compatibilização</strong>.
-                      Previsão de entrega: <strong>12/06</strong>.
-                    </p>
-                    <p class="john-bubble john-bubble--client" data-step="c2">Quem é o responsável pela obra?</p>
-                    <div class="john-chat__typing john-device-typing" data-step="t2" hidden aria-hidden="true">
-                      <span></span><span></span><span></span>
-                    </div>
-                    <p class="john-bubble john-bubble--john" data-step="j2">
-                      O responsável técnico é o <strong>Eng. Lucas</strong>.
-                      Posso conectar você com ele, se preferir.
-                    </p>
-                    <p class="john-bubble john-bubble--client" data-step="c3">
-                      Não consigo explicar direito como eu quero esse projeto...
-                    </p>
-                    <div class="john-chat__typing john-device-typing" data-step="t3" hidden aria-hidden="true">
-                      <span></span><span></span><span></span>
-                    </div>
-                    <p class="john-bubble john-bubble--john" data-step="j3">
-                      Entendi. Posso fazer algumas perguntas para entender e te apresentar
-                      as melhores opções para você.
-                    </p>
                   </div>
                   <footer class="john-chat__footer">
                     <span class="john-chat__input-faux">Mensagem</span>
