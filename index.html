@@ -1594,14 +1594,15 @@
     }
 
     figure.device-shell.device-shell--iphone.device-shell--john-chat {
-      width: 100%;
-      max-width: min(392px, 100%);
+      width: min(420px, 94vw);
+      max-width: 420px;
       margin-inline: auto;
+      flex-shrink: 0;
     }
 
     .device-shell--iphone {
-      width: 100%;
-      max-width: min(392px, 100%);
+      width: min(340px, 92vw);
+      max-width: 420px;
     }
 
     .device-shell__body {
@@ -1960,6 +1961,11 @@
       user-select: none;
       background: #efeae2;
       padding-top: 38px;
+      width: 100%;
+      max-width: 100%;
+      min-width: 0;
+      box-sizing: border-box;
+      overflow: hidden;
     }
 
     .john-chat--device-mock .john-chat__status {
@@ -1998,10 +2004,12 @@
     .john-chat--device-mock .john-chat__messages {
       flex: 1;
       min-height: 0;
+      min-width: 0;
+      overflow-x: hidden;
       display: flex;
       flex-direction: column;
       gap: 3px;
-      padding: 6px 8px 8px;
+      padding: 6px 10px 8px;
       background-color: #efeae2;
       background-image:
         radial-gradient(rgba(0, 0, 0, 0.028) 1px, transparent 1px);
@@ -2023,7 +2031,7 @@
 
     .john-chat--device-mock .john-bubble {
       margin: 0;
-      max-width: 82%;
+      max-width: 80%;
       padding: 6px 8px 7px 9px;
       border: none;
       border-radius: 7.5px;
@@ -2031,6 +2039,9 @@
       line-height: 1.38;
       letter-spacing: 0.01em;
       box-shadow: 0 1px 0.5px rgba(11, 20, 26, 0.13);
+      box-sizing: border-box;
+      overflow-wrap: break-word;
+      word-break: break-word;
     }
 
     .john-chat--device-mock .john-bubble--client {
@@ -2166,56 +2177,13 @@
 
     .device-shell--john-chat .device-shell__body {
       width: 100%;
-      padding: clamp(8px, 2.4vw, 11px);
-      border-radius: clamp(34px, 9vw, 54px);
+      box-sizing: border-box;
     }
 
     .device-shell--john-chat .device-shell__screen {
       width: 100%;
-      height: auto;
-      aspect-ratio: 390 / 844;
-      min-height: clamp(300px, 52vh, 520px);
-      max-height: min(78dvh, 720px);
+      min-height: 400px;
       background: #efeae2;
-      border-radius: clamp(26px, 7vw, 43px);
-    }
-
-    .device-shell--john-chat .john-chat--device-mock {
-      font-size: clamp(10px, 2.65vw, 12px);
-    }
-
-    .john-chat--device-mock .john-bubble {
-      font-size: clamp(10.5px, 2.75vw, 12.5px);
-      max-width: 86%;
-    }
-
-    .john-chat--device-mock .john-chat__name {
-      font-size: clamp(12px, 3.2vw, 14px);
-    }
-
-    @media (max-width: 400px) {
-      figure.device-shell.device-shell--iphone.device-shell--john-chat,
-      .device-shell--iphone {
-        max-width: 100%;
-      }
-
-      .device-shell--john-chat .device-shell__screen {
-        min-height: clamp(260px, 46vh, 440px);
-        max-height: min(65dvh, 500px);
-      }
-    }
-
-    @media (min-width: 1025px) {
-      figure.device-shell.device-shell--iphone.device-shell--john-chat {
-        width: min(100%, 360px);
-      }
-    }
-
-    @media (max-width: 900px) and (orientation: landscape) {
-      .device-shell--john-chat .device-shell__screen {
-        max-height: min(82dvh, 480px);
-        min-height: 240px;
-      }
     }
 
     .john-chat--device-mock .john-bubble--john + .john-bubble--client,
@@ -4180,9 +4148,9 @@
         margin-bottom: var(--space-2);
       }
 
-      figure.device-shell.device-shell--iphone.device-shell--john-chat,
-      .device-shell--iphone {
-        max-width: min(100%, 380px);
+      figure.device-shell.device-shell--iphone.device-shell--john-chat {
+        width: min(94vw, 420px);
+        max-width: 420px;
       }
 
       .zira__container {
@@ -4328,18 +4296,18 @@
         padding-inline: 0;
       }
 
-      figure.device-shell.device-shell--iphone.device-shell--john-chat,
-      .device-shell--iphone {
-        max-width: min(100%, 360px);
+      figure.device-shell.device-shell--iphone.device-shell--john-chat {
+        width: min(94vw, 420px);
+        max-width: 100%;
       }
 
       .device-shell--john-chat .device-shell__screen {
-        min-height: clamp(280px, 58vh, 540px);
-        max-height: min(72dvh, 620px);
+        min-height: min(72vh, 560px);
+        aspect-ratio: auto;
       }
 
       .john-chat--device-mock .john-chat__messages {
-        padding: 6px 8px 8px;
+        padding: 6px 10px 8px;
       }
 
       /* Hard lock anti "borda preta" lateral em alguns aparelhos */
