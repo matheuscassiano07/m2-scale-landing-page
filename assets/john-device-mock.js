@@ -203,13 +203,22 @@
     return root.querySelector('[data-mock-feed]');
   }
 
+  function useInstantScroll() {
+    try {
+      return global.matchMedia('(max-width: 1024px), (pointer: coarse)').matches;
+    } catch (e) {
+      return (global.innerWidth || 1200) <= 1024;
+    }
+  }
+
   function scrollMessages(root) {
     var list = getFeed(root) || root.querySelector('.john-chat__messages');
     if (!list) return;
     var top = list.scrollHeight;
+    var behavior = useInstantScroll() ? 'auto' : 'smooth';
     try {
       if (typeof list.scrollTo === 'function') {
-        list.scrollTo({ top: top, behavior: 'smooth' });
+        list.scrollTo({ top: top, behavior: behavior });
       } else {
         list.scrollTop = top;
       }
@@ -391,7 +400,7 @@
   }
 
   function tryStop(root) {
-    if (!root) return;
+    if (!root || running) return;
     if (isInViewport(observeTarget || root)) return;
     if (stopDebounceId) global.clearTimeout(stopDebounceId);
     stopDebounceId = global.setTimeout(function () {
@@ -437,7 +446,10 @@
   }
 
   function bindIntersection(root) {
-    observeTarget = root.closest('.device-shell--john-chat') || root;
+    observeTarget =
+      root.closest('.problem__visual') ||
+      root.closest('.device-shell--john-chat') ||
+      root;
 
     if (!('IntersectionObserver' in global)) {
       tryStart(root);
@@ -454,7 +466,7 @@
           }
         }
       },
-      { threshold: 0, rootMargin: '0px 0px 12% 0px' }
+      { threshold: 0, rootMargin: '0px 0px 18% 0px' }
     );
     observer.observe(observeTarget);
   }

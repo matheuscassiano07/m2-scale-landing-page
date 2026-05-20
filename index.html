@@ -2262,6 +2262,19 @@
       }
     }
 
+    @media (max-width: 1024px), (pointer: coarse) {
+      .john-chat--device-mock.is-playing .john-chat__messages,
+      .john-chat--device-mock.is-playing [data-mock-feed] {
+        overflow-y: auto;
+        scroll-behavior: auto;
+      }
+
+      .john-chat--device-mock .john-chat__messages {
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+      }
+    }
+
     @supports (-webkit-touch-callout: none) {
       .john-chat--device-mock [data-step].is-visible {
         -webkit-transform: translateZ(0) translateY(0) translateX(0) scale(1);
@@ -4353,8 +4366,13 @@
       }
 
       @media (prefers-reduced-motion: no-preference) {
-        figure.device-shell.device-shell--iphone.device-shell--john-chat {
+        figure.device-shell.device-shell--iphone.device-shell--john-chat:not(.is-mock-playing) {
           animation: deviceShellFloat 5.6s ease-in-out infinite;
+        }
+
+        figure.device-shell.device-shell--iphone.device-shell--john-chat.is-mock-playing {
+          animation: none;
+          transform: translateZ(0);
         }
       }
 
@@ -4432,8 +4450,8 @@
         letter-spacing: var(--ls-display);
       }
 
-      /* Animações mobile com menos jitter visual */
-      [data-reveal] {
+      /* Animações mobile com menos jitter visual (exceto mock John = igual desktop) */
+      [data-reveal]:not(.problem__visual) {
         will-change: transform, opacity;
       }
       .schedule-success__mark,
@@ -4568,24 +4586,33 @@
       }
 
       @media (prefers-reduced-motion: no-preference) {
-        figure.device-shell.device-shell--iphone.device-shell--john-chat {
+        figure.device-shell.device-shell--iphone.device-shell--john-chat:not(.is-mock-playing) {
           animation: deviceShellFloat 5.2s ease-in-out infinite;
+          transform: translateZ(0);
+        }
+
+        figure.device-shell.device-shell--iphone.device-shell--john-chat.is-mock-playing {
+          animation: none;
           transform: translateZ(0);
         }
       }
 
-      .device-shell--john-chat.is-mock-playing .device-shell__screen {
-        animation: deviceMockScreenGlow 3.6s ease-in-out infinite;
-      }
-
-      .john-chat--device-mock .john-chat__messages {
+      .john-chat--device-mock .john-chat__messages,
+      .john-chat--device-mock.is-playing .john-chat__messages {
         padding: 6px 10px 8px;
         -webkit-overflow-scrolling: touch;
         overscroll-behavior: contain;
       }
 
-      .john-chat--device-mock [data-step] {
-        will-change: opacity, transform;
+      .john-chat--device-mock.is-playing .john-chat__messages,
+      .john-chat--device-mock.is-playing [data-mock-feed] {
+        overflow-y: auto;
+        scroll-behavior: auto;
+      }
+
+      .john-chat--device-mock .john-chat__messages {
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
       }
 
       /* Hard lock anti "borda preta" lateral em alguns aparelhos */
