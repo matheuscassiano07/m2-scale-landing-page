@@ -63,7 +63,7 @@
         b5: 'Equipe sem prioridade definida',
         b6: 'Prazos estourando',
         b7: 'Informações espalhadas',
-        imageAlt: 'Chat com John AI sobre a plataforma Cantevo e organização do escritório',
+        imageAlt: 'John AI informando status da obra, responsável técnico e briefing do cliente',
       },
       johnChat: {
         fabAria: 'Abrir chat com John AI',
@@ -681,7 +681,7 @@
         b5: 'Teams with no enforced priorities',
         b6: 'Deadlines slipping',
         b7: 'Information scattered everywhere',
-        imageAlt: 'Live chat with John AI about Cantevo and studio operations',
+        imageAlt: 'John AI on WhatsApp with project status, technical lead and client briefing',
       },
       johnChat: {
         fabAria: 'Open chat with John AI',

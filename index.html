@@ -1944,8 +1944,225 @@
       opacity: 0.55;
     }
 
+    /* Mock iPhone · área de mensagens estilo WhatsApp */
+    .john-chat--device-mock {
+      pointer-events: none;
+      user-select: none;
+      background: #efeae2;
+      padding-top: 38px;
+    }
+
+    .john-chat--device-mock .john-chat__status {
+      background: #efeae2;
+      color: #0b0b0b;
+      padding: 8px 16px 2px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .john-chat--device-mock .john-chat__header {
+      background: #f0f2f5;
+      border-bottom: none;
+      padding: 6px 10px 8px;
+      box-shadow: 0 1px 0 rgba(11, 20, 26, 0.06);
+    }
+
+    .john-chat--device-mock .john-chat__avatar {
+      width: 36px;
+      height: 36px;
+      border: none;
+      box-shadow: 0 0 0 1px rgba(11, 20, 26, 0.06);
+    }
+
+    .john-chat--device-mock .john-chat__name {
+      font-size: 13px;
+      font-weight: 600;
+      color: #111b21;
+    }
+
+    .john-chat--device-mock .john-chat__status-line {
+      font-size: 10px;
+      color: #667781;
+    }
+
+    .john-chat--device-mock .john-chat__messages {
+      flex: 1;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      padding: 6px 8px 8px;
+      background-color: #efeae2;
+      background-image:
+        radial-gradient(rgba(0, 0, 0, 0.028) 1px, transparent 1px);
+      background-size: 18px 18px;
+    }
+
+    .john-chat--device-mock .john-chat__day {
+      align-self: center;
+      margin: 4px 0 8px;
+      padding: 5px 10px 6px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.92);
+      box-shadow: 0 1px 0.5px rgba(11, 20, 26, 0.08);
+      color: #54656f;
+      font-size: 9.5px;
+      font-weight: 500;
+      letter-spacing: 0.01em;
+    }
+
+    .john-chat--device-mock .john-bubble {
+      margin: 0;
+      max-width: 82%;
+      padding: 6px 8px 7px 9px;
+      border: none;
+      border-radius: 7.5px;
+      font-size: 11.5px;
+      line-height: 1.38;
+      letter-spacing: 0.01em;
+      box-shadow: 0 1px 0.5px rgba(11, 20, 26, 0.13);
+    }
+
+    .john-chat--device-mock .john-bubble--client {
+      align-self: flex-end;
+      margin-left: auto;
+      background: #e8d4bc;
+      color: #2b2118;
+      border-top-right-radius: 0;
+      box-shadow: 0 1px 0.5px rgba(168, 121, 74, 0.18);
+    }
+
+    .john-chat--device-mock .john-bubble--john {
+      align-self: flex-start;
+      margin-right: auto;
+      background: #ffffff;
+      color: #111b21;
+      border-top-left-radius: 0;
+    }
+
+    .john-chat--device-mock .john-bubble--john strong {
+      color: #111b21;
+      font-weight: 600;
+    }
+
+    .john-chat--device-mock [data-step] {
+      opacity: 0;
+      transition:
+        opacity 0.38s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 0.38s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .john-chat--device-mock .john-bubble--client[data-step] {
+      transform: translateY(10px) translateX(8px) scale(0.96);
+    }
+
+    .john-chat--device-mock .john-bubble--john[data-step] {
+      transform: translateY(10px) translateX(-8px) scale(0.96);
+    }
+
+    .john-chat--device-mock .john-device-typing[data-step] {
+      transform: translateY(6px) translateX(-6px) scale(0.96);
+    }
+
+    .john-chat--device-mock [data-step].is-visible {
+      opacity: 1;
+      transform: translateY(0) translateX(0) scale(1);
+    }
+
+    .john-chat--device-mock .john-device-typing {
+      display: flex;
+      align-self: flex-start;
+      gap: 4px;
+      margin: 2px 0;
+      padding: 12px 14px 11px;
+      border-radius: 7.5px;
+      border-top-left-radius: 0;
+      background: #ffffff;
+      border: none;
+      box-shadow: 0 1px 0.5px rgba(11, 20, 26, 0.13);
+    }
+
+    .john-chat--device-mock .john-device-typing[hidden] {
+      display: none !important;
+    }
+
+    .john-chat--device-mock .john-device-typing span {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #8696a0;
+      opacity: 0.55;
+      animation: john-typing-dot 1.1s ease-in-out infinite;
+    }
+
+    .john-chat--device-mock .john-device-typing span:nth-child(2) {
+      animation-delay: 0.15s;
+    }
+
+    .john-chat--device-mock .john-device-typing span:nth-child(3) {
+      animation-delay: 0.3s;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .john-chat--device-mock [data-step] {
+        opacity: 1;
+        transform: none;
+        transition: none;
+      }
+    }
+
+    .john-chat--device-mock .john-chat__footer {
+      pointer-events: none;
+      gap: 6px;
+      padding: 6px 8px 10px;
+      background: #f0f2f5;
+      border-top: none;
+      box-shadow: 0 -1px 0 rgba(11, 20, 26, 0.06);
+    }
+
+    .john-chat--device-mock .john-chat__input-faux {
+      flex: 1;
+      display: block;
+      padding: 9px 14px 10px;
+      border-radius: 24px;
+      background: #ffffff;
+      border: none;
+      box-shadow: none;
+      color: #8696a0;
+      font-size: 11px;
+      line-height: 1.3;
+    }
+
+    .john-chat--device-mock .john-chat__send-faux {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: #a8794a;
+      flex-shrink: 0;
+      display: grid;
+      place-items: center;
+      box-shadow: none;
+    }
+
+    .john-chat--device-mock .john-chat__send-faux::after {
+      content: "";
+      width: 0;
+      height: 0;
+      border-top: 5px solid transparent;
+      border-bottom: 5px solid transparent;
+      border-left: 8px solid #ffffff;
+      margin-left: 2px;
+    }
+
     .device-shell--john-chat .device-shell__screen {
       min-height: 400px;
+      background: #efeae2;
+    }
+
+    .john-chat--device-mock .john-bubble--john + .john-bubble--client,
+    .john-chat--device-mock .john-bubble--client + .john-device-typing,
+    .john-chat--device-mock .john-device-typing + .john-bubble--john {
+      margin-top: 5px;
     }
 
     .john-chat__messages {
@@ -4640,19 +4857,14 @@
           </li>
         </ul>
 
-        <div class="problem__visual problem__visual--chat" data-reveal data-reveal-variant="photo" style="--reveal-delay: 220ms">
+        <div class="problem__visual" data-reveal data-reveal-variant="photo" style="--reveal-delay: 220ms">
           <figure class="device-shell device-shell--iphone device-shell--john-chat">
-            <figcaption class="sr-only" data-i18n="problem.imageAlt">Chat com John AI sobre a plataforma Cantevo</figcaption>
+            <figcaption class="sr-only" data-i18n="problem.imageAlt">John AI informando status da obra, responsável técnico e briefing do cliente</figcaption>
             <div class="device-shell__body">
               <div class="device-shell__screen">
                 <span class="device-shell__island" aria-hidden="true"></span>
-                <div
-                  class="john-chat"
-                  id="john-chat"
-                  role="region"
-                  data-i18n-attr="aria-label:johnChat.regionAria"
-                  aria-label="Conversa com John AI">
-                  <div class="john-chat__status" aria-hidden="true">
+                <div class="john-chat john-chat--device-mock" id="john-device-mock" aria-hidden="true">
+                  <div class="john-chat__status">
                     <span>9:41</span>
                   </div>
                   <header class="john-chat__header">
@@ -4666,37 +4878,41 @@
                       loading="lazy">
                     <div class="john-chat__header-text">
                       <span class="john-chat__name">John AI</span>
-                      <span class="john-chat__status-line" data-i18n="johnChat.online">online · Cantevo</span>
+                      <span class="john-chat__status-line">online · Cantevo</span>
                     </div>
                   </header>
-                  <div class="john-chat__messages" id="john-chat-messages" aria-live="polite" aria-relevant="additions"></div>
-                  <div class="john-chat__typing" id="john-chat-typing" hidden aria-hidden="true">
-                    <span></span><span></span><span></span>
+                  <div class="john-chat__messages">
+                    <span class="john-chat__day">Hoje</span>
+                    <p class="john-bubble john-bubble--client" data-step="c1">Qual o status da obra?</p>
+                    <div class="john-chat__typing john-device-typing" data-step="t1" hidden aria-hidden="true">
+                      <span></span><span></span><span></span>
+                    </div>
+                    <p class="john-bubble john-bubble--john" data-step="j1">
+                      Seu projeto está em etapa de <strong>compatibilização</strong>.
+                      Previsão de entrega: <strong>12/06</strong>.
+                    </p>
+                    <p class="john-bubble john-bubble--client" data-step="c2">Quem é o responsável pela obra?</p>
+                    <div class="john-chat__typing john-device-typing" data-step="t2" hidden aria-hidden="true">
+                      <span></span><span></span><span></span>
+                    </div>
+                    <p class="john-bubble john-bubble--john" data-step="j2">
+                      O responsável técnico é o <strong>Eng. Lucas</strong>.
+                      Posso conectar você com ele, se preferir.
+                    </p>
+                    <p class="john-bubble john-bubble--client" data-step="c3">
+                      Não consigo explicar direito como eu quero esse projeto...
+                    </p>
+                    <div class="john-chat__typing john-device-typing" data-step="t3" hidden aria-hidden="true">
+                      <span></span><span></span><span></span>
+                    </div>
+                    <p class="john-bubble john-bubble--john" data-step="j3">
+                      Entendi. Posso fazer algumas perguntas para entender e te apresentar
+                      as melhores opções para você.
+                    </p>
                   </div>
-                  <a href="#cta" class="john-chat__cta" id="john-chat-cta" hidden data-i18n="johnChat.cta">Entrar em contato</a>
                   <footer class="john-chat__footer">
-                    <form class="john-chat__form" id="john-chat-form">
-                      <input
-                        type="text"
-                        class="john-chat__input"
-                        id="john-chat-input"
-                        name="message"
-                        maxlength="280"
-                        autocomplete="off"
-                        data-i18n-attr="placeholder:johnChat.placeholder;aria-label:johnChat.inputAria"
-                        placeholder="Escreva sua dúvida…"
-                        required>
-                      <button
-                        type="submit"
-                        class="john-chat__send"
-                        id="john-chat-send"
-                        data-i18n-attr="aria-label:johnChat.sendAria"
-                        aria-label="Enviar mensagem">
-                        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                          <path d="M4 12 L20 4 L14 20 L11 13 Z" fill="currentColor"/>
-                        </svg>
-                      </button>
-                    </form>
+                    <span class="john-chat__input-faux">Mensagem</span>
+                    <span class="john-chat__send-faux" aria-hidden="true"></span>
                   </footer>
                 </div>
                 <span class="device-shell__home-bar" aria-hidden="true"></span>
@@ -5810,6 +6026,7 @@
   <script src="assets/motion-enhance.js"></script>
   <script src="assets/leads.js"></script>
   <script src="assets/john-chat.js" defer></script>
+  <script src="assets/john-device-mock.js" defer></script>
   <script>
     (function () {
       'use strict';

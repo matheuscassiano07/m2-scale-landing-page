@@ -215,8 +215,6 @@
 
   function playFloatWelcome() {
     var floatCtrl = controllerByRootId('john-chat-float');
-    var deviceCtrl = controllerByRootId('john-chat');
-    if (deviceCtrl) deviceCtrl.render();
     if (!floatCtrl) return;
 
     var welcome = sharedState.messages[0];
@@ -437,7 +435,6 @@
     }
 
     controllers = [];
-    attachJohnChat(document.getElementById('john-chat'));
     attachJohnChat(document.getElementById('john-chat-float'));
 
     if (sharedState.closed) setClosedAll(true);
