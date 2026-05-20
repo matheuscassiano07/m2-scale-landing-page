@@ -123,7 +123,7 @@ async function callGemini(history, userMessage, lang, req, sessionId) {
   if (!gate.ok) return { ok: false, reason: gate.reason || 'blocked' };
 
   const key = env('GEMINI_API_KEY');
-  const model = env('GEMINI_MODEL', 'gemini-2.0-flash');
+  const model = env('GEMINI_MODEL', 'gemini-2.5-flash-lite');
   const url =
     'https://generativelanguage.googleapis.com/v1beta/models/' +
     encodeURIComponent(model) +

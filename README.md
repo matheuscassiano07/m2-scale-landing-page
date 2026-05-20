@@ -81,6 +81,18 @@ npx serve .
 - Tablet: ≤ 1024px (hamburger ativa)
 - Mobile: ≤ 768px (single column, padding reduzido)
 
+## John AI · API Gemini (chat da landing)
+
+Modelo recomendado para **tirar dúvidas no site**: `gemini-2.5-flash-lite` (barato, respostas curtas).
+
+Passo a passo (chave, Vercel, testes, limites de custo): **[docs/GEMINI-JOHN-AI.md](docs/GEMINI-JOHN-AI.md)**
+
+```bash
+cp .env.example .env   # cole GEMINI_API_KEY
+npm run test:gemini    # valida a chave
+npm run dev            # API em localhost:3000
+```
+
 ## Próximos passos sugeridos
 
 - Trocar `<a href="#">` da nav por rotas reais quando existirem

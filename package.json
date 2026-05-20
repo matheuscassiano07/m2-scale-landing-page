@@ -13,6 +13,7 @@
     "dev": "vercel dev --listen 3000",
     "start": "npx --yes serve@14 . -l 3000",
     "security-check": "node scripts/security-check.cjs",
+    "test:gemini": "node scripts/test-gemini.cjs",
     "evo-qr": "node scripts/evo-qr.cjs",
     "evo-diag": "node scripts/evo-diag.cjs"
   }
