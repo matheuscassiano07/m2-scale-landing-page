@@ -3881,23 +3881,39 @@
       border: 2px solid rgba(168, 121, 74, 0.45);
       cursor: pointer;
       overflow: hidden;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
       box-shadow:
         0 0 0 0 rgba(168, 121, 74, 0.35),
         0 12px 32px rgba(0, 0, 0, 0.35);
       animation: johnFabPulse 2.8s var(--ease-in-out) infinite;
-      transition: transform var(--t-fast), box-shadow var(--t-fast), border-color var(--t-fast);
+      transition:
+        transform var(--t-fast),
+        box-shadow var(--t-fast),
+        border-color var(--t-fast),
+        opacity var(--t-fast),
+        visibility var(--t-fast);
     }
 
-    .john-fab:hover {
-      transform: translateY(-2px) scale(1.05);
-      border-color: #a8794a;
-      box-shadow:
-        0 0 0 6px rgba(168, 121, 74, 0.12),
-        0 14px 40px rgba(0, 0, 0, 0.42);
+    @media (hover: hover) and (pointer: fine) {
+      .john-fab:hover {
+        transform: translateY(-2px) scale(1.05);
+        border-color: #a8794a;
+        box-shadow:
+          0 0 0 6px rgba(168, 121, 74, 0.12),
+          0 14px 40px rgba(0, 0, 0, 0.42);
+      }
     }
 
     .john-fab:active {
-      transform: translateY(0) scale(1);
+      transform: scale(0.96);
+    }
+
+    body.john-chat-panel-open .john-fab {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transform: scale(0.92);
     }
 
     .john-fab__avatar {
@@ -4046,6 +4062,17 @@
       overflow: hidden;
     }
 
+    @keyframes johnPanelEnter {
+      from {
+        opacity: 0;
+        transform: translateY(10px) scale(0.97);
+      }
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
     @keyframes johnFabPulse {
       0%, 100% {
         box-shadow:
@@ -4056,6 +4083,29 @@
         box-shadow:
           0 0 0 10px rgba(168, 121, 74, 0),
           0 12px 32px rgba(0, 0, 0, 0.35);
+      }
+    }
+
+    @keyframes johnFabPulseMobile {
+      0%, 100% {
+        box-shadow:
+          0 0 0 0 rgba(168, 121, 74, 0.22),
+          0 6px 22px rgba(0, 0, 0, 0.3);
+      }
+      55% {
+        box-shadow:
+          0 0 0 6px rgba(168, 121, 74, 0),
+          0 6px 22px rgba(0, 0, 0, 0.3);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .john-fab {
+        animation: none;
+      }
+
+      .john-chat-panel__dialog {
+        animation: none;
       }
     }
 
@@ -4283,9 +4333,47 @@
       }
 
       body {
-        padding-bottom: calc(84px + env(safe-area-inset-bottom, 0px));
+        padding-bottom: calc(76px + env(safe-area-inset-bottom, 0px));
         overscroll-behavior-x: none;
         touch-action: pan-y pinch-zoom;
+      }
+
+      .john-fab {
+        width: 54px;
+        height: 54px;
+        bottom: calc(18px + env(safe-area-inset-bottom, 0px));
+        right: calc(18px + env(safe-area-inset-right, 0px));
+      }
+
+      .john-chat-panel {
+        align-items: flex-end;
+        justify-content: flex-end;
+        padding:
+          max(10px, env(safe-area-inset-top, 0px))
+          max(14px, env(safe-area-inset-right, 0px))
+          calc(78px + env(safe-area-inset-bottom, 0px))
+          max(14px, env(safe-area-inset-left, 0px));
+      }
+
+      .john-chat-panel__overlay {
+        background: rgba(11, 11, 11, 0.4);
+        backdrop-filter: blur(3px);
+        -webkit-backdrop-filter: blur(3px);
+      }
+
+      .john-chat-panel__dialog {
+        width: min(100%, 400px);
+        max-width: 100%;
+        height: auto;
+        max-height: min(70dvh, 540px);
+        min-height: min(300px, 50dvh);
+        border-radius: 20px;
+        animation: johnPanelEnter 0.26s var(--ease-out) both;
+        transform-origin: bottom right;
+      }
+
+      .john-chat--panel .john-chat__messages {
+        min-height: 140px;
       }
 
       .frame {
@@ -4475,25 +4563,25 @@
       .cta-register__phone input { font-size: 16px; padding: 14px 16px 14px 10px; }
       .cta-register__submit { padding: 16px 24px; }
       .john-fab {
-        right: max(16px, env(safe-area-inset-right));
-        bottom: max(16px, env(safe-area-inset-bottom));
+        width: 50px;
+        height: 50px;
+        right: max(14px, env(safe-area-inset-right, 0px));
+        bottom: max(14px, env(safe-area-inset-bottom, 0px));
+        animation: johnFabPulseMobile 3.4s var(--ease-in-out) infinite;
       }
 
       .john-chat-panel {
-        padding: 0;
-        align-items: stretch;
+        padding:
+          max(8px, env(safe-area-inset-top, 0px))
+          max(10px, env(safe-area-inset-right, 0px))
+          calc(68px + env(safe-area-inset-bottom, 0px))
+          max(10px, env(safe-area-inset-left, 0px));
       }
 
       .john-chat-panel__dialog {
-        width: 100%;
-        max-height: none;
-        height: 100%;
-        border-radius: 0;
-        border: none;
-      }
-
-      .john-chat--panel .john-chat__messages {
-        min-height: 0;
+        max-height: min(65dvh, 480px);
+        min-height: min(280px, 48dvh);
+        border-radius: 18px;
       }
 
       .john-chat--panel .john-chat__input {
