@@ -1,6 +1,7 @@
 'use strict';
 
 const guard = require('./johnGuard.js');
+const johnPrompt = require('./johnSystemPrompt.js');
 
 const MAX_USER_TURNS = 2;
 const MAX_MESSAGE_CHARS = 280;
@@ -24,12 +25,27 @@ const OFF_TOPIC_RE = [
 const ON_TOPIC_RE = [
   /\b(cantevo|john\s*ai|zira)\b/i,
   /\b(arquitetur|engenharia|engenheiro|obra[s]?|escrit[oó]rio)\b/i,
-  /\b(plataforma|software|sistema|gest[aã]o|operac[aã]o)\b/i,
+  /\b(plataforma|software|sistema|gest[aã]o|operac[aã]o|ferramenta|produto)\b/i,
   /\b(whatsapp|atendimento|lead[s]?|cliente[s]?|projeto[s]?|prazo[s]?|equipe|tarefa)\b/i,
-  /\b(pre[cç]o|valor|plano[s]?|demo|demonstra[cç][aã]o|agendar|contato)\b/i,
+  /\b(pre[cç]o|valor|plano[s]?|demo|demonstra[cç][aã]o|agendar|contato|or[cç]amento)\b/i,
   /\b(funciona|como\s+[eé]|o\s+que\s+[eé]|quanto\s+custa)\b/i,
-  /\b(compatibiliz|briefing|rfi|entrega|acompanhamento|prioridade)\b/i,
-  /\b(organiz|informa[cç][aã]o\s+espalhada|retrabalho|inbox)\b/i,
+  /\b(compatibiliz|briefing|memorial|checklist|entrega|acompanhamento|prioridade)\b/i,
+  /\b(organiz|informa[cç][aã]o\s+espalhada|retrabalho|inbox|cobran[cç]a|irritad)\b/i,
+  /\b(condom[ií]nio|empreendimento|incorporadora|reforma|residencial|comercial)\b/i,
+  /\b(painel|site)\b/i,
+];
+
+/** Perguntas sobre benefício para a empresa do visitante — sempre sobre Cantevo no site */
+const PRODUCT_INTENT_RE = [
+  /\bcomo\s+(isso|isto|o\s+cantevo|a\s+cantevo|vocês|o\s+sistema|a\s+plataforma)\b/i,
+  /\b(me\s+ajuda|pode\s+me\s+ajudar|ajudam|ajudar|ajuda)\b/i,
+  /\b(minha|meu|nossa|nosso)\s+(empresa|escrit[oó]rio|neg[oó]cio|time|equipe|firma)\b/i,
+  /\b(isso|isto|essa\s+ferramenta|este\s+sistema|o\s+produto|a\s+plataforma|o\s+cantevo)\b/i,
+  /\b(vale\s+a\s+pena|benef[ií]cio|vantagem|por\s+que\s+usar|serve\s+para)\b/i,
+  /\b(quero\s+(saber|conhecer)|tenho\s+uma\s+d[uú]vida)\b/i,
+  /\bo\s+que\s+(é|faz|oferece|resolve)\b/i,
+  /\bpara\s+(quem|que\s+serve)\b/i,
+  /\b(adotar|contratar|implementar|usar)\b/i,
 ];
 
 function env(name, fallback) {
@@ -59,34 +75,24 @@ function isOnTopic(text) {
   for (let i = 0; i < ON_TOPIC_RE.length; i++) {
     if (ON_TOPIC_RE[i].test(t)) return true;
   }
+  for (let j = 0; j < PRODUCT_INTENT_RE.length; j++) {
+    if (PRODUCT_INTENT_RE[j].test(t)) return true;
+  }
   if (/^(oi|ol[aá]|bom\s+dia|boa\s+tarde|hey|hello)\b/i.test(t)) return true;
+  /* No site Cantevo, pergunta com ? e texto razoável costuma ser sobre o produto */
+  if (t.length >= 12 && /\?/.test(t)) return true;
   if (t.length <= 24 && /\?/.test(t)) return true;
   return false;
-}
-
-function systemInstruction(lang) {
-  const pt =
-    'Você é o John AI, assistente comercial da Cantevo (plataforma para escritórios de arquitetura e engenharia). ' +
-    'REGRAS OBRIGATÓRIAS: (1) Responda APENAS sobre Cantevo, John AI, demonstração, planos comerciais em alto nível, ' +
-    'organização de atendimento/obra/equipe/prazos no contexto do produto. (2) Recuse educadamente qualquer outro assunto em 1 frase. ' +
-    '(3) Máximo 2 frases curtas; sem listas longas; sem inventar preços, datas de obra ou nomes de pessoas. ' +
-    '(4) Não simule acesso a CRM/obra real. (5) Se pedirem proposta ou contato humano, diga para preencher o formulário "Entrar em contato" na página.';
-  const en =
-    'You are John AI, Cantevo’s assistant (platform for architecture & engineering studios). ' +
-    'RULES: (1) Only Cantevo/John AI, demo, high-level pricing, studio operations the product solves. ' +
-    '(2) Politely refuse anything else in one sentence. (3) Max 2 short sentences; no long lists; never invent prices or project data. ' +
-    '(4) No fake CRM access. (5) For proposals/human contact, point to the "Get in touch" form on the page.';
-  return lang === 'en' ? en : pt;
 }
 
 function canned(lang, key) {
   const pt = {
     offTopic:
-      'Só posso ajudar com assuntos da Cantevo e do John AI (plataforma, demonstração e operação em escritórios de arquitetura e engenharia). Para outros temas, use o formulário **Entrar em contato** mais abaixo.',
+      'Sou o John AI da Cantevo — posso explicar como a plataforma ajuda seu escritório (WhatsApp, clientes, obras, equipe). Para assuntos fora disso, use **Entrar em contato** abaixo.',
     handoff:
-      'Para seguir com um especialista, deixe seus dados no formulário **Entrar em contato** — nossa equipe retorna em até 8 horas.',
+      'Para falar com alguém da equipe, preencha o formulário **Entrar em contato** — respondemos em até 8 horas.',
     greet:
-      'Olá! Conte sua dúvida sobre a Cantevo ou o John AI: como organizamos atendimento, obras e prazos no escritório.',
+      'Olá! Sou o John, da Cantevo. Qual sua dúvida sobre como a plataforma funciona ou como ajudamos seu escritório?',
     noApi:
       'No momento o chat automático está indisponível. Use o formulário **Entrar em contato** abaixo que a equipe responde em até 8 horas.',
     rateLimit: 'Muitas mensagens em pouco tempo. Aguarde um minuto ou use o formulário de contato.',
@@ -142,7 +148,7 @@ async function callGemini(history, userMessage, lang, req, sessionId) {
   contents.push({ role: 'user', parts: [{ text: clampText(userMessage, MAX_MESSAGE_CHARS) }] });
 
   const body = {
-    systemInstruction: { parts: [{ text: systemInstruction(lang) }] },
+    systemInstruction: { parts: [{ text: johnPrompt.systemInstruction(lang) }] },
     contents: contents,
     generationConfig: {
       temperature: 0.35,

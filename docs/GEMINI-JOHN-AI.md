@@ -26,6 +26,19 @@ O código **não** chama ferramentas (Maps, Search, código). Só `generateConte
 
 ---
 
+## Onde está o prompt da IA
+
+| O quê | Arquivo |
+|-------|---------|
+| Prompt enviado ao Gemini (produção) | `api/_lib/johnSystemPrompt.js` |
+| Mensagens fixas (sem IA) | `api/_lib/johnChat.js` → função `canned()` |
+| Boas-vindas no painel do site | `assets/i18n.js` → `johnChat.welcome` |
+| Documento completo de produto | `docs/CANTEVO-JOHN-PROMPT.md` |
+
+Depois de editar o prompt, faça redeploy na Vercel.
+
+---
+
 ## Onde criar a chave
 
 1. Acesse [Google AI Studio](https://aistudio.google.com/apikey) (conta Google).
