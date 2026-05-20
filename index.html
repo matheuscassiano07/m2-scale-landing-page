@@ -2152,9 +2152,11 @@
 
     .john-chat--device-mock [data-step] {
       opacity: 0;
+      visibility: hidden;
       transition:
-        opacity 0.38s cubic-bezier(0.22, 1, 0.36, 1),
-        transform 0.38s cubic-bezier(0.22, 1, 0.36, 1);
+        opacity 0.42s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 0.42s cubic-bezier(0.22, 1, 0.36, 1),
+        visibility 0s linear 0.42s;
     }
 
     .john-chat--device-mock .john-bubble--client[data-step] {
@@ -2171,10 +2173,18 @@
 
     .john-chat--device-mock [data-step].is-visible {
       opacity: 1;
+      visibility: visible;
+      transition:
+        opacity 0.42s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 0.42s cubic-bezier(0.22, 1, 0.36, 1),
+        visibility 0s linear 0s;
       transform: translateY(0) translateX(0) scale(1);
     }
 
-    .john-chat--device-mock.is-playing .john-chat__messages {
+    .john-chat--device-mock.is-playing .john-chat__messages,
+    .john-chat--device-mock.is-playing [data-mock-feed] {
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
       scroll-behavior: smooth;
     }
 
@@ -2217,6 +2227,13 @@
 
     .john-chat--device-mock .john-device-typing[hidden] {
       display: none !important;
+      visibility: hidden !important;
+      opacity: 0 !important;
+    }
+
+    .john-chat--device-mock .john-device-typing.is-visible {
+      display: flex !important;
+      visibility: visible !important;
     }
 
     .john-chat--device-mock .john-device-typing span {
@@ -2239,8 +2256,15 @@
     @media (prefers-reduced-motion: reduce) {
       .john-chat--device-mock [data-step] {
         opacity: 1;
+        visibility: visible;
         transform: none;
         transition: none;
+      }
+    }
+
+    @supports (-webkit-touch-callout: none) {
+      .john-chat--device-mock [data-step].is-visible {
+        -webkit-transform: translateZ(0) translateY(0) translateX(0) scale(1);
       }
     }
 

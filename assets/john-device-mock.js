@@ -1,10 +1,6 @@
 (function (global) {
   'use strict';
 
-  /**
-   * Cenários no mock (vitrine, não interativo).
-   * Cada um: 3 perguntas do cliente + digitando + 3 respostas do John; depois troca o cenário.
-   */
   function scene(id, pairs) {
     var lines = [];
     var i;
@@ -63,7 +59,7 @@
       },
       {
         c: 'Qual o melhor horário para falar com ele?',
-        html: 'Sugiro após <strong>15h</strong>. Posso confirmar a disponibilidade e te retorno.',
+        html: 'Sugiro após <strong>15h</strong>. Confirmo a disponibilidade e te retorno.',
       },
     ]),
     scene('briefing', [
@@ -103,7 +99,7 @@
           'Hoje a equipe está no <strong>projeto executivo</strong> no escritório. Obra retoma <strong>quinta</strong>.',
       },
       {
-        c: 'E a vistoria do hidráulica?',
+        c: 'E a vistoria da parte hidráulica?',
         html: 'Agendada para <strong>15/06 às 9h</strong>. Posso enviar o responsável no convite.',
       },
       {
@@ -113,35 +109,39 @@
     ]),
     scene('orcamento', [
       {
-        c: 'Quanto fica mais ou menos o projeto completo?',
+        c: 'Quanto fica o projeto completo?',
         html:
-          'Valores fechados a equipe confirma no <strong>formulário de contato</strong> do site.',
+          'Vou <strong>confirmar com a equipe</strong>. Assim que fecharem, te retorno o valor certo.',
       },
       {
-        c: 'Só quero uma ideia de faixa de investimento.',
-        html: 'Posso explicar <strong>etapas e escopo</strong> aqui. Proposta formal é com consultor.',
+        c: 'Preciso de uma estimativa ainda esta semana.',
+        html:
+          'Entendi. Já encaminhei para a equipe. Te aviso aqui quando tiverem o valor <strong>confirmado</strong>.',
       },
       {
-        c: 'Quando consigo falar com alguém da equipe?',
-        html: 'Use o formulário <strong>Entrar em contato</strong>. Retorno em até <strong>8 horas</strong>.',
+        c: 'Posso aguardar até sexta?',
+        html:
+          'Perfeito. Até <strong>sexta</strong> você recebe a resposta com o valor fechado pela equipe.',
       },
     ]),
   ];
 
-  var TYPING_SHOW_MS = 650;
-  var GAP_AFTER_CLIENT_MS = 700;
-  var GAP_AFTER_JOHN_MS = 1500;
-  var GAP_AFTER_TYPING_MS = 700;
-  var LOOP_PAUSE_MS = 5200;
-  var FALLBACK_START_MS = 2200;
-  var FIRST_BUBBLE_MS = 400;
+  var TYPING_VISIBLE_MS = 720;
+  var PAUSE_AFTER_CLIENT_MS = 520;
+  var PAUSE_AFTER_JOHN_MS = 680;
+  var PAUSE_AFTER_TYPING_MS = 280;
+  var LOOP_PAUSE_MS = 4800;
+  var FALLBACK_START_MS = 1600;
+  var STOP_DEBOUNCE_MS = 500;
 
   var running = false;
   var timers = [];
   var observer = null;
-  var revealHost = null;
   var revealObserver = null;
+  var revealHost = null;
+  var observeTarget = null;
   var scenarioIndex = 0;
+  var stopDebounceId = 0;
 
   function prefersReducedMotion() {
     try {
@@ -151,26 +151,6 @@
     }
   }
 
-  function isCoarsePointer() {
-    try {
-      return global.matchMedia('(pointer: coarse)').matches;
-    } catch (e) {
-      return false;
-    }
-  }
-
-  function isNarrowViewport() {
-    try {
-      return global.matchMedia('(max-width: 900px)').matches;
-    } catch (e) {
-      return (global.innerWidth || 1024) <= 900;
-    }
-  }
-
-  function useMobileObserve() {
-    return isCoarsePointer() || isNarrowViewport();
-  }
-
   function visibleHeightRatio(rect, vh) {
     if (!vh || !rect || rect.height <= 0) return 0;
     var visibleH = Math.min(rect.bottom, vh) - Math.max(rect.top, 0);
@@ -178,23 +158,24 @@
     return visibleH / rect.height;
   }
 
-  function isMockInView(root) {
-    if (!root || !root.isConnected) return false;
-    var rect = root.getBoundingClientRect();
-    var vh = global.innerHeight || global.document.documentElement.clientHeight || 0;
-    if (!vh) return true;
-    var ratio = visibleHeightRatio(rect, vh);
-    var minRatio = useMobileObserve() ? 0.05 : 0.16;
-    if (ratio >= minRatio) return true;
+  function isMockInViewRect(rect, vh) {
+    if (!vh || !rect || rect.height <= 0) return false;
+    if (visibleHeightRatio(rect, vh) >= 0.12) return true;
     if (rect.top < vh * 0.92 && rect.bottom > vh * 0.08) return true;
     return false;
   }
 
-  function observeOptions() {
-    if (useMobileObserve()) {
-      return { threshold: [0, 0.02, 0.08, 0.15], rootMargin: '14% 0px -2% 0px' };
-    }
-    return { threshold: [0, 0.12, 0.28], rootMargin: '0px 0px -4% 0px' };
+  function isInViewport(el) {
+    if (!el || !el.isConnected) return false;
+    var rect = el.getBoundingClientRect();
+    var vh = global.innerHeight || global.document.documentElement.clientHeight || 0;
+    if (!vh || rect.height < 8) return false;
+    return isMockInViewRect(rect, vh);
+  }
+
+  function isRevealDone() {
+    if (!revealHost) return true;
+    return revealHost.getAttribute('data-revealed') === 'true';
   }
 
   function clearTimers() {
@@ -202,6 +183,12 @@
       global.clearTimeout(timers[i]);
     }
     timers = [];
+  }
+
+  function later(fn, ms) {
+    var id = global.setTimeout(fn, ms);
+    timers.push(id);
+    return id;
   }
 
   function setPlaying(root, on) {
@@ -218,34 +205,34 @@
   function scrollMessages(root) {
     var list = getFeed(root) || root.querySelector('.john-chat__messages');
     if (!list) return;
+    var top = list.scrollHeight;
     try {
-      list.scrollTo({ top: list.scrollHeight, behavior: 'smooth' });
+      if (typeof list.scrollTo === 'function') {
+        list.scrollTo({ top: top, behavior: 'smooth' });
+      } else {
+        list.scrollTop = top;
+      }
     } catch (e) {
-      list.scrollTop = list.scrollHeight;
+      list.scrollTop = top;
     }
   }
 
   function buildTimeline(lines) {
     var steps = [];
-    var t = FIRST_BUBBLE_MS;
     var i;
     for (i = 0; i < lines.length; i++) {
       var L = lines[i];
       if (L.type === 'typing') {
-        steps.push({ kind: 'typing', ms: t, hideAfter: TYPING_SHOW_MS });
-        t += GAP_AFTER_TYPING_MS;
+        steps.push({ kind: 'typing' });
       } else if (L.type === 'client') {
-        steps.push({ kind: 'bubble', role: 'client', text: L.text, ms: t });
-        t += GAP_AFTER_CLIENT_MS;
+        steps.push({ kind: 'bubble', role: 'client', text: L.text });
       } else if (L.type === 'john') {
         steps.push({
           kind: 'bubble',
           role: 'john',
           text: L.text || '',
           html: L.html || '',
-          ms: t,
         });
-        t += GAP_AFTER_JOHN_MS;
       }
     }
     return steps;
@@ -256,8 +243,8 @@
     if (!feed) return [];
 
     feed.innerHTML = '<span class="john-chat__day">Hoje</span>';
-    var nodes = [];
     var steps = buildTimeline(scenario.lines);
+    var nodes = [];
     var i;
 
     for (i = 0; i < steps.length; i++) {
@@ -285,27 +272,82 @@
       nodes.push({ el: el, def: st });
     }
 
+    root.classList.add('is-anim-ready');
     return nodes;
+  }
+
+  function showTyping(el, root) {
+    el.hidden = false;
+    el.classList.add('is-visible');
+    scrollMessages(root);
+  }
+
+  function hideTyping(el) {
+    el.classList.remove('is-visible');
+    el.hidden = true;
+  }
+
+  function showBubble(el, root) {
+    el.hidden = false;
+    el.classList.add('is-visible');
+    scrollMessages(root);
+  }
+
+  function playStepChain(root, nodes, index, onComplete) {
+    if (!root.isConnected) {
+      onComplete();
+      return;
+    }
+    if (index >= nodes.length) {
+      onComplete();
+      return;
+    }
+
+    var item = nodes[index];
+    var el = item.el;
+    var def = item.def;
+
+    if (def.kind === 'typing') {
+      showTyping(el, root);
+      later(function () {
+        hideTyping(el);
+        later(function () {
+          playStepChain(root, nodes, index + 1, onComplete);
+        }, PAUSE_AFTER_TYPING_MS);
+      }, TYPING_VISIBLE_MS);
+      return;
+    }
+
+    showBubble(el, root);
+    var pause = def.role === 'client' ? PAUSE_AFTER_CLIENT_MS : PAUSE_AFTER_JOHN_MS;
+    later(function () {
+      playStepChain(root, nodes, index + 1, onComplete);
+    }, pause);
   }
 
   function showAllInFeed(root, scenario) {
     var feed = getFeed(root);
     if (!feed) return;
-    renderScenarioDom(root, scenario);
-    var steps = feed.querySelectorAll('[data-step]');
-    for (var i = 0; i < steps.length; i++) {
-      steps[i].classList.add('is-visible');
-      if (steps[i].classList.contains('john-device-typing')) {
-        steps[i].hidden = false;
-      }
+    var nodes = renderScenarioDom(root, scenario);
+    var i;
+    for (i = 0; i < nodes.length; i++) {
+      nodes[i].el.hidden = false;
+      nodes[i].el.classList.add('is-visible');
     }
     scrollMessages(root);
   }
 
   function playScenario(root, index) {
     if (!root || running) return;
+    if (!isRevealDone()) return;
+    if (!isInViewport(observeTarget || root)) return;
+
     running = true;
     clearTimers();
+    if (stopDebounceId) {
+      global.clearTimeout(stopDebounceId);
+      stopDebounceId = 0;
+    }
     setPlaying(root, true);
 
     var scenario = SCENARIOS[index % SCENARIOS.length];
@@ -316,80 +358,46 @@
       return;
     }
 
-    var lastMs = FIRST_BUBBLE_MS;
-    var j;
-
-    for (j = 0; j < nodes.length; j++) {
-      (function (item) {
-        timers.push(
-          global.setTimeout(function () {
-            if (!root.isConnected) return;
-            var el = item.el;
-            var def = item.def;
-            if (def.kind === 'typing') {
-              el.hidden = false;
-            }
-            el.classList.add('is-visible');
-            scrollMessages(root);
-
-            if (def.kind === 'typing' && def.hideAfter) {
-              timers.push(
-                global.setTimeout(function () {
-                  el.classList.remove('is-visible');
-                  el.hidden = true;
-                }, def.hideAfter)
-              );
-            }
-          }, def.ms)
-        );
-        if (def.ms > lastMs) lastMs = def.ms;
-      })(nodes[j]);
-    }
-
-    timers.push(
-      global.setTimeout(function () {
-        running = false;
-        setPlaying(root, false);
-        timers.push(
-          global.setTimeout(function () {
-            if (!root.isConnected || !isMockInView(root)) return;
-            scenarioIndex = (index + 1) % SCENARIOS.length;
-            playScenario(root, scenarioIndex);
-          }, LOOP_PAUSE_MS)
-        );
-      }, lastMs + 900)
-    );
-  }
-
-  function hasVisibleBubble(root) {
-    return !!root.querySelector('[data-step].is-visible');
+    playStepChain(root, nodes, 0, function () {
+      running = false;
+      setPlaying(root, false);
+      if (!root.isConnected || !isInViewport(observeTarget || root)) return;
+      later(function () {
+        if (running) return;
+        scenarioIndex = (index + 1) % SCENARIOS.length;
+        playScenario(root, scenarioIndex);
+      }, LOOP_PAUSE_MS);
+    });
   }
 
   function tryStart(root) {
     if (!root || running || prefersReducedMotion()) return;
-    if (revealHost && revealHost.getAttribute('data-revealed') !== 'true') return;
-    if (!isMockInView(root)) return;
+    if (!isRevealDone()) return;
+    if (!isInViewport(observeTarget || root)) return;
     playScenario(root, scenarioIndex);
   }
 
   function tryStop(root) {
     if (!root) return;
-    if (isMockInView(root)) return;
-    running = false;
-    clearTimers();
-    setPlaying(root, false);
+    if (isInViewport(observeTarget || root)) return;
+    if (stopDebounceId) global.clearTimeout(stopDebounceId);
+    stopDebounceId = global.setTimeout(function () {
+      stopDebounceId = 0;
+      if (isInViewport(observeTarget || root)) return;
+      running = false;
+      clearTimers();
+      setPlaying(root, false);
+    }, STOP_DEBOUNCE_MS);
   }
 
   function scheduleFallbackStart(root) {
-    timers.push(
-      global.setTimeout(function () {
-        if (running || !root || !root.isConnected) return;
-        if (prefersReducedMotion()) return;
-        if (hasVisibleBubble(root)) return;
-        if (revealHost && revealHost.getAttribute('data-revealed') !== 'true') return;
-        if (isMockInView(root)) tryStart(root);
-      }, FALLBACK_START_MS)
-    );
+    later(function () {
+      if (running || !root || !root.isConnected) return;
+      if (prefersReducedMotion()) return;
+      if (root.querySelector('[data-step].is-visible')) return;
+      if (!isRevealDone()) return;
+      tryStart(root);
+    }, FALLBACK_START_MS);
   }
 
   function bindRevealHost(root) {
@@ -397,7 +405,7 @@
     if (!revealHost) return;
 
     function onRevealChange() {
-      if (revealHost.getAttribute('data-revealed') === 'true') {
+      if (isRevealDone()) {
         global.requestAnimationFrame(function () {
           tryStart(root);
         });
@@ -416,6 +424,8 @@
   }
 
   function bindIntersection(root) {
+    observeTarget = root.closest('.device-shell--john-chat') || root;
+
     if (!('IntersectionObserver' in global)) {
       tryStart(root);
       return;
@@ -431,33 +441,9 @@
           }
         }
       },
-      observeOptions()
+      { threshold: 0, rootMargin: '0px 0px 12% 0px' }
     );
-    observer.observe(root);
-  }
-
-  function bindViewportSync(root) {
-    var raf = 0;
-    function tick() {
-      raf = 0;
-      if (!root.isConnected) return;
-      if (prefersReducedMotion()) return;
-      if (running) {
-        if (!isMockInView(root)) tryStop(root);
-        return;
-      }
-      if (isMockInView(root)) tryStart(root);
-    }
-    function onMove() {
-      if (raf) return;
-      raf = global.requestAnimationFrame(tick);
-    }
-    global.addEventListener('scroll', onMove, { passive: true });
-    global.addEventListener('resize', onMove, { passive: true });
-    global.addEventListener('orientationchange', function () {
-      global.setTimeout(onMove, 160);
-    });
-    global.addEventListener('pageshow', onMove);
+    observer.observe(observeTarget);
   }
 
   function initDeviceMock() {
@@ -474,8 +460,11 @@
 
     bindRevealHost(root);
     bindIntersection(root);
-    bindViewportSync(root);
     scheduleFallbackStart(root);
+
+    global.addEventListener('pageshow', function () {
+      tryStart(root);
+    });
 
     global.requestAnimationFrame(function () {
       global.requestAnimationFrame(function () {
@@ -486,13 +475,7 @@
 
   var testApi = {
     visibleHeightRatio: visibleHeightRatio,
-    isMockInView: function (rect, vh, mobile) {
-      var ratio = visibleHeightRatio(rect, vh);
-      var minRatio = mobile ? 0.05 : 0.16;
-      if (ratio >= minRatio) return true;
-      if (rect.top < vh * 0.92 && rect.bottom > vh * 0.08) return true;
-      return false;
-    },
+    isMockInView: isMockInViewRect,
     SCENARIOS: SCENARIOS,
     buildTimeline: buildTimeline,
   };
