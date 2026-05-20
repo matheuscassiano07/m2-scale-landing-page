@@ -225,20 +225,29 @@ async function reply(payload) {
     try {
       console.warn('[johnChat] reply error:', String((e && e.message) || e));
     } catch (_) {}
-    return { ok: true, kind: 'fallback', text: canned(lang, 'noApi'), tokens: false };
+    return Object.assign(
+      { ok: true, kind: 'fallback', text: canned(lang, 'noApi'), tokens: false },
+      chatMeta(0, 0)
+    );
   }
 }
 
 function chatMeta(validTurns, offTopicStrikes, extra) {
+  const v = Math.max(0, validTurns);
   const out = {
-    validTurns: Math.max(0, validTurns),
+    validTurns: v,
     offTopicStrikes: Math.max(0, offTopicStrikes),
     maxTurns: MAX_USER_TURNS,
     maxOffTopic: MAX_OFF_TOPIC_STRIKES,
+    remainingTurns: Math.max(0, MAX_USER_TURNS - v),
     lockChat: false,
+    lockReason: '',
   };
   if (extra && typeof extra === 'object') {
     Object.assign(out, extra);
+  }
+  if (out.lockChat && !out.lockReason) {
+    out.lockReason = 'limit';
   }
   return out;
 }
@@ -271,8 +280,9 @@ async function replyInner(payload, lang) {
         text: canned(lang, 'limitDone'),
         tokens: false,
         lockChat: true,
+        lockReason: 'limit',
       },
-      chatMeta(validTurns, offTopicStrikes, { lockChat: true })
+      chatMeta(validTurns, offTopicStrikes, { lockChat: true, lockReason: 'limit' })
     );
   }
 
@@ -293,8 +303,9 @@ async function replyInner(payload, lang) {
         text: canned(lang, lock ? 'offTopicLock' : 'offTopic'),
         tokens: false,
         lockChat: lock,
+        lockReason: lock ? 'abuse' : '',
       },
-      chatMeta(validTurns, strikes, { lockChat: lock })
+      chatMeta(validTurns, strikes, { lockChat: lock, lockReason: lock ? 'abuse' : '' })
     );
   }
 

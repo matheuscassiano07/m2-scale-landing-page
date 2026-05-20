@@ -1,7 +1,7 @@
 (function (global) {
   'use strict';
 
-  var STORAGE_KEY = 'cantevo-john-chat-v2';
+  var STORAGE_KEY = 'cantevo-john-chat-v3';
   var SESSION_KEY = 'cantevo-john-session';
   var DEFAULT_MAX_TURNS = 6;
   var controllers = [];
@@ -63,7 +63,12 @@
     }
     if (typeof st.validTurns !== 'number') st.validTurns = 0;
     if (typeof st.offTopicStrikes !== 'number') st.offTopicStrikes = 0;
-    if (typeof st.maxTurns !== 'number') st.maxTurns = DEFAULT_MAX_TURNS;
+    if (typeof st.maxTurns !== 'number' || st.maxTurns < DEFAULT_MAX_TURNS) {
+      st.maxTurns = DEFAULT_MAX_TURNS;
+    }
+    if (st.closed && st.validTurns < st.maxTurns && (st.offTopicStrikes || 0) < 2) {
+      st.closed = false;
+    }
     return st;
   }
 
@@ -125,13 +130,11 @@
   }
 
   function shouldLockChat(data) {
-    if (!data) return false;
-    if (data.lockChat) return true;
-    if (data.kind === 'handoff') return true;
-    if (sharedState && typeof data.maxTurns === 'number' && sharedState.validTurns >= data.maxTurns) {
-      return true;
-    }
-    return false;
+    return !!(data && data.lockChat === true);
+  }
+
+  function shouldScrollToForm(data) {
+    return !!(data && data.lockChat && data.lockReason === 'abuse');
   }
 
   function broadcastRender(opts) {
@@ -368,7 +371,9 @@
 
         if (shouldLockChat(data)) {
           setClosedAll(true);
-          goToForm();
+          if (shouldScrollToForm(data)) {
+            goToForm();
+          }
         }
       })
       .catch(function () {

@@ -112,6 +112,9 @@ async function handlePost(req, res) {
         validTurns: result.validTurns,
         offTopicStrikes: result.offTopicStrikes,
         lockChat: !!result.lockChat,
+        lockReason: result.lockReason || '',
+        remainingTurns:
+          typeof result.remainingTurns === 'number' ? result.remainingTurns : undefined,
       },
     };
   })();
