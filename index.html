@@ -4615,30 +4615,40 @@
         transform: translateZ(0);
       }
 
-      /* Mock John: passos fora de cena com display:none (Safari ignora opacity/visibility) */
-      .john-chat--device-mock [data-step]:not(.is-visible) {
-        display: none !important;
-        opacity: 0 !important;
-        visibility: hidden !important;
-        pointer-events: none;
+      /*
+       * Mock John no celular: mesma animação sequencial do desktop
+       * (opacity/transform em [data-step] — ver regras globais ~2153).
+       * Sem display:none nos passos — isso impedia a transição e mostrava tudo junto.
+       */
+      .john-chat--device-mock [data-step] {
+        opacity: 0;
+        visibility: hidden;
+        transition:
+          opacity 0.42s cubic-bezier(0.22, 1, 0.36, 1),
+          transform 0.42s cubic-bezier(0.22, 1, 0.36, 1),
+          visibility 0s linear 0.42s;
       }
 
-      .john-chat--device-mock .john-bubble--client[data-step].is-visible,
-      .john-chat--device-mock .john-bubble--john[data-step].is-visible {
-        display: block;
+      .john-chat--device-mock .john-bubble--client[data-step] {
+        transform: translate3d(8px, 10px, 0) scale(0.96);
       }
 
-      .john-chat--device-mock .john-device-typing[data-step].is-visible:not([hidden]) {
-        display: flex !important;
-        visibility: visible !important;
-        opacity: 1 !important;
+      .john-chat--device-mock .john-bubble--john[data-step] {
+        transform: translate3d(-8px, 10px, 0) scale(0.96);
       }
 
-      .john-chat--device-mock .john-device-typing[hidden],
-      .john-chat--device-mock .john-device-typing[hidden].is-visible {
-        display: none !important;
-        visibility: hidden !important;
-        opacity: 0 !important;
+      .john-chat--device-mock .john-device-typing[data-step] {
+        transform: translate3d(-6px, 6px, 0) scale(0.96);
+      }
+
+      .john-chat--device-mock [data-step].is-visible {
+        opacity: 1;
+        visibility: visible;
+        transition:
+          opacity 0.42s cubic-bezier(0.22, 1, 0.36, 1),
+          transform 0.42s cubic-bezier(0.22, 1, 0.36, 1),
+          visibility 0s linear 0s;
+        transform: translate3d(0, 0, 0) scale(1);
       }
 
       /* Hard lock anti "borda preta" lateral em alguns aparelhos */
