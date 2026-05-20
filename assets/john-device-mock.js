@@ -152,6 +152,14 @@
     }
   }
 
+  function useProgressiveDom() {
+    try {
+      return global.matchMedia('(max-width: 768px)').matches;
+    } catch (e) {
+      return (global.innerWidth || 1200) <= 768;
+    }
+  }
+
   function visibleHeightRatio(rect, vh) {
     if (!vh || !rect || rect.height <= 0) return 0;
     var visibleH = Math.min(rect.bottom, vh) - Math.max(rect.top, 0);
@@ -195,6 +203,7 @@
   function setPlaying(root, on) {
     if (!root) return;
     root.classList.toggle('is-playing', !!on);
+    root.classList.toggle('is-progressive', !!on && useProgressiveDom());
     var shell = root.closest('.device-shell--john-chat');
     if (shell) shell.classList.toggle('is-mock-playing', !!on);
   }
@@ -248,6 +257,40 @@
     return steps;
   }
 
+  function createStepElement(st, index) {
+    var el;
+    if (st.kind === 'typing') {
+      el = document.createElement('div');
+      el.className = 'john-chat__typing john-device-typing';
+      el.setAttribute('data-step', String(index));
+      el.setAttribute('aria-hidden', 'true');
+      el.hidden = true;
+      el.innerHTML = '<span></span><span></span><span></span>';
+    } else {
+      el = document.createElement('p');
+      el.className =
+        'john-bubble ' + (st.role === 'client' ? 'john-bubble--client' : 'john-bubble--john');
+      el.setAttribute('data-step', String(index));
+      if (st.html) {
+        el.innerHTML = st.html;
+      } else {
+        el.textContent = st.text;
+      }
+    }
+    return el;
+  }
+
+  function armStepTransition(el, root, done) {
+    el.classList.remove('is-visible');
+    global.requestAnimationFrame(function () {
+      global.requestAnimationFrame(function () {
+        el.classList.add('is-visible');
+        scrollMessages(root);
+        if (typeof done === 'function') done();
+      });
+    });
+  }
+
   function renderScenarioDom(root, scenario) {
     var feed = getFeed(root);
     if (!feed) return [];
@@ -259,25 +302,7 @@
 
     for (i = 0; i < steps.length; i++) {
       var st = steps[i];
-      var el;
-      if (st.kind === 'typing') {
-        el = document.createElement('div');
-        el.className = 'john-chat__typing john-device-typing';
-        el.setAttribute('data-step', String(i));
-        el.setAttribute('aria-hidden', 'true');
-        el.hidden = true;
-        el.innerHTML = '<span></span><span></span><span></span>';
-      } else {
-        el = document.createElement('p');
-        el.className =
-          'john-bubble ' + (st.role === 'client' ? 'john-bubble--client' : 'john-bubble--john');
-        el.setAttribute('data-step', String(i));
-        if (st.html) {
-          el.innerHTML = st.html;
-        } else {
-          el.textContent = st.text;
-        }
-      }
+      var el = createStepElement(st, i);
       feed.appendChild(el);
       nodes.push({ el: el, def: st });
     }
@@ -286,30 +311,99 @@
     return nodes;
   }
 
+  function resetFeed(root) {
+    var feed = getFeed(root);
+    if (!feed) return;
+    feed.innerHTML = '<span class="john-chat__day">Hoje</span>';
+    root.classList.add('is-anim-ready');
+  }
+
   function showTyping(el, root) {
     el.hidden = false;
+    if (useProgressiveDom()) {
+      armStepTransition(el, root);
+      return;
+    }
     el.classList.add('is-visible');
     scrollMessages(root);
   }
 
   function hideTyping(el) {
     el.classList.remove('is-visible');
+    if (useProgressiveDom()) {
+      if (el.parentNode) el.parentNode.removeChild(el);
+      return;
+    }
     el.hidden = true;
   }
 
   function showBubble(el, root) {
     el.hidden = false;
+    if (useProgressiveDom()) {
+      armStepTransition(el, root);
+      return;
+    }
     el.classList.add('is-visible');
     scrollMessages(root);
   }
 
-  function isLastJohnInScenario(nodes, index) {
+  function isLastJohnInScenario(steps, index) {
+    var i;
+    if (!steps[index] || steps[index].role !== 'john') return false;
+    for (i = index + 1; i < steps.length; i++) {
+      if (steps[i].kind === 'bubble' && steps[i].role === 'client') return false;
+    }
+    return true;
+  }
+
+  function isLastJohnInNodes(nodes, index) {
     var i;
     if (!nodes[index] || nodes[index].def.role !== 'john') return false;
     for (i = index + 1; i < nodes.length; i++) {
       if (nodes[i].def.kind === 'bubble' && nodes[i].def.role === 'client') return false;
     }
     return true;
+  }
+
+  function playStepChainProgressive(root, steps, index, onComplete) {
+    if (!root.isConnected) {
+      onComplete();
+      return;
+    }
+    if (index >= steps.length) {
+      onComplete();
+      return;
+    }
+
+    var feed = getFeed(root);
+    if (!feed) {
+      onComplete();
+      return;
+    }
+
+    var st = steps[index];
+    var el = createStepElement(st, index);
+    feed.appendChild(el);
+
+    if (st.kind === 'typing') {
+      showTyping(el, root);
+      later(function () {
+        hideTyping(el);
+        later(function () {
+          playStepChainProgressive(root, steps, index + 1, onComplete);
+        }, PAUSE_AFTER_TYPING_MS);
+      }, TYPING_VISIBLE_MS);
+      return;
+    }
+
+    showBubble(el, root);
+    var pause = PAUSE_AFTER_CLIENT_MS;
+    if (st.role === 'john') {
+      pause = isLastJohnInScenario(steps, index) ? PAUSE_AFTER_LAST_JOHN_MS : PAUSE_AFTER_JOHN_MS;
+    }
+    later(function () {
+      playStepChainProgressive(root, steps, index + 1, onComplete);
+    }, pause);
   }
 
   function playStepChain(root, nodes, index, onComplete) {
@@ -340,7 +434,7 @@
     showBubble(el, root);
     var pause = PAUSE_AFTER_CLIENT_MS;
     if (def.role === 'john') {
-      pause = isLastJohnInScenario(nodes, index) ? PAUSE_AFTER_LAST_JOHN_MS : PAUSE_AFTER_JOHN_MS;
+      pause = isLastJohnInNodes(nodes, index) ? PAUSE_AFTER_LAST_JOHN_MS : PAUSE_AFTER_JOHN_MS;
     }
     later(function () {
       playStepChain(root, nodes, index + 1, onComplete);
@@ -360,11 +454,11 @@
   }
 
   function playScenario(root, index) {
-    if (!root || running) return;
-    if (!isRevealDone()) return;
-    if (!isInViewport(observeTarget || root)) return;
+    if (!root) {
+      running = false;
+      return;
+    }
 
-    running = true;
     clearTimers();
     if (stopDebounceId) {
       global.clearTimeout(stopDebounceId);
@@ -373,6 +467,28 @@
     setPlaying(root, true);
 
     var scenario = SCENARIOS[index % SCENARIOS.length];
+
+    if (useProgressiveDom()) {
+      resetFeed(root);
+      var steps = buildTimeline(scenario.lines);
+      if (!steps.length) {
+        running = false;
+        setPlaying(root, false);
+        return;
+      }
+      playStepChainProgressive(root, steps, 0, function () {
+        running = false;
+        setPlaying(root, false);
+        if (!root.isConnected || !isInViewport(observeTarget || root)) return;
+        later(function () {
+          if (running) return;
+          scenarioIndex = (index + 1) % SCENARIOS.length;
+          playScenario(root, scenarioIndex);
+        }, LOOP_PAUSE_MS);
+      });
+      return;
+    }
+
     var nodes = renderScenarioDom(root, scenario);
     if (!nodes.length) {
       running = false;
@@ -396,6 +512,7 @@
     if (!root || running || prefersReducedMotion()) return;
     if (!isRevealDone()) return;
     if (!isInViewport(observeTarget || root)) return;
+    running = true;
     playScenario(root, scenarioIndex);
   }
 
@@ -501,6 +618,7 @@
   var testApi = {
     visibleHeightRatio: visibleHeightRatio,
     isMockInView: isMockInViewRect,
+    useProgressiveDom: useProgressiveDom,
     SCENARIOS: SCENARIOS,
     buildTimeline: buildTimeline,
   };
