@@ -284,6 +284,178 @@
       color: var(--text2);
     }
 
+    .adm-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 22px;
+      padding: 4px;
+      border-radius: 999px;
+      border: 1px solid var(--edge);
+      background: var(--panel);
+      width: fit-content;
+      max-width: 100%;
+    }
+
+    .adm-tabs button {
+      border: 0;
+      background: transparent;
+      padding: 10px 18px;
+      border-radius: 999px;
+      font: inherit;
+      font-size: 13px;
+      font-weight: 620;
+      cursor: pointer;
+      color: var(--text2);
+      transition: background 0.2s var(--ease), color 0.2s var(--ease);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .adm-tabs button[aria-selected='true'] {
+      background: var(--black);
+      color: var(--white);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+    }
+
+    .adm-tabs button:focus-visible {
+      outline: 2px solid currentColor;
+      outline-offset: 2px;
+    }
+
+    .adm-tab-badge {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      padding: 2px 7px;
+      border-radius: 999px;
+      background: rgba(168, 121, 74, 0.2);
+      color: #8a5c32;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .adm-tab-badge {
+        background: rgba(168, 121, 74, 0.28);
+        color: #e8c9a8;
+      }
+      .adm-tabs button[aria-selected='true'] {
+        background: #f2f2f2;
+        color: #0a0a0a;
+      }
+    }
+
+    .adm-panel[hidden] {
+      display: none !important;
+    }
+
+    .adm-inq-kind {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 4px 8px;
+      border-radius: 999px;
+      border: 1px solid var(--edge);
+      white-space: nowrap;
+    }
+
+    .adm-inq-kind[data-kind='answer'] {
+      background: rgba(12, 88, 68, 0.1);
+      color: #0c5844;
+      border-color: rgba(12, 88, 68, 0.22);
+    }
+
+    .adm-inq-kind[data-kind='off-topic'] {
+      background: rgba(180, 120, 40, 0.12);
+      color: #8a5c20;
+      border-color: rgba(180, 120, 40, 0.28);
+    }
+
+    .adm-inq-kind[data-kind='handoff'] {
+      background: rgba(40, 80, 160, 0.1);
+      color: #1e4a8a;
+      border-color: rgba(40, 80, 160, 0.22);
+    }
+
+    .adm-inq-kind[data-kind='greet'] {
+      background: var(--panel);
+      color: var(--text2);
+    }
+
+    .adm-inq-kind[data-kind='fallback'] {
+      background: rgba(180, 35, 24, 0.08);
+      color: #8b2918;
+      border-color: rgba(180, 35, 24, 0.2);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .adm-inq-kind[data-kind='answer'] { color: #9fd9b8; }
+      .adm-inq-kind[data-kind='off-topic'] { color: #e8c98a; }
+      .adm-inq-kind[data-kind='handoff'] { color: #9ec0f0; }
+      .adm-inq-kind[data-kind='fallback'] { color: #f0a89a; }
+    }
+
+    .adm-inq-msg {
+      max-width: 280px;
+      white-space: normal;
+      line-height: 1.4;
+      font-weight: 500;
+    }
+
+    .adm-inq-reply {
+      max-width: 300px;
+      white-space: normal;
+      line-height: 1.4;
+      color: var(--text2);
+      font-size: 12px;
+    }
+
+    .adm-inq-cards .card .inq-q {
+      margin: 0 0 10px;
+      font-size: 15px;
+      font-weight: 620;
+      line-height: 1.45;
+      letter-spacing: -0.02em;
+    }
+
+    .adm-inq-cards .card .inq-a {
+      margin: 0;
+      padding: 12px 14px;
+      border-radius: var(--r-sm);
+      background: var(--panel);
+      border: 1px solid var(--edge);
+      font-size: 13px;
+      line-height: 1.5;
+      color: var(--text2);
+    }
+
+    .adm-inq-cards .card .inq-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .adm-inq-cards .card .inq-src {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text3);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .adm-inq-cards .card .inq-tokens {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 4px;
+      background: rgba(168, 121, 74, 0.15);
+      color: #8a5c32;
+    }
+
     .adm-stats {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
@@ -765,9 +937,21 @@
 
     <div id="desk" class="adm-desk">
       <header class="adm-headlines">
-        <h1 data-i18n="adminPage.pageTitle">Leads</h1>
-        <p data-i18n="adminPage.pageSubtitle">Agendamentos</p>
+        <h1 data-i18n="adminPage.dashboardTitle">Painel Cantevo</h1>
+        <p id="adm-page-sub" data-i18n="adminPage.pageSubtitle">Agendamentos e dúvidas do John AI</p>
       </header>
+
+      <nav class="adm-tabs" role="tablist" aria-label="Seções do painel">
+        <button type="button" role="tab" id="tab-leads" data-adm-tab="leads" aria-selected="true" aria-controls="panel-leads">
+          <span data-i18n="adminPage.tabLeads">Leads</span>
+        </button>
+        <button type="button" role="tab" id="tab-inquiries" data-adm-tab="inquiries" aria-selected="false" aria-controls="panel-inquiries">
+          <span data-i18n="adminPage.tabInquiries">Dúvidas John AI</span>
+          <span class="adm-tab-badge" id="inq-tab-badge" hidden>0</span>
+        </button>
+      </nav>
+
+      <div id="panel-leads" class="adm-panel" role="tabpanel" aria-labelledby="tab-leads">
 
       <div class="adm-stats" aria-live="polite">
         <div class="adm-st">
@@ -837,6 +1021,67 @@
       </div>
 
       <div id="cds" class="adm-cards"></div>
+
+      </div><!-- /panel-leads -->
+
+      <div id="panel-inquiries" class="adm-panel" role="tabpanel" aria-labelledby="tab-inquiries" hidden>
+
+      <div class="adm-stats" aria-live="polite">
+        <div class="adm-st">
+          <span id="ni1" class="num">0</span>
+          <span data-i18n="adminPage.inqStatTotal">Dúvidas</span>
+        </div>
+        <div class="adm-st">
+          <span id="ni2" class="num">0</span>
+          <span data-i18n="adminPage.inqStatToday">Hoje</span>
+        </div>
+        <div class="adm-st">
+          <span id="ni3" class="num">0</span>
+          <span data-i18n="adminPage.inqStatWeek">7 dias</span>
+        </div>
+        <div class="adm-st">
+          <span id="ni4" class="num">0</span>
+          <span data-i18n="adminPage.inqStatApi">Com IA</span>
+        </div>
+      </div>
+
+      <div class="adm-toolbar">
+        <div class="adm-search-wrap">
+          <label for="qi" class="sr-only"><span data-i18n="adminPage.inqSearchPlaceholder">Buscar dúvidas…</span></label>
+          <input id="qi" type="search" autocomplete="off" data-i18n-attr="placeholder:adminPage.inqSearchPlaceholder" placeholder="Buscar na pergunta ou resposta…" />
+        </div>
+        <div class="adm-toolbar-btns">
+          <button type="button" class="btn-accent" id="btnCsvInq">
+            <span data-i18n="adminPage.exportInqCsv">CSV dúvidas</span>
+          </button>
+        </div>
+      </div>
+
+      <div id="inq-she" class="adm-table-shell adm-scroll" aria-label="Lista de dúvidas John AI">
+        <table class="adm-tbl adm-inq-tbl">
+          <thead>
+            <tr>
+              <th data-i18n="adminPage.colDate">Data</th>
+              <th data-i18n="adminPage.inqColKind">Tipo</th>
+              <th data-i18n="adminPage.inqColQuestion">Pergunta</th>
+              <th data-i18n="adminPage.inqColReply">Resposta</th>
+              <th data-i18n="adminPage.inqColSource">Origem</th>
+              <th data-i18n="adminPage.colLang">Idioma</th>
+            </tr>
+          </thead>
+          <tbody id="inq-tb"></tbody>
+        </table>
+      </div>
+
+      <div id="inq-vacant" class="adm-empty" aria-live="polite">
+        <h2 data-i18n="adminPage.inqEmptyTitle">Nenhuma dúvida ainda</h2>
+        <p data-i18n="adminPage.inqEmptyDesc">Quando visitantes conversarem com o John AI na landing, as perguntas aparecem aqui.</p>
+      </div>
+
+      <div id="inq-cards" class="adm-cards adm-inq-cards"></div>
+
+      </div><!-- /panel-inquiries -->
+
     </div>
   </div>
 

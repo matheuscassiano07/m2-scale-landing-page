@@ -5,6 +5,8 @@
   var wired = false;
   var currentUser = '';
   var serverLeads = [];
+  var serverInquiries = [];
+  var admTab = 'leads';
 
   function setNavDrawerOpen(open) {
     document.body.classList.toggle('adm-nav-open', !!open);
@@ -84,6 +86,22 @@
     }
   }
 
+  function filterInqRows(all, needle) {
+    needle = needle.trim().toLowerCase();
+    if (!needle.length) return all.slice();
+    return all.filter(function (r) {
+      return (
+        [r.userMessage, r.assistantReply, r.kind, r.source, r.lang, r.sessionId, r.createdAt]
+          .map(function (k) {
+            return String(k || '');
+          })
+          .join(' ')
+          .toLowerCase()
+          .indexOf(needle) !== -1
+      );
+    });
+  }
+
   function filterRows(all, needle) {
     needle = needle.trim().toLowerCase();
     if (!needle.length) return all.slice();
@@ -132,6 +150,24 @@
       return String(b.createdAt || '').localeCompare(String(a.createdAt || ''));
     });
     return out;
+  }
+
+  function fetchServerInquiries() {
+    return fetch('/api/inquiries/list', {
+      method: 'GET',
+      credentials: 'same-origin',
+      referrerPolicy: 'same-origin',
+    })
+      .then(function (r) {
+        if (r.status === 401) return { ok: false, inquiries: [] };
+        return r.json().catch(function () { return { ok: false, inquiries: [] }; });
+      })
+      .then(function (data) {
+        if (data && data.ok && Array.isArray(data.inquiries)) {
+          serverInquiries = data.inquiries.slice();
+        }
+      })
+      .catch(function () {});
   }
 
   function fetchServerLeads() {
@@ -252,7 +288,46 @@
     }
   }
 
-  function render() {
+  function kindLabel(kind, lng) {
+    var map = {
+      answer: 'adminPage.inqKindAnswer',
+      'off-topic': 'adminPage.inqKindOffTopic',
+      handoff: 'adminPage.inqKindHandoff',
+      greet: 'adminPage.inqKindGreet',
+      fallback: 'adminPage.inqKindFallback',
+    };
+    var key = map[kind] || map.answer;
+    return window.ZiraI18n.t(key);
+  }
+
+  function sourceLabel(source, lng) {
+    if (source === 'john-chat-device') return window.ZiraI18n.t('adminPage.inqSourceDevice');
+    if (source === 'john-chat-float') return window.ZiraI18n.t('adminPage.inqSourceFloat');
+    return window.ZiraI18n.t('adminPage.inqSourceOther');
+  }
+
+  function switchAdmTab(tab) {
+    admTab = tab === 'inquiries' ? 'inquiries' : 'leads';
+    var panelLeads = document.getElementById('panel-leads');
+    var panelInq = document.getElementById('panel-inquiries');
+    var tabLeads = document.getElementById('tab-leads');
+    var tabInq = document.getElementById('tab-inquiries');
+    var sub = document.getElementById('adm-page-sub');
+    if (panelLeads) panelLeads.hidden = admTab !== 'leads';
+    if (panelInq) panelInq.hidden = admTab !== 'inquiries';
+    if (tabLeads) tabLeads.setAttribute('aria-selected', admTab === 'leads' ? 'true' : 'false');
+    if (tabInq) tabInq.setAttribute('aria-selected', admTab === 'inquiries' ? 'true' : 'false');
+    if (sub && typeof window.ZiraI18n !== 'undefined') {
+      sub.textContent =
+        admTab === 'inquiries'
+          ? window.ZiraI18n.t('adminPage.inqPageSubtitle')
+          : window.ZiraI18n.t('adminPage.pageSubtitle');
+    }
+    if (admTab === 'inquiries') renderInquiries();
+    else renderLeads();
+  }
+
+  function renderLeads() {
     if (typeof window.ZiraI18n === 'undefined') return;
     layout();
     var lng = window.ZiraI18n.getLang();
@@ -361,17 +436,186 @@
     });
   }
 
+  function renderInquiries() {
+    if (typeof window.ZiraI18n === 'undefined') return;
+    layout();
+    var lng = window.ZiraI18n.getLang();
+
+    var qEl = document.getElementById('qi');
+    if (!qEl) return;
+    var ph = window.ZiraI18n.t('adminPage.inqSearchPlaceholder');
+    qEl.setAttribute('placeholder', ph);
+    qEl.setAttribute('aria-label', ph);
+
+    var all = serverInquiries.slice();
+    var sod = new Date();
+    sod.setHours(0, 0, 0, 0);
+    var t0 = sod.getTime();
+    var t7 = Date.now() - 7 * DAY;
+    var cD = 0;
+    var cW = 0;
+    var cApi = 0;
+    all.forEach(function (r) {
+      var t = Date.parse(r.createdAt);
+      if (!isNaN(t)) {
+        if (t >= t0) cD++;
+        if (t >= t7) cW++;
+      }
+      if (r.tokens) cApi++;
+    });
+
+    var ni1 = document.getElementById('ni1');
+    var ni2 = document.getElementById('ni2');
+    var ni3 = document.getElementById('ni3');
+    var ni4 = document.getElementById('ni4');
+    if (ni1) ni1.textContent = String(all.length);
+    if (ni2) ni2.textContent = String(cD);
+    if (ni3) ni3.textContent = String(cW);
+    if (ni4) ni4.textContent = String(cApi);
+
+    var badge = document.getElementById('inq-tab-badge');
+    if (badge) {
+      if (all.length > 0) {
+        badge.textContent = String(all.length);
+        badge.hidden = false;
+      } else {
+        badge.hidden = true;
+      }
+    }
+
+    var sub = filterInqRows(all, qEl.value);
+    var vacant = document.getElementById('inq-vacant');
+    var she = document.getElementById('inq-she');
+    var cards = document.getElementById('inq-cards');
+    var tb = document.getElementById('inq-tb');
+
+    if (vacant) vacant.classList.toggle('on', sub.length === 0);
+    if (she) she.classList.toggle('on', sub.length > 0);
+    if (cards) cards.classList.toggle('on', sub.length > 0);
+    if (tb) tb.innerHTML = '';
+    if (cards) cards.innerHTML = '';
+
+    sub.forEach(function (r) {
+      var lg =
+        r.lang === 'en' ? 'EN' : r.lang === 'pt-BR' ? 'PT-BR' : String(r.lang || '');
+      var kind = String(r.kind || 'answer');
+      var kindTxt = kindLabel(kind, lng);
+
+      if (tb) {
+        var tr = document.createElement('tr');
+        var cells = [
+          fmt(r.createdAt, lng),
+          kindTxt,
+          r.userMessage || '',
+          r.assistantReply || '',
+          sourceLabel(r.source, lng),
+          lg,
+        ];
+        cells.forEach(function (txt, idx) {
+          var td = document.createElement('td');
+          if (idx === 1) {
+            var sp = document.createElement('span');
+            sp.className = 'adm-inq-kind';
+            sp.setAttribute('data-kind', kind);
+            sp.textContent = kindTxt;
+            td.appendChild(sp);
+          } else if (idx === 2) {
+            td.className = 'adm-inq-msg';
+            td.textContent = txt;
+          } else if (idx === 3) {
+            td.className = 'adm-inq-reply';
+            td.textContent = txt;
+          } else {
+            td.textContent = txt;
+          }
+          tr.appendChild(td);
+        });
+        tb.appendChild(tr);
+      }
+
+      if (cards) {
+        var card = document.createElement('article');
+        card.className = 'card';
+        var row = document.createElement('div');
+        row.className = 'row';
+        var nm = document.createElement('div');
+        nm.className = 'nm';
+        nm.textContent = (r.userMessage || '—').slice(0, 72) + ((r.userMessage || '').length > 72 ? '…' : '');
+        var tm = document.createElement('time');
+        tm.className = 'tim';
+        tm.textContent = fmt(r.createdAt, lng);
+        row.appendChild(nm);
+        row.appendChild(tm);
+        card.appendChild(row);
+
+        var meta = document.createElement('div');
+        meta.className = 'inq-meta';
+        var kindEl = document.createElement('span');
+        kindEl.className = 'adm-inq-kind';
+        kindEl.setAttribute('data-kind', kind);
+        kindEl.textContent = kindTxt;
+        meta.appendChild(kindEl);
+        var srcEl = document.createElement('span');
+        srcEl.className = 'inq-src';
+        srcEl.textContent = sourceLabel(r.source, lng);
+        meta.appendChild(srcEl);
+        if (r.tokens) {
+          var tok = document.createElement('span');
+          tok.className = 'inq-tokens';
+          tok.textContent = window.ZiraI18n.t('adminPage.inqTokensYes');
+          meta.appendChild(tok);
+        }
+        var chipEl = document.createElement('span');
+        chipEl.className = 'chip';
+        chipEl.textContent = lg;
+        meta.appendChild(chipEl);
+        card.appendChild(meta);
+
+        var qP = document.createElement('p');
+        qP.className = 'inq-q';
+        qP.textContent = r.userMessage || '';
+        card.appendChild(qP);
+
+        var aP = document.createElement('p');
+        aP.className = 'inq-a';
+        aP.textContent = r.assistantReply || '';
+        card.appendChild(aP);
+
+        cards.appendChild(card);
+      }
+    });
+  }
+
+  function render() {
+    if (admTab === 'inquiries') renderInquiries();
+    else renderLeads();
+  }
+
   function wire() {
     if (wired) return;
     wired = true;
-    document.getElementById('q').addEventListener('input', render);
+    document.getElementById('q').addEventListener('input', function () {
+      if (admTab === 'leads') renderLeads();
+    });
+    var qi = document.getElementById('qi');
+    if (qi) {
+      qi.addEventListener('input', function () {
+        if (admTab === 'inquiries') renderInquiries();
+      });
+    }
+
+    document.querySelectorAll('[data-adm-tab]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        switchAdmTab(btn.getAttribute('data-adm-tab'));
+      });
+    });
     window.addEventListener('storage', function (ev) {
       if (ev.key === 'zira-leads-v2') render();
     });
     window.addEventListener('focus', render);
 
     document.getElementById('btnRef').addEventListener('click', function () {
-      fetchServerLeads().then(render);
+      Promise.all([fetchServerLeads(), fetchServerInquiries()]).then(render);
     });
     document.getElementById('btnOut').addEventListener('click', function () {
       logout();
@@ -403,6 +647,44 @@
       document.body.removeChild(a);
       URL.revokeObjectURL(a.href);
     });
+
+    var btnCsvInq = document.getElementById('btnCsvInq');
+    if (btnCsvInq) {
+      btnCsvInq.addEventListener('click', function () {
+        var lng = window.ZiraI18n.getLang();
+        var qiEl = document.getElementById('qi');
+        var rows = filterInqRows(serverInquiries, qiEl ? qiEl.value : '');
+        var head = [
+          'createdAt',
+          'kind',
+          'userMessage',
+          'assistantReply',
+          'source',
+          'lang',
+          'tokens',
+          'sessionId',
+        ];
+        var lines = [head.join(',')];
+        rows.forEach(function (r) {
+          lines.push(
+            head
+              .map(function (k) {
+                return escCSV(r[k]);
+              })
+              .join(',')
+          );
+        });
+        var a = document.createElement('a');
+        a.href = URL.createObjectURL(
+          new Blob(['﻿', lines.join('\n')], { type: 'text/csv;charset=utf-8' })
+        );
+        a.download = 'cantevo-john-inquiries-' + (lng === 'en' ? 'en' : 'pt') + '.csv';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(a.href);
+      });
+    }
   }
 
   function showDesk() {
@@ -411,7 +693,9 @@
     var who = document.getElementById('adm-user-tag');
     if (who && currentUser) who.textContent = currentUser;
     wire();
-    fetchServerLeads().then(render);
+    Promise.all([fetchServerLeads(), fetchServerInquiries()]).then(function () {
+      switchAdmTab('leads');
+    });
     window.dispatchEvent(new CustomEvent('zira:admin-session'));
   }
 

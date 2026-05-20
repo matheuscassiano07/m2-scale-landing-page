@@ -167,25 +167,16 @@ html[data-scrollbar-zone="cta"] {
   color: var(--canteveo-black);
 }
 
-.hero__title,
-.hero__subtitle,
-.hero__proof,
-.hero__proof-text {
+.hero__title {
   color: var(--canteveo-caramel);
 }
 
-.hero__title::selection,
-.hero__subtitle::selection,
-.hero__proof::selection,
-.hero__proof-text::selection {
+.hero__title::selection {
   background: var(--canteveo-caramel);
   color: var(--white);
 }
 
-.hero__title::-moz-selection,
-.hero__subtitle::-moz-selection,
-.hero__proof::-moz-selection,
-.hero__proof-text::-moz-selection {
+.hero__title::-moz-selection {
   background: var(--canteveo-caramel);
   color: var(--white);
 }
@@ -208,10 +199,6 @@ html[data-scrollbar-zone="cta"] {
     rgba(11, 11, 11, 0.94) 92%,
     var(--canteveo-black) 100%
   );
-}
-
-.hero__proof-caret {
-  background: var(--canteveo-caramel);
 }
 
 .hero__scroll-hint {

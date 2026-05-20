@@ -6,7 +6,8 @@
     "api/wa/qrcode.js": { "maxDuration": 60 },
     "api/wa/diag.js": { "maxDuration": 60 },
     "api/wa/status.js": { "maxDuration": 30 },
-    "api/wa/notify.js": { "maxDuration": 30 }
+    "api/wa/notify.js": { "maxDuration": 30 },
+    "api/john/chat.js": { "maxDuration": 25 }
   },
   "rewrites": [
     { "source": "/admin", "destination": "/admin.html" },
