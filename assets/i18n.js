@@ -80,6 +80,8 @@
         cta: 'Entrar em contato',
         handoff:
           'Para um atendimento completo, deixe seus dados no formulário **Entrar em contato** abaixo — nossa equipe retorna em até 8 horas.',
+        limitDone:
+          'Espero ter esclarecido suas dúvidas! Para proposta ou conversa com a equipe, use **Entrar em contato** abaixo.',
         unavailable:
           'O chat automático não está disponível agora. Use o formulário **Entrar em contato** na página.',
         error: 'Não consegui responder agora. Tente de novo ou use o formulário de contato.',
@@ -706,6 +708,8 @@
         cta: 'Get in touch',
         handoff:
           'For full follow-up, leave your details in the **Get in touch** form below — we reply within 8 hours.',
+        limitDone:
+          'Hope that helped! For pricing or to talk to our team, use **Get in touch** below.',
         unavailable:
           'Auto chat isn’t available right now. Use the **Get in touch** form on this page.',
         error: 'Could not reply right now. Try again or use the contact form.',

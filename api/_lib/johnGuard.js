@@ -44,7 +44,8 @@ function checkRequest(req, sessionId) {
 
   const sid = String(sessionId || '').trim().slice(0, 64);
   if (sid.length >= 8) {
-    const sessHour = rl.check(req, 'john-gemini-sess-' + sid, 2, 60 * 60 * 1000);
+    const perSession = envInt('JOHN_CHAT_MAX_USER_TURNS', 6, 3, 12) + 2;
+    const sessHour = rl.check(req, 'john-gemini-sess-' + sid, perSession, 60 * 60 * 1000);
     if (!sessHour.ok) return { ok: false, reason: 'rate-session', tokens: false };
   }
 

@@ -1,9 +1,9 @@
 (function (global) {
   'use strict';
 
-  var STORAGE_KEY = 'cantevo-john-chat-v1';
+  var STORAGE_KEY = 'cantevo-john-chat-v2';
   var SESSION_KEY = 'cantevo-john-session';
-  var MAX_TURNS = 2;
+  var DEFAULT_MAX_TURNS = 6;
   var controllers = [];
   var sharedState = null;
 
@@ -56,9 +56,22 @@
     } catch (e) {}
   }
 
+  function normalizeState(st) {
+    if (!st || typeof st !== 'object') return null;
+    if (typeof st.validTurns !== 'number' && typeof st.userTurns === 'number') {
+      st.validTurns = st.userTurns;
+    }
+    if (typeof st.validTurns !== 'number') st.validTurns = 0;
+    if (typeof st.offTopicStrikes !== 'number') st.offTopicStrikes = 0;
+    if (typeof st.maxTurns !== 'number') st.maxTurns = DEFAULT_MAX_TURNS;
+    return st;
+  }
+
   function defaultState() {
     return {
-      userTurns: 0,
+      validTurns: 0,
+      offTopicStrikes: 0,
+      maxTurns: DEFAULT_MAX_TURNS,
       closed: false,
       messages: [
         {
@@ -94,7 +107,31 @@
         text: m.text,
       });
     }
-    return out.slice(-4);
+    return out.slice(-12);
+  }
+
+  function syncCountersFromApi(data) {
+    if (!data || !sharedState) return;
+    if (typeof data.validTurns === 'number') {
+      sharedState.validTurns = data.validTurns;
+    }
+    if (typeof data.offTopicStrikes === 'number') {
+      sharedState.offTopicStrikes = data.offTopicStrikes;
+    }
+    if (typeof data.maxTurns === 'number') {
+      sharedState.maxTurns = data.maxTurns;
+    }
+    saveState();
+  }
+
+  function shouldLockChat(data) {
+    if (!data) return false;
+    if (data.lockChat) return true;
+    if (data.kind === 'handoff') return true;
+    if (sharedState && typeof data.maxTurns === 'number' && sharedState.validTurns >= data.maxTurns) {
+      return true;
+    }
+    return false;
   }
 
   function broadcastRender(opts) {
@@ -194,7 +231,7 @@
 
   function shouldAnimateFabWelcome() {
     if (prefersReducedMotion()) return false;
-    if (!sharedState || sharedState.userTurns > 0) return false;
+    if (!sharedState || sharedState.validTurns > 0) return false;
     if (!sharedState.messages || sharedState.messages.length !== 1) return false;
     return sharedState.messages[0].role === 'assistant';
   }
@@ -279,15 +316,7 @@
     }
 
     pushMessage('user', text);
-    sharedState.userTurns += 1;
     saveState();
-
-    if (sharedState.userTurns > MAX_TURNS) {
-      pushMessage('assistant', t('johnChat.handoff'), { static: true });
-      setClosedAll(true);
-      goToForm();
-      return;
-    }
 
     for (var k = 0; k < controllers.length; k++) {
       if (controllers[k].sendBtn) controllers[k].sendBtn.disabled = true;
@@ -304,7 +333,8 @@
         body: JSON.stringify({
           message: text,
           lang: lang(),
-          turn: sharedState.userTurns - 1,
+          validTurns: sharedState.validTurns,
+          offTopicStrikes: sharedState.offTopicStrikes,
           history: historyForApi(sharedState.messages),
           source: chatSource(activeCtrl.root),
           sessionId: sessionId(),
@@ -334,11 +364,9 @@
           replyText = t('johnChat.unavailable');
         }
         pushMessage('assistant', replyText, { static: !data.tokens });
+        syncCountersFromApi(data);
 
-        if (data.kind === 'handoff' || sharedState.userTurns >= MAX_TURNS) {
-          if (data.kind !== 'handoff') {
-            pushMessage('assistant', t('johnChat.handoff'), { static: true });
-          }
+        if (shouldLockChat(data)) {
           setClosedAll(true);
           goToForm();
         }
@@ -441,7 +469,7 @@
   }
 
   function initJohnChat() {
-    sharedState = loadState();
+    sharedState = normalizeState(loadState());
     if (!sharedState || !Array.isArray(sharedState.messages)) {
       sharedState = defaultState();
       saveState();
@@ -455,7 +483,7 @@
     initJohnFab();
 
     document.addEventListener('zira:lang', function () {
-      if (sharedState.userTurns > 0 || sharedState.closed) return;
+      if (sharedState.validTurns > 0 || sharedState.closed) return;
       sharedState.messages = [
         {
           role: 'assistant',

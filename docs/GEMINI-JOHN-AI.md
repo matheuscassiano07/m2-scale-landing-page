@@ -6,7 +6,7 @@ Guia para ativar o chat flutuante da landing com respostas automáticas sobre a 
 
 ## Qual modelo usar?
 
-Para **só tirar dúvidas no site** (respostas curtas, máx. 2 perguntas por visitante, sem imagem/áudio/pesquisa):
+Para **tirar dúvidas no site** (respostas curtas, até **6 perguntas válidas** por visitante por padrão; trava só após esgotar o limite ou repetir assunto fora do Cantevo, sem imagem/áudio/pesquisa):
 
 | Prioridade | Modelo (`GEMINI_MODEL`) | Quando usar |
 |------------|-------------------------|-------------|
@@ -20,7 +20,7 @@ O código **não** chama ferramentas (Maps, Search, código). Só `generateConte
 
 ### Estimativa de uso (com os limites do site)
 
-- Por visitante: no máximo **2** respostas com IA (depois manda para o formulário).
+- Por visitante: até **6** perguntas válidas sobre Cantevo (padrão; `JOHN_CHAT_MAX_USER_TURNS` na Vercel). Depois encaminha ao formulário. **2** mensagens fora do assunto (`JOHN_CHAT_MAX_OFF_TOPIC`) travam o chat.
 - Servidor: padrão **30** chamadas Gemini/hora e **120**/dia (globais), mais limites por IP e sessão.
 - Ordem de grandeza: ~100–400 tokens por resposta → mesmo com tráfego moderado, o tier **sem custo** do Flash-Lite costuma bastar no início.
 
@@ -101,7 +101,7 @@ Abra `http://localhost:3000`, clique no botão do John AI e envie uma dúvida so
 - `scripts/security-check.cjs` bloqueia vazamento da chave no front.
 - Rate limit por IP, sessão e global.
 - Filtro de assunto (só Cantevo / escritório / produto).
-- Máx. 2 turnos de usuário → handoff para o formulário.
+- Até 6 perguntas válidas (configurável) → depois formulário; 2 off-topic → trava e formulário.
 - Honeypot anti-spam no POST.
 
 ---

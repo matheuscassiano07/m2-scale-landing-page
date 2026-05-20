@@ -3,7 +3,16 @@
 const guard = require('./johnGuard.js');
 const johnPrompt = require('./johnSystemPrompt.js');
 
-const MAX_USER_TURNS = 2;
+function envInt(name, fallback, min, max) {
+  const n = parseInt(String(process.env[name] || ''), 10);
+  if (!Number.isFinite(n)) return fallback;
+  return Math.min(max, Math.max(min, n));
+}
+
+/** Perguntas válidas sobre Cantevo antes de encaminhar ao formulário */
+const MAX_USER_TURNS = envInt('JOHN_CHAT_MAX_USER_TURNS', 6, 3, 12);
+/** Mensagens fora do assunto antes de travar o chat */
+const MAX_OFF_TOPIC_STRIKES = envInt('JOHN_CHAT_MAX_OFF_TOPIC', 2, 1, 5);
 const MAX_MESSAGE_CHARS = 280;
 const MIN_GEMINI_CHARS = 10;
 const MAX_OUTPUT_TOKENS = 120;
@@ -89,9 +98,13 @@ function isOnTopic(text) {
 function canned(lang, key) {
   const pt = {
     offTopic:
-      'Sou o John AI da Cantevo — posso explicar como a plataforma ajuda seu escritório (WhatsApp, clientes, obras, equipe). Para assuntos fora disso, use **Entrar em contato** abaixo.',
+      'Sou o John AI da Cantevo — só consigo ajudar com dúvidas sobre a plataforma, atendimento e obras. Reformule sua pergunta ou use **Entrar em contato** se for outro assunto.',
+    offTopicLock:
+      'Não consigo ajudar com esse tipo de assunto aqui. Para falar com a equipe, use o formulário **Entrar em contato** abaixo.',
     handoff:
       'Para falar com alguém da equipe, preencha o formulário **Entrar em contato** — respondemos em até 8 horas.',
+    limitDone:
+      'Espero ter ajudado com suas dúvidas! Para proposta, valores ou conversa mais longa, use **Entrar em contato** — retornamos em até 8 horas.',
     greet:
       'Olá! Sou o John, da Cantevo. Qual sua dúvida sobre como a plataforma funciona ou como ajudamos seu escritório?',
     noApi:
@@ -105,9 +118,13 @@ function canned(lang, key) {
   };
   const en = {
     offTopic:
-      'I can only help with Cantevo and John AI (platform, demo, studio operations). For anything else, use the **Get in touch** form below.',
+      'I can only help with Cantevo — platform, intake, jobsites and deadlines. Rephrase your question or use **Get in touch** for other topics.',
+    offTopicLock:
+      'I can’t help with that here. Use the **Get in touch** form below to reach our team.',
     handoff:
       'For a specialist, leave your details in the **Get in touch** form — we reply within 8 hours.',
+    limitDone:
+      'Glad I could help! For pricing or a longer conversation, use **Get in touch** — we reply within 8 hours.',
     greet:
       'Hi! Ask about Cantevo or John AI: how we organize intake, jobsites and deadlines for your studio.',
     noApi:
@@ -137,7 +154,7 @@ async function callGemini(history, userMessage, lang, req, sessionId) {
     ':generateContent';
 
   const contents = [];
-  const hist = Array.isArray(history) ? history.slice(-4) : [];
+  const hist = Array.isArray(history) ? history.slice(-10) : [];
   for (let i = 0; i < hist.length; i++) {
     const h = hist[i];
     if (!h || !h.role || !h.text) continue;
@@ -212,35 +229,85 @@ async function reply(payload) {
   }
 }
 
+function chatMeta(validTurns, offTopicStrikes, extra) {
+  const out = {
+    validTurns: Math.max(0, validTurns),
+    offTopicStrikes: Math.max(0, offTopicStrikes),
+    maxTurns: MAX_USER_TURNS,
+    maxOffTopic: MAX_OFF_TOPIC_STRIKES,
+    lockChat: false,
+  };
+  if (extra && typeof extra === 'object') {
+    Object.assign(out, extra);
+  }
+  return out;
+}
+
 async function replyInner(payload, lang) {
   const message = clampText(payload && payload.message, MAX_MESSAGE_CHARS);
-  const turn = Math.max(0, Math.min(MAX_USER_TURNS, parseInt(String((payload && payload.turn) || 0), 10) || 0));
+  const validTurns = Math.max(
+    0,
+    Math.min(MAX_USER_TURNS, parseInt(String((payload && payload.validTurns) || 0), 10) || 0)
+  );
+  const offTopicStrikes = Math.max(
+    0,
+    Math.min(MAX_OFF_TOPIC_STRIKES, parseInt(String((payload && payload.offTopicStrikes) || 0), 10) || 0)
+  );
   const req = payload && payload.req;
   const sessionId = clampText(payload && payload.sessionId, 64);
 
   if (!message) {
-    return { ok: false, error: 'empty', text: canned(lang, 'invalid') };
+    return Object.assign(
+      { ok: false, error: 'empty', text: canned(lang, 'invalid'), tokens: false },
+      chatMeta(validTurns, offTopicStrikes)
+    );
   }
 
-  if (turn >= MAX_USER_TURNS) {
-    return { ok: true, kind: 'handoff', text: canned(lang, 'handoff'), tokens: false };
+  if (validTurns >= MAX_USER_TURNS) {
+    return Object.assign(
+      {
+        ok: true,
+        kind: 'handoff',
+        text: canned(lang, 'limitDone'),
+        tokens: false,
+        lockChat: true,
+      },
+      chatMeta(validTurns, offTopicStrikes, { lockChat: true })
+    );
   }
 
   if (/^(oi|ol[aá]|bom\s+dia|boa\s+tarde|hey|hello|hi)\s*[!?.]*$/i.test(message)) {
-    return { ok: true, kind: 'greet', text: canned(lang, 'greet'), tokens: false };
+    return Object.assign(
+      { ok: true, kind: 'greet', text: canned(lang, 'greet'), tokens: false },
+      chatMeta(validTurns, offTopicStrikes)
+    );
   }
 
   if (!isOnTopic(message)) {
-    return { ok: true, kind: 'off-topic', text: canned(lang, 'offTopic'), tokens: false };
+    const strikes = offTopicStrikes + 1;
+    const lock = strikes >= MAX_OFF_TOPIC_STRIKES;
+    return Object.assign(
+      {
+        ok: true,
+        kind: lock ? 'handoff' : 'off-topic',
+        text: canned(lang, lock ? 'offTopicLock' : 'offTopic'),
+        tokens: false,
+        lockChat: lock,
+      },
+      chatMeta(validTurns, strikes, { lockChat: lock })
+    );
   }
 
   if (message.length < MIN_GEMINI_CHARS) {
-    return {
-      ok: true,
-      kind: 'answer',
-      text: canned(lang, 'short'),
-      tokens: false,
-    };
+    return Object.assign(
+      {
+        ok: true,
+        kind: 'answer',
+        text: canned(lang, 'short'),
+        tokens: false,
+      },
+      chatMeta(validTurns + 1, offTopicStrikes)
+    );
   }
 
   const gemini = await callGemini(payload.history, message, lang, req, sessionId);
@@ -251,19 +318,26 @@ async function replyInner(payload, lang) {
       reason.indexOf('gemini-upstream-') === 0 ||
       reason === 'gemini-fetch-failed' ||
       reason === 'gemini-bad-json';
-    return {
-      ok: true,
-      kind: budget ? 'budget' : upstream ? 'upstream' : 'fallback',
-      text: canned(lang, budget ? 'budget' : 'noApi'),
-      tokens: false,
-    };
+    return Object.assign(
+      {
+        ok: true,
+        kind: budget ? 'budget' : upstream ? 'upstream' : 'fallback',
+        text: canned(lang, budget ? 'budget' : 'noApi'),
+        tokens: false,
+      },
+      chatMeta(validTurns + 1, offTopicStrikes)
+    );
   }
 
-  return { ok: true, kind: 'answer', text: gemini.text, tokens: true };
+  return Object.assign(
+    { ok: true, kind: 'answer', text: gemini.text, tokens: true },
+    chatMeta(validTurns + 1, offTopicStrikes)
+  );
 }
 
 module.exports = {
   MAX_USER_TURNS: MAX_USER_TURNS,
+  MAX_OFF_TOPIC_STRIKES: MAX_OFF_TOPIC_STRIKES,
   MAX_MESSAGE_CHARS: MAX_MESSAGE_CHARS,
   canned: canned,
   reply: reply,

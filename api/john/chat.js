@@ -79,7 +79,8 @@ async function handlePost(req, res) {
     const result = await john.reply({
       message: message,
       lang: lang,
-      turn: body.turn,
+      validTurns: body.validTurns,
+      offTopicStrikes: body.offTopicStrikes,
       history: body.history,
       req: req,
       sessionId: capSession(body.sessionId),
@@ -106,7 +107,11 @@ async function handlePost(req, res) {
         kind: result.kind || 'answer',
         text: result.text,
         tokens: !!result.tokens,
-        maxTurns: john.MAX_USER_TURNS,
+        maxTurns: result.maxTurns || john.MAX_USER_TURNS,
+        maxOffTopic: result.maxOffTopic || john.MAX_OFF_TOPIC_STRIKES,
+        validTurns: result.validTurns,
+        offTopicStrikes: result.offTopicStrikes,
+        lockChat: !!result.lockChat,
       },
     };
   })();
