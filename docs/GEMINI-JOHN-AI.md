@@ -126,5 +126,6 @@ Abra `http://localhost:3000`, clique no botão do John AI e envie uma dúvida so
 | Erro 404 no modelo | Nome errado em `GEMINI_MODEL` | Use `gemini-2.5-flash-lite` ou `gemini-2.5-flash` |
 | Chat não responde local | Usou `npm start` em vez de `npm run dev` | `vercel dev` |
 | 403 no POST | Origem diferente do site | Teste no mesmo domínio da landing |
+| **503** no POST `/api/john/chat` | Função Vercel em timeout, crash ou limite da plataforma; Gemini fora do ar | Abra `GET /api/john/health` — `geminiConfigured` deve ser `true`. Confira `GEMINI_API_KEY` na Vercel e redeploy. Logs: Vercel → Functions → `api/john/chat`. Se persistir, pode ser pico na Vercel (503) ou quota Google (resposta cai no texto de indisponível, HTTP 200). |
 
 Referência oficial de preços: [Gemini API Pricing](https://ai.google.dev/gemini-api/docs/pricing).

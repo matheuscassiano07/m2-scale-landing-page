@@ -7,7 +7,7 @@
     "api/wa/diag.js": { "maxDuration": 60 },
     "api/wa/status.js": { "maxDuration": 30 },
     "api/wa/notify.js": { "maxDuration": 30 },
-    "api/john/chat.js": { "maxDuration": 25 }
+    "api/john/chat.js": { "maxDuration": 10 }
   },
   "rewrites": [
     { "source": "/admin", "destination": "/admin.html" },

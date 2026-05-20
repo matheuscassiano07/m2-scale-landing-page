@@ -7,7 +7,8 @@ const MAX_USER_TURNS = 2;
 const MAX_MESSAGE_CHARS = 280;
 const MIN_GEMINI_CHARS = 10;
 const MAX_OUTPUT_TOKENS = 120;
-const GEMINI_TIMEOUT_MS = 12000;
+/** Abaixo do limite típico da Vercel Hobby (~10s) para evitar 503/504 */
+const GEMINI_TIMEOUT_MS = 7500;
 
 const OFF_TOPIC_RE = [
   /\b(futebol|flamengo|palmeiras|corinthians|champions)\b/i,
@@ -180,10 +181,19 @@ async function callGemini(history, userMessage, lang, req, sessionId) {
   clearTimeout(timer);
 
   if (!res.ok) {
-    return { ok: false, reason: 'gemini-http-' + res.status };
+    const st = res.status;
+    if (st === 429 || st === 503 || st === 502 || st === 500) {
+      return { ok: false, reason: 'gemini-upstream-' + st };
+    }
+    return { ok: false, reason: 'gemini-http-' + st };
   }
 
-  const data = await res.json();
+  let data;
+  try {
+    data = await res.json();
+  } catch (e) {
+    return { ok: false, reason: 'gemini-bad-json' };
+  }
   const parts = data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts;
   const text = parts && parts[0] && parts[0].text ? String(parts[0].text).trim() : '';
   if (!text) return { ok: false, reason: 'empty' };
@@ -191,11 +201,22 @@ async function callGemini(history, userMessage, lang, req, sessionId) {
 }
 
 async function reply(payload) {
-  const lang = payload.lang === 'en' ? 'en' : 'pt';
-  const message = clampText(payload.message, MAX_MESSAGE_CHARS);
-  const turn = Math.max(0, Math.min(MAX_USER_TURNS, parseInt(String(payload.turn || 0), 10) || 0));
-  const req = payload.req;
-  const sessionId = clampText(payload.sessionId, 64);
+  const lang = payload && payload.lang === 'en' ? 'en' : 'pt';
+  try {
+    return await replyInner(payload, lang);
+  } catch (e) {
+    try {
+      console.warn('[johnChat] reply error:', String((e && e.message) || e));
+    } catch (_) {}
+    return { ok: true, kind: 'fallback', text: canned(lang, 'noApi'), tokens: false };
+  }
+}
+
+async function replyInner(payload, lang) {
+  const message = clampText(payload && payload.message, MAX_MESSAGE_CHARS);
+  const turn = Math.max(0, Math.min(MAX_USER_TURNS, parseInt(String((payload && payload.turn) || 0), 10) || 0));
+  const req = payload && payload.req;
+  const sessionId = clampText(payload && payload.sessionId, 64);
 
   if (!message) {
     return { ok: false, error: 'empty', text: canned(lang, 'invalid') };
@@ -224,12 +245,15 @@ async function reply(payload) {
 
   const gemini = await callGemini(payload.history, message, lang, req, sessionId);
   if (!gemini.ok) {
-    const budget =
-      gemini.reason &&
-      String(gemini.reason).indexOf('rate') === 0;
+    const reason = String(gemini.reason || '');
+    const budget = reason.indexOf('rate') === 0;
+    const upstream =
+      reason.indexOf('gemini-upstream-') === 0 ||
+      reason === 'gemini-fetch-failed' ||
+      reason === 'gemini-bad-json';
     return {
       ok: true,
-      kind: budget ? 'budget' : 'fallback',
+      kind: budget ? 'budget' : upstream ? 'upstream' : 'fallback',
       text: canned(lang, budget ? 'budget' : 'noApi'),
       tokens: false,
     };

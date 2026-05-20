@@ -245,9 +245,20 @@ function adminAuthorized(req) {
 
 function readJsonBody(req) {
   return new Promise(function (resolve) {
-    if (req.body && typeof req.body === 'object') {
-      resolve(req.body);
-      return;
+    if (req.body != null) {
+      if (typeof req.body === 'object' && !Buffer.isBuffer(req.body)) {
+        resolve(req.body);
+        return;
+      }
+      if (typeof req.body === 'string' && req.body.trim()) {
+        try {
+          resolve(JSON.parse(req.body));
+          return;
+        } catch (e) {
+          resolve(null);
+          return;
+        }
+      }
     }
     let raw = '';
     let oversized = false;

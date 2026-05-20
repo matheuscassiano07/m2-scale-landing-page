@@ -311,15 +311,28 @@
         }),
     })
       .then(function (res) {
-        return res.json().then(function (data) {
-          return { res: res, data: data };
-        });
+        return res
+          .text()
+          .then(function (raw) {
+            var data = {};
+            if (raw) {
+              try {
+                data = JSON.parse(raw);
+              } catch (e) {
+                data = {};
+              }
+            }
+            return { res: res, data: data };
+          });
       })
       .then(function (pack) {
         var data = pack.data || {};
         var replyText =
           data.text ||
           (pack.res.ok ? t('johnChat.error') : t('johnChat.unavailable'));
+        if (!pack.res.ok && (pack.res.status === 503 || pack.res.status === 502 || pack.res.status === 504)) {
+          replyText = t('johnChat.unavailable');
+        }
         pushMessage('assistant', replyText, { static: !data.tokens });
 
         if (data.kind === 'handoff' || sharedState.userTurns >= MAX_TURNS) {
