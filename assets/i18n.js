@@ -67,11 +67,11 @@
       },
       johnChat: {
         fabAria: 'Abrir chat com John AI',
-        panelTitle: 'John AI · Cantevo',
+        panelTitle: 'John AI',
         closeAria: 'Fechar chat',
         regionAria: 'Conversa com John AI',
         today: 'Hoje',
-        online: 'online · Cantevo',
+        online: 'online',
         welcome:
           'Olá! Sou o John AI, assistente da Cantevo. Em poucas palavras, qual sua dúvida sobre a plataforma, o atendimento no escritório ou como organizamos obras e prazos?',
         placeholder: 'Escreva sua dúvida…',
@@ -685,11 +685,11 @@
       },
       johnChat: {
         fabAria: 'Open chat with John AI',
-        panelTitle: 'John AI · Cantevo',
+        panelTitle: 'John AI',
         closeAria: 'Close chat',
         regionAria: 'Chat with John AI',
         today: 'Today',
-        online: 'online · Cantevo',
+        online: 'online',
         welcome:
           'Hi! I’m John AI, Cantevo’s assistant. In a few words, what’s your question about the platform, studio intake, or how we organize jobsites and deadlines?',
         placeholder: 'Type your question…',

@@ -3871,15 +3871,16 @@
       bottom: calc(24px + env(safe-area-inset-bottom, 0px));
       right: calc(20px + env(safe-area-inset-right, 0px));
       z-index: 92;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 44px;
-      padding: 10px 16px 10px 12px;
+      display: grid;
+      place-items: center;
+      width: 58px;
+      height: 58px;
+      padding: 0;
       border-radius: var(--r-pill);
       background: #f7f3ed;
       border: 2px solid rgba(168, 121, 74, 0.45);
       cursor: pointer;
+      overflow: hidden;
       -webkit-tap-highlight-color: transparent;
       touch-action: manipulation;
       box-shadow:
@@ -3892,40 +3893,6 @@
         border-color var(--t-fast),
         opacity var(--t-fast),
         visibility var(--t-fast);
-    }
-
-    .john-fab__inner {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .john-fab__status {
-      flex-shrink: 0;
-      width: 9px;
-      height: 9px;
-      border-radius: 50%;
-      background: #22c55e;
-      box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.28);
-      animation: johnFabOnline 2.4s ease-in-out infinite;
-    }
-
-    @keyframes johnFabOnline {
-      0%, 100% {
-        box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.28);
-      }
-      50% {
-        box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.12);
-      }
-    }
-
-    .john-fab__label {
-      font-size: 14px;
-      font-weight: 600;
-      letter-spacing: -0.02em;
-      color: #3d2e22;
-      line-height: 1;
-      white-space: nowrap;
     }
 
     @media (hover: hover) and (pointer: fine) {
@@ -3947,6 +3914,13 @@
       visibility: hidden;
       pointer-events: none;
       transform: scale(0.92);
+    }
+
+    .john-fab__avatar {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
     }
 
     .john-chat-panel {
@@ -4127,10 +4101,6 @@
 
     @media (prefers-reduced-motion: reduce) {
       .john-fab {
-        animation: none;
-      }
-
-      .john-fab__status {
         animation: none;
       }
 
@@ -4369,14 +4339,10 @@
       }
 
       .john-fab {
-        min-height: 42px;
-        padding: 9px 14px 9px 11px;
+        width: 54px;
+        height: 54px;
         bottom: calc(18px + env(safe-area-inset-bottom, 0px));
         right: calc(18px + env(safe-area-inset-right, 0px));
-      }
-
-      .john-fab__label {
-        font-size: 13px;
       }
 
       .john-chat-panel {
@@ -4597,20 +4563,11 @@
       .cta-register__phone input { font-size: 16px; padding: 14px 16px 14px 10px; }
       .cta-register__submit { padding: 16px 24px; }
       .john-fab {
-        min-height: 40px;
-        padding: 8px 12px 8px 10px;
+        width: 50px;
+        height: 50px;
         right: max(14px, env(safe-area-inset-right, 0px));
         bottom: max(14px, env(safe-area-inset-bottom, 0px));
         animation: johnFabPulseMobile 3.4s var(--ease-in-out) infinite;
-      }
-
-      .john-fab__label {
-        font-size: 12.5px;
-      }
-
-      .john-fab__status {
-        width: 8px;
-        height: 8px;
       }
 
       .john-chat-panel {
@@ -5788,10 +5745,13 @@
     aria-expanded="false"
     data-i18n-attr="aria-label:johnChat.fabAria"
     aria-label="Abrir chat com John AI">
-    <span class="john-fab__inner">
-      <span class="john-fab__status" aria-hidden="true"></span>
-      <span class="john-fab__label">John AI</span>
-    </span>
+    <img
+      class="john-fab__avatar"
+      src="assets/avatar-john.png"
+      alt=""
+      width="58"
+      height="58"
+      decoding="async">
   </button>
 
   <div id="john-chat-panel" class="john-chat-panel" hidden>
@@ -5816,8 +5776,8 @@
           height="40"
           decoding="async">
         <div class="john-chat-panel__head-text">
-          <span class="john-chat-panel__head-title" id="john-chat-panel-title" data-i18n="johnChat.panelTitle">John AI · Cantevo</span>
-          <span class="john-chat-panel__head-status" data-i18n="johnChat.online">online · Cantevo</span>
+          <span class="john-chat-panel__head-title" id="john-chat-panel-title" data-i18n="johnChat.panelTitle">John AI</span>
+          <span class="john-chat-panel__head-status" data-i18n="johnChat.online">online</span>
         </div>
         <button
           type="button"
