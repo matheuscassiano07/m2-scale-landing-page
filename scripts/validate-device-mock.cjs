@@ -26,7 +26,7 @@ assert(Math.abs(r - 1) < 0.01, 'visibleHeightRatio: elemento inteiro visível');
 assert(api.SCENARIOS && api.SCENARIOS.length >= 6, 'pelo menos 6 cenários de diálogo');
 
 var tl = api.buildTimeline(api.SCENARIOS[1].lines);
-assert(tl.length >= 6, 'cenário irritado/prazo gera vários passos');
+assert(tl.length === 9, 'cada cenário tem 3 client + 3 typing + 3 john = 9 passos');
 
 console.log(
   'OK: validate-device-mock (' +

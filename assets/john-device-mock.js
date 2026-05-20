@@ -2,152 +2,139 @@
   'use strict';
 
   /**
-   * Cenários de conversa no mock (somente vitrine — não interativo).
-   * Cada loop exibe um cenário diferente; bolhas ficam visíveis até o fim do cenário.
+   * Cenários no mock (vitrine, não interativo).
+   * Cada um: 3 perguntas do cliente + digitando + 3 respostas do John; depois troca o cenário.
    */
+  function scene(id, pairs) {
+    var lines = [];
+    var i;
+    for (i = 0; i < 3; i++) {
+      var p = pairs[i];
+      lines.push({ type: 'client', text: p.c });
+      lines.push({ type: 'typing' });
+      if (p.html) {
+        lines.push({ type: 'john', html: p.html });
+      } else {
+        lines.push({ type: 'john', text: p.j });
+      }
+    }
+    return { id: id, lines: lines };
+  }
+
   var SCENARIOS = [
-    {
-      id: 'status',
-      lines: [
-        { type: 'client', text: 'Qual o status da obra?' },
-        { type: 'typing' },
-        {
-          type: 'john',
-          html:
-            'Seu projeto está em <strong>compatibilização</strong>. Previsão: <strong>12/06</strong>.',
-        },
-        { type: 'client', text: 'Tem algo pendente do meu lado?' },
-        { type: 'typing' },
-        {
-          type: 'john',
-          html: 'Só a aprovação do memorial até <strong>sexta</strong>. Te lembro por aqui.',
-        },
-      ],
-    },
-    {
-      id: 'prazo',
-      lines: [
-        { type: 'client', text: 'Estou bem irritado. Prometeram entrega semana passada!' },
-        { type: 'typing' },
-        {
-          type: 'john',
-          html:
-            'Entendo sua frustração. Vou sinalizar <strong>prioridade alta</strong> com a equipe agora.',
-        },
-        { type: 'client', text: 'Quero uma data real, não “em breve”.' },
-        { type: 'typing' },
-        {
-          type: 'john',
-          html:
-            'A equipe confirma o cronograma em até <strong>8h</strong>. Te aviso assim que fechar.',
-        },
-      ],
-    },
-    {
-      id: 'responsavel',
-      lines: [
-        { type: 'client', text: 'Quem é o responsável técnico da obra?' },
-        { type: 'typing' },
-        {
-          type: 'john',
-          html: 'O responsável é o <strong>Eng. Lucas</strong>. Quer que eu avise ele?',
-        },
-        { type: 'client', text: 'Pode pedir pra me ligar ainda hoje?' },
-        { type: 'typing' },
-        {
-          type: 'john',
-          html: 'Feito. Deixei recado com <strong>urgência</strong> no painel da equipe.',
-        },
-      ],
-    },
-    {
-      id: 'briefing',
-      lines: [
-        {
-          type: 'client',
-          text: 'Não consigo explicar direito o que quero nesse projeto...',
-        },
-        { type: 'typing' },
-        {
-          type: 'john',
-          html:
-            'Sem problema. Posso te fazer perguntas curtas e montar um <strong>briefing</strong> claro.',
-        },
-        { type: 'client', text: 'Queria estilo minimalista, tons neutros.' },
-        { type: 'typing' },
-        {
-          type: 'john',
-          html:
-            'Anotei: <strong>minimalista</strong>, paleta neutra. Próximo passo: referências visuais.',
-        },
-      ],
-    },
-    {
-      id: 'cobranca',
-      lines: [
-        { type: 'client', text: 'Vocês sumiram no WhatsApp. Preciso de retorno!' },
-        { type: 'typing' },
-        {
-          type: 'john',
-          html:
-            'Desculpe a demora. Há <strong>2 pendências</strong> internas; já acionei quem responde.',
-        },
-        { type: 'client', text: 'O cliente final está cobrando a gente.' },
-        { type: 'typing' },
-        {
-          type: 'john',
-          html:
-            'Entendi. Priorizei seu chat — a equipe assume em instantes com o <strong>status</strong>.',
-        },
-      ],
-    },
-    {
-      id: 'obra',
-      lines: [
-        { type: 'client', text: 'A obra parou? Ninguém apareceu no canteiro hoje.' },
-        { type: 'typing' },
-        {
-          type: 'john',
-          html:
-            'Hoje a equipe está em <strong>projeto executivo</strong> no escritório. Obra retoma <strong>quinta</strong>.',
-        },
-        { type: 'client', text: 'E a vistoria do hidráulico?' },
-        { type: 'typing' },
-        {
-          type: 'john',
-          html:
-            'Agendada para <strong>15/06 às 9h</strong>. Posso enviar o responsável no convite.',
-        },
-      ],
-    },
-    {
-      id: 'orcamento',
-      lines: [
-        { type: 'client', text: 'Quanto fica mais ou menos o projeto completo?' },
-        { type: 'typing' },
-        {
-          type: 'john',
-          html:
-            'Valores fechados a equipe confirma no <strong>formulário de contato</strong> do site.',
-        },
-        { type: 'client', text: 'Só quero uma ideia de faixa.' },
-        { type: 'typing' },
-        {
-          type: 'john',
-          html:
-            'Posso explicar <strong>etapas e escopo</strong> aqui; proposta formal é com consultor.',
-        },
-      ],
-    },
+    scene('status', [
+      {
+        c: 'Qual o status da obra?',
+        html:
+          'Seu projeto está em <strong>compatibilização</strong>. Previsão de entrega <strong>12/06</strong>.',
+      },
+      {
+        c: 'Tem algo pendente do meu lado?',
+        html: 'Só falta aprovar o memorial até <strong>sexta</strong>. Te aviso por aqui.',
+      },
+      {
+        c: 'Posso ver quem está com essa etapa?',
+        html: 'A equipe de projetos está com <strong>Ana</strong>. Quer que eu avise ela?',
+      },
+    ]),
+    scene('prazo', [
+      {
+        c: 'Estou irritado. Prometeram entrega semana passada!',
+        html:
+          'Entendo sua frustração. Vou marcar <strong>prioridade alta</strong> com a equipe agora.',
+      },
+      {
+        c: 'Quero uma data real, não só em breve.',
+        html: 'A equipe confirma o cronograma em até <strong>8 horas</strong>. Te aviso quando fechar.',
+      },
+      {
+        c: 'Me avisa antes do cliente cobrar de novo?',
+        html: 'Sim. Te mando mensagem assim que tiver a data <strong>confirmada</strong>.',
+      },
+    ]),
+    scene('responsavel', [
+      {
+        c: 'Quem é o responsável técnico da obra?',
+        html: 'O responsável é o <strong>Eng. Lucas</strong>. Ele acompanha o canteiro.',
+      },
+      {
+        c: 'Pode pedir para ele me ligar hoje?',
+        html: 'Feito. Deixei recado com <strong>urgência</strong> no painel da equipe.',
+      },
+      {
+        c: 'Qual o melhor horário para falar com ele?',
+        html: 'Sugiro após <strong>15h</strong>. Posso confirmar a disponibilidade e te retorno.',
+      },
+    ]),
+    scene('briefing', [
+      {
+        c: 'Não consigo explicar direito o que quero no projeto.',
+        html:
+          'Sem problema. Faço perguntas curtas e monto um <strong>briefing</strong> claro para você.',
+      },
+      {
+        c: 'Queria estilo minimalista, tons neutros.',
+        html: 'Anotei <strong>minimalista</strong> e paleta neutra. Próximo passo: referências visuais.',
+      },
+      {
+        c: 'Tem prazo para eu enviar as referências?',
+        html: 'Ideal até <strong>quinta</strong>. Assim a equipe segue sem travar o cronograma.',
+      },
+    ]),
+    scene('cobranca', [
+      {
+        c: 'Vocês sumiram no WhatsApp. Preciso de retorno!',
+        html:
+          'Desculpe a demora. Há <strong>2 pendências</strong> internas. Já acionei quem responde.',
+      },
+      {
+        c: 'O cliente final está cobrando a gente.',
+        html: 'Entendi. Priorizei seu chat. A equipe assume em instantes com o <strong>status</strong>.',
+      },
+      {
+        c: 'Quanto tempo para ter uma posição?',
+        html: 'Previsão de retorno em até <strong>2 horas</strong> com o andamento atualizado.',
+      },
+    ]),
+    scene('obra', [
+      {
+        c: 'A obra parou? Ninguém apareceu no canteiro hoje.',
+        html:
+          'Hoje a equipe está no <strong>projeto executivo</strong> no escritório. Obra retoma <strong>quinta</strong>.',
+      },
+      {
+        c: 'E a vistoria do hidráulica?',
+        html: 'Agendada para <strong>15/06 às 9h</strong>. Posso enviar o responsável no convite.',
+      },
+      {
+        c: 'Preciso avisar o condomínio antes.',
+        html: 'Posso gerar um texto curto de aviso para você encaminhar ao síndico.',
+      },
+    ]),
+    scene('orcamento', [
+      {
+        c: 'Quanto fica mais ou menos o projeto completo?',
+        html:
+          'Valores fechados a equipe confirma no <strong>formulário de contato</strong> do site.',
+      },
+      {
+        c: 'Só quero uma ideia de faixa de investimento.',
+        html: 'Posso explicar <strong>etapas e escopo</strong> aqui. Proposta formal é com consultor.',
+      },
+      {
+        c: 'Quando consigo falar com alguém da equipe?',
+        html: 'Use o formulário <strong>Entrar em contato</strong>. Retorno em até <strong>8 horas</strong>.',
+      },
+    ]),
   ];
 
-  var TYPING_SHOW_MS = 680;
-  var GAP_AFTER_CLIENT_MS = 900;
-  var GAP_AFTER_JOHN_MS = 1100;
-  var GAP_AFTER_TYPING_MS = 750;
+  var TYPING_SHOW_MS = 650;
+  var GAP_AFTER_CLIENT_MS = 700;
+  var GAP_AFTER_JOHN_MS = 1500;
+  var GAP_AFTER_TYPING_MS = 700;
   var LOOP_PAUSE_MS = 5200;
   var FALLBACK_START_MS = 2200;
-  var FIRST_BUBBLE_MS = 500;
+  var FIRST_BUBBLE_MS = 400;
 
   var running = false;
   var timers = [];
