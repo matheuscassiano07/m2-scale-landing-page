@@ -56,6 +56,9 @@ const PRODUCT_INTENT_RE = [
   /\bo\s+que\s+(é|faz|oferece|resolve)\b/i,
   /\bpara\s+(quem|que\s+serve)\b/i,
   /\b(adotar|contratar|implementar|usar)\b/i,
+  /\b(me\s+)?expli(que|ca|car|quem)\b/i,
+  /\b(explique|explica|explicar)\s+(tudo|mais|isso|completo|resumidamente|bem)\b/i,
+  /\b(me\s+)?(conte|fale|diga)\s+(tudo|mais|sobre|bem)\b/i,
 ];
 
 function env(name, fallback) {

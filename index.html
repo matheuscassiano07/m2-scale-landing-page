@@ -4615,6 +4615,32 @@
         transform: translateZ(0);
       }
 
+      /* Mock John: passos fora de cena com display:none (Safari ignora opacity/visibility) */
+      .john-chat--device-mock [data-step]:not(.is-visible) {
+        display: none !important;
+        opacity: 0 !important;
+        visibility: hidden !important;
+        pointer-events: none;
+      }
+
+      .john-chat--device-mock .john-bubble--client[data-step].is-visible,
+      .john-chat--device-mock .john-bubble--john[data-step].is-visible {
+        display: block;
+      }
+
+      .john-chat--device-mock .john-device-typing[data-step].is-visible:not([hidden]) {
+        display: flex !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+      }
+
+      .john-chat--device-mock .john-device-typing[hidden],
+      .john-chat--device-mock .john-device-typing[hidden].is-visible {
+        display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+      }
+
       /* Hard lock anti "borda preta" lateral em alguns aparelhos */
       html,
       body,

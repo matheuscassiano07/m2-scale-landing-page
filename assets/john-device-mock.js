@@ -211,6 +211,15 @@
     }
   }
 
+  /** Safari/mobile: opacity-only hide falha; hidden + display:none no CSS mobile */
+  function useMobileStepHide() {
+    try {
+      return global.matchMedia('(max-width: 768px)').matches;
+    } catch (e) {
+      return (global.innerWidth || 1200) <= 768;
+    }
+  }
+
   function scrollMessages(root) {
     var list = getFeed(root) || root.querySelector('.john-chat__messages');
     if (!list) return;
@@ -272,6 +281,9 @@
         el.className =
           'john-bubble ' + (st.role === 'client' ? 'john-bubble--client' : 'john-bubble--john');
         el.setAttribute('data-step', String(i));
+        if (useMobileStepHide()) {
+          el.hidden = true;
+        }
         if (st.html) {
           el.innerHTML = st.html;
         } else {
@@ -298,7 +310,9 @@
   }
 
   function showBubble(el, root) {
-    el.hidden = false;
+    if (useMobileStepHide()) {
+      el.hidden = false;
+    }
     el.classList.add('is-visible');
     scrollMessages(root);
   }
