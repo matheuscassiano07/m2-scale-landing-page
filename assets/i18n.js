@@ -90,8 +90,6 @@
         title: 'Da primeira mensagem ao pós-obra: uma operação única, mensurável e sem ruído.',
         caption:
           'Um ciclo operacional que conecta captação, qualificação, priorização, follow-up, execução e acompanhamento da equipe no mesmo sistema.',
-        kicker:
-          'Setas mostram sequência entre etapas · curva conecta a última volta do atendimento à mesma entrada do fluxo.',
         flowAria:
           'Fluxo visual em duas linhas com setas e curvas ligando sete etapas do WhatsApp à operação reunida.',
         s1Title: 'Lead no WhatsApp',
@@ -134,6 +132,7 @@
           'Quando o time inteiro enxerga o mesmo calendário operacional, os conflitos caem, os atrasos diminuem e as entregas ganham previsibilidade.',
         kicker: 'Prazos e etapas organizados em um único fluxo visual.',
         imageAlt: 'Prazos e etapas num único quadro',
+        brandName: 'John AI',
       },
       faq: {
         title: 'Perguntas frequentes',
@@ -718,8 +717,6 @@
         title: 'From first touch to handover: one connected thread.',
         caption:
           'Seven loops tie together WhatsApp-led intake · structured briefing · sharp prioritisation · scripted moments for tough callers · revived follow-ups · staged delivery with alerting · and crews sharing one truth surface.',
-        kicker:
-          'Straight arrows cue sequence · the curved braid joins the lower band to the intake row · dashed trace hints at iterating the motion.',
         flowAria:
           'Two-row cycle diagram tying seven checkpoints from inbound WhatsApp to aligned delivery.',
         s1Title: 'Lead enters WhatsApp',
@@ -764,6 +761,7 @@
         kicker:
           'Deadlines and milestones organized in one visual workflow.',
         imageAlt: 'Deadlines and stages in one workspace',
+        brandName: 'John AI',
       },
       faq: {
         title: 'Frequently asked questions',
